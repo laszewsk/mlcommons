@@ -14,6 +14,7 @@ https://github.com/juripapay
 
 ```
 git clone git@github.com:laszewsk/mlcommons.git
+cd mlcommons
 git submodule update --init --recursive
 ```
 
