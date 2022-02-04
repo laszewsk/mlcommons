@@ -1,38 +1,53 @@
 ---
-title: "Overview"
+title: "Overview and Objective"
 linkTitle: "Overview"
 weight: 1
 description: >
-  Here's where your user finds out if your project is for them.
+  We summarize the Overview and objective of the Working Group
 ---
 
 {{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
+Encourage and support the curation of large-scale experimental and
+scientific datasets and the engineering of ML benchmarks operating on
+those datasets. 
 {{% /pageinfo %}}
 
 
-The Overview is where your users find out about your project. Depending on the size of your docset, you can have a separate overview page (like this one) or put your overview contents in the Documentation landing page (like in the Docsy User Guide). 
 
-Try answering these questions for your user in this page:
+The WG will engage with scientists, academics,
+national laboratories, such as synchrotrons, in securing, engineering,
+curating, and publishing datasets and machine learning benchmarks that
+operate on experimental scientific datasets. This will entail working
+across different domains of sciences, including material, life,
+environmental, and earth sciences, particle physics, and astronomy, to
+mention a few. We will include traditional observational and
+computer-generated data.
 
-## What is it?
+Although scientific data is widespread, curating, maintaining, and
+distributing large-scale, useful datasets for public consumption is a
+challenging process, covering various aspects of data (from FAIR
+principles to distribution to versioning). With large data products,
+various ML techniques have to be evaluated against different
+architectures and different datasets. Without these benchmarking
+efforts, the community has no clear pathway for utilizing these
+advanced models. We expect that the collection will have significant
+tutorial value as examples from one field, and one observational or
+computational experiment can be modified to advance other fields and
+experiments.
 
-Introduce your project, including what it does or lets you do, why you would use it, and its primary goal (and how it achieves it). This should be similar to your README description, though you can go into a little more detail here if you want.
+The working group’s goal is to assemble and distribute scientific data
+sets relevant to a scientific campaign in a systematic manner, and
+pose quantifiable targets (“science benchmark”). A benchmark involves
 
-## Why do I want it?
+* (i) a data set,
+* (ii) objective criteria to meet, and
+* (iii) an example implementation.
 
-Help your user know if your project will help them. Useful information can include: 
+The objective criteria depends on the scientific
+problem at hand. The metric should be well defined on the data but
+could come from a diverse set of measures (one or more of: accuracy
+targets, top-1 or 5% error, time to convergence, cross-validation
+rates, confusion matrices, type-1/type-2 error rates, inference times,
+surrogate accuracy, control stability measure, etc.).
 
-* **What is it good for?**: What types of problems does your project solve? What are the benefits of using it?
-
-* **What is it not good for?**: For example, point out situations that might intuitively seem suited for your project, but aren't for some reason. Also mention known limitations, scaling issues, or anything else that might let your users know if the project is not for them.
-
-* **What is it *not yet* good for?**: Highlight any useful features that are coming soon.
-
-## Where should I go next?
-
-Give your users next steps from the Overview.
-
-use examples
-
-
+ 
