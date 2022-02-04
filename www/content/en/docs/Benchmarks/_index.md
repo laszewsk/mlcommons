@@ -1,11 +1,11 @@
 
 ---
-title: "Examples"
-linkTitle: "Examples"
+title: "Benchmarks"
+linkTitle: "Benchmarks"
 weight: 3
 date: 2017-01-05
 description: >
-  See your project in action!
+  A list of benchmarks we currently work on 
 ---
 
 {{% pageinfo %}}

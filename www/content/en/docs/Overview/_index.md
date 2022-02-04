@@ -31,8 +31,8 @@ Help your user know if your project will help them. Useful information can inclu
 
 ## Where should I go next?
 
-Give your users next steps from the Overview. For example:
+Give your users next steps from the Overview.
 
-* [Getting Started](/docs/getting-started/): Get started with $project
-* [Examples](/docs/examples/): Check out some example code!
+use examples
+
 
