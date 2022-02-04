@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ML Science Benchmarks – Benchmarks</title>
-    <link>/docs/benchmarks/</link>
+    <link>/mlcommons/docs/benchmarks/</link>
     <description>Recent content in Benchmarks on ML Science Benchmarks</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="/docs/benchmarks/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/mlcommons/docs/benchmarks/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -16,10 +16,10 @@
     
     <item>
       <title>Docs: CANDLE-UNO</title>
-      <link>/docs/benchmarks/candle-uno/</link>
+      <link>/mlcommons/docs/benchmarks/candle-uno/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/candle-uno/</guid>
+      <guid>/mlcommons/docs/benchmarks/candle-uno/</guid>
       <description>
         
         
@@ -97,10 +97,10 @@ A100&lt;/li&gt;
     
     <item>
       <title>Docs: CloudMask (Segmentation)</title>
-      <link>/docs/benchmarks/cloudmask/</link>
+      <link>/mlcommons/docs/benchmarks/cloudmask/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/cloudmask/</guid>
+      <guid>/mlcommons/docs/benchmarks/cloudmask/</guid>
       <description>
         
         
@@ -168,10 +168,10 @@ V100 GPU&lt;/li&gt;
     
     <item>
       <title>Docs: TEvolOp Earthquake Forecasting</title>
-      <link>/docs/benchmarks/earthquake/</link>
+      <link>/mlcommons/docs/benchmarks/earthquake/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/earthquake/</guid>
+      <guid>/mlcommons/docs/benchmarks/earthquake/</guid>
       <description>
         
         
@@ -263,10 +263,10 @@ benchmark can be improved.&lt;/p&gt;
     
     <item>
       <title>Docs: STEMDL (Classification)</title>
-      <link>/docs/benchmarks/stemdl/</link>
+      <link>/mlcommons/docs/benchmarks/stemdl/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/stemdl/</guid>
+      <guid>/mlcommons/docs/benchmarks/stemdl/</guid>
       <description>
         
         

@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ML Science Benchmarks – Documentation</title>
-    <link>/docs/</link>
+    <link>/mlcommons/docs/</link>
     <description>Recent content in Documentation on ML Science Benchmarks</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/mlcommons/docs/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Docs: CANDLE-UNO</title>
-      <link>/docs/benchmarks/candle-uno/</link>
+      <link>/mlcommons/docs/benchmarks/candle-uno/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/candle-uno/</guid>
+      <guid>/mlcommons/docs/benchmarks/candle-uno/</guid>
       <description>
         
         
@@ -96,10 +96,10 @@ A100&lt;/li&gt;
     
     <item>
       <title>Docs: CloudMask (Segmentation)</title>
-      <link>/docs/benchmarks/cloudmask/</link>
+      <link>/mlcommons/docs/benchmarks/cloudmask/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/cloudmask/</guid>
+      <guid>/mlcommons/docs/benchmarks/cloudmask/</guid>
       <description>
         
         
@@ -167,10 +167,10 @@ V100 GPU&lt;/li&gt;
     
     <item>
       <title>Docs: TEvolOp Earthquake Forecasting</title>
-      <link>/docs/benchmarks/earthquake/</link>
+      <link>/mlcommons/docs/benchmarks/earthquake/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/earthquake/</guid>
+      <guid>/mlcommons/docs/benchmarks/earthquake/</guid>
       <description>
         
         
@@ -262,10 +262,10 @@ benchmark can be improved.&lt;/p&gt;
     
     <item>
       <title>Docs: Running GPU Batch jobs on Rivanna</title>
-      <link>/docs/tutorials/rivanna/</link>
+      <link>/mlcommons/docs/tutorials/rivanna/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/tutorials/rivanna/</guid>
+      <guid>/mlcommons/docs/tutorials/rivanna/</guid>
       <description>
         
         
@@ -302,10 +302,10 @@ benchmark can be improved.&lt;/p&gt;
     
     <item>
       <title>Docs: Science Benchmark Policy Draft (Training)</title>
-      <link>/docs/policy/</link>
+      <link>/mlcommons/docs/policy/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/policy/</guid>
+      <guid>/mlcommons/docs/policy/</guid>
       <description>
         
         
@@ -986,10 +986,10 @@ TBD. Next values will all be replaced with application specific values
     
     <item>
       <title>Docs: STEMDL (Classification)</title>
-      <link>/docs/benchmarks/stemdl/</link>
+      <link>/mlcommons/docs/benchmarks/stemdl/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/benchmarks/stemdl/</guid>
+      <guid>/mlcommons/docs/benchmarks/stemdl/</guid>
       <description>
         
         
@@ -1075,10 +1075,10 @@ and &lt;a href=&#34;https://arxiv.org/abs/1909.11150&#34;&gt;[5]&lt;/a&gt;.&lt;/
     
     <item>
       <title>Docs: Respondents</title>
-      <link>/docs/respondents/</link>
+      <link>/mlcommons/docs/respondents/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/respondents/</guid>
+      <guid>/mlcommons/docs/respondents/</guid>
       <description>
         
         
