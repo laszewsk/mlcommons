@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "/mlcommons"
 publishDir = "../docs"
 title = "MLCommons Science Working Group We Site"
 
