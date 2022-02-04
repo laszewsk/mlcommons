@@ -8,12 +8,20 @@ description: >
 ---
 
 {{% pageinfo %}}
-The document is under development
+The document is under development. 
 {{% /pageinfo %}}
 
 
 {{< alert color="warning" title="Draft" >}}
 Under development.
+
+The raw document is located at this [link](
+https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
+{{< /alert >}}
+
+
+{{< alert color="warning" title="Bug" >}}
+Bug: The table of content does not render when we use hugo
 {{< /alert >}}
 
 
@@ -28,8 +36,6 @@ Version 0.1
 January 31, 2021
 
 Points of contact: Gregor von Laszewski(laszewski@gmail.com), Juri Papay (juripapay@hotmail.com)
-
-This document is a draft located at: https://github.com/laszewsk/mlcommons/edit/main/science_training_policy.adoc
 
 Supporting documents
 We included here a list of supporting documents that will be removed in the final version, but caould be helping in shaping this draft:
