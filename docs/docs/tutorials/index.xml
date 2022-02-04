@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ML Science Benchmarks – Tutorials</title>
-    <link>/mlcommons/docs/tutorials/</link>
+    <link>/docs/tutorials/</link>
     <description>Recent content in Tutorials on ML Science Benchmarks</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 04 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="/mlcommons/docs/tutorials/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/docs/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -16,10 +16,10 @@
     
     <item>
       <title>Docs: Running GPU Batch jobs on Rivanna</title>
-      <link>/mlcommons/docs/tutorials/rivanna/</link>
+      <link>/docs/tutorials/rivanna/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/mlcommons/docs/tutorials/rivanna/</guid>
+      <guid>/docs/tutorials/rivanna/</guid>
       <description>
         
         
