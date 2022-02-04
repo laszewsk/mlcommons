@@ -1,4 +1,4 @@
 
 [submodule "themes/docsy"]
-	path = themes/docsy
+	path = www/themes/docsy
 	url = https://github.com/google/docsy
