@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ML Science Benchmarks – Documentation</title>
-    <link>/mlcommons/docs/</link>
+    <link>/docs/</link>
     <description>Recent content in Documentation on ML Science Benchmarks</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/mlcommons/docs/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -14,11 +14,258 @@
     
     
     <item>
-      <title>Docs: Running GPU Batch jobs on Rivanna</title>
-      <link>/mlcommons/docs/tutorials/rivanna/</link>
+      <title>Docs: CANDLE-UNO</title>
+      <link>/docs/benchmarks/candle-uno/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/mlcommons/docs/tutorials/rivanna/</guid>
+      <guid>/docs/benchmarks/candle-uno/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;CANDLE (Exascale Deep Learning and Simulation Enabled Precision Medicine
+for Cancer) project aims to implement deep learning architectures that
+are relevant to problems in cancer.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;candle-uno&#34;&gt;CANDLE-UNO&lt;/h3&gt;
+&lt;p&gt;CANDLE (Exascale Deep Learning and Simulation Enabled Precision Medicine
+for Cancer) project aims to implement deep learning architectures that
+are relevant to problems in cancer. These architectures address problems
+at three biological scales: cellular (Pilot1 P1), molecular (Pilot P2)
+and population (Pilot3).&lt;/p&gt;
+&lt;p&gt;Pilot1 (P1) benchmarks are formed out of problems and data at the
+cellular level. The high level goal of the problem behind the P1
+benchmarks is to predict drug response based on molecular features of
+tumor cells and drug descriptors. Pilot2 (P2) benchmarks are formed out
+of problems and data at the molecular level. The high level goal of the
+problem behind the P2 benchmarks is molecular dynamic simulations of
+proteins involved in cancer, specifically the RAS protein. Pilot3 (P3)
+benchmarks are formed out of problems and data at the population level.
+The high level goal of the problem behind the P3 benchmarks is to
+predict cancer recurrence in patients based on patient related data.&lt;/p&gt;
+&lt;p&gt;Uno application from Pilot1 (P1): The goal of Uno is to predict tumor
+response to single and paired drugs, based on molecular features of
+tumor cells across multiple data sources. Combined dose response data
+contains sources: [&amp;lsquo;CCLE&amp;rsquo; &amp;lsquo;CTRP&amp;rsquo; &amp;lsquo;gCSI&amp;rsquo; &amp;lsquo;GDSC&amp;rsquo; &amp;lsquo;NCI60&amp;rsquo; &amp;lsquo;SCL&amp;rsquo; &amp;lsquo;SCLC&amp;rsquo;
+&amp;lsquo;ALMANAC.FG&amp;rsquo; &amp;lsquo;ALMANAC.FF&amp;rsquo; &amp;lsquo;ALMANAC.1A&amp;rsquo;]. Uno implements a deep learning
+architecture with 21M parameters in TensorFlow framework in Python. The
+code is publicly available on
+&lt;a href=&#34;https://github.com/ECP-CANDLE/Benchmarks/tree/develop/Pilot1/Uno&#34;&gt;GitHub&lt;/a&gt;.
+The script in this repository downloads all required datasets. The
+primary metric to evaluate this applications is throughput (samples per
+second). More details on running Uno can be found
+&lt;a href=&#34;https://github.com/ECP-CANDLE/Benchmarks/blob/develop/Pilot1/Uno/README.AUC.md&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;candle-uno-specific-benchmark-targets&#34;&gt;CANDLE-UNO Specific Benchmark Targets&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Scientific objective(s):
+&lt;ul&gt;
+&lt;li&gt;Objective: Predictions of tumor response to drug treatments,
+based on molecular features of tumor cells and drug descriptors&lt;/li&gt;
+&lt;li&gt;Formula: Validation loss&lt;/li&gt;
+&lt;li&gt;Score: 0.0054&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data
+&lt;ul&gt;
+&lt;li&gt;Download:
+&lt;a href=&#34;http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/uno/&#34;&gt;http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/uno/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Data Size: 6.4G&lt;/li&gt;
+&lt;li&gt;Training samples: 423952&lt;/li&gt;
+&lt;li&gt;Validation samples: 52994&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Example implementation
+&lt;ul&gt;
+&lt;li&gt;Model: Multi-task Learning-based custom model&lt;/li&gt;
+&lt;li&gt;Reference Code:
+&lt;a href=&#34;https://github.com/ECP-CANDLE/Benchmarks/tree/develop/Pilot1/Uno&#34;&gt;https://github.com/ECP-CANDLE/Benchmarks/tree/develop/Pilot1/Uno&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run Instructions:
+&lt;a href=&#34;https://github.com/ECP-CANDLE/Benchmarks/blob/develop/Pilot1/Uno/README.AUC.md&#34;&gt;https://github.com/ECP-CANDLE/Benchmarks/blob/develop/Pilot1/Uno/README.AUC.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Time-to-solution: 10667 samples/sec (batch size 64) on single
+A100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: CloudMask (Segmentation)</title>
+      <link>/docs/benchmarks/cloudmask/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/benchmarks/cloudmask/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;Estimation of sea surface temperature (SST) from space-borne sensors.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;cloudmask-segmentation&#34;&gt;CloudMask (Segmentation)&lt;/h3&gt;
+&lt;p&gt;Estimation of sea surface temperature (SST) from space-borne sensors,
+such as satellites, is crucial for a number of applications in
+environmental sciences. One of the aspects that underpins the derivation
+of SST is cloud screening, which is a step that marks each and every
+pixel of thousands of satellite imageries as containing cloud or clear
+sky, historically performed using either thresholding or Bayesian
+methods.&lt;/p&gt;
+&lt;p&gt;This benchmark focuses on using a machine learning-based model for
+masking clouds, in the Sentinel-3 satellite, which carries the Sea and
+Land Surface Temperature Radiometer (SLSTR) instrument. More
+specifically, the benchmark operates on multispectral image data. The
+example implementation is a variation of the U-Net deep neural network.
+The benchmark includes two datasets of DS1-Cloud and DS2-Cloud, with
+sizes of 180GB and 4.9TB, respectively. Each dataset is made up of two
+parts: reflectance and brightness temperature. The reflectance is
+captured across six channels with the resolution of 2400 x 3000 pixels,
+and the brightness temperature is captured across three channels with
+the resolution of 1200 x 1500 pixels.&lt;/p&gt;
+&lt;h4 id=&#34;cloudmask-specific-benchmark-targets&#34;&gt;CloudMask Specific Benchmark Targets&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Scientific objective(s):
+&lt;ul&gt;
+&lt;li&gt;Objective: Compare the accuracy produced by the Neural Network
+with the accuracy of a Bayesian method&lt;/li&gt;
+&lt;li&gt;Formula: Weighted Binary Cross Entropy of validation dat&lt;/li&gt;
+&lt;li&gt;Score: 0.9 for convergence&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data
+&lt;ul&gt;
+&lt;li&gt;Download: aws s3 --no-sign-request --endpoint-url
+&lt;a href=&#34;https://s3.echo.stfc.ac.uk&#34;&gt;https://s3.echo.stfc.ac.uk&lt;/a&gt; sync s3://sciml-datasets/en/
+cloud_slstr_ds1 .&lt;/li&gt;
+&lt;li&gt;Data Size: 180GB&lt;/li&gt;
+&lt;li&gt;Training samples: 15488&lt;/li&gt;
+&lt;li&gt;Validation samples: 3840&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Example implementation
+&lt;ul&gt;
+&lt;li&gt;Model: U-Net&lt;/li&gt;
+&lt;li&gt;Reference Code:
+&lt;a href=&#34;https://github.com/stfc-sciml/sciml-bench/tree/master/sciml_bench/benchmarks/slstr_cloud&#34;&gt;https://github.com/stfc-sciml/sciml-bench/tree/master/sciml_bench/benchmarks/slstr_cloud&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run Instructions:
+&lt;a href=&#34;https://github.com/stfc-sciml/sciml-bench/blob/master/README.md&#34;&gt;https://github.com/stfc-sciml/sciml-bench/blob/master/README.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Time-to-solution: 180GB dataset runs 59 min on DGX-2 with 32
+V100 GPU&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: TEvolOp Earthquake Forecasting</title>
+      <link>/docs/benchmarks/earthquake/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/benchmarks/earthquake/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;Forcatsing Earthquakes&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;tevolop-earthquake-forecasting&#34;&gt;TEvolOp Earthquake Forecasting&lt;/h3&gt;
+&lt;p&gt;Time series are seen in many scientific problems and many of them are
+geospatial &amp;ndash; functions of space and time and this benchmark illustrates
+this type. Some time series have a clear spatial structure that for
+example strongly relates nearby space points. The problem chosen is
+termed a spatial bag where there is spatial variation but it is not
+clearly linked to the geometric distance between spatial regions. In
+contrast, traffic-related time series have a strong spatial structure.
+We intend benchmarks that cover a broad range of problem types.&lt;/p&gt;
+&lt;p&gt;The earthquake data comes from USGS and we have chosen a 4 degrees of
+Latitude (32 to 36 N) and 6 degrees of Longitude (-120 to -114) region
+covering Southern California. The data runs from 1950 to the present day
+and is presented as events: magnitude, ground location, depth, and time.
+We have divided the data into time and space bins. The time interval is
+daily but in our reference models, we accumulate this into fortnightly
+data. Southern California is divided into a 40 by 60 grid of 0.1 by
+0.1-degree &amp;ldquo;pixels&amp;rdquo; which corresponds roughly to squares with an 11 km
+side, The dataset also includes an assignment of pixels to known faults
+and a list of the largest earthquakes in that region from 1950 until
+today. We have chosen various samplings of the dataset to provide both
+input and predicted values. These include time ranges from a fortnight
+up to 4 years. Further, we calculate summed magnitudes and depths and
+counts of significant quakes (magnitude &amp;gt; 3.29). Other easily available
+quantities are powers of quake energy (using Energy ~ 101.5m where m is
+magnitude). Quantities are &amp;ldquo;Energy averaged&amp;rdquo; when there are multiple
+events in a single space-time bin except for simple event counts.&lt;/p&gt;
+&lt;p&gt;Current reference models are a basic LSTM recurrent neural network and a
+modification of the original science transformer. Details can be found
+&lt;a href=&#34;https://docs.google.com/presentation/d/1ykYnX0uvxPE-M-c-Tau8irU3IqYuvj8Ws8iUqd5RCxQ/edit?usp=sharing&#34;&gt;here&lt;/a&gt;,
+and
+&lt;a href=&#34;https://www.researchgate.net/publication/346012611_DRAFT_Deep_Learning_for_Spatial_Time_Series&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;tevolop-specific-benchmark-targets&#34;&gt;TEvolOp Specific Benchmark Targets&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Scientific objective(s):
+&lt;ul&gt;
+&lt;li&gt;Objective: Improve the quality of Earthquake forecasting&lt;/li&gt;
+&lt;li&gt;Formula: Normalized Nash&amp;ndash;Sutcliffe model efficiency coefficient
+(NNSE)&lt;/li&gt;
+&lt;li&gt;Score: The NNSE lies between 0.8 and 0.99 depending on model and
+predicted time series&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data
+&lt;ul&gt;
+&lt;li&gt;Download:
+&lt;a href=&#34;https://drive.google.com/drive/folders/1wz7K2R4gc78fXLNZMHcaSVfQvIpIhNPi?usp=sharing&#34;&gt;https://drive.google.com/drive/folders/1wz7K2R4gc78fXLNZMHcaSVfQvIpIhNPi?usp=sharing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Data Size: 5GB from USGS&lt;/li&gt;
+&lt;li&gt;Training samples: Data is decided spatially in an 80%-20%
+fashion between training and validation. The full dataset covers
+6 degrees of longitude (-114 to -120) and 4 degrees of latitude
+(32 to 56) In Southern California. This is divided into 2400
+spatial bins 0.1 degree (~11km) on a side&lt;/li&gt;
+&lt;li&gt;Validation samples: Most analyses use 500 most active bins of
+which 400 are training and 100 validation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Example implementation
+&lt;ul&gt;
+&lt;li&gt;Model: 3 state of the art geospatial deep learning
+implementations are provided&lt;/li&gt;
+&lt;li&gt;Reference Code:
+&lt;a href=&#34;https://colab.research.google.com/drive/1JrPcRwX06xIN5iLhc53_MOLzU9q_Q7wD?usp=sharing&#34;&gt;https://colab.research.google.com/drive/1JrPcRwX06xIN5iLhc53_MOLzU9q_Q7wD?usp=sharing&lt;/a&gt;
+(Second model below)&lt;/li&gt;
+&lt;li&gt;Run Instructions: This is set up currently as a Jupyter notebook
+to run on Colab/GitHub. A container DGX version is also
+available&lt;/li&gt;
+&lt;li&gt;Time-to-solution: 1 to 2 days on a single GPU&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;example-implementation&#34;&gt;Example Implementation:&lt;/h2&gt;
+&lt;p&gt;The example implementation is primarily to demonstrate feasibility, show
+how the data is represented, help address any interpretation
+considerations, and potentially trigger initial ideas on how the
+benchmark can be improved.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Running GPU Batch jobs on Rivanna</title>
+      <link>/docs/tutorials/rivanna/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/tutorials/rivanna/</guid>
       <description>
         
         
@@ -49,6 +296,805 @@
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; How big is rivanna?&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Which GPUs exists and How many? Create table&lt;/li&gt;
 &lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Science Benchmark Policy Draft (Training)</title>
+      <link>/docs/policy/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/policy/</guid>
+      <description>
+        
+        
+        &lt;div class=&#34;paragraph&#34;&gt;
+
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The document is under development.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Draft&lt;/h4&gt;
+
+    
+Under development.
+
+The raw document is located at this [link](
+https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Bug&lt;/h4&gt;
+
+    
+Bug: The table of content does not render when we use hugo
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;h1 id=&#34;_mlcommons_science_benchmark_suite_training_rules&#34; class=&#34;sect0&#34;&gt;MLCommons Science Benchmark Suite Training Rules&lt;/h1&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Version 0.1
+January 31, 2021&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Points of contact: Gregor von Laszewski(&lt;a href=&#34;mailto:laszewski@gmail.com&#34;&gt;laszewski@gmail.com&lt;/a&gt;), Juri Papay (&lt;a href=&#34;mailto:juripapay@hotmail.com&#34;&gt;juripapay@hotmail.com&lt;/a&gt;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Supporting documents
+We included here a list of supporting documents that will be removed in the final version, but caould be helping in shaping this draft:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.google.com/presentation/d/1xo_M3dEV1BS7OcXjvjyOUOLkHh8WyHuawqj1OR2iJw4/edit#slide=id.g10e8f04304c_1_73&#34;&gt;Presentation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.google.com/document/d/1WwcS0gjVoz5Bf0G05xKIgoh2WEBxmNQM8VmkHNP67ag/edit&#34;&gt;Benchmarks&lt;/a&gt; Is this the correct link?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_overview&#34;&gt;1. Overview&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;All rules are taken from the &lt;a href=&#34;https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc&#34;&gt;MLPerf Training Rules&lt;/a&gt;
+except for those that are overridden here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The MLPerf and &lt;a href=&#34;https://mlcommons.org&#34;&gt;MLCommons&lt;/a&gt; name and logo are trademarks. In order to refer to a result using the
+MLPerf and MLCommons name, the result must conform to the letter and spirit of the rules
+specified in this document. The MLCommons organization reserves the right to solely
+determine if a use of its name or logo is acceptable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_benchmarks&#34;&gt;2. Benchmarks&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The benchmark suite consists of the benchmarks shown in the following table.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+change the table
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 33.3333%;&#34;/&gt;
+&lt;col style=&#34;width: 33.3333%;&#34;/&gt;
+&lt;col style=&#34;width: 33.3334%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Problem&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Dataset&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Quality Target&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Earth Quake Prediction&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;TBD&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;TBD (some error minimization)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_divisions&#34;&gt;3. Divisions&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There are two divisions of the Science Benchmark Suite, the Closed division and the Open division.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_closed_division&#34;&gt;3.1. Closed Division&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The Closed division requires using the same preprocessing, model, and training method as the reference implementation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The closed division models are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 50%;&#34;/&gt;
+&lt;col style=&#34;width: 50%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Problem&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Model&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;REPLACE: Climate segmentation&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/azrael417/mlperf-deepcam&#34; class=&#34;bare&#34;&gt;https://github.com/azrael417/mlperf-deepcam&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;REPLACE: Cosmological parameter prediction&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark&#34; class=&#34;bare&#34;&gt;https://github.com/sparticlesteve/cosmoflow-benchmark&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;REPLACE: Modeling catalysts&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/ocp/tree/mlperf-hpc-reference&#34; class=&#34;bare&#34;&gt;https://github.com/sparticlesteve/ocp/tree/mlperf-hpc-reference&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_data_set&#34;&gt;4. Data Set&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_data_state_at_start_of_run&#34;&gt;4.1. Data State at Start of Run&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Each reference implementation includes a download script or broadly available method to acquire and verify the dataset.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The data at the start of the benchmark run should reside on a parallel file system that is persistent (&amp;gt;= 1 month, not subject to eviction by other users), can be downloaded to / accessed by the user, and can be shared among users at the facility. Any staging to node-local disk or memory or system burst buffer should be included in the benchmark time measurement.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+discuss parallel. some scence benchmarks may not be parallel,
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You must flush/reset the on-node caches prior to running each instance of the benchmark. Due to practicality issues, you are not required to reset off-node system-level caches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+discuss what exactly an on node cache is …​ is this an application on node cache or something else.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We otherwise follow the training rule &lt;a href=&#34;training_rules.html#data-state-at-start-of-run&#34;&gt;Data State at Start of Run&lt;/a&gt; on consistency with the reference implementation preprocessing and allowance for reformatting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_training_loop&#34;&gt;5. Training Loop&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_hyperparameters_and_optimizer&#34;&gt;5.1. Hyperparameters and Optimizer&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;CLOSED:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Allowed hyperparameter and optimizer settings are specified here. For anything not explicitly mentioned here, submissions must match the behavior and settings of the reference implementations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_hyperparameters_and_optimizer_earth_quae_prediction&#34;&gt;5.2. Hyperparameters and Optimizer Earth Quae Prediction&lt;/h3&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+TBD. Next values will all be replaced with application specific values
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Model&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Constraint&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Definition&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Reference Code&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;global_batch_size&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the global batch size for training&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;local &lt;code&gt;batch_size&lt;/code&gt; (&lt;code&gt;--batch-size&lt;/code&gt;) times number of workers. Baseline config is 64&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&amp;#34;sgd&amp;#34;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the optimizer name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--optimizer&lt;/code&gt; or &lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L33&#34;&gt;config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;sgd_opt_momentum&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;0.9&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;SGD momentum&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L34&#34;&gt;config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_base_learning_rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;The base learning rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;base_lr&lt;/code&gt; times scaling factor, e.g. &lt;code&gt;global_batch_size/base_batch_size&lt;/code&gt; if scaling=&amp;#34;linear&amp;#34;. &lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L38&#34;&gt;Config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_warmup_epochs&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the number of epochs for learning rate to warm up to base value&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L47&#34;&gt;config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_warmup_factor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the constant factor applied at learning rate warm up&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scaled learning rate / &lt;code&gt;base_lr&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_decay_boundary_epochs&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;list of positive integers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Epochs at which learning rate decays&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L51&#34;&gt;config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_decay_factor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;0 &amp;lt; value &amp;lt; 1&lt;/code&gt;, and you may use a different value for each decay&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the learning rate decay factor(s) at the decay boundary epochs&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;a href=&#34;https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L51&#34;&gt;config&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;dropout&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;0 ⇐ value &amp;lt; 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Dropout regularization probability for the dense layers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;dropout&lt;/code&gt; setting in config&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_weight_decay&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;L2 regularization parameter for the dense layers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;l2&lt;/code&gt; setting in config&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_hyperparameters_and_optimizer_other_app&#34;&gt;5.3. Hyperparameters and Optimizer Other App&lt;/h3&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+TBD. Next values will all be replaced with application specific values
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Model&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Constraint&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Definition&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Reference Code&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;global_batch_size&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the global batch size for training&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--local_batch_size&lt;/code&gt; times number of workers&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;batchnorm_group_size&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Determines how many ranks participate in the batchnorm&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--batchnorm_group_size&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Adam, AdamW, or LAMB&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the optimizer name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--optimizer&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_eps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;1e-6&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;epsilon for Adam&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--adam_eps&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_betas&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Momentum terms for Adam-type optimizers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--optimizer_betas&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_weight_decay&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;L2 weight regularization&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--weight_decay&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_lr&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the base learning rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--start_lr&lt;/code&gt; times warmup factor&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_lr_warmup_steps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the number of epochs for learning rate to warm up to base value&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--lr_warmup_steps&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_lr_warmup_factor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;When warmup is used, the target learning_rate will be lr_warmup_factor * start_lr&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--lr_warmup_factor&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_type&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;multistep or cosine_annealing&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Specifies the learning rate schedule&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--lr_schedule&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_milestones&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;If multistep, the steps at which learning rate is decayed&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;milestones in &lt;code&gt;--lr_schedule type=&amp;#34;multistep&amp;#34;,milestones=&amp;#34;3000 10000&amp;#34;,decay_rate=&amp;#34;0.1&amp;#34;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_decay_rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;unconstrained&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;If multistep, the learning rate decay factor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;decay_rate in &lt;code&gt;--lr_schedule type=&amp;#34;multistep&amp;#34;,milestones=&amp;#34;15000 25000&amp;#34;,decay_rate=&amp;#34;0.1&amp;#34;&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_t_max&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;For cosine_annealing, period length in steps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--lr_schedule&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;scheduler_eta_min&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;For cosine_annealing, sets the minimal LR&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--lr_schedule&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;gradient_accumulation_frequency&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Specifies the number of gradient accumulation steps before a weight update is performed&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;--gradient_accumulation_frequency&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_hyperparameters_and_optimizer_other_app_2&#34;&gt;5.4. Hyperparameters and Optimizer Other App&lt;/h3&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+TBD. Next values will all be replaced with application specific values
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;col style=&#34;width: 20%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Model&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Constraint&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Definition&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Reference Code&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;global_batch_size&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the global batch size&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;batch_size&lt;/code&gt; times number of GPUs&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;AdamW&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the optimizer name&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;config setting &lt;code&gt;optim&lt;/code&gt; &lt;code&gt;name&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_base_learning_rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt; 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the base learning rate&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;config setting &lt;code&gt;lr_initial&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_warmup_steps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;value &amp;gt;= 0&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the number of steps for learning rate to warm up to base value&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;warmup_steps&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_warmup_factor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;0 ⇐ value ⇐ 1&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;the factor applied to the learning rate at the start of warmup&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;warmup_factor&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;opt_learning_rate_decay_boundary_steps&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;list of positive integers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&lt;code&gt;lr_milestones&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;OPEN: Hyperparameters and optimizer may be freely changed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_run_results&#34;&gt;6. Run Results&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;MLCommon Science Benchmark Suite submissions consist of the following two metrics: metrics 1 is considered mandatory for a complete submission whereas metric 2 is considered optional:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_strong_scaling_time_to_convergence&#34;&gt;6.1. Strong Scaling (Time to Convergence)&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This is a &lt;strong&gt;mandatory&lt;/strong&gt; metric: see MLPerf Training &lt;a href=&#34;training_rules.html#section-run-results&#34;&gt;Run Results&lt;/a&gt; for reference. The same rules apply here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_weak_scaling_throughput&#34;&gt;6.2. Weak Scaling (Throughput)&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This is an &lt;strong&gt;optional&lt;/strong&gt; metric. It was designed to test the training capacity of a system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Measurement: we will define 3 important parameters first.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;number of models M: number of model instances which are going to be trained in this benchmark.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;instance scale S: each individual model instance will be trained at this scale.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;total utilized scale T: the total scale used for running this benchmark. For example, if all M models are trained concurrently, then T=M*S. More generally we can write that S⇐T⇐M*S if (some of) the models are trained sequentially.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Notes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;All three numbers M,S,T are chosen by the submitter. This allows the submitter to accomodate their submission to available machine resources, i.e. compute capacity and compute time.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;S and T should be in units of compute resources, e.g. nodes, GPUs or other accelerators. This choice should be aligned with the HPC system description. For example, if the systems descriptions table lists number GPUs to define the scale of the system, then S should be specified in numbers of GPUs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;S and T can be chosen independently of the submission for metric 1 (strong scaling). We encourage to choose T as large as possible, ideally full system scale, but this is not required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;The submitter then trains M models on the resource partitioning (S,T) as defined above to convergence.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We define a Time-To-Train-all (TTTa) number by computing the difference between the end time of the instance which needs longest time to converge and the start time of the instance which starts up fastest. Mathematically this can be expressed as&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;TTTa = max(run_stop) - min(run_start) where the max/min are taken over all instances M.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Note: the submitter is allowed to prune this number by removing results from individual training instances. As long as the minimum number of models rule is satisfied (see section &lt;a href=&#34;#_benchmark_results&#34;&gt;Benchmark Results&lt;/a&gt; below), the submission is valid. They then use a modified number of models M&amp;#39;⇐M and computes TTTa over the reduced set. This allows the submitter to remove occasional outliers or stragglers which would otherwise reduce the score disproportionally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Reporting: the submitter reports the the tuple (T, S, M&amp;#39;, TTTa).
+It is required to submit a separate MLLOG file for each of the training instances, so that reviewers can verify the quoted numbers.
+It is not allowed to merge logging files for individual instances.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Restrictions:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The submitter &lt;strong&gt;must not report this score on its own&lt;/strong&gt;. It has to be reported in conjunction with at least one score from &lt;a href=&#34;#_strong_scaling_time_to_convergence&#34;&gt;Strong Scaling (Time to Convergence)&lt;/a&gt; from the same benchmark.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;this score &lt;strong&gt;does not allow for extrapolation&lt;/strong&gt;. All reported M&amp;#39; training instances must have converged and it is not allowed to extrapolate results in S or T.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_benchmark_results&#34;&gt;7. Benchmark Results&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We follow MLPerf Training &lt;a href=&#34;training_rules.html#benchmark-results&#34;&gt;Benchmark Results&lt;/a&gt; rule along with the following required number of runs per benchmark.
+Note that since run-to-run variability is already captured by spatial multiplexing in case of metric 3, we use the adjusted requirement that the number of trained instances has to be at least equal to the number of runs for metric 1 and 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+TBD. Next values will all be replaced with application specific values
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;table class=&#34;tableblock frame-all grid-all stretch&#34;&gt;
+&lt;colgroup&gt;
+&lt;col style=&#34;width: 33.3333%;&#34;/&gt;
+&lt;col style=&#34;width: 33.3333%;&#34;/&gt;
+&lt;col style=&#34;width: 33.3334%;&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Benchmark&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;Number of Runs (Metric 1, 2)&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;M&amp;#39; (Metric 3)&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;DeepCAM&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;5&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&amp;gt;=5&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;CosmoFlow&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;10&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&amp;gt;=10&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;OpenCatalyst&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;5&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&#34;tableblock halign-left valign-top&#34;&gt;&lt;p class=&#34;tableblock&#34;&gt;&amp;gt;=5&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: STEMDL (Classification)</title>
+      <link>/docs/benchmarks/stemdl/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/benchmarks/stemdl/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;State of the art scanning transmission electron microscopes (STEM)
+produce focused electron beams with atomic dimensions and allow to
+capture diffraction patterns arising from the interaction of incident
+electrons with nanoscale material volumes.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;stemdl-classification&#34;&gt;STEMDL (Classification)&lt;/h3&gt;
+&lt;p&gt;State of the art scanning transmission electron microscopes (STEM)
+produce focused electron beams with atomic dimensions and allow to
+capture diffraction patterns arising from the interaction of incident
+electrons with nanoscale material volumes. Backing out the local atomic
+structure of said materials requires compute- and time-intensive
+analyses of these diffraction patterns (known as convergent beam
+electron diffraction, CBED). Traditional analyses of CBED requires
+iterative numerical solutions of partial differential equations and
+comparison with experimental data to refine the starting material
+configuration. This process is repeated anew for every newly acquired
+experimental CBED pattern and/or probed material.&lt;/p&gt;
+&lt;p&gt;In this &lt;a href=&#34;https://github.com/at-aaims/stemdl-benchmark&#34;&gt;benchmark&lt;/a&gt;, we
+used newly developed multi-GPU and multi-node electron scattering
+simulation codes &lt;a href=&#34;https://www.osti.gov/biblio/1631694-namsa&#34;&gt;[1]&lt;/a&gt; on
+the Summit supercomputer to generate CBED patterns from over 60,000
+materials (solid-state materials), representing nearly every known
+crystal structure. A scaled-down version of this data
+&lt;a href=&#34;https://doi.ccs.ornl.gov/ui/doi/70&#34;&gt;[2]&lt;/a&gt; is used for one of the data
+challenges &lt;a href=&#34;https://smc-datachallenge.ornl.gov/challenge-2-2020/&#34;&gt;[3]&lt;/a&gt;
+at SMC 2020 conference, and the overarching goals are to: (1) explore
+the suitability of machine learning algorithms in the advanced analysis
+of CBED and (2) produce a machine learning algorithm capable of
+overcoming intrinsic difficulties posed by scientific datasets.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&#34;https://doi.ccs.ornl.gov/ui/doi/70&#34;&gt;data&lt;/a&gt; sample from this data set
+is given by a 3-d array formed by stacking various CBED patterns
+simulated from the same material at different distinct material
+projections (i.e. crystallographic orientations). Each CBED pattern is a
+2-d array with float 32-bit image intensities. Associated with each data
+sample in the data set is a host of material attributes or properties
+which are, in principle, retrievable via analysis of this CBED stack. Of
+note are (1) 200 crystal space groups out of 230 unique mathematical
+discrete space groups and (2) local electron density which governs
+material&amp;rsquo;s property.&lt;/p&gt;
+&lt;p&gt;This benchmark consists of 2 tasks: classification for crystal space
+groups and reconstruction for local electron density, the example
+implementation of which are provided in
+&lt;a href=&#34;https://link.springer.com/chapter/10.1007%2F978-3-030-63393-6_30&#34;&gt;[4]&lt;/a&gt;
+and &lt;a href=&#34;https://arxiv.org/abs/1909.11150&#34;&gt;[5]&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;stemdl-specific-benchmark-targets&#34;&gt;STEMDL Specific Benchmark Targets&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Scientific objective(s):
+&lt;ul&gt;
+&lt;li&gt;Objective: Classification for crystal space groups&lt;/li&gt;
+&lt;li&gt;Formula: F1 score on validation data&lt;/li&gt;
+&lt;li&gt;Score: 0.9 considered converged&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data
+&lt;ul&gt;
+&lt;li&gt;Download: &lt;a href=&#34;https://doi.ccs.ornl.gov/ui/doi/70&#34;&gt;https://doi.ccs.ornl.gov/ui/doi/70&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Data Size: 548.7 GiB&lt;/li&gt;
+&lt;li&gt;Training samples: 138.7K&lt;/li&gt;
+&lt;li&gt;Validation samples: 48.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Example implementation
+&lt;ul&gt;
+&lt;li&gt;Model: ResNet-50&lt;/li&gt;
+&lt;li&gt;Reference Code: &lt;a href=&#34;https://github.com/at-aaims/stemdl-benchmark&#34;&gt;https://github.com/at-aaims/stemdl-benchmark&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run Instructions:
+&lt;a href=&#34;https://github.com/at-aaims/stemdl-benchmark#quickstart&#34;&gt;https://github.com/at-aaims/stemdl-benchmark#quickstart&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Time-to-solution: 40min on 60 V100 GPUs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Respondents</title>
+      <link>/docs/respondents/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/respondents/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;Submitting the benchmark&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;At the present time, we expect respondents to submit the results of
+their run, and should provide justification in the form of documentation
+(e.g., a technical manuscript or source code with run instructions). We
+are exploring setting this up as a &amp;ldquo;pull request&amp;rdquo; based contribution
+mechanism.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://mlcommons.org/images/other/research-science.png&#34; alt=&#34;Benchmark Views and Criteria&#34;&gt;&lt;/p&gt;
 
       </description>
     </item>
