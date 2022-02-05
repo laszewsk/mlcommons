@@ -26,7 +26,9 @@
         
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;We explain how to run GPU batch jobs ussing different GPU cards on Rivanna. Rivanna is a supercomputer at University of Virginia. This tutorial is only usefil if you can get an account on it.&lt;/p&gt;
+&lt;p&gt;We explain how to run GPU batch jobs ussing different GPU cards on
+Rivanna. Rivanna is a supercomputer at University of Virginia. This
+tutorial is only usefil if you can get an account on it.&lt;/p&gt;
 
 &lt;/div&gt;
 
@@ -54,20 +56,156 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/overview/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/overview/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Rivanna is the High Performance Computing (HPC) cluster sponsored by University of Virginia&amp;rsquo;s Research Computing department.
-Rivanna is composed 575 nodes which spans 20,476 cores and 8PB of different types of storage.&lt;/p&gt;
-&lt;h3 id=&#34;rivanna-hardware&#34;&gt;Rivanna Hardware&lt;/h3&gt;
-&lt;p&gt;The Rivanna HPC is composed of&lt;/p&gt;
+&lt;p&gt;Rivanna is the High Performance Computing (HPC) cluster that is
+managed by University of Virginia&amp;rsquo;s Research Computing.  Rivanna is
+composed 575 nodes with a total of 20,476 cores and 8PB of different
+types of storage.  Table ? shows an overview of the compute
+nodes. Some of the compute nodes also include GPUs. This includes:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;GPUs: K80, P100, V100, and RTX2080&lt;/li&gt;
+&lt;li&gt;A100, K80, P100, V100, and RTX2080, RTX3090&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;TODO: Validate this&lt;/p&gt;
-&lt;p&gt;While there are a variety of GPUs, specific selection appears to be limited to slurm jobs, where you can provide a specific implementation&lt;br&gt;
-&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&#34;regarding-gpu-usage&#34;&gt;Regarding GPU Usage&lt;/h4&gt;
-&lt;p&gt;By default, Rivanna does not allocate GPU cores when creating an instance.
-Instead, you&lt;/p&gt;
-&lt;h3 id=&#34;acces-to-rivanna&#34;&gt;Acces to rivanna&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Cores/Node&lt;/th&gt;
+&lt;th&gt;Memory/Node&lt;/th&gt;
+&lt;th&gt;Specialty Hardware&lt;/th&gt;
+&lt;th&gt;GPU memory/Device&lt;/th&gt;
+&lt;th&gt;GPU devices/Node&lt;/th&gt;
+&lt;th&gt;# of Nodes&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;354GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;127GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;115&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;td&gt;255GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;768GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;384GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;348&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;24&lt;/td&gt;
+&lt;td&gt;550GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;td&gt;1000GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;48&lt;/td&gt;
+&lt;td&gt;1500GB&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;64&lt;/td&gt;
+&lt;td&gt;180GB&lt;/td&gt;
+&lt;td&gt;KNL&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;128&lt;/td&gt;
+&lt;td&gt;1000GB&lt;/td&gt;
+&lt;td&gt;GPU: A100&lt;/td&gt;
+&lt;td&gt;40GB&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;td&gt;255GB&lt;/td&gt;
+&lt;td&gt;GPU: K80&lt;/td&gt;
+&lt;td&gt;11GB&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;td&gt;255GB&lt;/td&gt;
+&lt;td&gt;GPU: P100&lt;/td&gt;
+&lt;td&gt;12GB&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;383GB&lt;/td&gt;
+&lt;td&gt;GPU: RTX 2080 Ti&lt;/td&gt;
+&lt;td&gt;11GB&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;td&gt;188GB&lt;/td&gt;
+&lt;td&gt;GPU: V100&lt;/td&gt;
+&lt;td&gt;16GB&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;384GB&lt;/td&gt;
+&lt;td&gt;GPU: V100&lt;/td&gt;
+&lt;td&gt;32GB&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;*) This information may be outdated&lt;/p&gt;
+&lt;p&gt;Jobs on Rivanna can be schedued through Slurm
+either as batch job or as interactive job.&lt;/p&gt;
+&lt;p&gt;In order to access the GPUS you must specify the ty in your SLURM job.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;acces-to-rivanna&#34;&gt;Acces to Rivanna&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Gregor: install uva Anywhere this works for linux and mac, I have not tried Woindows, if you have a windos machine let us know. put more details on the vpn here&lt;/li&gt;
 &lt;li&gt;Gregor: start the vpn&lt;/li&gt;
@@ -82,23 +220,34 @@ Instead, you&lt;/p&gt;
      HostName rivanna.hpc.virginia.edu 
      IdentityFile ~/.ssh/id_rsa.pub
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where you replace abc1de with your uva account id.&lt;/p&gt;
-&lt;p&gt;Please note that on WIndows you are expected to install gitbash so you can use the same commands and ssh logic as on Linux and Mac. For this reason we do not recommend putty. The reason for thsi is that we can do scripting even from your laptop into rivanna the same way on all platforms.&lt;/p&gt;
+&lt;p&gt;Please note that on WIndows you are expected to install gitbash so you
+can use the same commands and ssh logic as on Linux and Mac. For this
+reason we do not recommend putty. The reason for thsi is that we can
+do scripting even from your laptop into rivanna the same way on all
+platforms.&lt;/p&gt;
 &lt;h3 id=&#34;rivanna-software&#34;&gt;Rivanna Software&lt;/h3&gt;
 &lt;h4 id=&#34;modules&#34;&gt;Modules&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/modules/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/modules/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Rivanna&amp;rsquo;s default mechanism of software configuration management is performed by using &lt;a href=&#34;https://lmod.readthedocs.io/en/latest/index.html&#34;&gt;lua modules&lt;/a&gt;, also known as lmods just modules.
-To activate additional software you must load a module into your environment.
-This is typically done by launching a command prompt and running &lt;code&gt;module load &amp;lt;modulename&amp;gt;/&amp;lt;moduleversion&amp;gt;...&lt;/code&gt;.
-You can chain as many environments together as you want, but they will be loaded in the order presented on the command line.&lt;/p&gt;
-&lt;p&gt;Lmods offers some form of a solution engine for creating a configured environment, but it tends to lean on the user to figure out dependencies.
-As such, you may need to load more than just the module you&amp;rsquo;re interested in.&lt;/p&gt;
+&lt;p&gt;Rivanna&amp;rsquo;s default mechanism of software configuration management is
+performed by using &lt;a href=&#34;https://lmod.readthedocs.io/en/latest/index.html&#34;&gt;lua
+modules&lt;/a&gt;, also known
+as lmods just modules.  To activate additional software you must load
+a module into your environment.  This is typically done by launching a
+command prompt and running &lt;code&gt;module load &amp;lt;modulename&amp;gt;/&amp;lt;moduleversion&amp;gt;...&lt;/code&gt;.  You can chain as many environments
+together as you want, but they will be loaded in the order presented
+on the command line.&lt;/p&gt;
+&lt;p&gt;Lmods offers some form of a solution engine for creating a configured
+environment, but it tends to lean on the user to figure out
+dependencies.  As such, you may need to load more than just the module
+you&amp;rsquo;re interested in.&lt;/p&gt;
 &lt;p&gt;To list available modules use&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To list aproximately the python modules use&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will return all modules that have py in it. Blease chose those that look like python modules.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will return all modules that have py in it. Blease chose those that
+look like python modules.&lt;/p&gt;
 &lt;p&gt;To probe for deep learnig modules, use  something similar to&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available cuda tesorflow pytorch mxnet nvidia cudnn
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available cuda tensorflow pytorch mxnet nvidia cudnn
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python-details&#34;&gt;Python Details&lt;/h3&gt;
 &lt;p&gt;Rivanna has two channels of python software and their named modules&lt;/p&gt;
 &lt;ul&gt;
@@ -138,10 +287,17 @@ These include&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;containers&#34;&gt;Containers&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Provided as a lmod, Rivanna can support the execution of singularity containers (sif) on the cluster.
-These containers have &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images&#34;&gt;GPU passthrough&lt;/a&gt; using NVidia drivers (&lt;code&gt;singularity &amp;lt;cmd&amp;gt; --nv &amp;lt;imagefile&amp;gt; &amp;lt;args&amp;gt;&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;When working non-interactively, to leverage the GPUs, it appears that we&amp;rsquo;ll have to create a &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/#gpu-intensive-computation&#34;&gt;SLURM job&lt;/a&gt;.
-A key configuration option is &lt;code&gt;--gres=gpu:p100:2&lt;/code&gt;, where the p100 is the graphics card you wish to leverage as part of your allocation, and 2 is the number of devices to include (so this would provide 7168 Cuda cores from two Nvidia P100 cards).&lt;/p&gt;
+&lt;p&gt;Provided as a lmod, Rivanna can support the execution of singularity
+containers (sif) on the cluster.  These containers have &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images&#34;&gt;GPU
+passthrough&lt;/a&gt;
+using NVidia drivers (&lt;code&gt;singularity &amp;lt;cmd&amp;gt; --nv &amp;lt;imagefile&amp;gt; &amp;lt;args&amp;gt;&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;When working non-interactively, to leverage the GPUs, it appears that
+we&amp;rsquo;ll have to create a &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/#gpu-intensive-computation&#34;&gt;SLURM
+job&lt;/a&gt;.
+A key configuration option is &lt;code&gt;--gres=gpu:p100:2&lt;/code&gt;, where the p100 is
+the graphics card you wish to leverage as part of your allocation, and
+2 is the number of devices to include (so this would provide 7168 Cuda
+cores from two Nvidia P100 cards).&lt;/p&gt;
 &lt;h3 id=&#34;custom-version-of-tensorflow&#34;&gt;Custom Version of TensorFlow&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/tensorflow/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/tensorflow/&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;keras-on-rifanna&#34;&gt;Keras on Rifanna&lt;/h3&gt;
@@ -158,41 +314,71 @@ $ source activate py3.10
 $ python -V
 Python 3.10.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;gregors-conda-dislike&#34;&gt;Gregors Conda Dislike&lt;/h3&gt;
-&lt;p&gt;Rivanna unfortunatley uses conda for accessing various versions of Python. However conda is known to be often behind the state of the art not for ays, but for month&amp;rsquo;s or even a semester.&lt;/p&gt;
-&lt;p&gt;A good example is the availability of the python compiler version. While the current version is 3.10.2, conda only supports 3.10.1 as of February 1st.
-Obviously there is a reason why python.org updates to 3.10.2 ;-) conda is much more conservative and laks behind. For that reason I ususally use pythoon.org. I aso noticed that on some systems where you compile python natively it runs faster once you switch on the optimizations for that architecture.&lt;/p&gt;
-&lt;p&gt;Although we could compile python for rivanna in our local directory, we will not do this at this time and just use the conda version of python that most suites our code. We assume this will be 3.10.0.&lt;/p&gt;
-&lt;p&gt;We know that python 3.8 has bugs and limitations and should not be used. However we may not have another choice if we use the installed tensorflow tool kit on rivanna.&lt;/p&gt;
+&lt;p&gt;Rivanna unfortunatley uses conda for accessing various versions of
+Python. However conda is known to be often behind the state of the art
+not for ays, but for month&amp;rsquo;s or even a semester.&lt;/p&gt;
+&lt;p&gt;A good example is the availability of the python compiler
+version. While the current version is 3.10.2, conda only supports
+3.10.1 as of February 1st.  Obviously there is a reason why python.org
+updates to 3.10.2 ;-) conda is much more conservative and laks
+behind. For that reason I ususally use pythoon.org. I aso noticed that
+on some systems where you compile python natively it runs faster once
+you switch on the optimizations for that architecture.&lt;/p&gt;
+&lt;p&gt;Although we could compile python for rivanna in our local directory,
+we will not do this at this time and just use the conda version of
+python that most suites our code. We assume this will be 3.10.0.&lt;/p&gt;
+&lt;p&gt;We know that python 3.8 has bugs and limitations and should not be
+used. However we may not have another choice if we use the installed
+tensorflow tool kit on rivanna.&lt;/p&gt;
 &lt;h2 id=&#34;rivanna-a100&#34;&gt;Rivanna A100&lt;/h2&gt;
 &lt;p&gt;Rivanna will have 8 nodes available to us, but they are not yet in service.&lt;/p&gt;
 &lt;p&gt;Instead we will be using the two existing nodes which are shared with other users&lt;/p&gt;
-&lt;p&gt;Rivanna uses the SLURM job scheduler for allocating submitted jobs.  Jobs are charged SUs from an allocation.  The Rivanna compute allocation we use is named&lt;/p&gt;
+&lt;p&gt;Rivanna uses the SLURM job scheduler for allocating submitted jobs.
+Jobs are charged SUs from an allocation.  The Rivanna compute
+allocation we use is named&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;bii_dsc&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;and it currently contains 100,000 SUs.  If the balance runs low, more SUs can be requested via the Standard Allocation Renewal form here:  &lt;code&gt;https://www.rc.virginia.edu/userinfo/rivanna/allocations/&lt;/code&gt;. Due to the limitation we encourage you to plan things ahead and try to avoid unnecessary runs.&lt;/p&gt;
+&lt;p&gt;and it currently contains 100,000 SUs.  If the balance runs low, more
+SUs can be requested via the Standard Allocation Renewal form here:
+&lt;code&gt;https://www.rc.virginia.edu/userinfo/rivanna/allocations/&lt;/code&gt;. Due to
+the limitation we encourage you to plan things ahead and try to avoid
+unnecessary runs.&lt;/p&gt;
 &lt;p&gt;General instructions for submitting SLURM jobs is located at&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To request the job be submitted to the gpu partition, you use the option&lt;/p&gt;
 &lt;p&gt;`-p gpu&#39;&lt;/p&gt;
-&lt;p&gt;The A100 GPUs are a requestable resource. To request them, you would add the gres option with the number of A100 GPUs requested (1 through 8 GPUs), for example to request 2 A100 GPUs,&lt;/p&gt;
+&lt;p&gt;The A100 GPUs are a requestable resource. To request them, you would
+add the gres option with the number of A100 GPUs requested (1 through
+8 GPUs), for example to request 2 A100 GPUs,&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;--gres=gpu:a100:2&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;If you are using a SLURM script to submit the job, rather than an interactive job, the options would appear as follows.  Your script will need to specify other options such as the allocation to charge as seen in the sample scripts shown in the above URL:&lt;/p&gt;
+&lt;p&gt;If you are using a SLURM script to submit the job, rather than an
+interactive job, the options would appear as follows.  Your script
+will need to specify other options such as the allocation to charge as
+seen in the sample scripts shown in the above URL:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;#SBATCH -p gpu
 #SBATCH --gres=gpu:a100:2
 #SBATCH -A bii_dsc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In many cases a slurm job is desired, as interactive jobs may waste SUs and we are charged by you keeing the A100 idle.&lt;/p&gt;
-&lt;p&gt;Research Computing also offers some interactive apps such as JupyterLab, RStudio, CodeServer, Blender, Mathematica via our Open OnDemand portal at:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In many cases a slurm job is desired, as interactive jobs may waste
+SUs and we are charged by you keeing the A100 idle.&lt;/p&gt;
+&lt;p&gt;Research Computing also offers some interactive apps such as
+JupyterLab, RStudio, CodeServer, Blender, Mathematica via our Open
+OnDemand portal at:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://rivanna-portal.hpc.virginia.edu&#34;&gt;https://rivanna-portal.hpc.virginia.edu&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;To request the use of the A100s via Open OnDemand, first log in to the Open OnDemand portal, select the desired interactive app.  You will be presented with a form to complete.  Currently, you would&lt;/p&gt;
+&lt;p&gt;To request the use of the A100s via Open OnDemand, first log in to the
+Open OnDemand portal, select the desired interactive app.  You will be
+presented with a form to complete.  Currently, you would&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;select &lt;code&gt;gpu&lt;/code&gt; for Rivanna partition,&lt;/li&gt;
-&lt;li&gt;select &lt;code&gt;NVIDIA A100&lt;/code&gt; from the &lt;code&gt;Optional: GPU type for GPU partition&lt;/code&gt; pulldown menu
-and enter the number of desired GPUs from the &lt;code&gt;Optional: Number of GPUs&lt;/code&gt;.  Once you’ve completed the form, click the &lt;code&gt;Launch&lt;/code&gt; button and your session will be launched.  The session will start once the resources are available.&lt;/li&gt;
+&lt;li&gt;select &lt;code&gt;NVIDIA A100&lt;/code&gt; from the &lt;code&gt;Optional: GPU type for GPU partition&lt;/code&gt;
+pulldown menu and enter the number of desired GPUs from the
+&lt;code&gt;Optional: Number of GPUs&lt;/code&gt;.  Once you’ve completed the form, click
+the &lt;code&gt;Launch&lt;/code&gt; button and your session will be launched.  The session
+will start once the resources are available.&lt;/li&gt;
 &lt;/ul&gt;
 
       </description>

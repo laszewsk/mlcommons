@@ -8,7 +8,9 @@ description: >
 ---
 
 {{% pageinfo %}}
-We explain how to run GPU batch jobs ussing different GPU cards on Rivanna. Rivanna is a supercomputer at University of Virginia. This tutorial is only usefil if you can get an account on it. 
+We explain how to run GPU batch jobs ussing different GPU cards on
+Rivanna. Rivanna is a supercomputer at University of Virginia. This
+tutorial is only usefil if you can get an account on it.
 {{% /pageinfo %}}
 
 
@@ -32,27 +34,46 @@ We require that you have
 
 - https://www.rc.virginia.edu/userinfo/rivanna/overview/
 
-Rivanna is the High Performance Computing (HPC) cluster sponsored by University of Virginia's Research Computing department.
-Rivanna is composed 575 nodes which spans 20,476 cores and 8PB of different types of storage.
+Rivanna is the High Performance Computing (HPC) cluster that is
+managed by University of Virginia's Research Computing.  Rivanna is
+composed 575 nodes with a total of 20,476 cores and 8PB of different
+types of storage.  Table ? shows an overview of the compute
+nodes. Some of the compute nodes also include GPUs. This includes:
+
+* A100, K80, P100, V100, and RTX2080, RTX3090
 
 
-### Rivanna Hardware
+| Cores/Node   | Memory/Node   | Specialty Hardware   | GPU memory/Device   | GPU devices/Node   | \# of Nodes   |
+| ------------ | ------------- | -------------------- | ------------------- | ------------------ | ------------- |
+| 40           | 354GB         | \-                   | \-                  | \-                 | 1             |
+| 20           | 127GB         | \-                   | \-                  | \-                 | 115           |
+| 28           | 255GB         | \-                   | \-                  | \-                 | 25            |
+| 40           | 768GB         | \-                   | \-                  | \-                 | 34            |
+| 40           | 384GB         | \-                   | \-                  | \-                 | 348           |
+| 24           | 550GB         | \-                   | \-                  | \-                 | 4             |
+| 16           | 1000GB        | \-                   | \-                  | \-                 | 5             |
+| 48           | 1500GB        | \-                   | \-                  | \-                 | 6             |
+| 64           | 180GB         | KNL                  | \-                  | \-                 | 8             |
+| 128          | 1000GB        | GPU: A100            | 40GB                | 8                  | 2             |
+| 28           | 255GB         | GPU: K80             | 11GB                | 8                  | 9             |
+| 28           | 255GB         | GPU: P100            | 12GB                | 4                  | 3             |
+| 40           | 383GB         | GPU: RTX 2080 Ti     | 11GB                | 10                 | 2             |
+| 28           | 188GB         | GPU: V100            | 16GB                | 4                  | 1             |
+| 40           | 384GB         | GPU: V100            | 32GB                | 4                  | 12            |
 
-The Rivanna HPC is composed of
 
-* GPUs: K80, P100, V100, and RTX2080
+*) This information may be outdated
 
-TODO: Validate this 
 
-While there are a variety of GPUs, specific selection appears to be limited to slurm jobs, where you can provide a specific implementation  
-https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition
+Jobs on Rivanna can be schedued through Slurm
+either as batch job or as interactive job.
 
-#### Regarding GPU Usage
+In order to access the GPUS you must specify the ty in your SLURM job.
 
-By default, Rivanna does not allocate GPU cores when creating an instance.
-Instead, you 
+* <https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition>
 
-### Acces to rivanna
+
+### Acces to Rivanna
 
 * Gregor: install uva Anywhere this works for linux and mac, I have not tried Woindows, if you have a windos machine let us know. put more details on the vpn here
 * Gregor: start the vpn
@@ -72,7 +93,11 @@ Host rivanna
 
 where you replace abc1de with your uva account id.
 
-Please note that on WIndows you are expected to install gitbash so you can use the same commands and ssh logic as on Linux and Mac. For this reason we do not recommend putty. The reason for thsi is that we can do scripting even from your laptop into rivanna the same way on all platforms.
+Please note that on WIndows you are expected to install gitbash so you
+can use the same commands and ssh logic as on Linux and Mac. For this
+reason we do not recommend putty. The reason for thsi is that we can
+do scripting even from your laptop into rivanna the same way on all
+platforms.
 
 
 ### Rivanna Software
@@ -81,13 +106,20 @@ Please note that on WIndows you are expected to install gitbash so you can use t
 
 https://www.rc.virginia.edu/userinfo/rivanna/software/modules/
 
-Rivanna's default mechanism of software configuration management is performed by using [lua modules](https://lmod.readthedocs.io/en/latest/index.html), also known as lmods just modules.
-To activate additional software you must load a module into your environment.
-This is typically done by launching a command prompt and running `module load <modulename>/<moduleversion>...`.
-You can chain as many environments together as you want, but they will be loaded in the order presented on the command line.
+Rivanna's default mechanism of software configuration management is
+performed by using [lua
+modules](https://lmod.readthedocs.io/en/latest/index.html), also known
+as lmods just modules.  To activate additional software you must load
+a module into your environment.  This is typically done by launching a
+command prompt and running `module load
+<modulename>/<moduleversion>...`.  You can chain as many environments
+together as you want, but they will be loaded in the order presented
+on the command line.
 
-Lmods offers some form of a solution engine for creating a configured environment, but it tends to lean on the user to figure out dependencies.
-As such, you may need to load more than just the module you're interested in.
+Lmods offers some form of a solution engine for creating a configured
+environment, but it tends to lean on the user to figure out
+dependencies.  As such, you may need to load more than just the module
+you're interested in.
 
 To list available modules use
 
@@ -101,15 +133,14 @@ To list aproximately the python modules use
 $ module available py
 ```
 
-It will return all modules that have py in it. Blease chose those that look like python modules.
+It will return all modules that have py in it. Blease chose those that
+look like python modules.
 
 To probe for deep learnig modules, use  something similar to
 
 ```
-$ module available cuda tesorflow pytorch mxnet nvidia cudnn
+$ module available cuda tensorflow pytorch mxnet nvidia cudnn
 ```
-
-
 
 ### Python Details
 
@@ -141,11 +172,18 @@ These include
 
 https://www.rc.virginia.edu/userinfo/rivanna/software/containers/
 
-Provided as a lmod, Rivanna can support the execution of singularity containers (sif) on the cluster.
-These containers have [GPU passthrough](https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images) using NVidia drivers (`singularity <cmd> --nv <imagefile> <args>`).
+Provided as a lmod, Rivanna can support the execution of singularity
+containers (sif) on the cluster.  These containers have [GPU
+passthrough](https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images)
+using NVidia drivers (`singularity <cmd> --nv <imagefile> <args>`).
 
-When working non-interactively, to leverage the GPUs, it appears that we'll have to create a [SLURM job](https://www.rc.virginia.edu/userinfo/rivanna/slurm/#gpu-intensive-computation).
-A key configuration option is `--gres=gpu:p100:2`, where the p100 is the graphics card you wish to leverage as part of your allocation, and 2 is the number of devices to include (so this would provide 7168 Cuda cores from two Nvidia P100 cards).
+When working non-interactively, to leverage the GPUs, it appears that
+we'll have to create a [SLURM
+job](https://www.rc.virginia.edu/userinfo/rivanna/slurm/#gpu-intensive-computation).
+A key configuration option is `--gres=gpu:p100:2`, where the p100 is
+the graphics card you wish to leverage as part of your allocation, and
+2 is the number of devices to include (so this would provide 7168 Cuda
+cores from two Nvidia P100 cards).
 
 ### Custom Version of TensorFlow
 
@@ -175,14 +213,25 @@ Python 3.10.0
 
 ### Gregors Conda Dislike
 
-Rivanna unfortunatley uses conda for accessing various versions of Python. However conda is known to be often behind the state of the art not for ays, but for month's or even a semester.
+Rivanna unfortunatley uses conda for accessing various versions of
+Python. However conda is known to be often behind the state of the art
+not for ays, but for month's or even a semester.
 
-A good example is the availability of the python compiler version. While the current version is 3.10.2, conda only supports 3.10.1 as of February 1st.
-Obviously there is a reason why python.org updates to 3.10.2 ;-) conda is much more conservative and laks behind. For that reason I ususally use pythoon.org. I aso noticed that on some systems where you compile python natively it runs faster once you switch on the optimizations for that architecture.
+A good example is the availability of the python compiler
+version. While the current version is 3.10.2, conda only supports
+3.10.1 as of February 1st.  Obviously there is a reason why python.org
+updates to 3.10.2 ;-) conda is much more conservative and laks
+behind. For that reason I ususally use pythoon.org. I aso noticed that
+on some systems where you compile python natively it runs faster once
+you switch on the optimizations for that architecture.
 
-Although we could compile python for rivanna in our local directory, we will not do this at this time and just use the conda version of python that most suites our code. We assume this will be 3.10.0.
+Although we could compile python for rivanna in our local directory,
+we will not do this at this time and just use the conda version of
+python that most suites our code. We assume this will be 3.10.0.
 
-We know that python 3.8 has bugs and limitations and should not be used. However we may not have another choice if we use the installed tensorflow tool kit on rivanna.
+We know that python 3.8 has bugs and limitations and should not be
+used. However we may not have another choice if we use the installed
+tensorflow tool kit on rivanna.
 
 ## Rivanna A100
 
@@ -190,11 +239,17 @@ Rivanna will have 8 nodes available to us, but they are not yet in service.
 
 Instead we will be using the two existing nodes which are shared with other users
 
-Rivanna uses the SLURM job scheduler for allocating submitted jobs.  Jobs are charged SUs from an allocation.  The Rivanna compute allocation we use is named
+Rivanna uses the SLURM job scheduler for allocating submitted jobs.
+Jobs are charged SUs from an allocation.  The Rivanna compute
+allocation we use is named
 
 * `bii_dsc`
 
-and it currently contains 100,000 SUs.  If the balance runs low, more SUs can be requested via the Standard Allocation Renewal form here:  `https://www.rc.virginia.edu/userinfo/rivanna/allocations/`. Due to the limitation we encourage you to plan things ahead and try to avoid unnecessary runs.
+and it currently contains 100,000 SUs.  If the balance runs low, more
+SUs can be requested via the Standard Allocation Renewal form here:
+`https://www.rc.virginia.edu/userinfo/rivanna/allocations/`. Due to
+the limitation we encourage you to plan things ahead and try to avoid
+unnecessary runs.
  
 General instructions for submitting SLURM jobs is located at
 
@@ -204,11 +259,16 @@ To request the job be submitted to the gpu partition, you use the option
 
 `-p gpu'
 
-The A100 GPUs are a requestable resource. To request them, you would add the gres option with the number of A100 GPUs requested (1 through 8 GPUs), for example to request 2 A100 GPUs,
+The A100 GPUs are a requestable resource. To request them, you would
+add the gres option with the number of A100 GPUs requested (1 through
+8 GPUs), for example to request 2 A100 GPUs,
 
 `--gres=gpu:a100:2`. 
  
-If you are using a SLURM script to submit the job, rather than an interactive job, the options would appear as follows.  Your script will need to specify other options such as the allocation to charge as seen in the sample scripts shown in the above URL:
+If you are using a SLURM script to submit the job, rather than an
+interactive job, the options would appear as follows.  Your script
+will need to specify other options such as the allocation to charge as
+seen in the sample scripts shown in the above URL:
 
 ```
 #SBATCH -p gpu
@@ -216,17 +276,25 @@ If you are using a SLURM script to submit the job, rather than an interactive jo
 #SBATCH -A bii_dsc
 ```
 
-In many cases a slurm job is desired, as interactive jobs may waste SUs and we are charged by you keeing the A100 idle.
+In many cases a slurm job is desired, as interactive jobs may waste
+SUs and we are charged by you keeing the A100 idle.
 
-Research Computing also offers some interactive apps such as JupyterLab, RStudio, CodeServer, Blender, Mathematica via our Open OnDemand portal at:
+Research Computing also offers some interactive apps such as
+JupyterLab, RStudio, CodeServer, Blender, Mathematica via our Open
+OnDemand portal at:
 
 * <https://rivanna-portal.hpc.virginia.edu>
 
-To request the use of the A100s via Open OnDemand, first log in to the Open OnDemand portal, select the desired interactive app.  You will be presented with a form to complete.  Currently, you would
+To request the use of the A100s via Open OnDemand, first log in to the
+Open OnDemand portal, select the desired interactive app.  You will be
+presented with a form to complete.  Currently, you would
 
 * select `gpu` for Rivanna partition,
-* select `NVIDIA A100` from the `Optional: GPU type for GPU partition` pulldown menu
-  and enter the number of desired GPUs from the `Optional: Number of GPUs`.  Once you’ve completed the form, click the `Launch` button and your session will be launched.  The session will start once the resources are available.
+* select `NVIDIA A100` from the `Optional: GPU type for GPU partition`
+  pulldown menu and enter the number of desired GPUs from the
+  `Optional: Number of GPUs`.  Once you’ve completed the form, click
+  the `Launch` button and your session will be launched.  The session
+  will start once the resources are available.
  
 
 
