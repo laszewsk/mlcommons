@@ -1,0 +1,26 @@
+name: mlcommons-science
+channels:
+  - defaults
+dependencies:
+  - python=3.9.7
+  - pip
+  #- horovod
+  - conda-forge::matplotlib>=3.5.1,<3.6.0
+  - numpy>=1.21.2,<1.22.0
+  - pandas>=1.3.5,<1.4.0
+  - psutil>=5.8.0,<5.9.0
+  - scipy>=1.7.3,<1.8.0
+  - tensorflow-gpu>=2.6.0,<2.7.0
+  #- tensorflow-datasets=4.0.1
+  # not needed, import can be trimmed
+  #- conda-forge::tensorflow-datasets=4.4.*
+  - tqdm>=4.62.3,<4.63.0
+  - keras>=2.6.0,<2.7.0
+  - jupyterlab
+  - conda-forge::watermark>=2.3.0,<2.4.0
+  - py-cpuinfo>=8.0.0,<8.1.0
+  - tabulate>0.8.9,<0.9.0
+  - conda-forge::gputil>=1.4.0,<1.5.0
+  - conda-forge::jupytext>=1.13.6,<1.14.0
+  - pip:
+    - cloudmesh-common>=4.3
