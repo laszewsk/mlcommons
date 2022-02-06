@@ -272,17 +272,17 @@ benchmark can be improved.&lt;/p&gt;
         
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;We explain how to run GPU batch jobs ussing different GPU cards on
-Rivanna. Rivanna is a supercomputer at University of Virginia. This
-tutorial is only usefil if you can get an account on it. The
-offcial documentation is availabele at&lt;/p&gt;
+&lt;p&gt;We explain how to run GPU batch jobs using different GPU cards on
+Rivanna. Rivanna is a supercomputer at the University of Virginia. This
+tutorial is only useful if you can get an account on it. The
+official documentation is available at&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/overview/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/overview/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;However, it includes some issues and does not explain ceryain aspects
-that are important for using GPUs on it. Therfore, this guide has been
+&lt;p&gt;However, it includes some issues and does not explain certain
+important aspects for using GPUs on it. Therefore, this guide has been
 created.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;PLEASE HELP US IMPROVING THIS GUDE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PLEASE HELP US IMPROVE THIS GUIDE&lt;/strong&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 
@@ -294,18 +294,18 @@ created.&lt;/p&gt;
     &lt;p&gt;We require that you have&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A valid account on Rivanna&lt;/li&gt;
-&lt;li&gt;A valid accounting group allowing you to run GPU jobs on rivanna&lt;/li&gt;
+&lt;li&gt;A valid accounting group allowing you to run GPU jobs on Rivanna&lt;/li&gt;
 &lt;/ul&gt;
 
 
 &lt;/div&gt;
 
 &lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Rivanna is the High Performance Computing (HPC) cluster that is
-managed by University of Virginia&amp;rsquo;s Research Computing.  Rivanna is
+&lt;p&gt;Rivanna is the High-Performance Computing (HPC) cluster
+managed by University of Virginia&amp;rsquo;s Research Computing. Rivanna is
 composed 575 nodes with a total of 20,476 cores and 8PB of different
-types of storage.  Table ? shows an overview of the compute
-nodes. Some of the compute nodes also include GPUs. This includes:&lt;/p&gt;
+types of storage. Table 1 shows an overview of the compute
+nodes. Some of the compute nodes also includes these GPUs:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.nvidia.com/en-us/data-center/a100/&#34;&gt;A100&lt;/a&gt;,
 &lt;a href=&#34;https://www.nvidia.com/en-gb/data-center/tesla-k80/&#34;&gt;K80&lt;/a&gt;,
@@ -315,6 +315,7 @@ nodes. Some of the compute nodes also include GPUs. This includes:&lt;/p&gt;
 and
 &lt;a href=&#34;https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/&#34;&gt;RTX3090&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Table 1:&lt;/strong&gt; GPUs on Rivanna&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -454,84 +455,93 @@ and
 &lt;p&gt;Access to Rivanna is secured by &lt;a href=&#34;https://virginia.service-now.com/its/?id=itsweb_kb_article&amp;amp;sys_id=f24e5cdfdb3acb804f32fb671d9619d0&#34;&gt;University of Virginias
 VPN&lt;/a&gt;. UVA
 offers two different VPNs. We recommend that you install the &lt;strong&gt;UVA
-Anywhere VPN&lt;/strong&gt;. This can be installed on Linux, MacOS and Windows.&lt;/p&gt;
-&lt;p&gt;After instalation you have to start the VPN. After that, you can use a
-terminal to access rivanna via ssh.  If you have not used ssh, we
-encourage you to read up about it and explore commands such as &lt;code&gt;ssh&lt;/code&gt;,
-&lt;code&gt;ssh-keygen&lt;/code&gt;, &lt;code&gt;ssh-copy-id&lt;/code&gt;, &lt;code&gt;ssh-agent&lt;/code&gt; and &lt;code&gt;ssh-add&lt;/code&gt;.&lt;/p&gt;
+Anywhere VPN&lt;/strong&gt;. This can be installed on Linux, macOS and Windows.&lt;/p&gt;
+&lt;p&gt;After installation, you have to start the VPN. After that, you can use a
+terminal to access Rivanna via ssh. If you have not used ssh, we
+encourage you to read about it and explore commands such as &lt;code&gt;ssh&lt;/code&gt;,
+&lt;code&gt;ssh-keygen&lt;/code&gt;, &lt;code&gt;ssh-copy-id&lt;/code&gt;, &lt;code&gt;ssh-agent, and &lt;/code&gt;ssh-add`.&lt;/p&gt;
 
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note: gitbash on Windows&lt;/h4&gt;
 
-    Please note that on Windows you are expected to install gitbash so you
-can use the same commands and ssh logic as on Linux and Mac. For this
-reason we do not recommend &lt;code&gt;putty&lt;/code&gt;, &lt;code&gt;PowerShell&lt;/code&gt; or &lt;code&gt;cmd.exe&lt;/code&gt;. The
-reason for this is that we can do scripting the same way, even from
-those running Windows. This significantly simplifies this guide.
+    Please note that on Windows, you are expected to install gitbash so
+you can use the same commands and ssh logic as on Linux and Mac. For
+this reason, we do not recommend &lt;code&gt;putty&lt;/code&gt;, &lt;code&gt;PowerShell&lt;/code&gt; or
+&lt;code&gt;cmd.exe&lt;/code&gt;. This is because we can do scripting the same way, even from
+those running Windows, and significantly simplifies this guide.
 
 &lt;/div&gt;
 
-&lt;p&gt;We will at this time not provide an extensive tutorial on how to use
-ssh, but you can contribute it. Instead we will summarize the most important steps:&lt;/p&gt;
+&lt;p&gt;We will not provide an extensive tutorial on how to use
+ssh, but you can contribute it. Instead, we will summarize the most important steps:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Create an ssh key if you have not done that before&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-keygen
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is &lt;strong&gt;VERY&lt;/strong&gt; important that you create the key with a strong passphrase.&lt;/p&gt;
-&lt;/li&gt;
+&lt;p&gt;&amp;ldquo;`bash
+$ ssh-keygen&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+It is **VERY** important that you create the key with a strong passphrase. 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Add an appreviation for rivanna to your &lt;code&gt;~/.ssh/config&lt;/code&gt; file&lt;/p&gt;
-&lt;p&gt;Use your favourite editor. Mine is &lt;code&gt;emacs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Add an abbreviation for Rivanna to your &lt;code&gt;~/.ssh/config&lt;/code&gt; file&lt;/p&gt;
+&lt;p&gt;Use your favorite editor. Mine is &lt;code&gt;emacs&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;emacs ~/.ssh/config&lt;/p&gt;
-&lt;p&gt;copy and pasthe the following into that file, where &lt;code&gt;abc1de&lt;/code&gt; is to be substituted by your
+&lt;p&gt;copy and paste the following into that file, where &lt;code&gt;abc1de&lt;/code&gt; is to be substituted by your
 UVA compute id.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;Host rivanna
   User abc1de
   HostName rivanna.hpc.virginia.edu 
   IdentityFile ~/.ssh/id_rsa.pub
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will allow you to use &lt;code&gt;rivanna&lt;/code&gt; instead of &lt;code&gt;abc1de@rivanna.hpc.virginia.edu&lt;/code&gt;.
-The next steps assume you have done this and can just use &lt;code&gt;rivanna&lt;/code&gt;&lt;/p&gt;
+The next steps assume you have done this and can use just &lt;code&gt;rivanna&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Copy your public key to rivanna&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-copi-id rivanna
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will copy your public key into the &lt;code&gt;rivanna:~/.ssh/authorized_keys&lt;/code&gt; file.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will copy your public key into the
+&lt;code&gt;rivanna:~/.ssh/authorized_keys&lt;/code&gt; file.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;After this step you can use your keys to authenticate. You still
-need to be using the VPN though.&lt;/p&gt;
-&lt;p&gt;The most convenient system for this are Mac and Ubuntu. as it
-already has a tool installed called ssh agent and keychain. In
+&lt;p&gt;After this step, you can use your keys to authenticate. You still
+need to be using the VPN, though.&lt;/p&gt;
+&lt;p&gt;The most convenient system for it is Mac and Ubuntu. It
+already has a tool installed called ssh-agent and keychain. In
 Windows under gitbash you need to start it with&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ &lt;span style=&#34;color:#204a87&#34;&gt;eval&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;ssh-agent&lt;span style=&#34;color:#4e9a06&#34;&gt;`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First you add the key to your session so you do not have to
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, you add the key to your session, so you do not have to
 constantly type in the password. Use the command&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-add
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to test if it works just say&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to test if it works, just say&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh rivanna hostanme
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;which will print the hostname of rivanna&lt;/p&gt;
-&lt;p&gt;In case your machine does not run ssh-agent, you can start it before you type in the ssh-add command with&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;which will print the hostname of Rivanna&lt;/p&gt;
+&lt;p&gt;In case your machine does not run ssh-agent, you can start it
+before you type in the ssh-add command with&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh rivanna hostanme
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If everything is set up correctly it will return  the string&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If everything is set up correctly, it will return  the string&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;udc-ba35-36
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;To login to Rivanna, simply say&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ssh rivanna
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this does not work you have made a mistake. Please, review the previous steps carefully.&lt;/p&gt;
-&lt;/li&gt;
+&lt;p&gt;&amp;ldquo;`bash
+ssh rivanna&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+If this does not work, you have made a mistake. Please, review the
+previous steps carefully.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;running-jobs-on-rivanna&#34;&gt;Running Jobs on Rivanna&lt;/h2&gt;
-&lt;p&gt;Jobs on Rivanna can be schedued through Slurm either as batch job or
-as interactive job.  In order to achieve this one needs to load the
+&lt;p&gt;Jobs on Rivanna can be scheduled through Slurm either as a batch job or
+as an interactive job. In order to achieve this, one needs to load the
 software first and create special scripts that are used to submit them
 to nodes that contain the GPUs you specify.&lt;/p&gt;
-&lt;p&gt;The user docmentation about this is provided here:&lt;/p&gt;
+&lt;p&gt;The user documentation about this is provided here:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/overview/#gpu-partition&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;However at the time when we looked at it it had some mistakes and
+&lt;p&gt;However, at the time when we looked at it, it had some mistakes and
 limitations that we hope to overcome here.&lt;/p&gt;
 &lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
 &lt;p&gt;Rivanna&amp;rsquo;s default mechanism of software configuration management is
@@ -539,16 +549,16 @@ done via
 &lt;a href=&#34;https://lmod.readthedocs.io/en/latest/index.html&#34;&gt;modules&lt;/a&gt;. The UVA
 modules documentation is provided through this
 &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/modules/&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Modules provide the ability to load a particlar software stack and
+&lt;p&gt;Modules provide the ability to load a particular software stack and
 configuration into your shell but also into your batch jobs. You can
-load multiple modules in your environment as to load them all.&lt;/p&gt;
-&lt;p&gt;To list the available modules log into rivann and use the command&lt;/p&gt;
+load multiple modules in your environment to load them in order.&lt;/p&gt;
+&lt;p&gt;To list the available modules, log into Rivanna and use the command&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To list aproximately the python modules use&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To list aproximately, the python modules use&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will return all modules that have py in it. Blease chose those that
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will return all modules that have py in it. Please chose those that
 look like python modules.&lt;/p&gt;
-&lt;p&gt;To probe for deep learnig modules, use  something similar to&lt;/p&gt;
+&lt;p&gt;To probe for deep learning modules, use  something similar to&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ module available cuda tensorflow pytorch mxnet nvidia cudnn
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;python&#34;&gt;Python&lt;/h3&gt;
 &lt;p&gt;Different versions of python are available.&lt;/p&gt;
@@ -562,83 +572,84 @@ $ python -V
 Python 3.10.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Please note that at this time anaconda did not support 3.10.2, which I
 run personally on my computer, but from python.org.&lt;/p&gt;
-&lt;h3 id=&#34;draft-not-working-python-modules&#34;&gt;Draft: not working Python Modules&lt;/h3&gt;
-&lt;p&gt;TODO: THis does not re&lt;/p&gt;
-&lt;p&gt;Rivanna has two channels of python software and their named modules&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Anaconda
-&lt;ul&gt;
-&lt;li&gt;anaconda/2019.10-py2.7&lt;/li&gt;
-&lt;li&gt;anaconda/2020.11-py3.8&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&#34;adding-modules-with-spider&#34;&gt;Adding Modules with Spider&lt;/h3&gt;
+&lt;p&gt;Details about modules can be identified with the &lt;code&gt;module spider&lt;/code&gt; command.
+If you type it in you get a list of many available configurations.
+Spider can take a keyword and lists all available version the keyword matches.
+Let us demonstrate it on&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ module spider python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;----------------------------------------------------------------------------
+  python:
+----------------------------------------------------------------------------
+    Description:
+      Python is a programming language that lets you work more effectively.
 
+     Versions:
+        python/2.7.16
+        python/3.6.6
+        python/3.6.8
+        python/3.7.7
+        python/3.8.8
+     Other possible modules matches:
+        biopython  openslide-python  wxpython
 
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;Note: gitbash on Windows&lt;/h4&gt;
+----------------------------------------------------------------------------
+  To find other possible module matches execute:
 
-    &lt;p&gt;Robert you refer to these, but i could not see the modules. How di you
-find them. I load python differently via conda&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CPython (&lt;code&gt;python&lt;/code&gt;)
-&lt;ul&gt;
-&lt;li&gt;2.7.16&lt;/li&gt;
-&lt;li&gt;3.6.6&lt;/li&gt;
-&lt;li&gt;3.6.8&lt;/li&gt;
-&lt;li&gt;3.7.7&lt;/li&gt;
-&lt;li&gt;3.8.8&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Pytorch (&lt;code&gt;pytorch&lt;/code&gt;)
-&lt;ul&gt;
-&lt;li&gt;1.8.1&lt;/li&gt;
-&lt;li&gt;1.10.0&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Tensorflow (&lt;code&gt;tensorflow&lt;/code&gt;)
-&lt;ul&gt;
-&lt;li&gt;1.12.0-py36&lt;/li&gt;
-&lt;li&gt;2.1.0-py37&lt;/li&gt;
-&lt;li&gt;2.4.1&lt;/li&gt;
-&lt;li&gt;2.7.0&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+      $ module -r spider &amp;#39;.*python.*&amp;#39;
 
+...
 
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For detailed information about a specific &amp;ldquo;python&amp;rdquo; package use the module&amp;rsquo;s full name.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ module spider python/3.8.8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will return a page with lots of information. The most important one for us is&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt; You will need to load all module(s) on any one of the lines below before the
+ &amp;#34;python/3.8.8&amp;#34; module is available to load.
 
-&lt;h3 id=&#34;containers&#34;&gt;Containers&lt;/h3&gt;
+      gcc/11.2.0  openmpi/3.1.6
+      gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6
+      gcc/9.2.0  mvapich2/2.3.3
+      gcc/9.2.0  openmpi/3.1.6
+      gcccuda/9.2.0_11.0.228  openmpi/3.1.6
+      goolfc/9.2.0_3.1.6_11.0.228
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here you see various options that need to be loaded in &lt;strong&gt;BEFORE&lt;/strong&gt; you load python.&lt;/p&gt;
+&lt;p&gt;Thus to properly load python 3.8.8 you need to say (if this is what you chose):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;module load gcc/11.2.0
+module load openmpi/3.1.6
+module spider python/3.8.8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;containers&#34;&gt;Containers&lt;/h3&gt;
 &lt;p&gt;Rivanna uses singularity as container technology. The documentation
 specific to singularity for Rivanna is avalable at this
 &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Singularity needs to be also loaded as a module befor it can be used.&lt;/p&gt;
-&lt;p&gt;Singularity containers have the ability to access &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images&#34;&gt;GPUs&lt;/a&gt; via a passthrough
-using NVidia drivers. Once you load singularity you can use it as follows:&lt;/p&gt;
+&lt;p&gt;Singularity containers have the ability to access
+&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/#running-gpu-images&#34;&gt;GPUs&lt;/a&gt;
+via a passthrough using NVidia drivers. Once you load singularity you
+can use it as follows:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;singularity &amp;lt;cmd&amp;gt; --nv &amp;lt;imagefile&amp;gt; &amp;lt;args&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The container will be used inside a job.&lt;/p&gt;
 &lt;h3 id=&#34;jobs&#34;&gt;Jobs&lt;/h3&gt;
-&lt;p&gt;More detail specific to jobs for rivanna is provided
+&lt;p&gt;More detail specific to jobs for Rivanna is provided
 &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/#gpu-intensive-computation&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Before we start an example we explain how we create a job first in a
-job description file and then submit it to rivanna. We use a simple
-MNIST example to showcase the aspects of successfully running a job on
-the machine. We will therefore focussing on creating jobs using GPUs.&lt;/p&gt;
+&lt;p&gt;Before we start an example, we explain how we create a job first in a
+job description file and then submit it to Rivanna. We use a simple
+MNIST example showcases the aspects of successfully running a job on
+the machine. We will therefore focus on creating jobs using GPUs.&lt;/p&gt;
 
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;New 8  A100 GPUs to be added&lt;/h4&gt;
 
-    &lt;p&gt;Rivanna will have 8 nodes available to us, but they are not yet in service.&lt;/p&gt;
-&lt;p&gt;Instead we will be using the two existing nodes which are shared with other users.&lt;/p&gt;
+    &lt;p&gt;Rivanna will have eight nodes available to us, but they are not yet in service.&lt;/p&gt;
+&lt;p&gt;Instead, we will be using the two existing nodes shared with other users.&lt;/p&gt;
 
 
 &lt;/div&gt;
 
 &lt;p&gt;Rivanna uses the SLURM job scheduler for allocating submitted jobs.
-Jobs are charged SUs from an allocation.  The Rivanna compute
-allocation. Please contact your supervisor for the name of the allocation. Gregors allocation is named&lt;/p&gt;
+Jobs are charged SUs from an allocation. The Rivanna compute
+allocation. Please contact your supervisor for the name of the allocation. Gregor&amp;rsquo;s allocation is named&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;bii_dsc&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -647,26 +658,26 @@ class will have the following allocation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;TBD&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;To see the avalable SUs for your project, please use the command&lt;/p&gt;
+&lt;p&gt;To see the available SUs for your project, please use the command&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;TBD&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;SUs can be requested via the &lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/allocations/&#34;&gt;Standard Allocation Renewal
 form&lt;/a&gt;. Due
-to the limitation we encourage you to plan things ahead and try to
+to the limitation, we encourage you to plan things and try to
 avoid unnecessary runs. General instructions for submitting SLURM jobs
 is located at&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;To request the job be submitted to the gpu partition, you use the option&lt;/p&gt;
+&lt;p&gt;To request the job be submitted to the GPU partition, you use the option&lt;/p&gt;
 &lt;p&gt;`-p gpu&#39;&lt;/p&gt;
 &lt;p&gt;The A100 GPUs are a requestable resource. To request them, you would
 add the gres option with the number of A100 GPUs requested (1 through
-8 GPUs), for example to request 2 A100 GPUs,&lt;/p&gt;
+8 GPUs), for example, to request 2 A100 GPUs,&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;--gres=gpu:a100:2&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;If you are using a SLURM script to submit the job the options
-would appear as follows.  Your script will need to specify other
+would appear as follows. Your script will need to specify other
 options such as the allocation to charge as seen in the sample scripts
 shown in the above URL:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;#SBATCH -p gpu
@@ -674,7 +685,7 @@ shown in the above URL:&lt;/p&gt;
 #SBATCH -A bii_dsc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;interactive-jobs&#34;&gt;Interactive Jobs&lt;/h3&gt;
 &lt;p&gt;Please avoid running interactive jobs as they may waste
-SUs and we are charged by you keeing the A100 idle.&lt;/p&gt;
+SUs, and we are charged by you keeping the A100 idle.&lt;/p&gt;
 &lt;p&gt;Although Research Computing also offers some interactive apps such as
 JupyterLab, RStudio, CodeServer, Blender, Mathematica via our Open
 OnDemand portal at:&lt;/p&gt;
@@ -683,33 +694,32 @@ OnDemand portal at:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;we ask you to avoid using them for benchmarks.&lt;/p&gt;
 &lt;p&gt;To request the use of the A100s via Open OnDemand, first log in to the
-Open OnDemand portal, select the desired interactive app.  You will be
-presented with a form to complete.  Currently, you would&lt;/p&gt;
+Open the OnDemand portal select the desired interactive app. You will be
+presented with a form to complete. Currently, you would&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;select &lt;code&gt;gpu&lt;/code&gt; for Rivanna partition,&lt;/li&gt;
 &lt;li&gt;select &lt;code&gt;NVIDIA A100&lt;/code&gt; from the &lt;code&gt;Optional: GPU type for GPU partition&lt;/code&gt;
 pulldown menu and enter the number of desired GPUs from the
-&lt;code&gt;Optional: Number of GPUs&lt;/code&gt;.  Once you’ve completed the form, click
-the &lt;code&gt;Launch&lt;/code&gt; button and your session will be launched.  The session
+&lt;code&gt;Optional: Number of GPUs&lt;/code&gt;. Once you&amp;rsquo;ve completed the form, click
+the &lt;code&gt;Launch&lt;/code&gt; button and your session will be launched. The session
 will start once the resources are available.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;using-the-mnist-example&#34;&gt;Using the MNIST example&lt;/h3&gt;
-&lt;p&gt;The MNIST example will at one point ove here as desirable by the
-MLCommons Working group as we want to execute them on other systems.&lt;/p&gt;
-&lt;p&gt;For now the code is located at:&lt;/p&gt;
+&lt;p&gt;For now, the code is located at:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Data-ScienceHub/mlcommons-science/tree/main/code/mnist-tensorflow&#34;&gt;https://github.com/Data-ScienceHub/mlcommons-science/tree/main/code/mnist-tensorflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/laszewsk/mlcommons/tree/main/examples/mnist-tensorflow&#34;&gt;https://github.com/laszewsk/mlcommons/tree/main/examples/mnist-tensorflow&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;A sample slurm job specification is included at&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/mnist-tensorflow/mnist-rivanna-a100.slurm&#34;&gt;https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/mnist-tensorflow/mnist-rivanna-a100.slurm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/laszewsk/mlcommons/blob/main/examples/mnist-tensorflow/mnist-rivanna-a100.slurm&#34;&gt;https://github.com/laszewsk/mlcommons/blob/main/examples/mnist-tensorflow/mnist-rivanna-a100.slurm&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To run it use the command&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sbatch mnist-rivanna-a100.slurm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;NOTE: We wantto improve the script to make sure its running on a GPU and add GPU placement commands into the code.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;NOTE: We want to improve the script to make sure it is running on a
+GPU and add GPU placement commands into the code.&lt;/p&gt;
 &lt;h3 id=&#34;custom-version-of-tensorflow&#34;&gt;Custom Version of TensorFlow&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/tensorflow/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/tensorflow/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;keras-on-rifanna&#34;&gt;Keras on Rifanna&lt;/h3&gt;
+&lt;h3 id=&#34;keras-on-rivanna&#34;&gt;Keras on Rivanna&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
