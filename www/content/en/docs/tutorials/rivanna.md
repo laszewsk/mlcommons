@@ -318,6 +318,20 @@ module load openmpi/3.1.6
 module spider python/3.8.8
 ```
 
+#### Modules for tensorflow
+
+```
+module load singularity/3.7.1
+module load tensorflow/2.7.0
+```
+
+#### Modules for pytorch
+
+```
+module load singularity/3.7.1
+module lod pytorch/1.10.0
+```
+
 
 ### Containers
 
