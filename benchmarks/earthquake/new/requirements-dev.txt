@@ -1,0 +1,12 @@
+-r requirements.txt
+flake8
+jupyterlab
+mdformat
+mlcube-singularity
+mypy
+nbqa
+papermill
+prospector
+pydocstyle
+pylint
+pyupgrade

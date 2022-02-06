@@ -1,5 +1,12 @@
-jupyterlab
-matplotlib
+#-e .
 cloudmesh-common
+#horovod
+keras
+matplotlib
+numpy
+pandas
+psutil
+scipy
+tensorflow
+tensorflow_datasets
 tqdm
-
