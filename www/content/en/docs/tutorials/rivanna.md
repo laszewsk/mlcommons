@@ -284,14 +284,8 @@ $ module spider python
         python/3.8.8
      Other possible modules matches:
         biopython  openslide-python  wxpython
-
 ----------------------------------------------------------------------------
-  To find other possible module matches execute:
-
-      $ module -r spider '.*python.*'
-
 ...
-
 ```
 
 For detailed information about a specific "python" package use the module's full name.
@@ -312,8 +306,7 @@ This will return a page with lots of information. The most important one for us 
       gcc/9.2.0  openmpi/3.1.6
       gcccuda/9.2.0_11.0.228  openmpi/3.1.6
       goolfc/9.2.0_3.1.6_11.0.228
- 
-```
+ ```
 
 Here you see various options that need to be loaded in **BEFORE** you load python.
 

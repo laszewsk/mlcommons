@@ -593,14 +593,8 @@ Let us demonstrate it on&lt;/p&gt;
         python/3.8.8
      Other possible modules matches:
         biopython  openslide-python  wxpython
-
 ----------------------------------------------------------------------------
-  To find other possible module matches execute:
-
-      $ module -r spider &amp;#39;.*python.*&amp;#39;
-
 ...
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For detailed information about a specific &amp;ldquo;python&amp;rdquo; package use the module&amp;rsquo;s full name.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ module spider python/3.8.8
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will return a page with lots of information. The most important one for us is&lt;/p&gt;
