@@ -376,14 +376,14 @@ allocation. Please contact your supervisor for the name of the allocation. Grego
 
 * `bii_dsc`
 
-and it currently contains 100,000 SUs.  Students from the UVA capstone
+and it currently contains 100k SUs.  Students from the UVA capstone
 class will have the following allocation:
 
 * `ds6011-sp22-002`
 
 To see the available SUs for your project, please use the command
 
-* `TBD`
+* `400K`
 
 SUs can be requested via the [Standard Allocation Renewal
 form](https://www.rc.virginia.edu/userinfo/rivanna/allocations/). Due

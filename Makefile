@@ -10,3 +10,6 @@ serve:
 
 view:
 	gopen http://localhost:1313
+
+emacs:
+	emacs www/content/en
