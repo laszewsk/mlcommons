@@ -379,7 +379,7 @@ allocation. Please contact your supervisor for the name of the allocation. Grego
 and it currently contains 100,000 SUs.  Students from the UVA capstone
 class will have the following allocation:
 
-* `TBD`
+* `ds6011-sp22-002`
 
 To see the available SUs for your project, please use the command
 
