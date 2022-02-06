@@ -10,7 +10,7 @@ To run this code, you have two pathways:
 To run this code using pip, execute
 
 ```bash
-python -m venv --name mlcommons-science venv
+python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -rrequirements.txt
 jupytext --to py:percent FFFFWNPFEARTHQ_newTFTv29.ipynb
