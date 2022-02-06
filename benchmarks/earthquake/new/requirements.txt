@@ -1,0 +1,5 @@
+jupyterlab
+matplotlib
+cloudmesh-common
+tqdm
+
