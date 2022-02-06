@@ -425,7 +425,7 @@ is located at&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/slurm/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To request the job be submitted to the GPU partition, you use the option&lt;/p&gt;
-&lt;p&gt;`-p gpu&#39;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;-p gpu&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;The A100 GPUs are a requestable resource. To request them, you would
 add the gres option with the number of A100 GPUs requested (1 through
 8 GPUs), for example, to request 2 A100 GPUs,&lt;/p&gt;

@@ -388,7 +388,7 @@ is located at
 
 To request the job be submitted to the GPU partition, you use the option
 
-`-p gpu'
+`-p gpu`
 
 The A100 GPUs are a requestable resource. To request them, you would
 add the gres option with the number of A100 GPUs requested (1 through

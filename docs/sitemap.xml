@@ -3,48 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/mlcommons/docs/overview/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/benchmarks/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/benchmarks/candle-uno/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/benchmarks/cloudmask/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/benchmarks/earthquake/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/tutorials/rivanna/</loc>
-    <lastmod>2022-02-05T23:34:23-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/policy/</loc>
-    <lastmod>2022-02-04T17:43:04-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/benchmarks/stemdl/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/respondents/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/tutorials/</loc>
-    <lastmod>2022-02-04T17:33:00-05:00</lastmod>
+    <lastmod>2017-01-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/docs/</loc>
-    <lastmod>2022-02-05T23:34:23-05:00</lastmod>
-  </url><url>
-    <loc>/mlcommons/about/</loc>
-    <lastmod>2022-02-05T23:34:23-05:00</lastmod>
-  </url><url>
-    <loc>/mlcommons/community/</loc>
-    <lastmod>2022-02-04T13:07:27-05:00</lastmod>
-  </url><url>
-    <loc>/mlcommons/search/</loc>
-    <lastmod>2022-02-04T13:07:27-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/mlcommons/</loc>
-    <lastmod>2022-02-04T14:24:47-05:00</lastmod>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/mlcommons/about/</loc>
+  </url><url>
+    <loc>/mlcommons/community/</loc>
+  </url><url>
+    <loc>/mlcommons/search/</loc>
   </url>
 </urlset>
