@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+	},
+	"extensions": {
+		"recommendations": [
+			"DavidAnson.vscode-markdownlint",
+			"Gruntfuggly.todo-tree",
+			"ms-python.python",
+			"ms-azuretools.vscode-docker",
+			"onnovalkering.vscode-singularity",
+			"redhat.vscode-yaml"
+		]
+	}
+}
