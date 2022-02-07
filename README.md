@@ -4,7 +4,7 @@
 * Meeting Notes:
 * Summary   
 
-
+## Contributors
 
 https://github.com/laszewsk
 https://github.com/juripapay
