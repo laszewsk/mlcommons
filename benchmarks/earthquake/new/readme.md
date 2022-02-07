@@ -43,3 +43,14 @@ conda activate mlcommons-science
 python -m pip install -rrequirements-dev.txt
 jupyter lab .
 ```
+
+## Building the container image
+
+To build a container image of the entire benchmarking system (but not run the benchmark), you can run the commands
+
+```bash
+# If running docker
+$ docker image build --tag mlcommons-science-earthquake:latest
+# If running nerdctl
+$ nerdctl image build --tag mlcommons-science-earthquake:latest
+```

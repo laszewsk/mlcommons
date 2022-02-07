@@ -16,4 +16,4 @@ tensorflow>=2.6.0,<2.7.0
 tensorflow_datasets>=4.0.1
 tqdm>=4.62.3,<4.63.0
 watermark>=2.3.0,<2.4.0
-wheel
+wheel ; sys_platform == 'win32'

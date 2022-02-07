@@ -19,7 +19,7 @@ dependencies:
   - jupyterlab
   - conda-forge::watermark>=2.3.0,<2.4.0
   - py-cpuinfo>=8.0.0,<8.1.0
-  - tabulate>0.8.9,<0.9.0
+  - tabulate>=0.8.9,<0.9.0
   - conda-forge::gputil>=1.4.0,<1.5.0
   - conda-forge::jupytext>=1.13.6,<1.14.0
   - pip:
