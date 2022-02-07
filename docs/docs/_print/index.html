@@ -243,7 +243,31 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>5.1: <a href="#pg-aa80a40bdc6508d5c896268d8aa91cba">Running GPU Batch jobs on Rivanna</a></li>
+<li>5.1: <a href="#pg-180427a0d933163f8943079056f23922">Running MLCube Rivanna</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.2: <a href="#pg-a7e0b3b1295cf54f6b39f34b66b501b8">Installing Singularity on Windows Workstations</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.3: <a href="#pg-aa80a40bdc6508d5c896268d8aa91cba">Running GPU Batch jobs on Rivanna</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.4: <a href="#pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">Installing nvcc on Uuntu 20.04</a></li>
 
 
     
@@ -1505,7 +1529,135 @@ mechanism.</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-aa80a40bdc6508d5c896268d8aa91cba">5.1 - Running GPU Batch jobs on Rivanna</h1>
+	<h1 id="pg-180427a0d933163f8943079056f23922">5.1 - Running MLCube Rivanna</h1>
+    <div class="lead">A gentle introduction to running MLCube on Rivanna</div>
+	
+
+<div class="pageinfo pageinfo-primary">
+<p>In this guide, we introduce MLCube and demonstrate how to run workloads on Rivanna using the Singularity backend.</p>
+
+</div>
+
+<p>Running models consistently across platforms requires users to have commanding knowledge of the configuration of not only the source code, but also of the hardware ecosystem.
+It&rsquo;s not uncommon that you&rsquo;ll encounter a project where configuring your system to get reproducible results is error prone and time consuming, and ultimately not productive to the analyst.</p>
+<p>MLCube(tm) is a contract-driven approach to address system configuration details and establishes a standard for generating consistent models and a mechanism for delivering these models to others, allowing others to benefit from having a solved environment.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>First you need to install a runner for MLCube.
+The MLCube supports many backend runners and should run on each of them equally.</p>
+<p>For this walkthrough, we will target the Rivanna HPC ecosystem, so we&rsquo;ll leverage the lmod and singularity ecosystems.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic"># If using pyenv</span>
+pyenv install 3.9.7
+pyenv global 3.9.7
+python -m venv --prompt mlcube venv
+<span style="color:#204a87">source</span> venv/bin/activate
+python -m pip install mlcube-singularity
+
+<span style="color:#8f5902;font-style:italic"># If using Conda</span>
+conda create -n mlcube -c conda-forge <span style="color:#000">python</span><span style="color:#ce5c00;font-weight:bold">=</span>3.9.7
+conda activate mlcube
+<span style="color:#8f5902;font-style:italic"># We use pip as conda does not have an mlcube repository</span>
+python -m pip install mlcube-singularity
+</code></pre></div><p>Note that the <code>mlcube-singularity</code> package can and should be installed within your target environment.</p>
+<p>Once you have run the above commands, you will now have the MLCube script available on your path and you can now list what runners mlcube has registered with</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mlcube config --get runners
+<span style="color:#8f5902;font-style:italic"># System settings file path = /home/&lt;username&gt;/mlcube.yaml</span>
+<span style="color:#8f5902;font-style:italic"># singularity:</span>
+<span style="color:#8f5902;font-style:italic">#   pkg: mlcube_singularity</span>
+</code></pre></div><p>At this point you can run through any of the example projects that the mlcube project hosts at <a href="https://github.com/mlcommons/mlcube_examples.git">https://github.com/mlcommons/mlcube_examples.git</a>.</p>
+<p>Below is a set of procedures to run their hello world project.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/mlcommons/mlcube_examples.git <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#204a87">cd</span> ./mlcube_examples/hello_world
+
+mlcube run --mlcube<span style="color:#ce5c00;font-weight:bold">=</span>. --task<span style="color:#ce5c00;font-weight:bold">=</span>hello --platform<span style="color:#ce5c00;font-weight:bold">=</span>singularity   <span style="color:#8f5902;font-style:italic"># No output expected.</span>
+mlcube run --mlcube<span style="color:#ce5c00;font-weight:bold">=</span>. --task<span style="color:#ce5c00;font-weight:bold">=</span>bye --platform<span style="color:#ce5c00;font-weight:bold">=</span>singularity     <span style="color:#8f5902;font-style:italic"># No output expected.</span>
+cat ./workspace/chats/chat_with_alice.txt              <span style="color:#8f5902;font-style:italic"># You should some log lines in this file.</span>
+</code></pre></div><h2 id="nontrivial-example---earthquake-data">Nontrivial example - Earthquake Data</h2>
+
+
+<div class="alert alert-information" role="alert">
+<h4 class="alert-heading">Help wanted</h4>
+
+    We are looking to convert our earthquake model into an MLCube container.
+
+</div>
+
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-a7e0b3b1295cf54f6b39f34b66b501b8">5.2 - Installing Singularity on Windows Workstations</h1>
+    <div class="lead">A procedure to get singularity running on WSL2</div>
+	<p>Singularity is a container-based runtime engine designed to run in permission constrained environments.
+Singularity provides similar functions to systems like Docker, Containerd, and Podman, and provides an ecosystem to share a computer&rsquo;s kernel and drivers and provide a filesystem based on overlaying files.
+These overlays create a type of partitioned software that that can create isolated execution on the host as a type of &ldquo;container&rdquo;.</p>
+<p>However, Singularity differs from typical container runtime engine, most notably:</p>
+<ol>
+<li>Singularity was designed to be run as a normal, non-root user and does not depend on a daemon.</li>
+<li>Singularity does not natively support OCI images (the typical container image format target), and uses its own SIF format; but OCI images can be imported.</li>
+<li>Singularity container images are distributed as files.</li>
+<li>Singularity was designed to create a container platform that works from laptops to HPC clusters.</li>
+</ol>
+<h2 id="windows-only-setup-on-window-subsystem-for-linux">(Windows Only) Setup on Window Subsystem for Linux</h2>
+<p>While not the normal place to install singularity, it is useful to have the ability to run commands from a local machine to validate command structure and workflows.
+Singularity does not run natively on windows, but with Windows 10 Professional, you can build Singularity using a WSL2 distribution and provide the ability to run the commands on your workstation.</p>
+<h3 id="enabling-wsl2">Enabling WSL2</h3>
+<p>To enable WSL2, follow microsoft&rsquo;s instructions</p>
+<ul>
+<li>Windows 10/11 - <a href="https://docs.microsoft.com/en-us/windows/wsl/install">https://docs.microsoft.com/en-us/windows/wsl/install</a></li>
+<li>Windows 10 older than 2004 - <a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">https://docs.microsoft.com/en-us/windows/wsl/install-manual</a></li>
+</ul>
+<p>Any version of linux will work with Singularity, but we recommend using Ubuntu.</p>
+<h2 id="building-singularity">Building Singularity</h2>
+<p>This process has been automated in <code>./tools/install-singularity-wsl2.bash</code> if you&rsquo;re running Ubuntu.
+However, the general flow of the instruction is:</p>
+<ol>
+<li>Install the singularity code dependencies (gcc, libssl, gpgme, squashfs, seccomp, wget, pkg-config, git, and cryptsetup)</li>
+<li>Install a modern version of golang.</li>
+<li>Download the Singularity source code from <a href="https://github.com/apptainer/singularity.git">https://github.com/apptainer/singularity.git</a></li>
+<li>Run <code>./mconfig</code> from the singularity codebase</li>
+<li>Run <code>make &amp;&amp; make install</code> from the <code>./builddir</code> directory.</li>
+</ol>
+<p>These procedures are more thoroughly covered in the apptainer website at: <a href="https://apptainer.org/docs/user/main/quick_start.html#quick-installation-steps">https://apptainer.org/docs/user/main/quick_start.html#quick-installation-steps</a></p>
+<h3 id="run-your-first-singularity-container">Run your first singularity container</h3>
+<p>Once the build has completed, you should be able to run the <code>singularity</code> command.
+Try to run</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ singularity run docker://godlovedc/lolcow
+</code></pre></div><p>If this command was successful you should see something similar to the following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"> _____________________________________
+/ You recoil from the crude; you tend \
+\ naturally toward the exquisite.     /
+ -------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-aa80a40bdc6508d5c896268d8aa91cba">5.3 - Running GPU Batch jobs on Rivanna</h1>
     <div class="lead">A short introduction on how to run GPU Jobs on Rivanna</div>
 	
 
@@ -1897,7 +2049,8 @@ class will have the following allocation:</p>
 </ul>
 <p>To see the available SUs for your project, please use the command</p>
 <ul>
-<li><code>400K</code></li>
+<li><code>allocations</code></li>
+<li><code>allocations -a &lt;allocation_name&gt;</code></li>
 </ul>
 <p>SUs can be requested via the <a href="https://www.rc.virginia.edu/userinfo/rivanna/allocations/">Standard Allocation Renewal
 form</a>. Due
@@ -1961,6 +2114,53 @@ GPU and add GPU placement commands into the code.</p>
 <li><a href="https://www.rc.virginia.edu/userinfo/rivanna/software/keras/">https://www.rc.virginia.edu/userinfo/rivanna/software/keras/</a></li>
 </ul>
 
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">5.4 - Installing nvcc on Uuntu 20.04</h1>
+    <div class="lead">A description on how to install nvcc in cuda</div>
+	
+
+<div class="pageinfo pageinfo-primary">
+<p>A description on how to install nvcc in cuda</p>
+
+</div>
+
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Requirements</h4>
+
+    Draft
+
+</div>
+
+<h2 id="instalation">Instalation</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+$ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+$ sudo add-apt-repository <span style="color:#4e9a06">&#34;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /&#34;</span>
+$ sudo apt update
+$ sudo apt install cuda
+</code></pre></div><p>Add it to your path</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc
+</code></pre></div><p>Check CUDA version:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ nvcc --version
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2019 NVIDIA Corporation
+Built on Wed_Oct_23_19:24:38_PDT_2019
+Cuda compilation tools, release 10.2, V10.2.89
+</code></pre></div>
 </div>
 
 
