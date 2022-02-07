@@ -383,7 +383,8 @@ class will have the following allocation:
 
 To see the available SUs for your project, please use the command
 
-* `400K`
+* `allocations`
+* `allocations -a <allocation_name>`
 
 SUs can be requested via the [Standard Allocation Renewal
 form](https://www.rc.virginia.edu/userinfo/rivanna/allocations/). Due
