@@ -4,10 +4,10 @@
 * Meeting Notes:
 * Summary   
 
+## Contributors
 
-
-https://github.com/laszewsk
-https://github.com/juripapay
+Gregor von Laszewski, laszewski@gmil.com https://github.com/laszewsk
+Juri https://github.com/juripapay
 
 
 ## Install locally the web 
