@@ -1,6 +1,7 @@
 -r requirements.txt
 flake8
 jupyterlab
+jupytext
 mdformat
 mlcube-singularity
 mypy
