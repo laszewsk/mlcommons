@@ -31,7 +31,13 @@ COPY --from=builder /usr/local/singularity /usr/local/singularity
 ENV PATH="/usr/local/singularity/bin:$PATH" \
     SINGULARITY_TMPDIR="/tmp-singularity"
 RUN apt-get update && apt-get install ca-certificates libseccomp2 squashfs-tools tzdata \
-    && mkdir -p $SINGULARITY_TMPDIR \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* && \
+    useradd appuser
+
+USER appuser
+
+RUN mkdir -p /work && \
+    mkdir -p $SINGULARITY_TMPDIR
+
 WORKDIR /work
 ENTRYPOINT ["/usr/local/singularity/bin/singularity"]
