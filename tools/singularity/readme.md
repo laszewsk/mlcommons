@@ -8,7 +8,7 @@ If you wish to run singularity as a container image instead of installing it dir
 docker build -t singularity:latest .
 
 # If using nerdctl
-nerdctl image build --tag singularity .
+nerdctl image build --tag singularity:latest .
 ```
 
 To run singularity from this, you can pass command line arguments as you normally would for the singularity CLI.
