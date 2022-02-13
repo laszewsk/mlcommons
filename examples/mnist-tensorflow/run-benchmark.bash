@@ -110,6 +110,13 @@ mk_from_source() {
                                     libncursesw5-dev \
                                     xz-utils \
                                     tk-dev
+        elif [ "x$ID" == "xcentos" ] || [ x"$ID" == "xrhel" ]; then
+            sudo yum -y install wget yum-utils
+            sudo yum -y groupinstall "Development Tools"
+            sudo yum -y install gcc \
+                                openssl-devel \
+                                bzip2-devel \
+                                libffi-devel
         fi
 
         (cd /tmp/Python-${PYTHON_VERSION} && \
