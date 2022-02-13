@@ -191,10 +191,12 @@ while getopts "u:c:sh" argument ; do
            fi
         ;;
         c) read -n 1 -p "CAUTION this step is experemental, do you want to continue? [y/n] " proceed
-           if [ "x$Proceed" == "y" ] && [ "x$OS" == "xWindows_NT" ] ; then
-            cudnn_mk_windows ${OPTARG}
-           else
-            cudnn_linux ${OPTARG}
+           if [ "x$Proceed" == "y" ]; then
+              if [ "x$OS" == "xWindows_NT" ] ; then
+                 cudnn_mk_windows ${OPTARG}
+              else
+                 cudnn_linux ${OPTARG}
+              fi
            fi
         ;;
         h) usage
