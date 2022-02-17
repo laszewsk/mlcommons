@@ -1,6 +1,6 @@
 ---
-title: "Installing nvcc on Uuntu 20.04"
-linkTitle: "Install nvcc"
+title: "Installing tensorflow on Windows 10"
+linkTitle: "Install tensorflow on Windows"
 author: Grgeor von Laszewski
 date: 2017-01-05
 weight: 4
