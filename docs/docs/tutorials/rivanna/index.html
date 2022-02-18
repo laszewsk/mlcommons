@@ -33,7 +33,7 @@
 <meta itemprop="description" content="A short introduction on how to run GPU Jobs on Rivanna
 "><meta itemprop="datePublished" content="2017-01-05T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-01-05T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1758">
+<meta itemprop="wordCount" content="1757">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Running GPU Batch jobs on Rivanna"/>
 <meta name="twitter:description" content="A short introduction on how to run GPU Jobs on Rivanna
@@ -145,7 +145,9 @@
   <a href="/mlcommons/docs/tutorials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-mlcommonsdocstutorials"><span class="">Tutorials</span></a>
   <ul class="ul-2 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-mlcommonsdocstutorialsintroduction-to-mlcube-li">
-  <a href="/mlcommons/docs/tutorials/introduction-to-mlcube/" title="Running MLCube Rivanna" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialsintroduction-to-mlcube"><span class="">MLCube@Rivanna</span></a>
+  <a href="/mlcommons/docs/tutorials/introduction-to-mlcube/" title="Running MLCube on Rivanna" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialsintroduction-to-mlcube"><span class="">MLCube@Rivanna</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-mlcommonsdocstutorialssingularity-li">
+  <a href="/mlcommons/docs/tutorials/singularity/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialssingularity"><span class="">Singularity Collection</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-mlcommonsdocstutorialsintroduction-to-singularity-li">
   <a href="/mlcommons/docs/tutorials/introduction-to-singularity/" title="Installing Singularity on Windows Workstations" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialsintroduction-to-singularity"><span class="">Singularity@everywhere</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-mlcommonsdocstutorialsrivanna-li">
@@ -470,12 +472,9 @@ ssh, but you can contribute it. Instead, we will summarize the most important st
 <ol>
 <li>
 <p>Create an ssh key if you have not done that before</p>
-<p>&ldquo;`bash
-$ ssh-keygen</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">
-It is **VERY** important that you create the key with a strong passphrase. 
-
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-keygen
+</code></pre></div><p>It is <strong>VERY</strong> important that you create the key with a strong passphrase.</p>
+</li>
 <li>
 <p>Add an abbreviation for Rivanna to your <code>~/.ssh/config</code> file</p>
 <p>Use your favorite editor. Mine is <code>emacs</code></p>

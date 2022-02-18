@@ -18,6 +18,11 @@ serve:
 	$(call banner, "SERVE")
 	cd www; hugo --config=config-local.toml serve
 
+e: edit
+
+edit:
+	emacs www/content/en/docs/ &
+
 view:
 	$(call banner, "VIEW")
 	gopen http://localhost:1313

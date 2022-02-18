@@ -15,7 +15,7 @@
     
     
     <item>
-      <title>Docs: Running MLCube Rivanna</title>
+      <title>Docs: Running MLCube on Rivanna</title>
       <link>/mlcommons/docs/tutorials/introduction-to-mlcube/</link>
       <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -26,42 +26,65 @@
         
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
-&lt;p&gt;In this guide, we introduce MLCube and demonstrate how to run workloads on Rivanna using the Singularity backend.&lt;/p&gt;
+&lt;p&gt;In this guide, we introduce MLCube and demonstrate how to run
+workloads on Rivanna using the Singularity backend.&lt;/p&gt;
 
 &lt;/div&gt;
 
-&lt;p&gt;Running models consistently across platforms requires users to have commanding knowledge of the configuration of not only the source code, but also of the hardware ecosystem.
-It&amp;rsquo;s not uncommon that you&amp;rsquo;ll encounter a project where configuring your system to get reproducible results is error prone and time consuming, and ultimately not productive to the analyst.&lt;/p&gt;
-&lt;p&gt;MLCube(tm) is a contract-driven approach to address system configuration details and establishes a standard for generating consistent models and a mechanism for delivering these models to others, allowing others to benefit from having a solved environment.&lt;/p&gt;
+&lt;p&gt;Running models consistently across platforms requires users to have
+commanding knowledge of the configuration of not only the source code,
+but also of the hardware ecosystem.  It&amp;rsquo;s not uncommon that you&amp;rsquo;ll
+encounter a project where configuring your system to get reproducible
+results is error prone and time consuming, and ultimately not
+productive to the analyst.&lt;/p&gt;
+&lt;p&gt;MLCube(tm) is a contract-driven approach to address system
+configuration details and establishes a standard for generating
+consistent models and a mechanism for delivering these models to
+others, allowing others to benefit from having a solved environment.&lt;/p&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;
-&lt;p&gt;First you need to install a runner for MLCube.
-The MLCube supports many backend runners and should run on each of them equally.&lt;/p&gt;
-&lt;p&gt;For this walkthrough, we will target the Rivanna HPC ecosystem, so we&amp;rsquo;ll leverage the lmod and singularity ecosystems.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# If using pyenv&lt;/span&gt;
-pyenv install 3.9.7
+&lt;p&gt;First you need to install a runner for MLCube.  The MLCube supports
+many backend runners and should run on each of them equally.&lt;/p&gt;
+&lt;p&gt;For this walkthrough, we will target the Rivanna HPC ecosystem, so
+we&amp;rsquo;ll leverage the lmod and singularity ecosystems.&lt;/p&gt;
+&lt;h2 id=&#34;python-install&#34;&gt;Python install&lt;/h2&gt;
+&lt;p&gt;We have two
+choices to install python. One is with pyenv, the other is with conda.&lt;/p&gt;
+&lt;p&gt;If you decide to install it with pyenv, use the following steps&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pyenv install 3.9.7
 pyenv global 3.9.7
 python -m venv --prompt mlcube venv
 &lt;span style=&#34;color:#204a87&#34;&gt;source&lt;/span&gt; venv/bin/activate
 python -m pip install mlcube-singularity
-
-&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# If using Conda&lt;/span&gt;
-conda create -n mlcube -c conda-forge &lt;span style=&#34;color:#000&#34;&gt;python&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;3.9.7
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you decide to install it with conda, use the following steps&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;conda create -n mlcube -c conda-forge python=3.9.7
 conda activate mlcube
-&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# We use pip as conda does not have an mlcube repository&lt;/span&gt;
+# We use pip as conda does not have an mlcube repository
 python -m pip install mlcube-singularity
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that the &lt;code&gt;mlcube-singularity&lt;/code&gt; package can and should be installed within your target environment.&lt;/p&gt;
-&lt;p&gt;Once you have run the above commands, you will now have the MLCube script available on your path and you can now list what runners mlcube has registered with&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note that the &lt;code&gt;mlcube-singularity&lt;/code&gt; package can and should be installed
+within your target environment.&lt;/p&gt;
+&lt;h2 id=&#34;using-mlcube&#34;&gt;Using MLCube&lt;/h2&gt;
+&lt;p&gt;Once you have run the above commands, you will now have the MLCube
+script available on your path and you can now list what runners mlcube
+has registered with&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ mlcube config --get runners
 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# System settings file path = /home/&amp;lt;username&amp;gt;/mlcube.yaml&lt;/span&gt;
 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# singularity:&lt;/span&gt;
 &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#   pkg: mlcube_singularity&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;At this point you can run through any of the example projects that the mlcube project hosts at &lt;a href=&#34;https://github.com/mlcommons/mlcube_examples.git&#34;&gt;https://github.com/mlcommons/mlcube_examples.git&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;At this point you can run through any of the example projects that the
+mlcube project hosts at
+&lt;a href=&#34;https://github.com/mlcommons/mlcube_examples.git&#34;&gt;https://github.com/mlcommons/mlcube_examples.git&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Below is a set of procedures to run their hello world project.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone https://github.com/mlcommons/mlcube_examples.git &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; ./mlcube_examples/hello_world
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone https://github.com/mlcommons/mlcube_examples.git
+&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; ./mlcube_examples/hello_world
 
-mlcube run --mlcube&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;. --task&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;hello --platform&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;singularity   &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# No output expected.&lt;/span&gt;
-mlcube run --mlcube&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;. --task&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;bye --platform&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;singularity     &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# No output expected.&lt;/span&gt;
-cat ./workspace/chats/chat_with_alice.txt              &lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# You should some log lines in this file.&lt;/span&gt;
+mlcube run --mlcube&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;. --task&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;hello --platform&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;singularity
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# No output expected.&lt;/span&gt;
+
+mlcube run --mlcube&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;. --task&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;bye --platform&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;singularity
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# No output expected.&lt;/span&gt;
+
+cat ./workspace/chats/chat_with_alice.txt
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# You should some log lines in this file.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nontrivial-example---earthquake-data&#34;&gt;Nontrivial example - Earthquake Data&lt;/h2&gt;
 
 
@@ -72,6 +95,64 @@ cat ./workspace/chats/chat_with_alice.txt              &lt;span style=&#34;color
 
 &lt;/div&gt;
 
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Singularity Collection</title>
+      <link>/mlcommons/docs/tutorials/singularity/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/mlcommons/docs/tutorials/singularity/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;A collection of information about Singularity&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;user-guides&#34;&gt;User Guides&lt;/h2&gt;
+&lt;p&gt;Add gregors info&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://sylabs.io/guides/2.6/user-guide/index.html&#34;&gt;User Manual&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://frontera-portal.tacc.utexas.edu/user-guide/containers/&#34;&gt;Frontera&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://frontera-portal.tacc.utexas.edu/user-guide/docs/containers-at-tacc.pdf&#34;&gt;TACC&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;presentations&#34;&gt;Presentations&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.sdsc.edu/Events/training/singularity_on_comet_2019/introduction-to-singularity.pdf&#34;&gt;SDSC Singularity Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nersc.gov/assets/GPUs-for-Science-Day/shane-cannon.pdf&#34;&gt;NERSC ubuntu14.04 ;-)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.chpc.utah.edu/presentations/images-and-pdfs/Containers17.pdf&#34;&gt;Utah&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;organize&#34;&gt;Organize&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://tacc.github.io/pearc19-hpc-in-the-cloud/block3/intro-singularity/&#34;&gt;TACC Singularity&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;containers&#34;&gt;Containers&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://portal.xsede.org/containers&#34;&gt;XSEDE Containers&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://slurm.schedmd.com/containers.html&#34;&gt;Slurm&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.turing.ac.uk/research/asg/pearl&#34;&gt;Pearl&lt;/a&gt; (2^ &lt;a href=&#34;https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/dgx-1/dgx-2-datasheet-us-nvidia-955420-r2-web-new.pdf&#34;&gt;DGX2&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/containers/&#34;&gt;Rivanna&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 
       </description>
     </item>
@@ -352,12 +433,9 @@ ssh, but you can contribute it. Instead, we will summarize the most important st
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Create an ssh key if you have not done that before&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;`bash
-$ ssh-keygen&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
-It is **VERY** important that you create the key with a strong passphrase. 
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-keygen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is &lt;strong&gt;VERY&lt;/strong&gt; important that you create the key with a strong passphrase.&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Add an abbreviation for Rivanna to your &lt;code&gt;~/.ssh/config&lt;/code&gt; file&lt;/p&gt;
 &lt;p&gt;Use your favorite editor. Mine is &lt;code&gt;emacs&lt;/code&gt;&lt;/p&gt;

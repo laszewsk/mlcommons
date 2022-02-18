@@ -101,7 +101,7 @@ ssh, but you can contribute it. Instead, we will summarize the most important st
 
 1. Create an ssh key if you have not done that before
 
-   "`bash
+   ```bash
    $ ssh-keygen
    ```
 
