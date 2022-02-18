@@ -130,7 +130,7 @@ ssh, but you can contribute it. Instead, we will summarize the most important st
 3. Copy your public key to rivanna
 
    ```bash
-   $ ssh-copi-id rivanna
+   $ ssh-copy-id rivanna
    ```
    
    This will copy your public key into the
