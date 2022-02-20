@@ -1,14 +1,15 @@
 import tensorflow as tf
+from cloudmesh.common.Shell import Shell
+import os
 
 import click
 
-import click
 
 @click.command()
-@click.option('--cpu', default=-1, help='Run on CPU')
-@click.option('--gpu', default=-1, help="Run on GPU")
-@click.option("--dryrun", default=0, help="Do not execute MNIST")
-@click.option("--info", default=False, help="Do not execute MNIST")
+@click.option('--cpu', required=False, default=-1, help='Run on CPU')
+@click.option('--gpu', required=False, default=-1, help="Run on GPU")
+@click.option("--dryrun", required=False, default=0, help="Do not execute MNIST")
+@click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
 def run(cpu, gpu, dryrun, info):
     mnist = tf.keras.datasets.mnist
     if info:
@@ -16,13 +17,34 @@ def run(cpu, gpu, dryrun, info):
         print(cpu)
         print(dryrun)
 
-        print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+        try:
+            os.system("lscpu")
+        except:
+            pass
+        gpu_info = Shell.run("nvidia-smi")
+        if gpu_info.find('failed') >= 0:
+            print('Select the Runtime > "Change runtime type" menu to enable a GPU accelerator, ')
+        else:
+            print(gpu_info)
+
+        import tensorflow
+        physical_devices = tensorflow.config.list_physical_devices('GPU')
+        print("Num GPUs:", len(physical_devices))
+
+        r = Shell.find_lines_with(gpu_info.splitlines(), "NVIDIA-SMI")
+        l = r[0].split()
+        nvidia_version = l[2]
+        driver_version = l[5]
+        cuda_version = l[8]
+        print(f"Nvida:  {nvidia_version}")
+        print(f"Driver: {driver_version}")
+        print(f"Cuda:   {cuda_version}")
         return
 
     if cpu >= 0:
-        device=f"/CPU:{cpu}"
+        device = f"/CPU:{cpu}"
     elif gpu >= 0:
-        device=f'/device:GPU:{gpu}'
+        device = f'/device:GPU:{gpu}'
 
     if dryrun == 1:
         with tf.device(device):
@@ -44,10 +66,5 @@ def run(cpu, gpu, dryrun, info):
             model.evaluate(x_test, y_test)
 
 
-
 if __name__ == '__main__':
     run()
-
-
-
-
