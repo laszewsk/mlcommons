@@ -2,9 +2,24 @@ import tensorflow as tf
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import banner
 import os
-
 import click
+import tensorflow
 
+def setgpu_growth():
+    gpus = tf.config.list_physical_devices('GPU')
+    if gpus:
+        try:
+            # Currently, memory growth needs to be the same across GPUs
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+            logical_gpus = tf.config.list_logical_devices('GPU')
+            print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+        except RuntimeError as e:
+            # Memory growth must be set before GPUs have been initialized
+            print(e)
+
+    physical_devices = tensorflow.config.list_physical_devices('GPU')
+    print("Num GPUs:", len(physical_devices))
 
 
 @click.command()
@@ -24,24 +39,26 @@ def run(cpu, gpu, dryrun, info):
         except:
             pass
         gpu_info = Shell.run("nvidia-smi")
+
         if gpu_info.find('failed') >= 0:
             print('Select the Runtime > "Change runtime type" menu to enable a GPU accelerator, ')
         else:
-            print(gpu_info)
+            r = Shell.find_lines_with(gpu_info.splitlines(), "NVIDIA-SMI")
+            l = r[0].split()
+            nvidia_version = l[2]
+            driver_version = l[5]
+            cuda_version = l[8]
+            print(f"Nvida:  {nvidia_version}")
+            print(f"Driver: {driver_version}")
+            print(f"Cuda:   {cuda_version}")
 
-        import tensorflow
-        physical_devices = tensorflow.config.list_physical_devices('GPU')
-        print("Num GPUs:", len(physical_devices))
-
-        r = Shell.find_lines_with(gpu_info.splitlines(), "NVIDIA-SMI")
-        l = r[0].split()
-        nvidia_version = l[2]
-        driver_version = l[5]
-        cuda_version = l[8]
-        print(f"Nvida:  {nvidia_version}")
-        print(f"Driver: {driver_version}")
-        print(f"Cuda:   {cuda_version}")
+        setgpu_growth()
         return
+
+    setgpu_growth()
+
+    physical_devices = tensorflow.config.list_physical_devices('GPU')
+    print("Num GPUs:", len(physical_devices))
 
     if cpu >= 0:
         device = f"/CPU:{cpu}"
@@ -68,8 +85,13 @@ def run(cpu, gpu, dryrun, info):
                           loss='sparse_categorical_crossentropy',
                           metrics=['accuracy'])
 
-            model.fit(x_train, y_train, epochs=5)
-            model.evaluate(x_test, y_test)
+            if info:
+                verbose = 1
+            else:
+                verbose = 0
+                
+            model.fit(x_train, y_train, epochs=5, verbose=verbose)
+            model.evaluate(x_test, y_test, verbose = verbose)
 
 
 if __name__ == '__main__':
