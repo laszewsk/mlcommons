@@ -47,6 +47,9 @@ def run(cpu, gpu, dryrun, info):
         device = f"/CPU:{cpu}"
     elif gpu >= 0:
         device = f'/device:GPU:{gpu}'
+        #gpu_devices = tf.config.experimental.list_physical_devices('GPU')
+        #for device in gpu_devices:
+        #    tf.config.experimental.set_memory_growth(device, True)
 
     if not dryrun:
         banner("start mnist")
