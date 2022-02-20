@@ -29,7 +29,7 @@ def setgpu_growth():
 @click.command()
 @click.option('--cpu', required=False, default=-1, help='Run on CPU')
 @click.option('--gpu', required=False, default=-1, help="Run on GPU")
-@click.option("--dryrun", required=False, is_flag=True, help="Do not execute MNIST")
+@click.option("--dryrun", required=False, is_flag=True, default=False, help="Do not execute MNIST")
 @click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
 def run(cpu, gpu, dryrun, info):
     mnist = tf.keras.datasets.mnist
@@ -40,7 +40,7 @@ def run(cpu, gpu, dryrun, info):
             print(cpu_info)
         except (subprocess.CalledProcessError, FileNotFoundError) as e:
             cpu_info = platform.uname()
-            cpu_proc = subprocess.Popen(['wmic.exe', 'cpu', 'list', 'full'],
+            cpu_proc = subprocess.Popen(['wmic', 'cpu', 'list', 'full'],
                                         stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE)
             stdout, stderr = cpu_proc.communicate()
@@ -52,11 +52,10 @@ def run(cpu, gpu, dryrun, info):
             print(f"Version: {cpu_info.version}")
             print(f"Machine: {cpu_info.machine}")
             print(f"Processor: {cpu_info.processor}")
-            print(f"Clockspeed (current): {attrib['CurrenClockSpeed']}")
-            print(f"Clockspeed (max): {attrib['CurrenClockSpeed']}")
+            print(f"Clockspeed (current): {attrib['CurrentClockSpeed']}")
+            print(f"Clockspeed (max): {attrib['MaxClockSpeed']}")
             print(f"Architecture: {attrib['DataWidth']}")
-            print(f"L2Cache: {attrib['L2CacheSize']}")
-            print(f"L3Cache: {attrib['L3CacheSize']}")
+            print(f"L2CacheSize: {attrib['L2CacheSize']}")
             print(f"CPU Name: {attrib['Name']}")
 
         gpu_info = Shell.run("nvidia-smi")
@@ -72,9 +71,6 @@ def run(cpu, gpu, dryrun, info):
             print(f"Nvida:  {nvidia_version}")
             print(f"Driver: {driver_version}")
             print(f"Cuda:   {cuda_version}")
-
-        setgpu_growth()
-        return
 
     setgpu_growth()
 
