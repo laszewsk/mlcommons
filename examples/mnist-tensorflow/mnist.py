@@ -34,43 +34,7 @@ def setgpu_growth():
 def run(cpu, gpu, dryrun, info):
     mnist = tf.keras.datasets.mnist
     if info:
-        try:
-            cpu_proc = subprocess.Popen(["lscpu"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            cpu_info, stderr = cpu_proc.communicate().decode('utf-8')
-            print(cpu_info)
-        except (subprocess.CalledProcessError, FileNotFoundError) as e:
-            cpu_info = platform.uname()
-            cpu_proc = subprocess.Popen(['wmic', 'cpu', 'list', 'full'],
-                                        stdout=subprocess.PIPE,
-                                        stderr=subprocess.PIPE)
-            stdout, stderr = cpu_proc.communicate()
-            out = stdout.decode('utf-8').strip().split('\r\r\n')
-            attrib = dict([tuple(x.strip().split('=')) for x in out])
-            print(f"System: {cpu_info.system}")
-            print(f"Node Name: {cpu_info.node}")
-            print(f"Release: {cpu_info.release}")
-            print(f"Version: {cpu_info.version}")
-            print(f"Machine: {cpu_info.machine}")
-            print(f"Processor: {cpu_info.processor}")
-            print(f"Clockspeed (current): {attrib['CurrentClockSpeed']}")
-            print(f"Clockspeed (max): {attrib['MaxClockSpeed']}")
-            print(f"Architecture: {attrib['DataWidth']}")
-            print(f"L2CacheSize: {attrib['L2CacheSize']}")
-            print(f"CPU Name: {attrib['Name']}")
-
-        gpu_info = Shell.run("nvidia-smi")
-
-        if gpu_info.find('failed') >= 0:
-            print('Select the Runtime > "Change runtime type" menu to enable a GPU accelerator, ')
-        else:
-            r = Shell.find_lines_with(gpu_info.splitlines(), "NVIDIA-SMI")
-            l = r[0].split()
-            nvidia_version = l[2]
-            driver_version = l[5]
-            cuda_version = l[8]
-            print(f"Nvida:  {nvidia_version}")
-            print(f"Driver: {driver_version}")
-            print(f"Cuda:   {cuda_version}")
+        system_info()
 
     setgpu_growth()
 
@@ -113,6 +77,45 @@ def run(cpu, gpu, dryrun, info):
             model.fit(x_train, y_train, epochs=5, verbose=verbose)
             model.evaluate(x_test, y_test, verbose=verbose)
 
+
+def system_info():
+    try:
+        cpu_proc = subprocess.Popen(["lscpu"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cpu_info, stderr = cpu_proc.communicate().decode('utf-8')
+        print(cpu_info)
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        cpu_info = platform.uname()
+        cpu_proc = subprocess.Popen(['wmic', 'cpu', 'list', 'full'],
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE)
+        stdout, stderr = cpu_proc.communicate()
+        out = stdout.decode('utf-8').strip().split('\r\r\n')
+        attrib = dict([tuple(x.strip().split('=')) for x in out])
+        print(f"System: {cpu_info.system}")
+        print(f"Node Name: {cpu_info.node}")
+        print(f"Release: {cpu_info.release}")
+        print(f"Version: {cpu_info.version}")
+        print(f"Machine: {cpu_info.machine}")
+        print(f"Processor: {cpu_info.processor}")
+        print(f"Clockspeed (current): {attrib['CurrentClockSpeed']}")
+        print(f"Clockspeed (max): {attrib['MaxClockSpeed']}")
+        print(f"Architecture: {attrib['DataWidth']}")
+        print(f"L2CacheSize: {attrib['L2CacheSize']}")
+        print(f"CPU Name: {attrib['Name']}")
+
+    gpu_info = Shell.run("nvidia-smi")
+
+    if gpu_info.find('failed') >= 0:
+        print('Select the Runtime > "Change runtime type" menu to enable a GPU accelerator, ')
+    else:
+        r = Shell.find_lines_with(gpu_info.splitlines(), "NVIDIA-SMI")
+        l = r[0].split()
+        nvidia_version = l[2]
+        driver_version = l[5]
+        cuda_version = l[8]
+        print(f"Nvida:  {nvidia_version}")
+        print(f"Driver: {driver_version}")
+        print(f"Cuda:   {cuda_version}")
 
 if __name__ == '__main__':
     run()
