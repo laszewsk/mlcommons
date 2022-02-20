@@ -1,14 +1,16 @@
 import tensorflow as tf
 from cloudmesh.common.Shell import Shell
+from cloudmesh.common.util import banner
 import os
 
 import click
 
 
+
 @click.command()
 @click.option('--cpu', required=False, default=-1, help='Run on CPU')
 @click.option('--gpu', required=False, default=-1, help="Run on GPU")
-@click.option("--dryrun", required=False, default=0, help="Do not execute MNIST")
+@click.option("--dryrun", required=False, is_flag=True, help="Do not execute MNIST")
 @click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
 def run(cpu, gpu, dryrun, info):
     mnist = tf.keras.datasets.mnist
@@ -46,7 +48,8 @@ def run(cpu, gpu, dryrun, info):
     elif gpu >= 0:
         device = f'/device:GPU:{gpu}'
 
-    if dryrun == 1:
+    if not dryrun:
+        banner("start mnist")
         with tf.device(device):
             (x_train, y_train), (x_test, y_test) = mnist.load_data()
             x_train, x_test = x_train / 255.0, x_test / 255.0
