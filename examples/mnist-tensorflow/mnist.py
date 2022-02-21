@@ -1,12 +1,32 @@
+import click
+import os
+import tensorflow
 import tensorflow as tf
+from pprint import pprint
+
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import banner
-import os
-import click
-import tensorflow
+
+
+from cloudmesh.common.StopWatch import StopWatch
+
+def code_info():
+    StopWatch.start("git")
+    git = {
+        "git": {
+            "version": Shell.run('git rev-parse --short HEAD').strip(),
+            "branch": Shell.run("git rev-parse --abbrev-ref HEAD").strip(),
+            "modified": Shell.run(" git log -1 | fgrep Date").split("Date:")[1].strip()
+        }
+    }
+    StopWatch.stop("git")
+    return git
+
+
 
 def setgpu_growth():
     gpus = tf.config.list_physical_devices('GPU')
+    print (gpus)
     if gpus:
         try:
             # Currently, memory growth needs to be the same across GPUs
@@ -22,6 +42,7 @@ def setgpu_growth():
     print("Num GPUs:", len(physical_devices))
 
 
+
 @click.command()
 @click.option('--cpu', required=False, default=-1, help='Run on CPU')
 @click.option('--gpu', required=False, default=-1, help="Run on GPU")
@@ -30,12 +51,10 @@ def setgpu_growth():
 def run(cpu, gpu, dryrun, info):
     mnist = tf.keras.datasets.mnist
     if info:
-        print(gpu)
-        print(cpu)
-        print(dryrun)
+        pprint(code_info())
 
         try:
-            os.system("lscpu")
+            os.system("lscpu | fgrep -v Vulnerability |fgrep -v Flags:")
         except:
             pass
         gpu_info = Shell.run("nvidia-smi")
@@ -64,8 +83,8 @@ def run(cpu, gpu, dryrun, info):
         device = f"/CPU:{cpu}"
     elif gpu >= 0:
         device = f'/device:GPU:{gpu}'
-        #gpu_devices = tf.config.experimental.list_physical_devices('GPU')
-        #for device in gpu_devices:
+        # gpu_devices = tf.config.experimental.list_physical_devices('GPU')
+        # for device in gpu_devices:
         #    tf.config.experimental.set_memory_growth(device, True)
 
     if not dryrun:
@@ -89,9 +108,9 @@ def run(cpu, gpu, dryrun, info):
                 verbose = 1
             else:
                 verbose = 0
-                
+
             model.fit(x_train, y_train, epochs=5, verbose=verbose)
-            model.evaluate(x_test, y_test, verbose = verbose)
+            model.evaluate(x_test, y_test, verbose=verbose)
 
 
 if __name__ == '__main__':

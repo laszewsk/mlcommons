@@ -466,3 +466,70 @@ https://www.rc.virginia.edu/userinfo/rivanna/software/tensorflow/
 
 * https://www.rc.virginia.edu/userinfo/rivanna/software/keras/
 
+## Building a Python verion from Source
+
+{{< alert color="warning" title="Requirements" >}}
+This section is under development
+{{< /alert >}}
+
+
+
+### Why do you wnat to do this?
+
+### How is it been done?
+
+Whe have developed the following script to create the enfironment on rivanna 
+\url{http://example.com}
+
+You can download the script from git with wget
+
+
+```bash
+wget ....
+```
+
+and place it in a driectory. running it with 
+
+```bash
+$ python-install.py --version="3.10.2" --host=rivanna
+```
+
+will create an optimized version for rivanna. Other options can be found with 
+python-install.py help
+
+
+### Where do you want to place it
+
+scratch vs home dir
+
+### How do you access it?
+
+deployment into your own environment
+
+### What is the performance gain?
+
+benchmarks vs the various versions on python here. This needs to be reproducible when we have a new version of python
+
+### How to cite if you use this
+
+This work was conducted as part of the mlcommons science benchmark earthquake project and if youl ike to reuse it we like that you cite the following paper:
+
+
+```
+@TechReport{mlcommons-eartquake,
+  author = 	 {Thomas Butler and Robert Knuuti and
+              Jake Kolessar and Geoffrey C. Fox and
+              Gregor von Laszewski and Judy Fox},
+  title = 	 {MLCommons Earthquake Science Benchmark},
+  institution =  {MLCommons Science Working Group},
+  year = 	 2022,
+  type = 	 {Report by University of Virginia},
+  address = 	 {Charlottesville, VA},
+  month = 	 may,
+  note = 	 {The order of the authors and url location may change},
+  annote = 	 {Version: draft},
+  url = {https://github.com/cyberaide/paper-capstone-mlcommons}
+}
+```
+
+

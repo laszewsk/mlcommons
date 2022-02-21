@@ -33,7 +33,7 @@
 <meta itemprop="description" content="A short introduction on how to run GPU Jobs on Rivanna
 "><meta itemprop="datePublished" content="2017-01-05T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2017-01-05T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1757">
+<meta itemprop="wordCount" content="1980">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Running GPU Batch jobs on Rivanna"/>
 <meta name="twitter:description" content="A short introduction on how to run GPU Jobs on Rivanna
@@ -154,6 +154,8 @@
   <a href="/mlcommons/docs/tutorials/rivanna/" title="Running GPU Batch jobs on Rivanna" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialsrivanna"><span class="td-sidebar-nav-active-item">GPU@Rivanna</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-mlcommonsdocstutorialscuda-li">
   <a href="/mlcommons/docs/tutorials/cuda/" title="Installing nvcc on Uuntu 20.04" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialscuda"><span class="">Install nvcc</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-mlcommonsdocstutorialstensorflow-windows-li">
+  <a href="/mlcommons/docs/tutorials/tensorflow-windows/" title="Installing tensorflow on Windows 10" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-mlcommonsdocstutorialstensorflow-windows"><span class="">Install tensorflow on Windows</span></a>
 </li>
   </ul>
 </li>
@@ -193,6 +195,16 @@
         <li><a href="#using-the-mnist-example">Using the MNIST example</a></li>
         <li><a href="#custom-version-of-tensorflow">Custom Version of TensorFlow</a></li>
         <li><a href="#keras-on-rivanna">Keras on Rivanna</a></li>
+      </ul>
+    </li>
+    <li><a href="#building-a-python-verion-from-source">Building a Python verion from Source</a>
+      <ul>
+        <li><a href="#why-do-you-wnat-to-do-this">Why do you wnat to do this?</a></li>
+        <li><a href="#how-is-it-been-done">How is it been done?</a></li>
+        <li><a href="#where-do-you-want-to-place-it">Where do you want to place it</a></li>
+        <li><a href="#how-do-you-access-it">How do you access it?</a></li>
+        <li><a href="#what-is-the-performance-gain">What is the performance gain?</a></li>
+        <li><a href="#how-to-cite-if-you-use-this">How to cite if you use this</a></li>
       </ul>
     </li>
   </ul>
@@ -490,7 +502,7 @@ The next steps assume you have done this and can use just <code>rivanna</code></
 </li>
 <li>
 <p>Copy your public key to rivanna</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-copi-id rivanna
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-copy-id rivanna
 </code></pre></div><p>This will copy your public key into the
 <code>rivanna:~/.ssh/authorized_keys</code> file.</p>
 </li>
@@ -714,7 +726,40 @@ GPU and add GPU placement commands into the code.</p>
 <ul>
 <li><a href="https://www.rc.virginia.edu/userinfo/rivanna/software/keras/">https://www.rc.virginia.edu/userinfo/rivanna/software/keras/</a></li>
 </ul>
-
+<h2 id="building-a-python-verion-from-source">Building a Python verion from Source</h2>
+<h3 id="why-do-you-wnat-to-do-this">Why do you wnat to do this?</h3>
+<h3 id="how-is-it-been-done">How is it been done?</h3>
+<p>Whe have developed the following script to create the enfironment on rivanna
+\url{http://example.com}</p>
+<p>You can download the script from git with wget</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget ....
+</code></pre></div><p>and place it in a driectory. running it with</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python-install.py --version<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;3.10.2&#34;</span> --host<span style="color:#ce5c00;font-weight:bold">=</span>rivanna
+</code></pre></div><p>will create an optimized version for rivanna. Other options can be found with
+python-install.py help</p>
+<h3 id="where-do-you-want-to-place-it">Where do you want to place it</h3>
+<p>scratch vs home dir</p>
+<h3 id="how-do-you-access-it">How do you access it?</h3>
+<p>deployment into your own environment</p>
+<h3 id="what-is-the-performance-gain">What is the performance gain?</h3>
+<p>benchmarks vs the various versions on python here. This needs to be reproducible when we have a new version of python</p>
+<h3 id="how-to-cite-if-you-use-this">How to cite if you use this</h3>
+<p>This work was conducted as part of the mlcommons science benchmark earthquake project and if youl ike to reuse it we like that you cite the following paper:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">@TechReport{mlcommons-eartquake,
+  author = 	 {Thomas Butler and Robert Knuuti and
+              Jake Kolessar and Geoffrey C. Fox and
+              Gregor von Laszewski and Judy Fox},
+  title = 	 {MLCommons Earthquake Science Benchmark},
+  institution =  {MLCommons Science Working Group},
+  year = 	 2022,
+  type = 	 {Report by University of Virginia},
+  address = 	 {Charlottesville, VA},
+  month = 	 may,
+  note = 	 {The order of the authors and url location may change},
+  annote = 	 {Version: draft},
+  url = {https://github.com/cyberaide/paper-capstone-mlcommons}
+}
+</code></pre></div>
 	
 	
 	
