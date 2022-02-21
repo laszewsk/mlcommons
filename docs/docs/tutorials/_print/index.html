@@ -178,6 +178,14 @@ This is the multi-page printable view of this section.
 
     
   
+    
+    
+	
+<li>6: <a href="#pg-2a89763cc833f1a51cac92a3675a00cf">Installing tensorflow on Windows 10</a></li>
+
+
+    
+  
 
     </ul>
 
@@ -654,7 +662,7 @@ The next steps assume you have done this and can use just <code>rivanna</code></
 </li>
 <li>
 <p>Copy your public key to rivanna</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-copi-id rivanna
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-copy-id rivanna
 </code></pre></div><p>This will copy your public key into the
 <code>rivanna:~/.ssh/authorized_keys</code> file.</p>
 </li>
@@ -878,7 +886,49 @@ GPU and add GPU placement commands into the code.</p>
 <ul>
 <li><a href="https://www.rc.virginia.edu/userinfo/rivanna/software/keras/">https://www.rc.virginia.edu/userinfo/rivanna/software/keras/</a></li>
 </ul>
+<h2 id="building-a-python-verion-from-source">Building a Python verion from Source</h2>
 
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Requirements</h4>
+
+    This section is under development
+
+</div>
+
+<h3 id="why-do-you-wnat-to-do-this">Why do you wnat to do this?</h3>
+<h3 id="how-is-it-been-done">How is it been done?</h3>
+<p>Whe have developed the following script to create the enfironment on rivanna
+\url{http://example.com}</p>
+<p>You can download the script from git with wget</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget ....
+</code></pre></div><p>and place it in a driectory. running it with</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python-install.py --version<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;3.10.2&#34;</span> --host<span style="color:#ce5c00;font-weight:bold">=</span>rivanna
+</code></pre></div><p>will create an optimized version for rivanna. Other options can be found with
+python-install.py help</p>
+<h3 id="where-do-you-want-to-place-it">Where do you want to place it</h3>
+<p>scratch vs home dir</p>
+<h3 id="how-do-you-access-it">How do you access it?</h3>
+<p>deployment into your own environment</p>
+<h3 id="what-is-the-performance-gain">What is the performance gain?</h3>
+<p>benchmarks vs the various versions on python here. This needs to be reproducible when we have a new version of python</p>
+<h3 id="how-to-cite-if-you-use-this">How to cite if you use this</h3>
+<p>This work was conducted as part of the mlcommons science benchmark earthquake project and if youl ike to reuse it we like that you cite the following paper:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">@TechReport{mlcommons-eartquake,
+  author = 	 {Thomas Butler and Robert Knuuti and
+              Jake Kolessar and Geoffrey C. Fox and
+              Gregor von Laszewski and Judy Fox},
+  title = 	 {MLCommons Earthquake Science Benchmark},
+  institution =  {MLCommons Science Working Group},
+  year = 	 2022,
+  type = 	 {Report by University of Virginia},
+  address = 	 {Charlottesville, VA},
+  month = 	 may,
+  note = 	 {The order of the authors and url location may change},
+  annote = 	 {Version: draft},
+  url = {https://github.com/cyberaide/paper-capstone-mlcommons}
+}
+</code></pre></div>
 </div>
 
 
@@ -926,6 +976,44 @@ Copyright (c) 2005-2019 NVIDIA Corporation
 Built on Wed_Oct_23_19:24:38_PDT_2019
 Cuda compilation tools, release 10.2, V10.2.89
 </code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-2a89763cc833f1a51cac92a3675a00cf">6 - Installing tensorflow on Windows 10</h1>
+    <div class="lead">A description on how to install nvcc in cuda</div>
+	
+
+<div class="pageinfo pageinfo-primary">
+<p>A description on how to install nvcc in cuda</p>
+
+</div>
+
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Requirements</h4>
+
+    Draft
+
+</div>
+
+<h2 id="instalation">Instalation</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ TBD
+</code></pre></div><p>Add it to your path</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ TBD
+</code></pre></div><p>Check CUDA version:</p>
+
 </div>
 
 

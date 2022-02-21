@@ -451,7 +451,7 @@ The next steps assume you have done this and can use just &lt;code&gt;rivanna&lt
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Copy your public key to rivanna&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-copi-id rivanna
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ssh-copy-id rivanna
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will copy your public key into the
 &lt;code&gt;rivanna:~/.ssh/authorized_keys&lt;/code&gt; file.&lt;/p&gt;
 &lt;/li&gt;
@@ -675,7 +675,49 @@ GPU and add GPU placement commands into the code.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;building-a-python-verion-from-source&#34;&gt;Building a Python verion from Source&lt;/h2&gt;
 
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Requirements&lt;/h4&gt;
+
+    This section is under development
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;why-do-you-wnat-to-do-this&#34;&gt;Why do you wnat to do this?&lt;/h3&gt;
+&lt;h3 id=&#34;how-is-it-been-done&#34;&gt;How is it been done?&lt;/h3&gt;
+&lt;p&gt;Whe have developed the following script to create the enfironment on rivanna
+\url{http://example.com}&lt;/p&gt;
+&lt;p&gt;You can download the script from git with wget&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wget ....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and place it in a driectory. running it with&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ python-install.py --version&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;3.10.2&amp;#34;&lt;/span&gt; --host&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;rivanna
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;will create an optimized version for rivanna. Other options can be found with
+python-install.py help&lt;/p&gt;
+&lt;h3 id=&#34;where-do-you-want-to-place-it&#34;&gt;Where do you want to place it&lt;/h3&gt;
+&lt;p&gt;scratch vs home dir&lt;/p&gt;
+&lt;h3 id=&#34;how-do-you-access-it&#34;&gt;How do you access it?&lt;/h3&gt;
+&lt;p&gt;deployment into your own environment&lt;/p&gt;
+&lt;h3 id=&#34;what-is-the-performance-gain&#34;&gt;What is the performance gain?&lt;/h3&gt;
+&lt;p&gt;benchmarks vs the various versions on python here. This needs to be reproducible when we have a new version of python&lt;/p&gt;
+&lt;h3 id=&#34;how-to-cite-if-you-use-this&#34;&gt;How to cite if you use this&lt;/h3&gt;
+&lt;p&gt;This work was conducted as part of the mlcommons science benchmark earthquake project and if youl ike to reuse it we like that you cite the following paper:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@TechReport{mlcommons-eartquake,
+  author = 	 {Thomas Butler and Robert Knuuti and
+              Jake Kolessar and Geoffrey C. Fox and
+              Gregor von Laszewski and Judy Fox},
+  title = 	 {MLCommons Earthquake Science Benchmark},
+  institution =  {MLCommons Science Working Group},
+  year = 	 2022,
+  type = 	 {Report by University of Virginia},
+  address = 	 {Charlottesville, VA},
+  month = 	 may,
+  note = 	 {The order of the authors and url location may change},
+  annote = 	 {Version: draft},
+  url = {https://github.com/cyberaide/paper-capstone-mlcommons}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       </description>
     </item>
     
@@ -719,6 +761,40 @@ Copyright (c) 2005-2019 NVIDIA Corporation
 Built on Wed_Oct_23_19:24:38_PDT_2019
 Cuda compilation tools, release 10.2, V10.2.89
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Installing tensorflow on Windows 10</title>
+      <link>/mlcommons/docs/tutorials/tensorflow-windows/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/mlcommons/docs/tutorials/tensorflow-windows/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;A description on how to install nvcc in cuda&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Requirements&lt;/h4&gt;
+
+    Draft
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;instalation&#34;&gt;Instalation&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ TBD
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Add it to your path&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ TBD
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check CUDA version:&lt;/p&gt;
+
       </description>
     </item>
     
