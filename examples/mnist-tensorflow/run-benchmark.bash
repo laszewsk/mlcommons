@@ -1,20 +1,21 @@
 #!/bin/bash
 
-####
-#### CAUTION
-####
-####
+# ############################################################################
+# CAUTION:  This script is still in draft format.
+# ############################################################################
 
-# This script is still in draft format.
-
-
-### Note you must first do the following before this script can be used:
+# Note you must first do the following before this script can be used:
+#
 # 0. Install NVidia's GPU Driver (if on linux)
-# 1. Install NVidia's CUDA Toolkit 11.0 - https://developer.nvidia.com/cuda-11.0-download-archive
-# 2. Download NVidia's cuDNN - https://developer.nvidia.com/rdp/cudnn-archive#a-collapse804-110
+# 1. Install NVidia's CUDA Toolkit 11.0
+#    - https://developer.nvidia.com/cuda-11.0-download-archive
+# 2. Download NVidia's cuDNN
+#    - https://developer.nvidia.com/rdp/cudnn-archive#a-collapse804-110
 #    a. If using Linux, see the linux procedure at the top of this to configure things.
-#    b. If using windows, install winget https://github.com/microsoft/winget-cli by using Add-AppxPackage -Path https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
-
+#    b. If using windows, install winget
+#       https://github.com/microsoft/winget-cli
+#       by using Add-AppxPackage which can be found at
+#       - https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
 # Be sure to match the CUDA version with CUDNN
 
@@ -22,7 +23,7 @@ CUDA_VERSION=11.5.2_496.13 # Get from https://developer.nvidia.com/cuda-11-5-2-d
 CUDNN_VERSION=8.3.1.22 # Get from https://developer.nvidia.com/rdp/cudnn-archive
 
 
-# Installs CUDA and cuDNN on linus
+# Installs CUDA and cuDNN on linux
 cudnn_linux() {
     local cudnn_archive = $1
     shift
