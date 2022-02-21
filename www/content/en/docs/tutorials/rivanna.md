@@ -479,7 +479,7 @@ This section is under development
 ### How is it been done?
 
 Whe have developed the following script to create the enfironment on rivanna 
-\url{http://example.com}
+\url{httplatex ://example.com}
 
 You can download the script from git with wget
 
