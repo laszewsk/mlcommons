@@ -923,6 +923,15 @@ GPU and add GPU placement commands into the code.&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&#34;&gt;https://www.rc.virginia.edu/userinfo/rivanna/software/keras/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;building-a-python-verion-from-source&#34;&gt;Building a Python verion from Source&lt;/h2&gt;
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Requirements&lt;/h4&gt;
+
+    This section is under development
+
+&lt;/div&gt;
+
 &lt;h3 id=&#34;why-do-you-wnat-to-do-this&#34;&gt;Why do you wnat to do this?&lt;/h3&gt;
 &lt;h3 id=&#34;how-is-it-been-done&#34;&gt;How is it been done?&lt;/h3&gt;
 &lt;p&gt;Whe have developed the following script to create the enfironment on rivanna
