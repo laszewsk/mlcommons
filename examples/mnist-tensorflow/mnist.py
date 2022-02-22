@@ -6,9 +6,8 @@ from pprint import pprint
 
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import banner
-
-
 from cloudmesh.common.StopWatch import StopWatch
+
 
 def code_info():
     StopWatch.start("git")
@@ -16,12 +15,11 @@ def code_info():
         "git": {
             "version": Shell.run('git rev-parse --short HEAD').strip(),
             "branch": Shell.run("git rev-parse --abbrev-ref HEAD").strip(),
-            "modified": Shell.run(" git log -1 | fgrep Date").split("Date:")[1].strip()
+            "modified": Shell.run("git log -1 --pretty=\"format:%ci\"").strip()
         }
     }
     StopWatch.stop("git")
     return git
-
 
 
 def setgpu_growth():
@@ -40,7 +38,6 @@ def setgpu_growth():
 
     physical_devices = tensorflow.config.list_physical_devices('GPU')
     print("Num GPUs:", len(physical_devices))
-
 
 
 @click.command()
