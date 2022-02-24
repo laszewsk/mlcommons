@@ -36,8 +36,8 @@ benchmarks may not be accurate, real time is what we probably want to focus on
 | Rivanna P100     | 0m35.732s | 0m17.253s | 0m7.595s  | 470.82.01   | 11.4 | Tesla P100-PCIE       | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Rivanna V100     | 0m43.160s | 0m15.510s | 0m6.894s  | 470.82.01   | 11.4 | Tesla V100-SXM2       | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Rivanna K80      | 0m57.588s | 0m20.322s | 0m9.612s  | 470.82.01   | 11.4 | NVIDIA TESLA K80      | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
-| Rivanna Frontend | 1m11.535s | 1m00.780s | 0m10.352s | N/A         | N/A  | N/A    		      | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
-| Robert Ryzen 9   | 0m22.771s | 0m00.000s | 0m00.000s | N/A         | N/A  | N/A    		      | AMD Ryzen 9 (59xx)                        | xxx 
+| Rivanna Frontend | 1m11.535s | 1m00.780s | 0m10.352s | N/A         | N/A  | N/A    		            | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
+| Robert Ryzen 9   | 0m19.274s | 0m00.000s | 0m00.031s | 511.23      | 11.6 | NVIDIA RTX3080       | AMD Ryzen 9 (5900HX)                       | Q1  2021
 
 ## Tensorflow setup on M1
 
