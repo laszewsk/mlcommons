@@ -1,4 +1,5 @@
 cloudmesh-common
 tensorflow
-tensorflow_dataset
+#tensorflow_dataset
 jupyterlab
+click
