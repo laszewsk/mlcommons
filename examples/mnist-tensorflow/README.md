@@ -3,13 +3,30 @@
 
 Gregor will improve this with git clone form the repo
 
+## Setting up Python 3.10 on rivanna
+
+In your terminal you execute the following to simulate an environment that you will use 
+on the compute nodes
+
+```
+module purge
+module load singularity
+module load anaconda
+
+# conda create -y -n py3.10 python=3.10
+#source activate py3.10
+conda activate py3.10
+python -V
+PYTHON=`which python`
+```
+
 ## Rivanna singuarity container
 
 ```
 module load singularity
 module avail tensorflow
 
-mkdir -p /scratch/$USER/rivann
+mkdir -p /scratch/$USER/rivanna
 cd /scratch/$USER/rivanna
 
 export C=$CONTAINERDIR
