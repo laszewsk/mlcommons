@@ -29,12 +29,17 @@ module avail tensorflow
 mkdir -p /scratch/$USER/rivanna
 cd /scratch/$USER/rivanna
 
-export C=$CONTAINERDIR
+export C=${CONTAINERDIR:-/share/resources/containers/singularity}
 export U=$USER
 
 cp $C/tensorflow-2.7.0.sif /scratch/$U/rivanna/
 wget https://raw.githubusercontent.com/Data-ScienceHub/mlcommons-science/main/code/mnist-tensorflow/mnist.py
 wget https://raw.githubusercontent.com/Data-ScienceHub/mlcommons-science/main/code/mnist-tensorflow/mnist-rivanna.slurm
+wget https://raw.githubusercontent.com/laszewsk/mlcommons/main/examples/mnist-tensorflow/requirements.txt
+
+conda create -y -n py3.10 python=3.10
+source activate py3.10
+python -m pip install -r requirements.txt
 
 echo "Rivanna Frontend"
 time singularity run --nv /scratch/$USER/rivanna/tensorflow-2.7.0.sif mnist.py
