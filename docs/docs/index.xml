@@ -4,7 +4,7 @@
     <link>/mlcommons/docs/</link>
     <description>Recent content in Documentation on ML Science Benchmarks</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 06 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 21 Feb 2022 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/mlcommons/docs/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,115 @@
         
       
     
+    
+    <item>
+      <title>Docs: Setting up Environment from Scratch</title>
+      <link>/mlcommons/docs/tutorials/python-from-source/</link>
+      <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/mlcommons/docs/tutorials/python-from-source/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;A description on how to install nvcc in cuda&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Requirements&lt;/h4&gt;
+
+    Draft
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Most modern linux systems come prepackaged with a version of Python 3.
+However, this version is typically deeply integrated into the operating system&amp;rsquo;s ecosystem of tools, so it may be a significantly older version of python and it may lack some optimizations to maximize compatibility.&lt;/p&gt;
+&lt;p&gt;For benchmarking, it is desireable to have control over your source program, so that running programs are both consistent and repeatable.
+Below are the steps to build Python 3.10.2 on a variety of hosts.&lt;/p&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+&lt;h3 id=&#34;configurations&#34;&gt;Configurations&lt;/h3&gt;
+&lt;p&gt;This procedure assumes the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You are building using &lt;code&gt;bash&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You have &lt;code&gt;curl&lt;/code&gt;, &lt;code&gt;make&lt;/code&gt;, &lt;code&gt;gcc&lt;/code&gt;, &lt;code&gt;openssl&lt;/code&gt;, &lt;code&gt;bzip2&lt;/code&gt;, &lt;code&gt;libffi&lt;/code&gt;, &amp;lsquo;&lt;code&gt;zlib&lt;/code&gt;, &lt;code&gt;readline&lt;/code&gt;, &lt;code&gt;sqlite3&lt;/code&gt;, &lt;code&gt;llvm&lt;/code&gt;, &lt;code&gt;ncurses&lt;/code&gt;, and &lt;code&gt;xz&lt;/code&gt; c header files installed.&lt;/li&gt;
+&lt;li&gt;You have set the following environment variables
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;BASE&lt;/code&gt; - Specifies the working directory for all operations.  This procedure assumes &lt;code&gt;~/.local&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX&lt;/code&gt; - Where you want the final python instance to be positioned.  This procedure assumes &lt;code&gt;${BASE}/python/3.10.2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;build-openssl&#34;&gt;Build OpenSSL&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;# Fetch source code&lt;/span&gt;
+curl -OL https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+tar -zxvf openssl-1.1.1m.tar.gz -C &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/src/
+&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/src/openssl-1.1.1m/
+./config --prefix&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/ssl --openssldir&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/ssl shared zlib
+make
+&lt;span style=&#34;color:#8f5902;font-style:italic&#34;&gt;#make test&lt;/span&gt;
+make instal
+make clean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;build-python&#34;&gt;Build Python&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -OL https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
+tar Jxvf Python-3.10.2.tar.xz -C &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/src/
+&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; Python-3.10.2
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;CPPFLAGS&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34; -I&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/ssl/include &amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;LDFLAGS&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34; -L&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/ssl/lib &amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#204a87&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;LD_LIBRARY_PATH&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/ssl/lib:&lt;span style=&#34;color:#000&#34;&gt;$LD_LIBRARY_PATH&lt;/span&gt;
+./configure --prefix&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;PREFIX&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt; --enable-optimizations --with-lto --with-computed-gotos --with-system-ffi
+
+make -j &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;$(&lt;/span&gt;nproc&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;&lt;/span&gt;
+make &lt;span style=&#34;color:#204a87&#34;&gt;test&lt;/span&gt;
+make altinstall
+make clean
+
+mkdir -p &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/.local/bin
+&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/bin &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;;&lt;/span&gt; ln -s python3.10 python&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;
+
+cat &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ${BASE}/setup.source
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;BASE=$BASE
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;PREFIX=$PREFIX
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;export LD_LIBRARY_PATH=\$BASE/ssl/lib:\$PREFIX/lib:\$LD_LIBRARY_PATH
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;export PATH=\$PREFIX/bin:\$PATH
+&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;archive-build&#34;&gt;Archive Build&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;tar Jxvf python-3.10.2.tar .xz &lt;span style=&#34;color:#000&#34;&gt;$BASE&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;common-setup-procedures&#34;&gt;Common Setup Procedures&lt;/h2&gt;
+&lt;p&gt;To bootstrap your new environment with all the tools frequently leveraged during development, see the below procedures.&lt;/p&gt;
+&lt;p&gt;Assumption: The variable &lt;code&gt;BASE&lt;/code&gt; is your user home directory, and python3.10 is on the path.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir -p &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/ENV3
+python3.10 -m venv --prompt ENV3 ~/ENV3
+
+&lt;span style=&#34;color:#204a87&#34;&gt;source&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;}&lt;/span&gt;/ENV3/bin/activate
+pip install -U pip
+pip install cloudmesh-installer
+
+mkdir -p ~/git/cm
+&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87&#34;&gt;cd&lt;/span&gt; ~/git/cm &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cloudmesh-installer get cms&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;)&lt;/span&gt;
+
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;alias ENV3=\&amp;#34;source &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/ENV3/bin/activate\&amp;#34;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;span style=&#34;color:#204a87&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;alias EQ=\&amp;#34;cd &lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;$BASE&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;/git\&amp;#34;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;span style=&#34;color:#204a87&#34;&gt;source&lt;/span&gt; ~/.bash_profile
+
+EQ
+
+git clone git@github.com:laszewsk/mlcommons.git
+git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+
+pip install -r mlcommons/examples/mnist-tensorflow/requirements.txt
+pip install -r mlcommons/benchmarks/earthquake/new/requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
     
     <item>
       <title>Docs: Running MLCube on Rivanna</title>
@@ -935,7 +1044,7 @@ GPU and add GPU placement commands into the code.&lt;/p&gt;
 &lt;h3 id=&#34;why-do-you-wnat-to-do-this&#34;&gt;Why do you wnat to do this?&lt;/h3&gt;
 &lt;h3 id=&#34;how-is-it-been-done&#34;&gt;How is it been done?&lt;/h3&gt;
 &lt;p&gt;Whe have developed the following script to create the enfironment on rivanna
-\url{http://example.com}&lt;/p&gt;
+\url{httplatex ://example.com}&lt;/p&gt;
 &lt;p&gt;You can download the script from git with wget&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wget ....
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and place it in a driectory. running it with&lt;/p&gt;

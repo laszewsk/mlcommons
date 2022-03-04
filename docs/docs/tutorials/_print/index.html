@@ -141,7 +141,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-180427a0d933163f8943079056f23922">Running MLCube on Rivanna</a></li>
+<li>1: <a href="#pg-095a4da3f014a0fc61cdc70eb63fa5ee">Setting up Environment from Scratch</a></li>
 
 
     
@@ -149,7 +149,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-707b5b1f24f8ebd512d045349de41d67">Singularity Collection</a></li>
+<li>2: <a href="#pg-180427a0d933163f8943079056f23922">Running MLCube on Rivanna</a></li>
 
 
     
@@ -157,7 +157,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-a7e0b3b1295cf54f6b39f34b66b501b8">Installing Singularity on Windows Workstations</a></li>
+<li>3: <a href="#pg-707b5b1f24f8ebd512d045349de41d67">Singularity Collection</a></li>
 
 
     
@@ -165,7 +165,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-aa80a40bdc6508d5c896268d8aa91cba">Running GPU Batch jobs on Rivanna</a></li>
+<li>4: <a href="#pg-a7e0b3b1295cf54f6b39f34b66b501b8">Installing Singularity on Windows Workstations</a></li>
 
 
     
@@ -173,7 +173,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>5: <a href="#pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">Installing nvcc on Uuntu 20.04</a></li>
+<li>5: <a href="#pg-aa80a40bdc6508d5c896268d8aa91cba">Running GPU Batch jobs on Rivanna</a></li>
 
 
     
@@ -181,7 +181,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-2a89763cc833f1a51cac92a3675a00cf">Installing tensorflow on Windows 10</a></li>
+<li>6: <a href="#pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">Installing nvcc on Uuntu 20.04</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-2a89763cc833f1a51cac92a3675a00cf">Installing tensorflow on Windows 10</a></li>
 
 
     
@@ -220,7 +228,120 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-180427a0d933163f8943079056f23922">1 - Running MLCube on Rivanna</h1>
+	<h1 id="pg-095a4da3f014a0fc61cdc70eb63fa5ee">1 - Setting up Environment from Scratch</h1>
+    <div class="lead">A procedure to build an optimized python from source and setup a development environment to run benchmarks.</div>
+	
+
+<div class="pageinfo pageinfo-primary">
+<p>A description on how to install nvcc in cuda</p>
+
+</div>
+
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Requirements</h4>
+
+    Draft
+
+</div>
+
+<h2 id="introduction">Introduction</h2>
+<p>Most modern linux systems come prepackaged with a version of Python 3.
+However, this version is typically deeply integrated into the operating system&rsquo;s ecosystem of tools, so it may be a significantly older version of python and it may lack some optimizations to maximize compatibility.</p>
+<p>For benchmarking, it is desireable to have control over your source program, so that running programs are both consistent and repeatable.
+Below are the steps to build Python 3.10.2 on a variety of hosts.</p>
+<h2 id="setup">Setup</h2>
+<h3 id="configurations">Configurations</h3>
+<p>This procedure assumes the following:</p>
+<ol>
+<li>You are building using <code>bash</code></li>
+<li>You have <code>curl</code>, <code>make</code>, <code>gcc</code>, <code>openssl</code>, <code>bzip2</code>, <code>libffi</code>, &lsquo;<code>zlib</code>, <code>readline</code>, <code>sqlite3</code>, <code>llvm</code>, <code>ncurses</code>, and <code>xz</code> c header files installed.</li>
+<li>You have set the following environment variables
+<ol>
+<li><code>BASE</code> - Specifies the working directory for all operations.  This procedure assumes <code>~/.local</code></li>
+<li><code>PREFIX</code> - Where you want the final python instance to be positioned.  This procedure assumes <code>${BASE}/python/3.10.2</code>.</li>
+</ol>
+</li>
+</ol>
+<h3 id="build-openssl">Build OpenSSL</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic"># Fetch source code</span>
+curl -OL https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+tar -zxvf openssl-1.1.1m.tar.gz -C <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/src/
+<span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/src/openssl-1.1.1m/
+./config --prefix<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/ssl --openssldir<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/ssl shared zlib
+make
+<span style="color:#8f5902;font-style:italic">#make test</span>
+make instal
+make clean
+</code></pre></div><h3 id="build-python">Build Python</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -OL https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
+tar Jxvf Python-3.10.2.tar.xz -C <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/src/
+<span style="color:#204a87">cd</span> Python-3.10.2
+<span style="color:#204a87">export</span> <span style="color:#000">CPPFLAGS</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34; -I</span><span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">/ssl/include &#34;</span>
+<span style="color:#204a87">export</span> <span style="color:#000">LDFLAGS</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34; -L</span><span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">/ssl/lib &#34;</span>
+<span style="color:#204a87">export</span> <span style="color:#000">LD_LIBRARY_PATH</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/ssl/lib:<span style="color:#000">$LD_LIBRARY_PATH</span>
+./configure --prefix<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">${</span><span style="color:#000">PREFIX</span><span style="color:#4e9a06">}</span> --enable-optimizations --with-lto --with-computed-gotos --with-system-ffi
+
+make -j <span style="color:#4e9a06">&#34;</span><span style="color:#204a87;font-weight:bold">$(</span>nproc<span style="color:#204a87;font-weight:bold">)</span><span style="color:#4e9a06">&#34;</span>
+make <span style="color:#204a87">test</span>
+make altinstall
+make clean
+
+mkdir -p <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/.local/bin
+<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87">cd</span> <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/bin <span style="color:#000;font-weight:bold">;</span> ln -s python3.10 python<span style="color:#ce5c00;font-weight:bold">)</span>
+
+cat <span style="color:#4e9a06">&lt;&lt;EOF &gt; ${BASE}/setup.source
+</span><span style="color:#4e9a06">#!/bin/bash
+</span><span style="color:#4e9a06">
+</span><span style="color:#4e9a06">BASE=$BASE
+</span><span style="color:#4e9a06">PREFIX=$PREFIX
+</span><span style="color:#4e9a06">
+</span><span style="color:#4e9a06">export LD_LIBRARY_PATH=\$BASE/ssl/lib:\$PREFIX/lib:\$LD_LIBRARY_PATH
+</span><span style="color:#4e9a06">export PATH=\$PREFIX/bin:\$PATH
+</span><span style="color:#4e9a06">EOF</span>
+</code></pre></div><h3 id="archive-build">Archive Build</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tar Jxvf python-3.10.2.tar .xz <span style="color:#000">$BASE</span>
+</code></pre></div><h2 id="common-setup-procedures">Common Setup Procedures</h2>
+<p>To bootstrap your new environment with all the tools frequently leveraged during development, see the below procedures.</p>
+<p>Assumption: The variable <code>BASE</code> is your user home directory, and python3.10 is on the path.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/ENV3
+python3.10 -m venv --prompt ENV3 ~/ENV3
+
+<span style="color:#204a87">source</span> <span style="color:#4e9a06">${</span><span style="color:#000">BASE</span><span style="color:#4e9a06">}</span>/ENV3/bin/activate
+pip install -U pip
+pip install cloudmesh-installer
+
+mkdir -p ~/git/cm
+<span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87">cd</span> ~/git/cm <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> cloudmesh-installer get cms<span style="color:#ce5c00;font-weight:bold">)</span>
+
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#34;alias ENV3=\&#34;source </span><span style="color:#000">$BASE</span><span style="color:#4e9a06">/ENV3/bin/activate\&#34;&#34;</span> &gt;&gt; ~/.bash_profile
+<span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#34;alias EQ=\&#34;cd </span><span style="color:#000">$BASE</span><span style="color:#4e9a06">/git\&#34;&#34;</span> &gt;&gt; ~/.bash_profile
+<span style="color:#204a87">source</span> ~/.bash_profile
+
+EQ
+
+git clone git@github.com:laszewsk/mlcommons.git
+git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+
+pip install -r mlcommons/examples/mnist-tensorflow/requirements.txt
+pip install -r mlcommons/benchmarks/earthquake/new/requirements.txt
+</code></pre></div>
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-180427a0d933163f8943079056f23922">2 - Running MLCube on Rivanna</h1>
     <div class="lead">A gentle introduction to running MLCube on Rivanna</div>
 	
 
@@ -309,7 +430,7 @@ cat ./workspace/chats/chat_with_alice.txt
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-707b5b1f24f8ebd512d045349de41d67">2 - Singularity Collection</h1>
+	<h1 id="pg-707b5b1f24f8ebd512d045349de41d67">3 - Singularity Collection</h1>
     <div class="lead">A collection of information about Singularity</div>
 	
 
@@ -371,7 +492,7 @@ cat ./workspace/chats/chat_with_alice.txt
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-a7e0b3b1295cf54f6b39f34b66b501b8">3 - Installing Singularity on Windows Workstations</h1>
+	<h1 id="pg-a7e0b3b1295cf54f6b39f34b66b501b8">4 - Installing Singularity on Windows Workstations</h1>
     <div class="lead">A procedure to get singularity running on WSL2</div>
 	<p>Singularity is a container-based runtime engine designed to run in permission constrained environments.
 Singularity provides similar functions to systems like Docker, Containerd, and Podman, and provides an ecosystem to share a computer&rsquo;s kernel and drivers and provide a filesystem based on overlaying files.
@@ -433,7 +554,7 @@ Try to run</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-aa80a40bdc6508d5c896268d8aa91cba">4 - Running GPU Batch jobs on Rivanna</h1>
+	<h1 id="pg-aa80a40bdc6508d5c896268d8aa91cba">5 - Running GPU Batch jobs on Rivanna</h1>
     <div class="lead">A short introduction on how to run GPU Jobs on Rivanna</div>
 	
 
@@ -899,7 +1020,7 @@ GPU and add GPU placement commands into the code.</p>
 <h3 id="why-do-you-wnat-to-do-this">Why do you wnat to do this?</h3>
 <h3 id="how-is-it-been-done">How is it been done?</h3>
 <p>Whe have developed the following script to create the enfironment on rivanna
-\url{http://example.com}</p>
+\url{httplatex ://example.com}</p>
 <p>You can download the script from git with wget</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget ....
 </code></pre></div><p>and place it in a driectory. running it with</p>
@@ -943,7 +1064,7 @@ python-install.py help</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">5 - Installing nvcc on Uuntu 20.04</h1>
+	<h1 id="pg-fc31c6c39a8da04b7b8cbd55dd10e1a6">6 - Installing nvcc on Uuntu 20.04</h1>
     <div class="lead">A description on how to install nvcc in cuda</div>
 	
 
@@ -990,7 +1111,7 @@ Cuda compilation tools, release 10.2, V10.2.89
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-2a89763cc833f1a51cac92a3675a00cf">6 - Installing tensorflow on Windows 10</h1>
+	<h1 id="pg-2a89763cc833f1a51cac92a3675a00cf">7 - Installing tensorflow on Windows 10</h1>
     <div class="lead">A description on how to install nvcc in cuda</div>
 	
 

@@ -3,21 +3,43 @@
 
 Gregor will improve this with git clone form the repo
 
+## Setting up Python 3.10 on rivanna
+
+In your terminal you execute the following to simulate an environment that you will use 
+on the compute nodes
+
+```
+module purge
+module load singularity
+module load anaconda
+
+# conda create -y -n py3.10 python=3.10
+#source activate py3.10
+conda activate py3.10
+python -V
+PYTHON=`which python`
+```
+
 ## Rivanna singuarity container
 
 ```
 module load singularity
 module avail tensorflow
 
-mkdir -p /scratch/$USER/rivann
+mkdir -p /scratch/$USER/rivanna
 cd /scratch/$USER/rivanna
 
-export C=$CONTAINERDIR
+export C=${CONTAINERDIR:-/share/resources/containers/singularity}
 export U=$USER
 
 cp $C/tensorflow-2.7.0.sif /scratch/$U/rivanna/
 wget https://raw.githubusercontent.com/Data-ScienceHub/mlcommons-science/main/code/mnist-tensorflow/mnist.py
 wget https://raw.githubusercontent.com/Data-ScienceHub/mlcommons-science/main/code/mnist-tensorflow/mnist-rivanna.slurm
+wget https://raw.githubusercontent.com/laszewsk/mlcommons/main/examples/mnist-tensorflow/requirements.txt
+
+conda create -y -n py3.10 python=3.10
+source activate py3.10
+python -m pip install -r requirements.txt
 
 echo "Rivanna Frontend"
 time singularity run --nv /scratch/$USER/rivanna/tensorflow-2.7.0.sif mnist.py
@@ -36,8 +58,8 @@ benchmarks may not be accurate, real time is what we probably want to focus on
 | Rivanna P100     | 0m35.732s | 0m17.253s | 0m7.595s  | 470.82.01   | 11.4 | Tesla P100-PCIE       | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Rivanna V100     | 0m43.160s | 0m15.510s | 0m6.894s  | 470.82.01   | 11.4 | Tesla V100-SXM2       | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Rivanna K80      | 0m57.588s | 0m20.322s | 0m9.612s  | 470.82.01   | 11.4 | NVIDIA TESLA K80      | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
-| Rivanna Frontend | 1m11.535s | 1m00.780s | 0m10.352s | N/A         | N/A  | N/A    		      | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
-| Robert Ryzen 9   | 0m22.771s | 0m00.000s | 0m00.000s | N/A         | N/A  | N/A    		      | AMD Ryzen 9 (59xx)                        | xxx 
+| Rivanna Frontend | 1m11.535s | 1m00.780s | 0m10.352s | N/A         | N/A  | N/A    		            | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
+| Robert Ryzen 9   | 0m19.274s | 0m00.000s | 0m00.031s | 511.23      | 11.6 | NVIDIA RTX3080       | AMD Ryzen 9 (5900HX)                       | Q1  2021
 
 ## Tensorflow setup on M1
 
