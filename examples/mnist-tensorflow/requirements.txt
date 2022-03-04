@@ -2,3 +2,4 @@ cloudmesh-common
 tensorflow
 tensorflow_dataset
 jupyterlab
+click
