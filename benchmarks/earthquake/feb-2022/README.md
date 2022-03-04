@@ -5,7 +5,21 @@ To run this code, you have two pathways:
 1. Using the native python ecosystem via `pip`, or
 2. Using the conda ecosystem.
 
+## GET THE DATA
+
+```bash
+mkdir earthquake
+wget https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
+tar xvz data.tar.xz
+mv data EarthquakeDec2020
+```
+
+this will create all data files in the mv data `EarthquakeDec2020` drectory
+
+
 ## Running using pip from the commandline
+
+
 
 To preserver the original code, we first create a copy
 
