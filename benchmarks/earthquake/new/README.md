@@ -5,7 +5,13 @@ To run this code, you have two pathways:
 1. Using the native python ecosystem via `pip`, or
 2. Using the conda ecosystem.
 
-## Running using pip
+## Running using pip from the commandline
+
+To preserver the original code, we first create a copy
+
+```
+cp FFFFWNPFEARTHQ_newTFTv29.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb 
+```
 
 To run this code using pip, execute
 
@@ -13,11 +19,13 @@ To run this code using pip, execute
 python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -rrequirements.txt
-jupytext --to py:percent FFFFWNPFEARTHQ_newTFTv29.ipynb
-python FFFFWNPFEARTHQ_newTFTv29.py
+jupyter nbconvert --to notebook --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
 ```
 
-If you're interested in doing interactive development, you can install the developer-focused modules by running
+To see the output, you d need to open the notebook
+
+If you are interested in doing interactive development, you can install the 
+developer-focused modules by running 
 
 ```bash
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
