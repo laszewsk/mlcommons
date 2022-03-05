@@ -2,8 +2,9 @@
 
 ## Programs
 
-v29 https://colab.research.google.com/drive/12zEv08wvwRhQEwYWy641j9dLSDskxooG
-v28continue https://colab.research.google.com/drive/1_zG84kahrTgkiVGcoFVrgi4VF07YHeL_?usp=sharing
+* v29 https://colab.research.google.com/drive/12zEv08wvwRhQEwYWy641j9dLSDskxooG
+* v28continue https://colab.research.google.com/drive/1_zG84kahrTgkiVGcoFVrgi4VF07YHeL_?usp=sharing
+* v28 ???
 
 # Variable setup
 
