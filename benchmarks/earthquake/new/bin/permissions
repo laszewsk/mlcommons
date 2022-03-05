@@ -1,4 +1,0 @@
-#! /bin/sh
-
-sudo chgrp -R dsc .
-sudo chown -R geoffrey .
