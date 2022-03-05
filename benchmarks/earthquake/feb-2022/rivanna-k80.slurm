@@ -58,8 +58,7 @@ fi
 
 
 (cd mlcommons/benchmarks/earthquake/feb-2022 && \
-    python -m pip install -r requirements.txt && \
-    python -m pip install jupyter)
+    python -m pip install -r requirements.txt)
 
 
 module load cuda cudnn
