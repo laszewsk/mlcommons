@@ -2,4 +2,7 @@ cloudmesh-common
 tensorflow
 #tensorflow_dataset
 jupyterlab
+py-cpuinfo
+GPUtil
+pandas
 click
