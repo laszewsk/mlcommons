@@ -17,6 +17,11 @@ tar xvf data.tar.xz
 
 this will create all data files necessary to run the notebook.
 
+## Running notebook interactively
+
+```bash
+jupyter lab feb-2022/FFFFWNPFEARTHQ_newTFTv29-gregor.ipynb
+```
 
 ## Running using pip from the commandline
 
