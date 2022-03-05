@@ -35,6 +35,10 @@ if [ ! -e "${BASE}/cm" ]; then
     (cd cm && cloudmesh-installer get cms)
 fi
 
+if [ ! -e "${HOME}/.cloudmesh" ]; then
+  cms help
+fi
+
 echo "Cloudmesh setup"
 
 if [ ! -e mlcommons-earthquake-data ]; then
