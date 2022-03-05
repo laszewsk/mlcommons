@@ -8,7 +8,7 @@ To run this code, you have two pathways:
 ## GET THE DATA
 
 ```bash
-export EQ="$(pwd)/mlcommons/benchmarks/earthquake/feb-2022/"
+export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 git clone git@github.com:laszewsk/mlcommons.git
 cd "$EQ"
 curl -OL https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
@@ -20,12 +20,10 @@ this will create all data files necessary to run the notebook.
 
 ## Running using pip from the commandline
 
-
-
 To preserver the original code, we first create a copy
 
 ```
-cp FFFFWNPFEARTHQ_newTFTv29.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb 
+cp feb-2022/FFFFWNPFEARTHQ_newTFTv29.ipynb feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb 
 ```
 
 To run this code using pip, execute
@@ -33,8 +31,8 @@ To run this code using pip, execute
 ```bash
 python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
-python -m pip install -rrequirements.txt
-jupyter nbconvert --to notebook --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
+python -m pip install -r "feb-2022/requirements.txt"
+jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
 ```
 
 To see the output, you need to open the notebook.
@@ -44,32 +42,11 @@ developer-focused modules by running
 
 ```bash
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
-python -m pip install -rrequirements-dev.txt
+python -m pip install -r feb-2022/requirements-dev.txt
 jupyter-lab .
 ```
 
-## Running using Conda
 
-To get this running with while using Conda, run
-
-```bash
-conda env create -f environment.yml
-conda activatge mlcommons-science
-jupytext --to py:percent FFFFWNPFEARTHQ_newTFTv29.ipynb
-python FFFFWNPFEARTHQ_newTFTv29.py
-```
-
-Please note that we do not recommend that you use conda init, but instead activate 
-the environment by hand. 
-
-If you arre interested in doing interactive development, you can install the 
-developer-focused modules by running
-
-```bash
-conda activate mlcommons-science
-python -m pip install -rrequirements-dev.txt
-jupyter lab .
-```
 
 ## Building the container image
 
@@ -183,4 +160,33 @@ DLinputRunName = RunName
 DLinputCheckpointpostfix = ''
 
 TFTTransformerepochs = 66
+```
+
+
+
+## Alternate Procedures
+
+This is in work; recommend using the above procedure first.
+
+### Running using Conda
+
+To get this running with while using Conda, run
+
+```bash
+conda env create -f environment.yml
+conda activatge mlcommons-science
+jupytext --to py:percent FFFFWNPFEARTHQ_newTFTv29.ipynb
+python FFFFWNPFEARTHQ_newTFTv29.py
+```
+
+Please note that we do not recommend that you use conda init, but instead activate 
+the environment by hand. 
+
+If you arre interested in doing interactive development, you can install the 
+developer-focused modules by running
+
+```bash
+conda activate mlcommons-science
+python -m pip install -rrequirements-dev.txt
+jupyter lab .
 ```
