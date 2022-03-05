@@ -15,5 +15,5 @@ tensorflow
 #tensorflow_datasets
 tqdm
 watermark
-wheel ; sys_platform == 'win32'
+wheel
 jupyter-lab
