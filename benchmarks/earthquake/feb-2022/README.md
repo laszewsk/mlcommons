@@ -8,13 +8,14 @@ To run this code, you have two pathways:
 ## GET THE DATA
 
 ```bash
-mkdir earthquake
-wget https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
-tar xvz data.tar.xz
-mv data EarthquakeDec2020
+export EQ="$(pwd)/mlcommons/benchmarks/earthquake/feb-2022/"
+git clone git@github.com:laszewsk/mlcommons.git
+cd "$EQ"
+curl -OL https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
+tar xvf data.tar.xz
 ```
 
-this will create all data files in the mv data `EarthquakeDec2020` drectory
+this will create all data files necessary to run the notebook.
 
 
 ## Running using pip from the commandline
