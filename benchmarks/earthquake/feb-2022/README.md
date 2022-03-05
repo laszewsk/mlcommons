@@ -36,7 +36,7 @@ python -m pip install -rrequirements.txt
 jupyter nbconvert --to notebook --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
 ```
 
-To see the output, you d need to open the notebook
+To see the output, you need to open the notebook.
 
 If you are interested in doing interactive development, you can install the 
 developer-focused modules by running 
@@ -44,12 +44,12 @@ developer-focused modules by running
 ```bash
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -rrequirements-dev.txt
-jupyter lab .
+jupyter-lab .
 ```
 
 ## Running using Conda
 
-To get this running in Conda, run
+To get this running with while using Conda, run
 
 ```bash
 conda env create -f environment.yml
@@ -58,7 +58,11 @@ jupytext --to py:percent FFFFWNPFEARTHQ_newTFTv29.ipynb
 python FFFFWNPFEARTHQ_newTFTv29.py
 ```
 
-If you're interested in doing interactive development, you can install the developer-focused modules by running
+Please note that we do not recommend that you use conda init, but instead activate 
+the environment by hand. 
+
+If you arre interested in doing interactive development, you can install the 
+developer-focused modules by running
 
 ```bash
 conda activate mlcommons-science
@@ -68,7 +72,8 @@ jupyter lab .
 
 ## Building the container image
 
-To build a container image of the entire benchmarking system (but not run the benchmark), you can run the commands
+To build a container image of the entire benchmarking system (but not run the 
+benchmark), you can run the commands
 
 ```bash
 # If running docker
@@ -80,24 +85,90 @@ $ nerdctl image build --tag mlcommons-science-earthquake:latest
 
 ## Running on Rivanna
 
-TODO - Improve this documentation
-
+0. Activate the [UVA VPN](https://virginia.service-now.com/its/?id=itsweb_kb_article&sys_id=f24e5cdfdb3acb804f32fb671d9619d0)
 1. Login to Rivanna
-2. Change to your scratch directory: `/scratch/$USER`
-3. Run the following git commands to checkout the code and data
-   1. `git clone git@github.com:laszewsk/mlcommons-data-earthquake.git`
-   2. `git clone git@github.com:laszewsk/mlcommons.git`
-4. Create the directory to house the Earthquake data: `mkdir -p mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020`
-5. Extract the earthquake data to where the notebook will be looking for the earthquake data:
-   1. TODO - change to cms data 
-   2. `tar Jxvf mlcommons-data-earthquake/data.tar.xz --strip-components=1 -C mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020`
-6. Activate cuda and cudnn capabilities `module load cuda cudnn`
+
+   ```bash
+   ssh YOUR_UVA_ID@rivanna.rc.virginia.edu
+   ```
+   
+2. Change to your scratch directory: 
+   
+   ```bash
+   cd /scratch/$USER
+   export SCRATCH=`cwd`
+   ```   
+
+3. Install a venv
+
+   do this for whatever python version we need (maybe we need not to use default, 
+   but special pythin version)
+   
+4. ```bash
+   python -m venv $SCRATCH/ENV3   
+   python should be in $SCRATCH/ENV3/bin/python
+   ```
+
+5. Install cloudmesh, if you have not yet done so (use either source or pip instalation)
+
+   Source:
+
+   ```bash
+   pip install cloudmesh-installer
+   cloudmesh-installer get data
+   cms help
+   ```
+
+
+5. Run the following git commands to checkout the code and data
+
+   TODO: use cms data 
+
+   ```bash
+   python install cloudmesh-data
+   cms help
+   git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+   git clone git@github.com:laszewsk/mlcommons.git
+   mkdir -p mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020
+   tar Jxvf mlcommons-data-earthquake/data.tar.xz --strip-components=1 -C mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020`
+   ```
+
+   > **Note**: Be reminded to use the `cms help` command  once as it will create some 
+   >configuration files in `~/.cloudmesh`. Without it, cloudmesh has limited 
+   >capabilities and may not run properly.
+
+   > **Note**: In case you like to also get the source code of cloudmesh, 
+   > please replace the line `python install cloudmesh-data` with 
+   >
+   > ```bash
+   > pip install cloudmesh-installer
+   > cloudmesh-installer get data
+   > ```
+ 
+6. Activate cuda and cudnn capabilities
+
+   ```bash
+   module load cuda cudnn
+   ```
+   
 7. Activate your ENV3 python and install all dependencies
-   1. `source /scratch/$USER/ENV3/bin/activate`
-   2. `python -m pip install -r requirements.txt`
-   3. `python -m pip install jupyter`
+
+   ```bash
+   source /scratch/$SCRATCH/ENV3/bin/activate
+   pip install -r requirements.txt
+   ```
+
 8. Navigate to the benchmark directory:
-   1. `cd mlcommons/benchmarks/earthquake/feb-2022`
+   
+   ```bash
+    cd mlcommons/benchmarks/earthquake/feb-2022
+   ```
+   
 9. Copy the source notebook to your own version and run it
-   1. `cp FFFFWNPFEARTHQ_newTFTv29.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb`
-   2. `jupyter nbconvert --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb --to notebook`
+
+   ```bash
+   cp FFFFWNPFEARTHQ_newTFTv29.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
+   jupyter nbconvert --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb --to notebook
+   ```
+   
+

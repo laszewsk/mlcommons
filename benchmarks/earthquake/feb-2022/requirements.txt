@@ -16,3 +16,4 @@ tensorflow
 tqdm
 watermark
 wheel ; sys_platform == 'win32'
+jupyter-lab
