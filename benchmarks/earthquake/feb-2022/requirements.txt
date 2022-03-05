@@ -1,6 +1,6 @@
 #-e .
 cloudmesh-common
-gputil
+cloudmesh-gpu
 #horovod
 jupyter
 keras
