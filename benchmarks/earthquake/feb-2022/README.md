@@ -171,4 +171,15 @@ $ nerdctl image build --tag mlcommons-science-earthquake:latest
    jupyter nbconvert --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb --to notebook
    ```
    
+## Configuration
 
+Adjust the epochs to be lower for faster runs.
+
+```
+DLAnalysisOnly = False
+DLRestorefromcheckpoint = False
+DLinputRunName = RunName
+DLinputCheckpointpostfix = ''
+
+TFTTransformerepochs = 66
+```
