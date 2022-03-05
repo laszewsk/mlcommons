@@ -114,4 +114,4 @@ ENV/
 .vscode/
 
 # Source Model Data
-benchmarks/earthquake/new/data/EarthquakeDec2020/
+benchmarks/earthquake/feb-2022/data/EarthquakeDec2020/
