@@ -112,3 +112,6 @@ ENV/
 .vs/
 .idea/
 .vscode/
+
+# Source Model Data
+benchmarks/earthquake/feb-2022/data/EarthquakeDec2020/

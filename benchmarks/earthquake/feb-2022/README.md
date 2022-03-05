@@ -76,3 +76,28 @@ $ docker image build --tag mlcommons-science-earthquake:latest
 # If running nerdctl
 $ nerdctl image build --tag mlcommons-science-earthquake:latest
 ```
+
+
+## Running on Rivanna
+
+TODO - Improve this documentation
+
+1. Login to Rivanna
+2. Change to your scratch directory: `/scratch/$USER`
+3. Run the following git commands to checkout the code and data
+   1. `git clone git@github.com:laszewsk/mlcommons-data-earthquake.git`
+   2. `git clone git@github.com:laszewsk/mlcommons.git`
+4. Create the directory to house the Earthquake data: `mkdir -p mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020`
+5. Extract the earthquake data to where the notebook will be looking for the earthquake data:
+   1. TODO - change to cms data 
+   2. `tar Jxvf mlcommons-data-earthquake/data.tar.xz --strip-components=1 -C mlcommons/benchmarks/earthquake/feb-2022/data/Earthquake2020`
+6. Activate cuda and cudnn capabilities `module load cuda cudnn`
+7. Activate your ENV3 python and install all dependencies
+   1. `source /scratch/$USER/ENV3/bin/activate`
+   2. `python -m pip install -r requirements.txt`
+   3. `python -m pip install jupyter`
+8. Navigate to the benchmark directory:
+   1. `cd mlcommons/benchmarks/earthquake/feb-2022`
+9. Copy the source notebook to your own version and run it
+   1. `cp FFFFWNPFEARTHQ_newTFTv29.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb`
+   2. `jupyter nbconvert --execute FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb --to notebook`
