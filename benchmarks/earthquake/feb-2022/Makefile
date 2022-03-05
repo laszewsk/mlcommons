@@ -38,18 +38,24 @@ help:
 
 
 commit:
+	read -p "Do you wish to clean the output from ${FILE}? (CTRL-c if not)" y
+	echo
 	jupyter nbconvert --clear-output --inplace ${FILE}
 	git status
-	read -p "Do you wish to install this program? (CTRL-c if not)" yn
+	read -p "Do you wish to install this program? (CTRL-c if not)" y
 	echo
 	git commit -a
 
 push:
 	git status
+	read -p "Do you wish to push? (CTRL-c if not)" y
+	echo
 	git push
 
 pull:
 	git status
+	read -p "Do you wish to pull? (CTRL-c if not)" y
+	echo
 	git pull
 
 data:
