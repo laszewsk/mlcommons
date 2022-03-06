@@ -36,6 +36,7 @@ git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
 export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 tar xvf mlcommons-data-earthquake/data.tar.xz -C "$EQ"
 cd "$EQ"
+module load anaconda
 python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -r "mar2022/requirements.txt"
