@@ -31,8 +31,13 @@ To run this code, you have two pathways:
 ## GET THE CODE AND DATA
 
 ```bash
-git clone git@github.com:laszewsk/mlcommons.git
-git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+# If doing updates, advise using ssh commands.
+#git clone git@github.com:laszewsk/mlcommons.git
+#git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+
+# If just trying to run as a one-off
+git clone https://github.com/laszewsk/mlcommons.git
+git clone https://github.com/laszewsk/mlcommons-data-earthquake.git
 export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 tar xvf mlcommons-data-earthquake/data.tar.xz -C "$EQ"
 cd "$EQ"
