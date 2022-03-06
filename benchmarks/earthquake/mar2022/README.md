@@ -27,13 +27,13 @@ To run this code, you have two pathways:
    9. Group: Use one of the following
       1. SDS Students: `ds6001-sp22-002`
       2. Others: `DSC_BII`
-
-## GET THE DATA
+      
+## GET THE CODE AND DATA
 
 ```bash
-export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 git clone git@github.com:laszewsk/mlcommons.git
 git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 tar xvf mlcommons-data-earthquake/data.tar.xz -C "$EQ"
 cd "$EQ"
 python -m venv --prompt mlcommons-science venv
