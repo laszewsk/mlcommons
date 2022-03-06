@@ -9,6 +9,7 @@
 #SBATCH --account=bii_dsc
 
 
+
 BASE=/scratch/$USER
 HOME=${BASE}
 

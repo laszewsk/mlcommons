@@ -8,21 +8,24 @@
 #SBATCH --gres=gpu:k80:1
 #SBATCH --account=bii_dsc
 
+# sbatch PROJECT_HOME=....
 
 BASE=/scratch/$USER
 HOME=${BASE}
+PYTHON="3.10.2"
+PROJECT_HOME="/project/ds6011-sp22-002"
 
 cd ${BASE}
 
-if [ ! -e "${BASE}/.local/python/3.10.2" ] ; then
-    tar Jxvf /project/ds6011-sp22-002/python-3.10.2.tar.xz -C "${BASE}"
+if [ ! -e "${BASE}/.local/python/${PYTHON}" ] ; then
+    tar Jxvf ${PROJECT_HOME}/python-${PYTHON}.tar.xz -C "${BASE}"
 fi
 
 export LD_LIBRARY_PATH=${BASE}/.local/ssl/lib:$LD_LIBRARY_PATH
 echo "Python setup"
 
 if [ ! -e "${BASE}/ENV3/bin/activate" ]; then
-    ${BASE}/.local/python/3.10.2/bin/python3.10 -m venv ${BASE}/ENV3
+    ${BASE}/.local/python/${PYTHON}/bin/python3.10 -m venv ${BASE}/ENV3
 fi
 
 echo "ENV3 Setup"
