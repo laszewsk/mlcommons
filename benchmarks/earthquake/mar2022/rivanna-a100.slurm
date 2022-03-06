@@ -8,6 +8,15 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --account=ds6011-sp22-002
 
+#  one proposal. lets do what robert does ...
+#
+#   git clone ....
+#   git clone ....
+#   ls ./mlcommons
+#   ls ./mlcommons-data-earthquake/data.tar.xz
+#   tar xvf mlcommons-data-earthquake/data.tar.xz
+#   ls ./data/EarthquakeDec2020
+#
 
 BASE=/scratch/$USER
 HOME=${BASE}
