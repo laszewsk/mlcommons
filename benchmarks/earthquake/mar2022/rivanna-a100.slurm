@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-earthquake-a100
-#SBATCH --output=mlcommons-science-earthquake-a100.out
-#SBATCH --error=mlcommons-science-earthquake-100.err
+#SBATCH --job-name=mlcommons-science-earthquake-${GPU}-${PYTHON}
+#SBATCH --output=mlcommons-science-earthquake-${GPU}-${PYTHON}.out
+#SBATCH --error=mlcommons-science-earthquake-${GPU}-${PYTHON}.err
 #SBATCH --partition=gpu
 #SBATCH -c 1
 #SBATCH --time=03:00:00
