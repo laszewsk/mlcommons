@@ -5,11 +5,12 @@ To run this code, you have two pathways:
 1. Using the native python ecosystem via `pip`, or
 2. Using the conda ecosystem.
 
-## GET THE DATA
+## GET THE COD AND DATA
 
 ```bash
-export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 git clone git@github.com:laszewsk/mlcommons.git
+# git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 cd "$EQ"
 curl -OL https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
 tar xvf data.tar.xz
@@ -57,6 +58,10 @@ $ nerdctl image build --tag mlcommons-science-earthquake:latest
 
 
 ## Running on Rivanna
+
+To improve the next steps see also 
+
+* <https://laszewsk.github.io/mlcommons/docs/tutorials/rivanna/>
 
 0. Activate the [UVA VPN](https://virginia.service-now.com/its/?id=itsweb_kb_article&sys_id=f24e5cdfdb3acb804f32fb671d9619d0)
 1. Login to Rivanna

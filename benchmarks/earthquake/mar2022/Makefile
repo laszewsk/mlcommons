@@ -36,11 +36,13 @@ help:
 	@echo "    shell - opens the container interactively and runs bash"
 	@echo 
 
-
-commit:
+output:
 	read -p "Do you wish to clean the output from ${FILE}? (CTRL-c if not)" y
 	echo
 	jupyter nbconvert --clear-output --inplace ${FILE}
+
+
+commit: reset
 	git status
 	read -p "Do you wish to commit? (CTRL-c if not)" y
 	echo
