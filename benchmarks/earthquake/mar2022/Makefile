@@ -42,7 +42,7 @@ commit:
 	echo
 	jupyter nbconvert --clear-output --inplace ${FILE}
 	git status
-	read -p "Do you wish to install this program? (CTRL-c if not)" y
+	read -p "Do you wish to commit? (CTRL-c if not)" y
 	echo
 	git commit -a
 
