@@ -25,7 +25,7 @@ To run this code, you have two pathways:
    7. Number of GPUs: `1-4`
    8. Slurm Options: Leave Blank
    9. Group: Use one of the following
-      1. SDS Students: `ds6001-sp22-002`
+      1. SDS Students: `ds6011-sp22-002`
       2. Others: `DSC_BII`
       
 ## GET THE CODE AND DATA
@@ -39,6 +39,7 @@ cd "$EQ"
 python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -r "mar2022/requirements.txt"
+module load cuda cudnn
 ```
 
 this will create all data files necessary to run the notebook.
