@@ -5,14 +5,37 @@ To run this code, you have two pathways:
 1. Using the native python ecosystem via `pip`, or
 2. Using the conda ecosystem.
 
+
+## Starting Rivanna
+
+1. Go to rivanna's OnDemand instance: <https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard/>
+   1. You may need to login using your UVA credentials.
+2. Click on "My Interactive Sessions"
+3. Select "Interactive Apps",  "Desktops", "Desktop"
+4. For your options, select
+   1. Rivanna Partition: `GPU`
+   2. Number of Hours: <time you plan to use the request>
+   3. Number of Cores: `4` to `8`
+   4. Memory: `32` to `64`
+   5. Allocation: Use one of the following (depending on who you are)
+      1. SDS Students: `ds6011-sp22-002`
+      2. Others: `DSC_BII`
+   6. GPU Type: Select any
+      1. Note that `A100`s are limited, and `K80`s are plentiful.  You may get access faster if requesting K80s for development.
+   7. Number of GPUs: `1-4`
+   8. Slurm Options: Leave Blank
+   9. Group: Use one of the following
+      1. SDS Students: `ds6001-sp22-002`
+      2. Others: `DSC_BII`
+
 ## GET THE DATA
 
 ```bash
 export EQ="$(pwd)/mlcommons/benchmarks/earthquake"
 git clone git@github.com:laszewsk/mlcommons.git
+git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
+tar xvf mlcommons-data-earthquake/data.tar.xz -C "$EQ"
 cd "$EQ"
-curl -OL https://github.com/laszewsk/mlcommons-data-earthquake/raw/main/data.tar.xz
-tar xvf data.tar.xz
 python -m venv --prompt mlcommons-science venv
 source venv/bin/activate # or .\venv\Scripts\activate.bat on windows
 python -m pip install -r "mar2022/requirements.txt"
