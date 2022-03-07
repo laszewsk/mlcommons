@@ -50,10 +50,10 @@ echo "ENV3 Setup"
 source ${BASE}/ENV3/bin/activate
 python -m pip install -U pip wheel papermill
 
-if [ ! -e "${BASE}/mlcommons-earthquake-data" ]; then
-    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-earthquake-data"
+if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
+    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
 else
-    (cd ${BASE}/mlcommons-earthquake-data ; \
+    (cd ${BASE}/mlcommons-data-earthquake ; \
         git fetch origin ; \
         git checkout main ; \
         git reset --hard origin/main ; \
