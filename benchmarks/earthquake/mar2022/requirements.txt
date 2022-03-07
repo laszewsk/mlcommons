@@ -17,4 +17,4 @@ tqdm
 watermark
 wheel
 jupyterlab
-autotime
+jupyter-autotime
