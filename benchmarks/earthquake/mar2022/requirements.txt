@@ -14,7 +14,6 @@ tabulate
 tensorflow
 tensorflow_datasets
 tqdm
-watermark
 wheel
 jupyterlab
 jupyter-autotime
