@@ -70,9 +70,11 @@ else
         git clean -d --force)
 fi
 
-if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/Earthquake2020 ]; then
+if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
     tar Jxvf ${BASE}/mlcommons-data-earthquake/data.tar.xz \
         -C ${BASE}/mlcommons/benchmarks/earthquake
+    # BUG; should be in zip file (or created as part of the python file
+    mkdir -p ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
 fi
 
 
