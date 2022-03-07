@@ -3,7 +3,8 @@
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
 #SBATCH --partition=gpu
-#SBATCH -c 4
+#SBATCH --cpus-per-task=6
+#SBATCH --mem=32G
 #SBATCH --time=06:00:00
 #SBATCH --gres=gpu:a100:1
 #SBATCH --account=ds6011-sp22-002
