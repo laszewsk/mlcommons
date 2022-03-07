@@ -1,4 +1,9 @@
-# Running the code
+# EQ Code
+
+* Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
+* Original data at ???
+
+## Running the code
 
 To run this code, you have two pathways:
 
@@ -6,7 +11,7 @@ To run this code, you have two pathways:
 2. Using the conda ecosystem.
 
 
-## Starting Rivanna
+## Starting on Rivanna
 
 1. Go to rivanna's OnDemand instance: <https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard/>
    1. You may need to login using your UVA credentials.
