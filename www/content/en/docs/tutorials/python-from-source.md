@@ -41,6 +41,8 @@ This procedure assumes the following:
 ### Build OpenSSL
 
 ```bash
+BASE=~/.local
+PREFIX=${BASE}/python/3.10.2
 # Fetch source code
 curl -OL https://www.openssl.org/source/openssl-1.1.1m.tar.gz
 mkdir -p ${BASE}/src
@@ -59,6 +61,10 @@ make clean
 PYTHON_MAJ=3.10
 PYTHON_MIN=2
 PYTHON_VERSION=${PYTHON_MAJ}.${PYTHON_MIN}
+
+BASE=~/.local
+PREFIX=${BASE}/python/${PYTHON_VERSION}
+
 curl -OL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz
 tar Jxvf Python-${PYTHON_VERSION}.tar.xz -C ${BASE}/src/
 cd ${BASE}/src/Python-${PYTHON_VERSION}
@@ -73,7 +79,7 @@ make altinstall
 make clean
 
 mkdir -p ${BASE}/.local/bin
-(cd ${BASE}/bin ; ln -s python3.10 python)
+(cd ${BASE}/bin ; ln -s python${PYTHON_MAJ} python)
 
 cat <<EOF > ${BASE}/setup.source
 #!/bin/bash
