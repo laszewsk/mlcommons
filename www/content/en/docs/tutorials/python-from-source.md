@@ -43,21 +43,25 @@ This procedure assumes the following:
 ```bash
 # Fetch source code
 curl -OL https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+mkdir -p ${BASE}/src
 tar -zxvf openssl-1.1.1m.tar.gz -C ${BASE}/src/
 cd ${BASE}/src/openssl-1.1.1m/
 ./config --prefix=${BASE}/ssl --openssldir=${BASE}/ssl shared zlib
 make
 #make test
-make instal
+make install
 make clean
 ```
 
 ### Build Python
 
 ```bash
-curl -OL https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
-tar Jxvf Python-3.10.2.tar.xz -C ${BASE}/src/
-cd Python-3.10.2
+PYTHON_MAJ=3.10
+PYTHON_MIN=2
+PYTHON_VERSION=${PYTHON_MAJ}.${PYTHON_MIN}
+curl -OL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz
+tar Jxvf Python-${PYTHON_VERSION}.tar.xz -C ${BASE}/src/
+cd ${BASE}/src/Python-${PYTHON_VERSION}
 export CPPFLAGS=" -I${BASE}/ssl/include "
 export LDFLAGS=" -L${BASE}/ssl/lib "
 export LD_LIBRARY_PATH=${BASE}/ssl/lib:$LD_LIBRARY_PATH
@@ -85,7 +89,7 @@ EOF
 ### Archive Build
 
 ```bash
-tar Jxvf python-3.10.2.tar .xz $BASE
+tar Jxvf python-3.10.2.tar.xz $BASE
 ```
 
 ## Common Setup Procedures
