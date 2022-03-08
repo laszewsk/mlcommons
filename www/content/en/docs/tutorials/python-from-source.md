@@ -66,6 +66,7 @@ BASE=~/.local
 PREFIX=${BASE}/python/${PYTHON_VERSION}
 
 curl -OL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz
+mkdir -p ${BASE}/src
 tar Jxvf Python-${PYTHON_VERSION}.tar.xz -C ${BASE}/src/
 cd ${BASE}/src/Python-${PYTHON_VERSION}
 export CPPFLAGS=" -I${BASE}/ssl/include "
