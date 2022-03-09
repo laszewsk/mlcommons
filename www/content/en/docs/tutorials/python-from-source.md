@@ -85,8 +85,8 @@ mkdir -p ${BASE}/.local/bin
 cat <<EOF > ${BASE}/setup.source
 #!/bin/bash
 
-BASE=$BASE
-PREFIX=$PREFIX
+BASE=/scratch/\$USER/.local
+PREFIX=\$BASE/python/${PYTHON_VERSION}
 
 export LD_LIBRARY_PATH=\$BASE/ssl/lib:\$PREFIX/lib:\$LD_LIBRARY_PATH
 export PATH=\$PREFIX/bin:\$PATH
@@ -96,7 +96,7 @@ EOF
 ### Archive Build
 
 ```bash
-tar Jxvf python-3.10.2.tar.xz $BASE
+tar Jcvf python-3.10.2.tar.xz $BASE
 ```
 
 ## Common Setup Procedures
@@ -126,5 +126,5 @@ git clone git@github.com:laszewsk/mlcommons.git
 git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
 
 pip install -r mlcommons/examples/mnist-tensorflow/requirements.txt
-pip install -r mlcommons/benchmarks/earthquake/new/requirements.txt
+pip install -r mlcommons/benchmarks/earthquake/mar2022/requirements.txt
 ```
