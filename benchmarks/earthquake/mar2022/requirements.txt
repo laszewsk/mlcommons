@@ -17,3 +17,5 @@ tqdm
 wheel
 jupyterlab
 jupyter-autotime
+ipywidgets
+ipython-autotime
