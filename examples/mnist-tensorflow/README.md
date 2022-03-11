@@ -60,7 +60,7 @@ benchmarks may not be accurate, real time is what we probably want to focus on
 | Rivanna K80      | 0m57.588s | 0m20.322s | 0m9.612s  | 470.82.01   | 11.4 | NVIDIA TESLA K80      | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Rivanna Frontend | 1m11.535s | 1m00.780s | 0m10.352s | N/A         | N/A  | N/A    		            | Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz | Q3  2014 
 | Robert Ryzen 9   | 0m19.274s | 0m00.000s | 0m00.031s | 511.23      | 11.6 | NVIDIA RTX 3080       | AMD Ryzen 9 (5900HX)                      | Q1  2021
-| Thomas RTX 2070  | 0m3.387s  | 0m00.000s | 0m0.015s  | 511.79      | 11.6 | NVIDIA RTX 2070       | Intel Core i7-8750H                       | Q2  2018
+| Thomas AERO 15   | 0m3.387s  | 0m00.000s | 0m0.015s  | 511.79      | 11.6 | NVIDIA RTX 2070       | Intel Core i7-8750H                       | Q2  2018
 
 ## Tensorflow setup on M1
 
