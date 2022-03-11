@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-#g DATE = `date`
 
 #SBATCH --job-name=mlcommons-science-earthquake-a100
-#g sbatch --export=V='v1' rivaan-a110.slurm
-#g SBATCH --job-name=mlcommons-science-earthquake-a100-$DATE
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
 #SBATCH --partition=gpu
