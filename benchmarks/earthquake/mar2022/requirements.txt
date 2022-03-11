@@ -16,6 +16,7 @@ tensorflow_datasets
 tqdm
 wheel
 jupyterlab
-jupyter-autotime
 ipywidgets
+jupyter-autotime
 ipython-autotime
+papermill
