@@ -11,7 +11,24 @@ To run this code, you have two pathways:
 2. Using the conda ecosystem.
 
 
-## Starting on Rivanna
+## Non-interactive Process
+
+1. Connect to UVA's VPN
+2. SSH into rivanna by typing `ssh -Y <username>@rivanna.hpc.virginia.edu`, where `<username>` is your UVA Netbadge ID.
+3. Checkout this mlcommons repo
+   1. Using ssh (preferred): `git clone git@github.com:laszewsk/mlcommons.git`
+   2. Using https (not recommended): `git clone https://github.com/laszewsk/mlcommons.git` 
+   3. Note: If you've done this before, instead you should update your local copy using `git pull`
+   4. Note: If you want to reset to the current latest and delete all local changes:  `git fetch origin && git checkout main && git reset --hard origin/main && git clean -d --force`
+5. Navigate to the benchmark folder `cd mlcommons/benchmarks/earthquake/mar2022`
+6. Schedule a task by running `sbatch rivanna-<type>.slurm`, where `<type>` is one of the graphics card partitions
+   1. To check your job status, run `squeue --user $USER`.
+8. If the job started successfully, your current working directory should have two log files that shows the progress.
+
+
+## Interactive Process
+
+### Starting a interactive session on Rivanna
 
 1. Go to rivanna's OnDemand instance: <https://rivanna-portal.hpc.virginia.edu/pun/sys/dashboard/>
    1. You may need to login using your UVA credentials.
@@ -33,7 +50,7 @@ To run this code, you have two pathways:
       1. SDS Students: `ds6011-sp22-002`
       2. Others: `DSC_BII`
       
-## GET THE CODE AND DATA
+### Get the Code and Data
 
 ```bash
 # If doing updates, advise using ssh commands.
@@ -55,13 +72,21 @@ module load cuda cudnn
 
 this will create all data files necessary to run the notebook.
 
-## Running notebook interactively
+### Running notebook interactively
 
 ```bash
 jupyter lab mar2022/FFFFWNPFEARTHQ_newTFTv29-gregor.ipynb
 ```
 
-## Running using pip from the commandline
+### Running the notebook non-interactively
+
+First, consider running your workload using SLURM (see 
+
+```bash
+jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
+```
+   
+#### Running using pip from the commandline
 
 To preserver the original code, we first create a copy
 
@@ -76,8 +101,13 @@ jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USE
 ```
 
 To see the output, you need to open the notebook.
+   
+
+## Running 
 
 
+# Deprecated/Todo Instructions
+   
 ## Building the container image
 
 To build a container image of the entire benchmarking system (but not run the 
@@ -89,8 +119,7 @@ $ docker image build --tag mlcommons-science-earthquake:latest
 # If running nerdctl
 $ nerdctl image build --tag mlcommons-science-earthquake:latest
 ```
-
-
+   
 ## Running on Rivanna
 
 0. Activate the [UVA VPN](https://virginia.service-now.com/its/?id=itsweb_kb_article&sys_id=f24e5cdfdb3acb804f32fb671d9619d0)
