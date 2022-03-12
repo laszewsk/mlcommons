@@ -1,8 +1,10 @@
 
 import click
 #from cloudmesh.common import Shell
+
 import subprocess
 import os
+import sys
 
 
 class BenchmarkRunner(object):
@@ -15,10 +17,10 @@ class BenchmarkRunner(object):
                         num_gpus: int = 1, num_cpus: int = 1):
         # See https://slurm.schedmd.com/sbatch.html#SECTION_INPUT-ENVIRONMENT-VARIABLES
         newrun = {
-            'SLURM_GRES': f'gpu:{card_name}:{num_gpus}',
-            'SLURM_JOB_NAME': "mlcommons-science-earthquake-%u-%j",
-            'SLURM_CPUS_ON_NODE': num_cpus,
-            'SLURM_TIMELIMIT': timelimit,
+            'SBATCH_GRES': f'gpu:{card_name}:{num_gpus}',
+            'SBATCH_JOB_NAME': "mlcommons-science-earthquake-%u-%j",
+            'SBATCH_CPUS_ON_NODE': num_cpus,
+            'SBATCH_TIMELIMIT': timelimit,
         }
         self._configs.append(newrun)
         return newrun
@@ -95,12 +97,9 @@ class BenchmarkRunner(object):
     def run(self):
         for config, env in self.setup_slurm_environ():
             print(f"Running {config = }")
-            proc = subprocess.Popen(['sbatch', self._script_path], env=env, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            stdout, stderr = proc.communicate()
-            print(f"Output {stdout=}")
-            if stderr is not None or stderr != "":
-                print(f"Output {stdout=}")
-            #r = Shell.run(f"sbatch {self._script_path}")
+            stdout, stderr = subprocess.Popen(['sbatch', self._script_path], env=env, encoding='utf-8', stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+            print(stdout)
+            print(f"{stderr = }", file=sys.stderr)
 
 
 @click.command()
