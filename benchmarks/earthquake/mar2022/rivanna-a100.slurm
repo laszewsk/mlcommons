@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-earthquake-a100
-#SBATCH --output=mlcommons-science-earthquake-a100.out
-#SBATCH --error=mlcommons-science-earthquake-a100.err
+#SBATCH --job-name=mlcommons-science-earthquake-a100-%u-%j
+#SBATCH --output=mlcommons-science-earthquake-a100-%u-%j.out
+#SBATCH --error=mlcommons-science-earthquake-a100-%u-%j.err
 #SBATCH --partition=gpu
 #SBATCH -c 6
 #SBATCH --time=5:00:00
 #SBATCH --gres=gpu:a1000:1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
 #SBATCH --account=ds6011-sp22-002
 
 

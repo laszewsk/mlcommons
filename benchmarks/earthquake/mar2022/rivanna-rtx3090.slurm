@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-earthquake-rtx3090
-#SBATCH --output=mlcommons-science-earthquake-rtx3090.out
-#SBATCH --error=mlcommons-science-earthquake-rtx3090.err
+#SBATCH --job-name=mlcommons-science-earthquake-rtx3090-%u-%j
+#SBATCH --output=mlcommons-science-earthquake-rtx3090-%u-%j.out
+#SBATCH --error=mlcommons-science-earthquake-rtx3090-%u-%j.err
 #SBATCH --partition=gpu
 #SBATCH -c 6
 #SBATCH --time=06:00:00
 #SBATCH --gres=gpu:rtx3090:1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
 #SBATCH --account=bii_dsc
 
 GPU_TYPE="rtx3090"

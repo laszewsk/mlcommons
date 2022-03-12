@@ -3,7 +3,6 @@
 #SBATCH --output=mlcommons-science-earthquake-v100-%u-%j.out
 #SBATCH --error=mlcommons-science-earthquake-v100-%u-%j.err
 #SBATCH --partition=gpu
-#SBATCH -N
 #SBATCH -c 6
 #SBATCH --time=06:00:00
 #SBATCH --gres=gpu:v100:1
