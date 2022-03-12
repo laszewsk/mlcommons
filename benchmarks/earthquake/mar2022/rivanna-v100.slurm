@@ -1,26 +1,31 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=mlcommons-science-earthquake-v100
-#SBATCH --output=mlcommons-science-earthquake-v100.out
+#SBATCH --output=mlcommons-science-earthquake-v100
 #SBATCH --error=mlcommons-science-earthquake-v100.err
 #SBATCH --partition=gpu
-#SBATCH -c 1
+#SBATCH -c 6
 #SBATCH --time=06:00:00
 #SBATCH --gres=gpu:v100:1
 #SBATCH --account=ds6011-sp22-002
 
-GPU_TYPE="v100"
+GPU_TYPE="rtx3090"
 PYTHON_MAJ="3.10"
 PYTHON_MIN="2"
 
+RUNSTAMP="$(date +%s)"
+
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-BASE=/scratch/$USER/${GPU_TYPE}
+BASE=/scratch/$USER/${GPU_TYPE}-${RUNSTAMP}
 HOME=${BASE}
 
 REV="mar2022"
 VARIANT="-gregor"
 
+TFT_EPOCHS=2
+
 echo "Working in <$(pwd)>"
+echo "Run Timestamp <${RUNSTAMP}>"
 echo "Base directory in <${BASE}>"
 echo "Overridden home in <${HOME}>"
 echo "Revision: <${REV}>"
@@ -28,7 +33,10 @@ echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
 echo "GPU: <${GPU_TYPE}>"
 
-module load cuda cudnn
+# Load cuda on HPCs if module is present.
+if command -v module ; then
+  module load cuda cudnn
+fi
 
 nvidia-smi
 
@@ -85,4 +93,5 @@ fi
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
-    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-v100.ipynb)
+    papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
+       -p TFTTransformerepochs $TFT_EPOCHS)

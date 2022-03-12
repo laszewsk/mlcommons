@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
-
-
 #SBATCH --job-name=mlcommons-science-earthquake-a100
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
 #SBATCH --partition=gpu
-#SBATCH --cpus-per-task=6
-#SBATCH --mem=32G
-#SBATCH --time=06:00:00
-#SBATCH --gres=gpu:a100:1
+#SBATCH -c 6
+#SBATCH --time=5:00:00
+#SBATCH --gres=gpu:a1000:1
 #SBATCH --account=ds6011-sp22-002
 
 
@@ -22,29 +19,24 @@
 #rSBATCH --gres=gpu:a100:1
 #rSBATCH --account=ds6011-sp22-002
 
-#  one proposal. lets do what robert does ...
-#
-#   git clone ....
-#   git clone ....
-#   ls ./mlcommons
-#   ls ./mlcommons-data-earthquake/data.tar.xz
-#   tar xvf mlcommons-data-earthquake/data.tar.xz
-#   ls ./data/EarthquakeDec2020
-#
-
-GPU_TYPE="a100"
+GPU_TYPE="k80"
 PYTHON_MAJ="3.10"
 PYTHON_MIN="2"
 
+RUNSTAMP="$(date +%s)"
+
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-BASE=/scratch/$USER/${GPU_TYPE}
+BASE=/scratch/$USER/${GPU_TYPE}-${RUNSTAMP}
 HOME=${BASE}
 
 REV="mar2022"
 VARIANT="-gregor"
 
+TFT_EPOCHS=2
+
 echo "Working in <$(pwd)>"
+echo "Run Timestamp <${RUNSTAMP}>"
 echo "Base directory in <${BASE}>"
 echo "Overridden home in <${HOME}>"
 echo "Revision: <${REV}>"
@@ -52,7 +44,10 @@ echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
 echo "GPU: <${GPU_TYPE}>"
 
-module load cuda cudnn
+# Load cuda on HPCs if module is present.
+if command -v module ; then
+  module load cuda cudnn
+fi
 
 nvidia-smi
 
@@ -97,7 +92,8 @@ fi
 if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
     tar Jxvf ${BASE}/mlcommons-data-earthquake/data.tar.xz \
         -C ${BASE}/mlcommons/benchmarks/earthquake
-    mkdir -p ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/outputs
+    # BUG; should be in zip file (or created as part of the python file
+    mkdir -p ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
 fi
 
 
@@ -108,4 +104,5 @@ fi
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
-    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE.ipynb --no-progress-bar --log-output --log-level INFO)
+    papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
+       -p TFTTransformerepochs $TFT_EPOCHS)
