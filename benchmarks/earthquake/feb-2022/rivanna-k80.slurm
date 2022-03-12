@@ -35,6 +35,10 @@ if [ ! -e "${BASE}/cm" ]; then
     (cd cm && cloudmesh-installer get cms)
 fi
 
+if [ ! -e "${HOME}/.cloudmesh" ]; then
+  cms help
+fi
+
 echo "Cloudmesh setup"
 
 if [ ! -e mlcommons-earthquake-data ]; then
@@ -54,8 +58,7 @@ fi
 
 
 (cd mlcommons/benchmarks/earthquake/feb-2022 && \
-    python -m pip install -r requirements.txt && \
-    python -m pip install jupyter)
+    python -m pip install -r requirements.txt)
 
 
 module load cuda cudnn

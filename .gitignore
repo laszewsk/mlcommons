@@ -1,4 +1,6 @@
 *~
+data.tar.xz
+benchmarks/earthquake/data
 /public
 resources/
 node_modules/

@@ -11,6 +11,7 @@ DGX=dgx
 
 # -shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864
 
+FILE=FFFFWNPFEARTHQ_newTFTv29-gregor.ipynb
 USER_NAME=`whoami`
 GROUP_NAME='dsc:'
 USER_ID=`id -u`
@@ -35,6 +36,27 @@ help:
 	@echo "    shell - opens the container interactively and runs bash"
 	@echo 
 
+
+commit:
+	read -p "Do you wish to clean the output from ${FILE}? (CTRL-c if not)" y
+	echo
+	jupyter nbconvert --clear-output --inplace ${FILE}
+	git status
+	read -p "Do you wish to install this program? (CTRL-c if not)" y
+	echo
+	git commit -a
+
+push:
+	git status
+	read -p "Do you wish to push? (CTRL-c if not)" y
+	echo
+	git push
+
+pull:
+	git status
+	read -p "Do you wish to pull? (CTRL-c if not)" y
+	echo
+	git pull
 
 data:
 	@echo "GROUP_NAME:" ${GROUP_NAME}

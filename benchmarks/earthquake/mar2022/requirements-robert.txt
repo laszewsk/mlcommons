@@ -1,0 +1,18 @@
+#-e .
+cloudmesh-common
+cloudmesh-gpu
+#horovod
+jupyter
+keras
+matplotlib
+numpy
+pandas
+psutil
+py-cpuinfo
+scipy
+tabulate
+tensorflow
+tensorflow_datasets
+tqdm
+wheel
+jupyterlab

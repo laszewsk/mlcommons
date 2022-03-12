@@ -1,6 +1,6 @@
 #-e .
 cloudmesh-common
-gputil
+cloudmesh-gpu
 #horovod
 jupyter
 keras
@@ -15,4 +15,5 @@ tensorflow
 #tensorflow_datasets
 tqdm
 watermark
-wheel ; sys_platform == 'win32'
+wheel
+jupyterlab
