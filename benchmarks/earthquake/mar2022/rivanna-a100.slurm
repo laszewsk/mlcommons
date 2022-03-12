@@ -23,7 +23,8 @@ GPU_TYPE="a100"
 PYTHON_MAJ="3.10"
 PYTHON_MIN="2"
 
-RUNSTAMP="$(date +%s)"
+RUNSTAMP="${RUNSTAMP:-$(date +%s)}"
+BRANCH="${BRANCH:-main}"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
@@ -84,8 +85,8 @@ if [ ! -e "${BASE}/mlcommons" ]; then
 else
     (cd ${BASE}/mlcommons ; \
         git fetch origin ; \
-        git checkout main ; \
-        git reset --hard origin/main ; \
+        git checkout ${BRANCH} ; \
+        git reset --hard origin/${BRANCH} ; \
         git clean -d --force)
 fi
 
