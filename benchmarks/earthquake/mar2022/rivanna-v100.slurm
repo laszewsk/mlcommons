@@ -14,6 +14,7 @@ PYTHON_MIN="2"
 
 RUNSTAMP="${RUNSTAMP:-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
+FORK=${FORK:-"laszewsk"}
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
@@ -70,7 +71,7 @@ else
 fi
 
 if [ ! -e "${BASE}/mlcommons" ]; then
-    git clone https://github.com/laszewsk/mlcommons.git "${BASE}/mlcommons"
+    git clone https://github.com/${FORK}/mlcommons.git "${BASE}/mlcommons"
     (cd ${BASE}/mlcommons && git checkout ${BRANCH})
 else
     (cd ${BASE}/mlcommons ; \
