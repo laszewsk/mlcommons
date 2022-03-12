@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-earthquake-v100
-#SBATCH --output=mlcommons-science-earthquake-v100.out
-#SBATCH --error=mlcommons-science-earthquake-v100.err
+#SBATCH --job-name=mlcommons-science-earthquake-v100-%u-%j
+#SBATCH --output=mlcommons-science-earthquake-v100-%u-%j.out
+#SBATCH --error=mlcommons-science-earthquake-v100-%u-%j.err
 #SBATCH --partition=gpu
+#SBATCH -N
 #SBATCH -c 6
 #SBATCH --time=06:00:00
 #SBATCH --gres=gpu:v100:1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
 #SBATCH --account=ds6011-sp22-002
 
 GPU_TYPE="v100"
@@ -37,6 +40,7 @@ echo "GPU: <${GPU_TYPE}>"
 
 # Load cuda on HPCs if module is present.
 if command -v module ; then
+  module purge
   module load cuda cudnn
 fi
 
@@ -95,7 +99,8 @@ fi
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
+
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
     papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
-       -p TFTTransformerepochs $TFT_EPOCHS \
+#       -p TFTTransformerepochs $TFT_EPOCHS \
        --no-progress-bar --log-output --log-level INFO)

@@ -37,6 +37,7 @@ echo "GPU: <${GPU_TYPE}>"
 
 # Load cuda on HPCs if module is present.
 if command -v module ; then
+  module purge
   module load cuda cudnn
 fi
 
@@ -97,5 +98,5 @@ fi
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
     papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
-       -p TFTTransformerepochs $TFT_EPOCHS \
+#       -p TFTTransformerepochs $TFT_EPOCHS \
        --no-progress-bar --log-output --log-level INFO)
