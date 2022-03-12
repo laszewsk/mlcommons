@@ -12,12 +12,12 @@ class BenchmarkRunner(object):
 
     def register_config(self, card_name: str, timelimit: str,
                         num_gpus: int = 1, num_cpus: int = 1):
+        # See https://slurm.schedmd.com/sbatch.html#SECTION_INPUT-ENVIRONMENT-VARIABLES
         newrun = {
             'SLURM_GRES': f'gpu:{card_name}:{num_gpus}',
             'SLURM_JOB_NAME': "mlcommons-science-earthquake-%u-%j",
             'SLURM_CPUS_ON_NODE': num_cpus,
             'SLURM_TIMELIMIT': timelimit,
-
         }
         self._configs.append(newrun)
         return newrun
@@ -72,17 +72,15 @@ class BenchmarkRunner(object):
         return ["a100", "p100", "v100", "k80", "rtx2080", "rtx3090"]
 
     def lookup_config(self, host, card_name):
-        if host == "rivanna":
-            try:
-                return getattr(self, f"default_rivanna_{card_name}")()
-            except AttributeError:
-                print(f"System {host} does not have a default for card: {card_name}")
+        try:
+            return getattr(self, f"default_{host}_{card_name}")()
+        except AttributeError:
+            print(f"System {host} does not have a default for card: {card_name}")
 
     def setup_prerun(self, configs=None):
         def slurm_setup(my_config):
-            slurm_opts = [(f"SLURM_{key.upper()}", f"{value}") for key, value in config.items()]
-            for env, val in slurm_opts:
-                os.environ[env] = val
+            for env, val in my_config.items():
+                os.environ[str(env)] = str(val)
             return my_config
 
         if configs is None:
