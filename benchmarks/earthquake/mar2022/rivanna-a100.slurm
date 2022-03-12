@@ -15,11 +15,11 @@
 #rSBATCH --error=mlcommons-science-earthquake-${GPU}-${PYTHON}.err
 #rSBATCH --partition=gpu
 #rSBATCH -c 1
-#rSBATCH --time=03:00:00
+#rSBATCH --time=05:00:00
 #rSBATCH --gres=gpu:a100:1
 #rSBATCH --account=ds6011-sp22-002
 
-GPU_TYPE="k80"
+GPU_TYPE="a100"
 PYTHON_MAJ="3.10"
 PYTHON_MIN="2"
 
@@ -67,7 +67,7 @@ fi
 
 echo "ENV3 Setup"
 source ${BASE}/ENV3/bin/activate
-python -m pip install -U pip wheel papermill
+python -m pip install -U pip wheel --progress-bar off
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
@@ -98,7 +98,7 @@ fi
 
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
-    python -m pip install -r requirements.txt)
+    python -m pip install -r requirements.txt --progress-bar off)
 
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \

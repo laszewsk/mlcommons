@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=mlcommons-science-earthquake-k80
-#SBATCH --output=mlcommons-science-earthquake-k80
+#SBATCH --output=mlcommons-science-earthquake-k80.out
 #SBATCH --error=mlcommons-science-earthquake-k80.err
 #SBATCH --partition=gpu
 #SBATCH -c 6
@@ -56,7 +56,7 @@ fi
 
 echo "ENV3 Setup"
 source ${BASE}/ENV3/bin/activate
-python -m pip install -U pip wheel papermill
+python -m pip install -U pip wheel --progress-bar off
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
@@ -87,7 +87,7 @@ fi
 
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
-    python -m pip install -r requirements.txt)
+    python -m pip install -r requirements.txt --progress-bar off)
 
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
