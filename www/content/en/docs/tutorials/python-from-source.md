@@ -41,23 +41,34 @@ This procedure assumes the following:
 ### Build OpenSSL
 
 ```bash
+BASE=~/.local
+PREFIX=${BASE}/python/3.10.2
 # Fetch source code
 curl -OL https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+mkdir -p ${BASE}/src
 tar -zxvf openssl-1.1.1m.tar.gz -C ${BASE}/src/
 cd ${BASE}/src/openssl-1.1.1m/
 ./config --prefix=${BASE}/ssl --openssldir=${BASE}/ssl shared zlib
 make
 #make test
-make instal
+make install
 make clean
 ```
 
 ### Build Python
 
 ```bash
-curl -OL https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
-tar Jxvf Python-3.10.2.tar.xz -C ${BASE}/src/
-cd Python-3.10.2
+PYTHON_MAJ=3.10
+PYTHON_MIN=2
+PYTHON_VERSION=${PYTHON_MAJ}.${PYTHON_MIN}
+
+BASE=~/.local
+PREFIX=${BASE}/python/${PYTHON_VERSION}
+
+curl -OL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz
+mkdir -p ${BASE}/src
+tar Jxvf Python-${PYTHON_VERSION}.tar.xz -C ${BASE}/src/
+cd ${BASE}/src/Python-${PYTHON_VERSION}
 export CPPFLAGS=" -I${BASE}/ssl/include "
 export LDFLAGS=" -L${BASE}/ssl/lib "
 export LD_LIBRARY_PATH=${BASE}/ssl/lib:$LD_LIBRARY_PATH
@@ -69,13 +80,13 @@ make altinstall
 make clean
 
 mkdir -p ${BASE}/.local/bin
-(cd ${BASE}/bin ; ln -s python3.10 python)
+(cd ${BASE}/bin ; ln -s python${PYTHON_MAJ} python)
 
 cat <<EOF > ${BASE}/setup.source
 #!/bin/bash
 
-BASE=$BASE
-PREFIX=$PREFIX
+BASE=/scratch/\$USER/.local
+PREFIX=\$BASE/python/${PYTHON_VERSION}
 
 export LD_LIBRARY_PATH=\$BASE/ssl/lib:\$PREFIX/lib:\$LD_LIBRARY_PATH
 export PATH=\$PREFIX/bin:\$PATH
@@ -85,7 +96,7 @@ EOF
 ### Archive Build
 
 ```bash
-tar Jxvf python-3.10.2.tar .xz $BASE
+tar Jcvf python-3.10.2.tar.xz $BASE
 ```
 
 ## Common Setup Procedures
@@ -115,5 +126,5 @@ git clone git@github.com:laszewsk/mlcommons.git
 git clone git@github.com:laszewsk/mlcommons-data-earthquake.git
 
 pip install -r mlcommons/examples/mnist-tensorflow/requirements.txt
-pip install -r mlcommons/benchmarks/earthquake/new/requirements.txt
+pip install -r mlcommons/benchmarks/earthquake/mar2022/requirements.txt
 ```
