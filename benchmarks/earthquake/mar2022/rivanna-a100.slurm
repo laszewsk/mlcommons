@@ -1,37 +1,25 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-earthquake-a100-%u-%j
-#SBATCH --output=mlcommons-science-earthquake-a100-%u-%j.out
-#SBATCH --error=mlcommons-science-earthquake-a100-%u-%j.err
+#SBATCH --job-name=mlcommons-science-eq-a100-%u-%j
+#SBATCH --output=mlcommons-science-eq-a100-%u-%j.out
+#SBATCH --error=mlcommons-science-eq-a100-%u-%j.err
 #SBATCH --partition=gpu
 #SBATCH -c 6
 #SBATCH --time=5:00:00
-#SBATCH --gres=gpu:a1000:1
+#SBATCH --gres=gpu:a100:1
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account=ds6011-sp22-002
 
-
-### TODO -figure out how to parameterize.
-#rSBATCH --job-name=mlcommons-science-earthquake-${GPU}-${PYTHON}
-#rSBATCH --output=mlcommons-science-earthquake-${GPU}-${PYTHON}.out
-#rSBATCH --error=mlcommons-science-earthquake-${GPU}-${PYTHON}.err
-#rSBATCH --partition=gpu
-#rSBATCH -c 1
-#rSBATCH --time=05:00:00
-#rSBATCH --gres=gpu:a100:1
-#rSBATCH --account=ds6011-sp22-002
-
-GPU_TYPE="a100"
 PYTHON_MAJ="3.10"
 PYTHON_MIN="2"
 
-RUNSTAMP="${RUNSTAMP:-$(date +%s)}"
+RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
 FORK=${FORK:-"laszewsk"}
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-BASE=/scratch/$USER/${GPU_TYPE}-${RUNSTAMP}
+BASE=/scratch/$USER/${RUNSTAMP}
 HOME=${BASE}
 
 REV="mar2022"
@@ -47,6 +35,11 @@ echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
 echo "GPU: <${GPU_TYPE}>"
+
+echo "Slurm Environment Details"
+echo "===start[env]==========="
+printenv | grep "SLURM_"
+echo "===end[env]============="
 
 # Load cuda on HPCs if module is present.
 if command -v module ; then
@@ -106,6 +99,7 @@ fi
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt --progress-bar off)
 
+printenv > ${BASE}/env.source
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
@@ -113,3 +107,9 @@ fi
     papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
 #       -p TFTTransformerepochs $TFT_EPOCHS \
        --no-progress-bar --log-output --log-level INFO)
+
+END_TIME="$(date +%s)"
+
+if [[ ! -z "${SLURM_JOBID}" ]] ; then
+  sacct -j ${SLURM_JOBID} -P --delimiter=, -o jobid,user,submit,start,end,state | sed -e 's/^/# slurmjob,/g' -e 's/,Unknown,RUNNING$/,'$(date +%Y-%m-%dT%H:%m:%s -d ${END_TIME})'DONE/g'
+fi
