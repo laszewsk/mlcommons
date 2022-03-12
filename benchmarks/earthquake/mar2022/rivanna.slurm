@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-science-eq-a100-%u-%j
-#SBATCH --output=mlcommons-science-eq-a100-%u-%j.out
-#SBATCH --error=mlcommons-science-eq-a100-%u-%j.err
+#SBATCH --job-name=mlcommons-science-eq-%u-%j
+#SBATCH --output=mlcommons-science-eq-%u-%j.out
+#SBATCH --error=mlcommons-science-eq-%u-%j.err
 #SBATCH --partition=gpu
 #SBATCH -c 6
 #SBATCH --time=5:00:00

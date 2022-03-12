@@ -1,6 +1,7 @@
 
 import click
-from cloudmesh.common import Shell
+#from cloudmesh.common import Shell
+import subprocess
 import os
 
 
@@ -93,8 +94,13 @@ class BenchmarkRunner(object):
     def run(self):
         for config in self.setup_prerun():
             print(f"Running {config = }")
-            r = Shell.run(f"sbatch {self._script_path}")
-            print(r)
+            env = os.environ.copy()
+            proc = subprocess.Popen(['sbatch', self._script_path], env=env, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            stdout, stderr = proc.communicate()
+            print(f"Output {stdout=}")
+            if stderr is not None or stderr != "":
+                print(f"Output {stdout=}")
+            #r = Shell.run(f"sbatch {self._script_path}")
 
 
 @click.command()
