@@ -78,23 +78,23 @@ class BenchmarkRunner(object):
         except AttributeError:
             print(f"System {host} does not have a default for card: {card_name}")
 
-    def setup_prerun(self, configs=None):
+    def setup_slurm_environ(self, configs=None):
         def slurm_setup(my_config):
+            my_env = os.environ.copy()
             for env, val in my_config.items():
-                os.environ[str(env)] = str(val)
-            return my_config
+                my_env[str(env)] = str(val)
+            return my_env
 
         if configs is None:
             for config in self._configs:
-                yield slurm_setup(config)
+                yield config, slurm_setup(config)
         else:
             for config in configs:
-                yield slurm_setup(config)
+                yield config, slurm_setup(config)
 
     def run(self):
-        for config in self.setup_prerun():
+        for config, env in self.setup_slurm_environ():
             print(f"Running {config = }")
-            env = os.environ.copy()
             proc = subprocess.Popen(['sbatch', self._script_path], env=env, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             stdout, stderr = proc.communicate()
             print(f"Output {stdout=}")
