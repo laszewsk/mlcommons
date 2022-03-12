@@ -71,6 +71,7 @@ fi
 
 if [ ! -e "${BASE}/mlcommons" ]; then
     git clone https://github.com/laszewsk/mlcommons.git "${BASE}/mlcommons"
+    git checkout ${BRANCH}
 else
     (cd ${BASE}/mlcommons ; \
         git fetch origin ; \
