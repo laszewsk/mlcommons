@@ -79,6 +79,7 @@ cd ${BASE}
 
 
 echo "ENV3 Setup"
+python -m venv --prompt ENV3 ${BASE}/ENV3
 source ${BASE}/ENV3/bin/activate
 python -m pip install -U pip wheel --progress-bar off
 
