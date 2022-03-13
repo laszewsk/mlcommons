@@ -17,13 +17,14 @@ RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
 FORK=${FORK:-"laszewsk"}
 
-RESOURCE_DIR="/project/ds6011-sp22-002"
-
-BASE=/scratch/$USER/${RUNSTAMP}
+BASE=${BASE:-/scratch/$USER/${RUNSTAMP}}
 HOME=${BASE}
 
 REV="mar2022"
-VARIANT="-gregor"
+VARIANT="${VARIANT:-gregor}"
+
+RESOURCE_DIR="/project/ds6011-sp22-002"
+
 
 TFT_EPOCHS=2
 
@@ -36,44 +37,20 @@ echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
 echo "GPU: <${GPU_TYPE}>"
 
-echo "Slurm Environment Details"
-echo "===start[env]==========="
-printenv | grep "SLURM_"
-echo "===end[env]============="
-
-# Load cuda on HPCs if module is present.
-if command -v module ; then
-  module purge
-  module load cuda cudnn
+if command -v sbatch ; then
+  echo "Slurm Environment Details"
+  echo "===start[env]==========="
+  printenv | grep "SLURM_"
+  echo "===end[env]============="
 fi
-
-nvidia-smi
-
-mkdir -p ${BASE}
-cd ${BASE}
-
-if [ ! -e "${BASE}/.local/python/${PYTHON_MAJ}.${PYTHON_MIN}" ] ; then
-    tar Jxvf "${RESOURCE_DIR}/python-${PYTHON_MAJ}.${PYTHON_MIN}.tar.xz" -C "${BASE}"
-fi
-
-export LD_LIBRARY_PATH=${BASE}/.local/ssl/lib:$LD_LIBRARY_PATH
-echo "Python setup"
-
-if [ ! -e "${BASE}/ENV3/bin/activate" ]; then
-    ${BASE}/.local/python/${PYTHON_MAJ}.${PYTHON_MIN}/bin/python3.10 -m venv ${BASE}/ENV3
-fi
-
-echo "ENV3 Setup"
-source ${BASE}/ENV3/bin/activate
-python -m pip install -U pip wheel --progress-bar off
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
 else
-    (cd ${BASE}/mlcommons-data-earthquake ; \
-        git fetch origin ; \
-        git checkout main ; \
-        git reset --hard origin/main ; \
+    (cd ${BASE}/mlcommons-data-earthquake && \
+        git fetch origin && \
+        git checkout main && \
+        git reset --hard origin/main && \
         git clean -d --force)
 fi
 
@@ -87,6 +64,23 @@ else
         git reset --hard origin/${BRANCH} ; \
         git clean -d --force)
 fi
+
+# Load cuda on HPCs if module is present.
+if command -v module ; then
+  module purge
+  module use ${RESOURCE_DIR}/modulefiles
+  module load python-rivanna/${PYTHON_MAJ}.${PYTHON_MIN} cuda cudnn
+fi
+
+nvidia-smi
+
+mkdir -p ${BASE}
+cd ${BASE}
+
+
+echo "ENV3 Setup"
+source ${BASE}/ENV3/bin/activate
+python -m pip install -U pip wheel --progress-bar off
 
 if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
     tar Jxvf ${BASE}/mlcommons-data-earthquake/data.tar.xz \
