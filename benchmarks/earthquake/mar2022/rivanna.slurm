@@ -10,8 +10,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --account=ds6011-sp22-002
 
-PYTHON_MAJ="3.10"
-PYTHON_MIN="2"
+PYTHON_VERSION="3.10.2"
 
 RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
@@ -34,7 +33,7 @@ echo "Base directory in <${BASE}>"
 echo "Overridden home in <${HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
-echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
+echo "Python: <${PYTHON_VERSION}>"
 echo "GPU: <${GPU_TYPE}>"
 
 if command -v sbatch ; then
@@ -42,6 +41,13 @@ if command -v sbatch ; then
   echo "===start[env]==========="
   printenv | grep "SLURM_"
   echo "===end[env]============="
+fi
+
+# Load cuda on HPCs if module is present.
+if command -v module ; then
+  module purge
+  module use ${RESOURCE_DIR}/modulefiles
+  module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
@@ -65,12 +71,7 @@ else
         git clean -d --force)
 fi
 
-# Load cuda on HPCs if module is present.
-if command -v module ; then
-  module purge
-  module use ${RESOURCE_DIR}/modulefiles
-  module load python-rivanna/${PYTHON_MAJ}.${PYTHON_MIN} cuda cudnn
-fi
+
 
 nvidia-smi
 

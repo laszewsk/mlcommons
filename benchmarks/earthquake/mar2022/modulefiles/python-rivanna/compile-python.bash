@@ -1,10 +1,8 @@
 #!/bin/bash -xe
 
 BASE="/project/ds6011-sp22-002/python/base"
-PREFIX="${BASE}/versions/${VERSION}"
 
 echo $BASE
-echo $PREFIX
 
 # Work OpenSSL
 # Fetch source code
@@ -28,6 +26,8 @@ function build_python() {
   PYTHON_MAJ=${PYTHON_VERSION%.*}
   PYTHON_MIN=${PYTHON_VERSION/${PYTHON_MAJ}./}
 
+  PREFIX="${BASE}/versions/${PYTHON_VERSION}"
+
   echo "Building Python <${PYTHON_VERSION}>"
   echo "Installing to <${PREFIX}>"
   echo "Using Shared Lib Folder <${BASE}>"
@@ -45,6 +45,7 @@ function build_python() {
   make test
   make altinstall
   make clean
+  (cd ${PREFIX}/bin && ln -s python${PYTHON_MAJ} python)
 }
 
 build_python 3.10.2 ${PREFIX} ${BASE}
