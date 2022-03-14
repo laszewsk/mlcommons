@@ -1,28 +1,6 @@
----
-title: "Science Benchmark Policy Draft (Training)"
-linkTitle: "Policy"
-date: 2017-01-05
-weight: 4
-description: >
-  The Policy draft document
----
+= Science Benchmark Policy Draft (Training)
 
-{{% pageinfo %}}
-The document is under development. 
-{{% /pageinfo %}}
-
-
-{{< alert color="warning" title="Draft" >}}
-Under development.
-
-The raw document is located at this [link](
-https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
-{{< /alert >}}
-
-
-{{< alert color="warning" title="Bug" >}}
-Bug: The table of content does not render when we use hugo
-{{< /alert >}}
+The Policy draft document
 
 
 :toc:
