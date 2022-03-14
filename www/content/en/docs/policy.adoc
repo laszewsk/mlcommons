@@ -7,6 +7,10 @@ The Policy draft document
 :toc:
 :toclevels: 4
 
+:toc-placement!: 
+
+toc::[]
+
 Version 0.1 
 January 31, 2021
 
