@@ -6,7 +6,7 @@ The Policy draft document
 :sectnums:
 :toclevels: 4
 
-:toc: macro
+:toc: preamble
 
 some content
 
