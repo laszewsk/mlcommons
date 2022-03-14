@@ -4,7 +4,6 @@
 The Policy draft document
 
 :sectnums:
-:toc:
 :toclevels: 4
 
 :toc-placement!: 
