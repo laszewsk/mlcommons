@@ -1,11 +1,17 @@
-
 = Science Benchmark Policy Draft (Training): MLCommons Science Benchmark Suite Training Rules
+
+:toc: macro
+
+
 
 The Policy draft document
 
 :sectnums:
 :toclevels: 4
 :toc:
+
+toc::[]
+
 
 Version 0.1 
 January 31, 2021
