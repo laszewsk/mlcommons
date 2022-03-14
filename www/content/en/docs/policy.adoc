@@ -6,10 +6,13 @@ The Policy draft document
 :sectnums:
 :toclevels: 4
 
-:toc-placement!: 
+:toc: macro
+
+some content
 
 toc::[]
 
+more content
 Version 0.1 
 January 31, 2021
 
