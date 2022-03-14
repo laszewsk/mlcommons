@@ -14,15 +14,17 @@ PYTHON_VERSION="3.10.2"
 
 RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
-FORK=${FORK:-"laszewsk"}
+FORK=${FORK:-"rknuu"}
 
-BASE=${BASE:-/scratch/$USER/${RUNSTAMP}}
+BASE=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER/${RUNSTAMP}}
 HOME=${BASE}
 
 REV="mar2022"
 VARIANT="${VARIANT:-gregor}"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
+
+mkdir -p ${BASE}
 
 
 TFT_EPOCHS=2
