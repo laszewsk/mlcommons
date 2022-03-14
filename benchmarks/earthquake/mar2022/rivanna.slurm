@@ -14,6 +14,7 @@ PYTHON_VERSION="3.10.2"
 
 RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
+BRANCH_SAFE=${BRANCH/\//-}
 FORK=${FORK:-"rknuu"}
 
 HOME=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER}
@@ -27,7 +28,7 @@ RESOURCE_DIR="/project/ds6011-sp22-002"
 
 TFT_EPOCHS=2
 
-trap "rm -f ${VENV_PATH}.lock; exit" 1 2 3 6 15
+trap "rm -f ${VENV_PATH}.lock ${HOME}/mlcommons.lock; exit" 1 2 3 6 15
 
 
 echo "Working in <$(pwd)>"
@@ -56,59 +57,72 @@ fi
 
 mkdir -p ${RUN_BASE}
 
-if [ ! -e "${RUN_BASE}/mlcommons-data-earthquake" ]; then
-    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${RUN_BASE}/mlcommons-data-earthquake"
+if [ ! -e "${HOME}/mlcommons-data-earthquake" ]; then
+    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${HOME}/mlcommons-data-earthquake"
 else
-    (cd ${RUN_BASE}/mlcommons-data-earthquake && \
+    (cd ${HOME}/mlcommons-data-earthquake && \
         git fetch origin && \
         git checkout main && \
         git reset --hard origin/main && \
         git clean -d --force)
 fi
 
-if [ ! -e "${RUN_BASE}/mlcommons" ]; then
-    git clone https://github.com/${FORK}/mlcommons.git "${RUN_BASE}/mlcommons"
-    (cd ${RUN_BASE}/mlcommons && git checkout ${BRANCH})
-else
-    (cd ${RUN_BASE}/mlcommons ; \
-        git fetch origin ; \
-        git checkout ${BRANCH} ; \
-        git reset --hard origin/${BRANCH} ; \
-        git clean -d --force)
-fi
-
-
-nvidia-smi
-
-if [ ! -e ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
-    tar Jxvf ${RUN_BASE}/mlcommons-data-earthquake/data.tar.xz \
-        -C ${RUN_BASE}/mlcommons/benchmarks/earthquake
-    # BUG; should be in zip file (or created as part of the python file
-    mkdir -p ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
-fi
-
-echo "ENV3 Setup"
-printf "Checking for pip lock."
-while [ -e ${VENV_PATH}.lock ] ; do
+printf "Checking for git lock."
+while [ -e ${HOME}/mlcommons.lock ] ; do
   printf "."
   sleep 5
 done
 printf "Done\n"
 
-touch ${VENV_PATH}.lock
-python -m venv --prompt ENV3 ${VENV_PATH}
-source ${VENV_PATH}/bin/activate
-python -m pip install -U pip wheel --progress-bar off
-(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/${REV} && \
-    python -m pip install -r requirements.txt --progress-bar off)
-rm -f ${VENV_PATH}.lock
+touch ${HOME}/mlcommons.lock
+  if [ ! -e "${HOME}/mlcommons" ]; then
+      git clone https://github.com/${FORK}/mlcommons.git "${HOME}/mlcommons"
+      (cd ${HOME}/mlcommons && git checkout ${BRANCH})
+  else
+      (cd ${HOME}/mlcommons ; \
+          git fetch origin ; \
+          git checkout ${BRANCH} ; \
+          git reset --hard origin/${BRANCH} ; \
+          git clean -d --force)
+  fi
+  GIT_REV="$(git rev-parse --short=8 HEAD)"
 
-printenv > ${RUN_BASE}/env.source
+  mkdir -p ${RUN_BASE}/workspace
 
-(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/${REV} && \
-    cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
-(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/mar2022 && \
-    papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
+  nvidia-smi
+
+  if [ ! -e ${HOME}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
+      tar Jxvf ${HOME}/mlcommons-data-earthquake/data.tar.xz \
+          -C ${RUN_BASE}/workspace
+      # BUG; should be in zip file (or created as part of the python file
+      mkdir -p ${RUN_BASE}/workspace/data/EarthquakeDec2020/Outputs
+  fi
+
+  echo "ENV3 Setup"
+  printf "Checking for pip lock."
+  while [ -e ${VENV_PATH}.lock ] ; do
+    printf "."
+    sleep 5
+  done
+  printf "Done\n"
+
+  touch ${VENV_PATH}.lock
+    python -m venv --prompt ENV3 ${VENV_PATH}
+    source ${VENV_PATH}/bin/activate
+    python -m pip install -U pip wheel --progress-bar off
+    (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
+        python -m pip install -r requirements.txt --progress-bar off)
+  rm -f ${VENV_PATH}.lock
+
+  printenv > ${RUN_BASE}/env.source
+
+  (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
+      cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" ${RUN_BASE}/workspace/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb)
+
+rm -f ${HOME}/mlcommons.lock
+
+(cd ${RUN_BASE} && \
+    papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}_output.ipynb" \
        --no-progress-bar --log-output --log-level INFO)
 #       -p TFTTransformerepochs $TFT_EPOCHS \
 
