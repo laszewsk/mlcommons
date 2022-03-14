@@ -58,6 +58,8 @@ fi
 
 mkdir -p ${RUN_BASE}
 
+RUN_BASE_ABS=$(realpath ${RUN_BASE})
+
 if [ ! -e "${HOME}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${HOME}/mlcommons-data-earthquake"
 else
@@ -109,7 +111,7 @@ touch ${HOME}/mlcommons.lock
 
   touch ${VENV_PATH}.lock
     python -m venv --prompt ENV3 ${VENV_PATH}
-    source ${VENV_PATH}/Scripts/activate
+    source ${VENV_PATH}/bin/activate
     python -m pip install -U pip wheel --progress-bar off
     (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
         python -m pip install -r requirements.txt --progress-bar off)
@@ -120,7 +122,7 @@ touch ${HOME}/mlcommons.lock
 
   (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
       ls -la "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" && \
-      cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" ${RUN_BASE}/workspace/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb)
+      cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" ${RUN_BASE_ABS}/workspace/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb)
 
 rm -f ${HOME}/mlcommons.lock
 
