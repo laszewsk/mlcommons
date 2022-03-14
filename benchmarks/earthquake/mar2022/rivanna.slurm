@@ -93,9 +93,9 @@ touch ${HOME}/mlcommons.lock
 
   if [ ! -e ${HOME}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
       tar Jxvf ${HOME}/mlcommons-data-earthquake/data.tar.xz \
-          -C ${RUN_BASE}/workspace
+          -C ${RUN_BASE}
       # BUG; should be in zip file (or created as part of the python file
-      mkdir -p ${RUN_BASE}/workspace/data/EarthquakeDec2020/Outputs
+      mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
   fi
 
   echo "ENV3 Setup"
