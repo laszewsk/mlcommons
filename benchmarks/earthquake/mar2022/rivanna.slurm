@@ -25,10 +25,10 @@ VARIANT="${VARIANT:-gregor}"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-mkdir -p ${RUN_BASE}
-
-
 TFT_EPOCHS=2
+
+trap "rm -f ${VENV_PATH}.lock; exit" 1 2 3 6 15
+
 
 echo "Working in <$(pwd)>"
 echo "Run Timestamp <${RUNSTAMP}>"
@@ -38,6 +38,7 @@ echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_VERSION}>"
 echo "GPU: <${GPU_TYPE}>"
+
 
 if command -v sbatch ; then
   echo "Slurm Environment Details"
@@ -52,6 +53,8 @@ if command -v module ; then
   module use ${RESOURCE_DIR}/modulefiles
   module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
+
+mkdir -p ${RUN_BASE}
 
 if [ ! -e "${RUN_BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${RUN_BASE}/mlcommons-data-earthquake"
@@ -75,13 +78,7 @@ else
 fi
 
 
-
 nvidia-smi
-
-echo "ENV3 Setup"
-python -m venv --prompt ENV3 ${VENV_PATH}
-source ${VENV_PATH}/bin/activate
-python -m pip install -U pip wheel --progress-bar off
 
 if [ ! -e ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
     tar Jxvf ${RUN_BASE}/mlcommons-data-earthquake/data.tar.xz \
@@ -90,9 +87,21 @@ if [ ! -e ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; 
     mkdir -p ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
 fi
 
+echo "ENV3 Setup"
+printf "Checking for pip lock."
+while [ -e ${VENV_PATH}.lock ] ; do
+  printf "."
+  sleep 5
+done
+printf "Done\n"
 
+touch ${VENV_PATH}.lock
+python -m venv --prompt ENV3 ${VENV_PATH}
+source ${VENV_PATH}/bin/activate
+python -m pip install -U pip wheel --progress-bar off
 (cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt --progress-bar off)
+rm -f ${VENV_PATH}.lock
 
 printenv > ${RUN_BASE}/env.source
 
