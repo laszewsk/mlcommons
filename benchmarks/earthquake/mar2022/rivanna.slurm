@@ -121,7 +121,7 @@ touch ${HOME}/mlcommons.lock
 
 rm -f ${HOME}/mlcommons.lock
 
-(cd ${RUN_BASE} && \
+(cd ${RUN_BASE}/workspace && \
     papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}_output.ipynb" \
        --no-progress-bar --log-output --log-level INFO)
 #       -p TFTTransformerepochs $TFT_EPOCHS \
