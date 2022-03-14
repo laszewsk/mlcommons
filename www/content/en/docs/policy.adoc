@@ -5,14 +5,8 @@ The Policy draft document
 
 :sectnums:
 :toclevels: 4
+:toc:
 
-:toc: preamble
-
-some content
-
-toc::[]
-
-more content
 Version 0.1 
 January 31, 2021
 
