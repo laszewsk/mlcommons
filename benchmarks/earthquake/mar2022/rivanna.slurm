@@ -111,7 +111,8 @@ touch ${HOME}/mlcommons.lock
     source ${VENV_PATH}/bin/activate
     python -m pip install -U pip wheel --progress-bar off
     (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
-        python -m pip install -r requirements.txt --progress-bar off)
+        python -m pip install -r requirements.txt --progress-bar off && \
+        python -m pip freeze > ${RUN_BASE}/pip-freeze.txt)
   rm -f ${VENV_PATH}.lock
 
   printenv > ${RUN_BASE}/env.source
