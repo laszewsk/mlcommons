@@ -16,22 +16,23 @@ RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
 FORK=${FORK:-"rknuu"}
 
-BASE=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER/${RUNSTAMP}}
-HOME=${BASE}
+HOME=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER}
+RUN_BASE=${RUN_BASE:-${HOME}/${RUNSTAMP}}
+VENV_PATH=${HOME}/venv-${PYTHON_VERSION}
 
 REV="mar2022"
 VARIANT="${VARIANT:-gregor}"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-mkdir -p ${BASE}
+mkdir -p ${RUN_BASE}
 
 
 TFT_EPOCHS=2
 
 echo "Working in <$(pwd)>"
 echo "Run Timestamp <${RUNSTAMP}>"
-echo "Base directory in <${BASE}>"
+echo "Base directory in <${RUN_BASE}>"
 echo "Overridden home in <${HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
@@ -52,21 +53,21 @@ if command -v module ; then
   module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
 
-if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
-    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
+if [ ! -e "${RUN_BASE}/mlcommons-data-earthquake" ]; then
+    git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${RUN_BASE}/mlcommons-data-earthquake"
 else
-    (cd ${BASE}/mlcommons-data-earthquake && \
+    (cd ${RUN_BASE}/mlcommons-data-earthquake && \
         git fetch origin && \
         git checkout main && \
         git reset --hard origin/main && \
         git clean -d --force)
 fi
 
-if [ ! -e "${BASE}/mlcommons" ]; then
-    git clone https://github.com/${FORK}/mlcommons.git "${BASE}/mlcommons"
-    (cd ${BASE}/mlcommons && git checkout ${BRANCH})
+if [ ! -e "${RUN_BASE}/mlcommons" ]; then
+    git clone https://github.com/${FORK}/mlcommons.git "${RUN_BASE}/mlcommons"
+    (cd ${RUN_BASE}/mlcommons && git checkout ${BRANCH})
 else
-    (cd ${BASE}/mlcommons ; \
+    (cd ${RUN_BASE}/mlcommons ; \
         git fetch origin ; \
         git checkout ${BRANCH} ; \
         git reset --hard origin/${BRANCH} ; \
@@ -77,31 +78,27 @@ fi
 
 nvidia-smi
 
-mkdir -p ${BASE}
-cd ${BASE}
-
-
 echo "ENV3 Setup"
-python -m venv --prompt ENV3 ${BASE}/ENV3
-source ${BASE}/ENV3/bin/activate
+python -m venv --prompt ENV3 ${VENV_PATH}
+source ${VENV_PATH}/bin/activate
 python -m pip install -U pip wheel --progress-bar off
 
-if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
-    tar Jxvf ${BASE}/mlcommons-data-earthquake/data.tar.xz \
-        -C ${BASE}/mlcommons/benchmarks/earthquake
+if [ ! -e ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
+    tar Jxvf ${RUN_BASE}/mlcommons-data-earthquake/data.tar.xz \
+        -C ${RUN_BASE}/mlcommons/benchmarks/earthquake
     # BUG; should be in zip file (or created as part of the python file
-    mkdir -p ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
+    mkdir -p ${RUN_BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/Outputs
 fi
 
 
-(cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
+(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt --progress-bar off)
 
-printenv > ${BASE}/env.source
+printenv > ${RUN_BASE}/env.source
 
-(cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
-    cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
-(cd mlcommons/benchmarks/earthquake/mar2022 && \
+(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/${REV} && \
+    cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
+(cd ${RUN_BASE}/mlcommons/benchmarks/earthquake/mar2022 && \
     papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GPU_TYPE}.ipynb" \
        --no-progress-bar --log-output --log-level INFO)
 #       -p TFTTransformerepochs $TFT_EPOCHS \
@@ -109,5 +106,5 @@ printenv > ${BASE}/env.source
 END_TIME="$(date +%s)"
 
 if [[ ! -z "${SLURM_JOBID}" ]] ; then
-  sacct -j ${SLURM_JOBID} -P --delimiter=, -o jobid,user,submit,start,end,state | sed -e 's/^/# slurmjob,/g' -e 's/,Unknown,RUNNING$/,'$(date +%Y-%m-%dT%H:%m:%s -d ${END_TIME})'DONE/g'
+  sacct -j ${SLURM_JOBID} -P --delimiter=, -o jobid,user,submit,start,end,state | sed -e 's/^/# slurmjob,/g' -e 's/,Unknown,RUNNING$/,'$(date +%Y-%m-%dT%H:%m:%S -d @${END_TIME})'DONE/g'
 fi
