@@ -1,10 +1,9 @@
-:sectnums:
 
 = Science Benchmark Policy Draft (Training): MLCommons Science Benchmark Suite Training Rules
 
 The Policy draft document
 
-
+:sectnums:
 :toc:
 :toclevels: 4
 
