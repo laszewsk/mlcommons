@@ -15,7 +15,7 @@ PYTHON_VERSION="3.10.2"
 RUNSTAMP="${RUNSTAMP:-${SLURM_JOBID}-$(date +%s)}"
 BRANCH="${BRANCH:-main}"
 BRANCH_SAFE=${BRANCH/\//-}
-FORK=${FORK:-"rknuu"}
+FORK=${FORK:-"laszewsk"}
 
 HOME=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER}
 RUN_BASE=${RUN_BASE:-${HOME}/${RUNSTAMP}}
