@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -xe
 #SBATCH --job-name=mlcommons-science-eq-%u-%j
 #SBATCH --output=mlcommons-science-eq-%u-%j.out
 #SBATCH --error=mlcommons-science-eq-%u-%j.err
@@ -20,6 +20,7 @@ FORK=${FORK:-"laszewsk"}
 HOME=${BASE:-/project/ds6011-sp22-002/runner/mlcommons/$USER}
 RUN_BASE=${RUN_BASE:-${HOME}/${RUNSTAMP}}
 VENV_PATH=${HOME}/venv-${PYTHON_VERSION}
+USER=${USER:-unknown}
 
 REV="mar2022"
 VARIANT="${VARIANT:-gregor}"
@@ -85,7 +86,7 @@ touch ${HOME}/mlcommons.lock
           git reset --hard origin/${BRANCH} ; \
           git clean -d --force)
   fi
-  GIT_REV="$(git rev-parse --short=8 HEAD)"
+  GIT_REV="$(cd ${HOME}/mlcommons && git rev-parse --short=8 HEAD)"
 
   mkdir -p ${RUN_BASE}/workspace
 
@@ -108,16 +109,17 @@ touch ${HOME}/mlcommons.lock
 
   touch ${VENV_PATH}.lock
     python -m venv --prompt ENV3 ${VENV_PATH}
-    source ${VENV_PATH}/bin/activate
+    source ${VENV_PATH}/Scripts/activate
     python -m pip install -U pip wheel --progress-bar off
     (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
-        python -m pip install -r requirements.txt --progress-bar off && \
-        python -m pip freeze > ${RUN_BASE}/pip-freeze.txt)
+        python -m pip install -r requirements.txt --progress-bar off)
+    python -m pip freeze > ${RUN_BASE}/pip-freeze.txt
   rm -f ${VENV_PATH}.lock
 
   printenv > ${RUN_BASE}/env.source
 
   (cd ${HOME}/mlcommons/benchmarks/earthquake/${REV} && \
+      ls -la "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" && \
       cp "FFFFWNPFEARTHQ_newTFTv29-${VARIANT}.ipynb" ${RUN_BASE}/workspace/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb)
 
 rm -f ${HOME}/mlcommons.lock
