@@ -24,5 +24,5 @@ nvidia-smi
 # Assuming that the container has been copied to the user's /scratch directory
 workdir=/scratch/$USER/rivanna
 #time singularity run --nv $workdir/tensorflow-2.7.0.sif $PYTHON mnist.py
-time singularity run --nv $workdir/tensorflow-2.7.0.sif mnist.py
+time singularity run --nv $workdir/tensorflow-2.7.0.sif mnist.py --log=mnist-a100.log --delay=1.0 --user=Gregor --node=rivanna-a100
 
