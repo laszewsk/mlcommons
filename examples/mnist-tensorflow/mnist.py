@@ -45,7 +45,9 @@ def setgpu_growth():
 @click.option('--gpu', required=False, default=-1, help="Run on GPU")
 @click.option("--dryrun", required=False, is_flag=True, help="Do not execute MNIST")
 @click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
-def run(cpu, gpu, dryrun, info):
+@click.option("--log", required=False, default="mnist.log", help="The logfile with temeperature, enery, and dates")
+@click.option('--delay', required=False, default=1, help='Run on CPU')
+def run(cpu, gpu, dryrun, info, log,delay):
     mnist = tf.keras.datasets.mnist
     if info:
         pprint(code_info())
@@ -85,6 +87,8 @@ def run(cpu, gpu, dryrun, info):
         #    tf.config.experimental.set_memory_growth(device, True)
 
     if not dryrun:
+        if log:
+            os.system(f"cms gpu watch --delay={delay} > {log}.log &")
         StopWatch.start("total")
         banner("start mnist")
         with tf.device(device):
@@ -123,6 +127,8 @@ def run(cpu, gpu, dryrun, info):
 
         StopWatch.stop("total")
         StopWatch.benchmark()
+        if log:
+            os.system(f"cms gpu kill")
 
 
 if __name__ == '__main__':
