@@ -7,6 +7,7 @@ from pprint import pprint
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import banner
 from cloudmesh.common.StopWatch import StopWatch
+# from cloudmesh.common.StopWatch import StopWatchTimer
 
 
 def code_info():
@@ -92,6 +93,7 @@ def run(cpu, gpu, dryrun, info, log,delay):
         StopWatch.start("total")
         banner("start mnist")
         with tf.device(device):
+            # with StopWatchTimer("load"):
             StopWatch.start("load")
             (x_train, y_train), (x_test, y_test) = mnist.load_data()
             x_train, x_test = x_train / 255.0, x_test / 255.0
