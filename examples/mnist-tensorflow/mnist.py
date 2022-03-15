@@ -47,8 +47,11 @@ def setgpu_growth():
 @click.option("--dryrun", required=False, is_flag=True, help="Do not execute MNIST")
 @click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
 @click.option("--log", required=False, default="mnist.log", help="The logfile with temeperature, enery, and dates")
-@click.option('--delay', required=False, default=1, help='Run on CPU')
-def run(cpu, gpu, dryrun, info, log,delay):
+@click.option('--delay', required=False, default=1.0, help='Run on CPU')
+@click.option('--user', required=False, default=None, help='username')
+@click.option('--node', required=False, default=None, help='nodename')
+
+def run(cpu, gpu, dryrun, info, log, delay, user, node):
     mnist = tf.keras.datasets.mnist
     if info:
         pprint(code_info())
@@ -128,7 +131,11 @@ def run(cpu, gpu, dryrun, info, log,delay):
             StopWatch.stop("evaluate")
 
         StopWatch.stop("total")
-        StopWatch.benchmark()
+        if user and node:
+            StopWatch.benchmark(user=user, node=node)
+        else:
+            StopWatch.benchmark()
+
         if log:
             os.system(f"cms gpu kill")
 
