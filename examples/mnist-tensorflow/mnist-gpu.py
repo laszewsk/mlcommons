@@ -6,10 +6,7 @@ gpus = tf.config.list_logical_devices('GPU')
 
 pprint(gpus)
 
-
 mnist = tf.keras.datasets.mnist
-
-
 
 
 with tf.device('/GPU:0'):

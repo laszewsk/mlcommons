@@ -59,10 +59,10 @@ def extension_from_parameters(args):
     if args.use_landmark_genes:
         ext += '.L1000'
     if args.no_gen:
-        ext += '.ng'
-    for i, n in enumerate(args.dense):
         if n > 0:
             ext += '.D{}={}'.format(i + 1, n)
+        ext += '.ng'
+    for i, n in enumerate(args.dense):
     if args.dense_feature_layers != args.dense:
         for i, n in enumerate(args.dense):
             if n > 0:

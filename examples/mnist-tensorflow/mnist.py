@@ -85,29 +85,44 @@ def run(cpu, gpu, dryrun, info):
         #    tf.config.experimental.set_memory_growth(device, True)
 
     if not dryrun:
+        StopWatch.start("total")
         banner("start mnist")
         with tf.device(device):
+            StopWatch.start("load")
             (x_train, y_train), (x_test, y_test) = mnist.load_data()
             x_train, x_test = x_train / 255.0, x_test / 255.0
+            StopWatch.stop("load")
 
+            StopWatch.start("model")
             model = tf.keras.models.Sequential([
                 tf.keras.layers.Flatten(),
                 tf.keras.layers.Dense(512, activation=tf.nn.relu),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(10, activation=tf.nn.softmax)
             ])
+            StopWatch.stop("model")
 
+            StopWatch.start("compile")
             model.compile(optimizer='adam',
                           loss='sparse_categorical_crossentropy',
                           metrics=['accuracy'])
+            StopWatch.stop("compile")
 
             if info:
                 verbose = 1
             else:
                 verbose = 0
 
+            StopWatch.start("fit")
             model.fit(x_train, y_train, epochs=5, verbose=verbose)
+            StopWatch.stop("fit")
+
+            StopWatch.start("evaluate")
             model.evaluate(x_test, y_test, verbose=verbose)
+            StopWatch.stop("evaluate")
+
+        StopWatch.stop("total")
+        StopWatch.benchmark()
 
 
 if __name__ == '__main__':

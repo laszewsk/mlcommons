@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#SBATCH --job-name=mlcommons-science-earthquake-{user}-{pid}-epoch-{epoch}.a100 %u %p
+
 
 #SBATCH --job-name=mlcommons-science-earthquake-a100
 #SBATCH --output=mlcommons-science-earthquake-a100.out
