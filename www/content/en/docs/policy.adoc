@@ -44,6 +44,9 @@ WARNING: change the table
 |===
 |Problem |Dataset |Quality Target
 | Earth Quake Prediction | TBD | TBD (some error minimization)
+| CloudMask | TBD | TBD (some error minimization)
+| STEMDL Classification | TBD | TBD (some error minimization)
+| UNO | TBD | TBD (some error minimization)
 |===
 
 == Divisions
