@@ -33,7 +33,7 @@ EXPERIMENT_NAME=experiment-1
 GPU_TYPE="a100"
 
 
-if [ $RIVANNA -eq 1] ; then
+if [ $RIVANNA -eq 1 ] ; then
     banner "module load"
     module purge
     module load singularity
@@ -42,7 +42,7 @@ fi
 
 banner "activate python"
 
-if [ $RIVANNA -eq 1] ; then
+if [ $RIVANNA -eq 1 ] ; then
     ## conda create -y -n py3.10 python=3.10
     source activate py3.10
 fi
