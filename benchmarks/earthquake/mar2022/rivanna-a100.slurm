@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-science-earthquake-{user}-{pid}-epoch-{epoch}.a100 %u %p
-
-
 #SBATCH --job-name=mlcommons-science-earthquake-a100
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
@@ -13,26 +10,9 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --account=ds6011-sp22-002
 
+# record top ond gpustat output
+./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
-### TODO -figure out how to parameterize.
-#rSBATCH --job-name=mlcommons-science-earthquake-${GPU}-${PYTHON}
-#rSBATCH --output=mlcommons-science-earthquake-${GPU}-${PYTHON}.out
-#rSBATCH --error=mlcommons-science-earthquake-${GPU}-${PYTHON}.err
-#rSBATCH --partition=gpu
-#rSBATCH -c 1
-#rSBATCH --time=03:00:00
-#rSBATCH --gres=gpu:a100:1
-#rSBATCH --account=ds6011-sp22-002
-
-#  one proposal. lets do what robert does ...
-#
-#   git clone ....
-#   git clone ....
-#   ls ./mlcommons
-#   ls ./mlcommons-data-earthquake/data.tar.xz
-#   tar xvf mlcommons-data-earthquake/data.tar.xz
-#   ls ./data/EarthquakeDec2020
-#
 
 GPU_TYPE="a100"
 PYTHON_MAJ="3.10"
@@ -40,7 +20,9 @@ PYTHON_MIN="2"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
-BASE=/scratch/$USER/${GPU_TYPE}
+# BASE=/scratch/$USER/${GPU_TYPE}
+BASE=${RESOURCE_DIR}/$USER/${GPU_TYPE}
+
 HOME=${BASE}
 
 REV="mar2022"
