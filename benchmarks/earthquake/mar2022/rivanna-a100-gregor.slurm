@@ -10,6 +10,12 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --account=ds6011-sp22-002
 
+banner()
+{
+  echo "# --------------------------------------------------------------------------------+"
+  printf "# `tput bold` %-78s `tput sgr0`|\n" "$@"
+  echo "# --------------------------------------------------------------------------------+"
+}
 
 #  one proposal. lets do what robert does ...
 #
@@ -24,21 +30,30 @@
 EXPERIMENT_NAME=experiment-1
 GPU_TYPE="a100"
 
-module purge
-module load singularity
-module load anaconda
+banner "module load"
 
-# conda create -y -n py3.10 python=3.10
-source activate py3.10
-PYTHON_VERSION = `python -V`
+#module purge
+#module load singularity
+#module load anaconda
+
+banner "activate python"
+## conda create -y -n py3.10 python=3.10
+#source activate py3.10
+
+suource ~/ENV3/bin/activate
+
 PYTHON=`which python`
+PYTHON_VERSION = `${PYTHON} --version`
+PWD=`pwd`
 
+#module load singularity
 
-module load singularity
+PROJ=/project
+PROJ=/projects
 
 IMAGENAME=gregor-tensoflow.sif
-SHARE=/project/ds6011-sp22-002/EQ/share
-PROJECT=/project/ds6011-sp22-002/EQ/
+SHARE=${PROJ}/ds6011-sp22-002/EQ/share
+PROJECT=${PROJ}/ds6011-sp22-002/EQ/
 EXPERIMENT=$PROJECT/$USER/${EXPERIMENT_NAME}/${GPU_TYPE}
 IMAGE=/project/ds6011-sp22-002/EQ/share/$IMAGENAME}
 
@@ -46,47 +61,36 @@ REV="mar2022"
 VARIANT="-gregor"
 
 echo "=========================================================="
-echo "PWD:      <$(pwd)>"
-echo "Project:  <${PROJECT}>"
-echo "Revision: <${REV}>"
-echo "Variant:  <${VARIANT}>"
-echo "Python:   <${PYTHON}>"
-echo "Python:   <${PYTHON_VERSION}>"
-echo "GPU:      <${GPU_TYPE}>"
+echo "PWD:      ${PWD}"
+echo "Project:  ${PROJECT}"
+echo "Revision: ${REV}"
+echo "Variant:  ${VARIANT}"
+echo "Python:   ${PYTHON}"
+echo "Python V: ${PYTHON_VERSION}"
+echo "GPU:      ${GPU_TYPE}"
 echo "=========================================================="
 lscpu
 echo "=========================================================="
 nvidia-smi
 echo "=========================================================="
 
+mkdir -p ${SHARE}
+mkdir -p ${PROJECT}
+
+
+
+# Assuming that the container has been copied to the user's /scratch directory
+# workdir=/scratch/$USER/rivanna
+# time singularity run --nv $workdir/tensorflow-2.7.0.sif $PYTHON mnist.py
+# time singularity run --nv $workdir/tensorflow-2.7.0.sif mnist.py --log=mnist-a100.log --delay=1.0 --user=Gregor --node=rivanna-a100
+
+banner "ENV3 Setup"
+
+# source ${BASE}/ENV3/bin/activate
+python -m pip install -U pip wheel papermill
 
 exit
 
-# Assuming that the container has been copied to the user's /scratch directory
-workdir=/scratch/$USER/rivanna
-#time singularity run --nv $workdir/tensorflow-2.7.0.sif $PYTHON mnist.py
-time singularity run --nv $workdir/tensorflow-2.7.0.sif mnist.py --log=mnist-a100.log --delay=1.0 --user=Gregor --node=rivanna-a100
-
-
-
-
-mkdir -p ${BASE}
-cd ${BASE}
-
-if [ ! -e "${BASE}/.local/python/${PYTHON_VERSION}" ] ; then
-    tar Jxvf "${RESOURCE_DIR}/python-${PYTHON_VERSION}.tar.xz" -C "${BASE}"
-fi
-
-export LD_LIBRARY_PATH=${BASE}/.local/ssl/lib:$LD_LIBRARY_PATH
-echo "Python setup"
-
-if [ ! -e "${BASE}/ENV3/bin/activate" ]; then
-    ${BASE}/.local/python/${PYTHON_MAJ}.${PYTHON_MIN}/bin/python3.10 -m venv ${BASE}/ENV3
-fi
-
-echo "ENV3 Setup"
-source ${BASE}/ENV3/bin/activate
-python -m pip install -U pip wheel papermill
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
