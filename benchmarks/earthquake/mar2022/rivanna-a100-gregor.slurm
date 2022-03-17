@@ -132,7 +132,7 @@ banner "${BASE}/mlcommons/benchmarks/earthquake/${REV}"
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt)
 
-banner "copy notebook to ${BASE}/mlcommons/benchmarks/earthquake/${REV}""
+banner "copy notebook to ${BASE}/mlcommons/benchmarks/earthquake/${REV}"
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 
