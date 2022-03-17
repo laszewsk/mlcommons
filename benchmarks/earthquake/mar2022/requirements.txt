@@ -19,4 +19,4 @@ ipywidgets
 jupyter-autotime
 ipython-autotime
 papermill
-mlperf-logging
+git+https://github.com/mlperf/logging.git@1.0.0

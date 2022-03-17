@@ -32,18 +32,18 @@ GPU_TYPE="a100"
 
 banner "module load"
 
-#module purge
-#module load singularity
-#module load anaconda
+# module purge
+# module load singularity
+# module load anaconda
 
 banner "activate python"
 ## conda create -y -n py3.10 python=3.10
 #source activate py3.10
 
-suource ~/ENV3/bin/activate
+source ~/ENV3/bin/activate
 
 PYTHON=`which python`
-PYTHON_VERSION = `${PYTHON} --version`
+PYTHON_VERSION=`${PYTHON} --version`
 PWD=`pwd`
 
 #module load singularity
@@ -53,7 +53,7 @@ PROJ=/projects
 
 IMAGENAME=gregor-tensoflow.sif
 SHARE=${PROJ}/ds6011-sp22-002/EQ/share
-PROJECT=${PROJ}/ds6011-sp22-002/EQ/
+PROJECT=${PROJ}/ds6011-sp22-002/EQ
 EXPERIMENT=$PROJECT/$USER/${EXPERIMENT_NAME}/${GPU_TYPE}
 IMAGE=/project/ds6011-sp22-002/EQ/share/$IMAGENAME}
 
@@ -61,22 +61,23 @@ REV="mar2022"
 VARIANT="-gregor"
 
 echo "=========================================================="
-echo "PWD:      ${PWD}"
-echo "Project:  ${PROJECT}"
-echo "Revision: ${REV}"
-echo "Variant:  ${VARIANT}"
-echo "Python:   ${PYTHON}"
-echo "Python V: ${PYTHON_VERSION}"
-echo "GPU:      ${GPU_TYPE}"
+echo "PWD:        ${PWD}"
+echo "PROJECT:    ${PROJECT}"
+echo "SHARE:      ${SHARE}"
+echo "EXPERIMENT: ${EXPERIMENT}"
+echo "REV:        ${REV}"
+echo "VARIANT:    ${VARIANT}"
+echo "PYTHON:     ${PYTHON}"
+echo "PYTHONV:    ${PYTHON_VERSION}"
+echo "GPU_TYPE:   ${GPU_TYPE}"
 echo "=========================================================="
-lscpu
+#ok lscpu
 echo "=========================================================="
-nvidia-smi
+#ok nvidia-smi
 echo "=========================================================="
 
 mkdir -p ${SHARE}
 mkdir -p ${PROJECT}
-
 
 
 # Assuming that the container has been copied to the user's /scratch directory
@@ -89,8 +90,11 @@ banner "ENV3 Setup"
 # source ${BASE}/ENV3/bin/activate
 python -m pip install -U pip wheel papermill
 
-exit
+banner "ENV3 Setup completed"
 
+BASE=$EXPERIMENT
+
+banner "${BASE}/mlcommons-data-earthquake"
 
 if [ ! -e "${BASE}/mlcommons-data-earthquake" ]; then
     git clone https://github.com/laszewsk/mlcommons-data-earthquake.git "${BASE}/mlcommons-data-earthquake"
@@ -102,6 +106,9 @@ else
         git clean -d --force)
 fi
 
+
+banner "${BASE}/mlcommons"
+
 if [ ! -e "${BASE}/mlcommons" ]; then
     git clone https://github.com/laszewsk/mlcommons.git "${BASE}/mlcommons"
 else
@@ -112,18 +119,24 @@ else
         git clean -d --force)
 fi
 
+banner "${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020"
+
 if [ ! -e ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
     tar Jxvf ${BASE}/mlcommons-data-earthquake/data.tar.xz \
         -C ${BASE}/mlcommons/benchmarks/earthquake
     mkdir -p ${BASE}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020/outputs
 fi
 
+banner "${BASE}/mlcommons/benchmarks/earthquake/${REV}"
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt)
 
-
+banner "copy notebook to ${BASE}/mlcommons/benchmarks/earthquake/${REV}""
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
-(cd mlcommons/benchmarks/earthquake/mar2022 && \
-    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE.ipynb --no-progress-bar --log-output --log-level INFO)
+
+banner "run notebook"
+
+# (cd mlcommons/benchmarks/earthquake/mar2022 && \
+#    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE.ipynb --no-progress-bar --log-output --log-level INFO)
