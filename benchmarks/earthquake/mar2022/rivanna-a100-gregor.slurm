@@ -17,6 +17,8 @@ banner()
   echo "# --------------------------------------------------------------------------------+"
 }
 
+RIVANNA=1
+
 #  one proposal. lets do what robert does ...
 #
 #   git clone ....
@@ -30,26 +32,38 @@ banner()
 EXPERIMENT_NAME=experiment-1
 GPU_TYPE="a100"
 
-banner "module load"
 
-# module purge
-# module load singularity
-# module load anaconda
+if [ $RIVANNA -eq 1] ; then
+    banner "module load"
+    module purge
+    module load singularity
+    module load anaconda
+fi
 
 banner "activate python"
-## conda create -y -n py3.10 python=3.10
-#source activate py3.10
 
-source ~/ENV3/bin/activate
+if [ $RIVANNA -eq 1] ; then
+    ## conda create -y -n py3.10 python=3.10
+    source activate py3.10
+fi
+
+if [ $RIVANNA -eq 0 ]; then
+    source ~/ENV3/bin/activate
+fi
 
 PYTHON=`which python`
 PYTHON_VERSION=`${PYTHON} --version`
 PWD=`pwd`
 
-#module load singularity
 
-PROJ=/project
-PROJ=/projects
+if [ $RIVANNA -eq 1 ] ; then
+    PROJ=/project
+fi
+
+if [ $RIVANNA -eq 0 ]; then
+    PROJ=/projects
+fi
+
 
 IMAGENAME=gregor-tensoflow.sif
 SHARE=${PROJ}/ds6011-sp22-002/EQ/share
@@ -81,7 +95,7 @@ mkdir -p ${PROJECT}
 
 
 # Assuming that the container has been copied to the user's /scratch directory
-# workdir=/scratch/$USER/rivanna
+#workdir=/scratch/$USER/rivanna
 # time singularity run --nv $workdir/tensorflow-2.7.0.sif $PYTHON mnist.py
 # time singularity run --nv $workdir/tensorflow-2.7.0.sif mnist.py --log=mnist-a100.log --delay=1.0 --user=Gregor --node=rivanna-a100
 
@@ -136,7 +150,11 @@ banner "copy notebook to ${BASE}/mlcommons/benchmarks/earthquake/${REV}"
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 
+banner "convert notebook"
+(cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
+     jupyter nbconvert --to script FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
+
 banner "run notebook"
 
-# (cd mlcommons/benchmarks/earthquake/mar2022 && \
-#    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE.ipynb --no-progress-bar --log-output --log-level INFO)
+#(cd mlcommons/benchmarks/earthquake/mar2022 && \
+#  time singularity run --nv $workdir/tensorflow-2.7.0.sif FFFFWNPFEARTHQ_newTFTv29-$USER.py)
