@@ -48,6 +48,7 @@ function build_python() {
   (cd ${PREFIX}/bin && ln -s python${PYTHON_MAJ} python)
 }
 
+build_python 3.10.3 ${PREFIX} ${BASE}
 build_python 3.10.2 ${PREFIX} ${BASE}
 build_python 3.9.7 ${PREFIX} ${BASE}
 build_python 3.8.5 ${PREFIX} ${BASE}

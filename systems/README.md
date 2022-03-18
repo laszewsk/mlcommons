@@ -18,7 +18,7 @@ Then all custom modules will be made available when loading modules.
 
 The current listing of supported modules are:
 
-* python-rivanna - `python-rivanna/3.10.2`, `python-rivanna/3.9.7`, `python-rivanna/3.8.5`
+* python-rivanna - `python-rivanna/3.10.3`, `python-rivanna/3.10.2`, `python-rivanna/3.9.7`, `python-rivanna/3.8.5`
   * An optimized version of python compiled on rivanna
   * Assumes:
     * user has access to /project/ds6011-sp22-002 folder
