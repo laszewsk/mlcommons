@@ -106,6 +106,7 @@ fi
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     python -m pip install -r requirements.txt)
 
+# prg >> xyz.out &
 
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
