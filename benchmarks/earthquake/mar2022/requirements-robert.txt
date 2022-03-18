@@ -1,3 +1,0 @@
-#-e .
-cloudmesh-common
-click
