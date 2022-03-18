@@ -7,6 +7,7 @@ from pprint import pprint
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import banner
 from cloudmesh.common.StopWatch import StopWatch
+# from cloudmesh.common.StopWatch import StopWatchTimer
 
 
 def code_info():
@@ -45,7 +46,12 @@ def setgpu_growth():
 @click.option('--gpu', required=False, default=-1, help="Run on GPU")
 @click.option("--dryrun", required=False, is_flag=True, help="Do not execute MNIST")
 @click.option("--info", required=False, is_flag=True, default=False, help="Do not execute MNIST")
-def run(cpu, gpu, dryrun, info):
+@click.option("--log", required=False, default="mnist.log", help="The logfile with temeperature, enery, and dates")
+@click.option('--delay', required=False, default=1.0, help='Run on CPU')
+@click.option('--user', required=False, default=None, help='username')
+@click.option('--node', required=False, default=None, help='nodename')
+
+def run(cpu, gpu, dryrun, info, log, delay, user, node):
     mnist = tf.keras.datasets.mnist
     if info:
         pprint(code_info())
@@ -85,29 +91,53 @@ def run(cpu, gpu, dryrun, info):
         #    tf.config.experimental.set_memory_growth(device, True)
 
     if not dryrun:
+        if log:
+            os.system(f"cms gpu watch --delay={delay} > {log}.log &")
+        StopWatch.start("total")
         banner("start mnist")
         with tf.device(device):
+            # with StopWatchTimer("load"):
+            StopWatch.start("load")
             (x_train, y_train), (x_test, y_test) = mnist.load_data()
             x_train, x_test = x_train / 255.0, x_test / 255.0
+            StopWatch.stop("load")
 
+            StopWatch.start("model")
             model = tf.keras.models.Sequential([
                 tf.keras.layers.Flatten(),
                 tf.keras.layers.Dense(512, activation=tf.nn.relu),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(10, activation=tf.nn.softmax)
             ])
+            StopWatch.stop("model")
 
+            StopWatch.start("compile")
             model.compile(optimizer='adam',
                           loss='sparse_categorical_crossentropy',
                           metrics=['accuracy'])
+            StopWatch.stop("compile")
 
             if info:
                 verbose = 1
             else:
                 verbose = 0
 
+            StopWatch.start("fit")
             model.fit(x_train, y_train, epochs=5, verbose=verbose)
+            StopWatch.stop("fit")
+
+            StopWatch.start("evaluate")
             model.evaluate(x_test, y_test, verbose=verbose)
+            StopWatch.stop("evaluate")
+
+        StopWatch.stop("total")
+        if user and node:
+            StopWatch.benchmark(user=user, node=node)
+        else:
+            StopWatch.benchmark()
+
+        if log:
+            os.system(f"cms gpu kill")
 
 
 if __name__ == '__main__':

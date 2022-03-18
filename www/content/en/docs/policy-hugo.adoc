@@ -1,12 +1,36 @@
-= Science Benchmark Policy Draft (Training): MLCommons Science Benchmark Suite Training Rules
+---
+title: "Science Benchmark Policy Draft (Training)"
+linkTitle: "Policy"
+date: 2017-01-05
+weight: 4
+description: >
+  The Policy draft document
+---
+
+{{% pageinfo %}}
+The document is under development. 
+{{% /pageinfo %}}
+
 
 {{< alert color="warning" title="Draft" >}}
 Under development.
 
-The Policy draft document
+The raw document is located at this [link](
+https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
+{{< /alert >}}
+
+
+{{< alert color="warning" title="Bug" >}}
+Bug: The table of content does not render when we use hugo
+{{< /alert >}}
+
+
+:toc:
+:toclevels: 4
 
 :sectnums:
 
+= MLCommons Science Benchmark Suite Training Rules
 
 Version 0.1 
 January 31, 2021
@@ -44,9 +68,6 @@ WARNING: change the table
 |===
 |Problem |Dataset |Quality Target
 | Earth Quake Prediction | TBD | TBD (some error minimization)
-| CloudMask | TBD | TBD (some error minimization)
-| STEMDL Classification | TBD | TBD (some error minimization)
-| UNO | TBD | TBD (some error minimization)
 |===
 
 == Divisions

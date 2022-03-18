@@ -1,0 +1,39 @@
+slurm_template: 'rivanna-a100.slurm'
+
+sbatch_setup:
+  rivanna-a100:
+    card_name: "a100"
+    time: "05:00:00"
+    num_cpus: 6
+    num_gpus: 1
+
+  rivanna-v100:
+    card_name: "v100"
+    time: "06:00:00"
+    num_cpus: 6
+    num_gpus: 1
+
+  rivanna-p100:
+    card_name: "p100"
+    time: "06:00:00"
+    num_cpus: 6
+    num_gpus: 1
+
+  rivanna-k80:
+    card_name: "k80"
+    time: "12:00:00"
+    num_cpus: 6
+    num_gpus: 1
+
+  rivanna-rtx2080:
+    card_name: "rtx2080"
+    time: "06:00:00"
+    num_cpus: 6
+    num_gpus: 1
+
+  rivanna-rtx3090:
+    card_name: "rtx3090"
+    time: "06:00:00"
+    num_cpus: 6
+    num_gpus: 1
+

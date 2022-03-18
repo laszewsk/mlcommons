@@ -1,6 +1,6 @@
 # mlcommon
 
-* Policy document: https://github.com/laszewsk/mlcommon/blob/main/science_training_policy.adoc
+* Policy document: https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
 * Meeting Notes:
 * Summary   
 
