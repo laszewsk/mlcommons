@@ -64,7 +64,7 @@ The following pages are useful when building your own modulefiles.
 * <https://lmod.readthedocs.io/en/latest/015_writing_modules.html>
 * <https://lmod.readthedocs.io/en/latest/020_advanced.html>
 
-Note that lmod assumes you are familiar with lower-level system design components and know how to reconfigure your programs to use portable shared libraries (explained in [`ld.so`](https://man7.org/linux/man-pages/man8/ld.so.8.html).
+Note that lmod assumes you are familiar with lower-level system design components and know how to reconfigure your programs to use portable shared libraries (explained in [`ld.so`](https://man7.org/linux/man-pages/man8/ld.so.8.html) ).
 
 However, lmod not only can bootstrap tools, but it can do additional setup tasks such as setting environment variables, nested module loading, defining shell alias commands, and also perform additional bootstrapping written in lua.
 
