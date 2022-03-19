@@ -1,5 +1,5 @@
 DLAnalysisOnly: False
 DLRestorefromcheckpoint: False
 DLinputCheckpointpostfix: ''
-TFTTransformerepochs: 10
+TFTTransformerepochs: 2
   
