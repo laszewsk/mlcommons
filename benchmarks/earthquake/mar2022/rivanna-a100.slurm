@@ -11,12 +11,11 @@
 #SBATCH --account=ds6011-sp22-002
 
 # record top ond gpustat output
-./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
+# ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
 
 GPU_TYPE="a100"
-PYTHON_MAJ="3.10"
-PYTHON_MIN="2"
+PYTHON_VERSION="3.10.2"
 
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
@@ -33,7 +32,7 @@ echo "Base directory in <${BASE}>"
 echo "Overridden home in <${HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
-echo "Python: <${PYTHON_MAJ}.${PYTHON_MIN}>"
+echo "Python: <${PYTHON_VERSION}>"
 echo "GPU: <${GPU_TYPE}>"
 
 module load cuda cudnn
@@ -43,15 +42,15 @@ nvidia-smi
 mkdir -p ${BASE}
 cd ${BASE}
 
-if [ ! -e "${BASE}/.local/python/${PYTHON_MAJ}.${PYTHON_MIN}" ] ; then
-    tar Jxvf "${RESOURCE_DIR}/python-${PYTHON_MAJ}.${PYTHON_MIN}.tar.xz" -C "${BASE}"
+if [ ! -e "${BASE}/.local/python/${PYTHON_VESRION}" ] ; then
+    tar Jxvf "${RESOURCE_DIR}/python-${PYTHON_VERSION}.tar.xz" -C "${BASE}"
 fi
 
 export LD_LIBRARY_PATH=${BASE}/.local/ssl/lib:$LD_LIBRARY_PATH
 echo "Python setup"
 
 if [ ! -e "${BASE}/ENV3/bin/activate" ]; then
-    ${BASE}/.local/python/${PYTHON_MAJ}.${PYTHON_MIN}/bin/python3.10 -m venv ${BASE}/ENV3
+    ${BASE}/.local/python/${PYTHON_VERSION}/bin/python3.10 -m venv ${BASE}/ENV3
 fi
 
 echo "ENV3 Setup"
