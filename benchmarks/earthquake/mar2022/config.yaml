@@ -3,5 +3,5 @@ debugging_set_log_device_placement: False
 DLAnalysisOnly: False
 DLRestorefromcheckpoint: False
 DLinputCheckpointpostfix: ''
-TFTTransformerepochs: 2
+TFTTransformerepochs: 39
   
