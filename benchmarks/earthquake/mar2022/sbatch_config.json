@@ -1,4 +1,7 @@
 {
+  "user":{
+    "account":"ds6011-s22-002"
+  },
   "model_parameters":{
     "set_soft_device_placement": "False",
     "debugging_set_log_device_placement": "False",
