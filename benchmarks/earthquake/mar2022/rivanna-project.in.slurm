@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -xe
+#!/usr/bin/env bash
 #SBATCH --job-name=mlcommons-science-eq-%u-%j
 #SBATCH --output=mlcommons-science-eq-%u-%j.out
 #SBATCH --error=mlcommons-science-eq-%u-%j.err
