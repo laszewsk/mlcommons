@@ -3,7 +3,8 @@ user:
 
 run:
   workdir: /project/ds6011-sp22-002/runner/mlcommons
-  resourcedir: /rpoject/ds6011-sp22-002
+  resourcedir: /project/ds6011-sp22-002
+  datadir: data
   branch: 'features/63-cms-sbatch'
 
 system:

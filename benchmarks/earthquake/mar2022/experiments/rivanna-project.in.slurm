@@ -275,12 +275,12 @@ waitmake_lock mlcommons.git
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p notebooks
     cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       notebooks/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
+       FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
 # Execute the notebook usign papermill
-(cd notebooks && \
-    papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
-       --no-progress-bar --log-output --log-level INFO)
+papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
+          "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+          --no-progress-bar --log-output --log-level INFO
 
 slurm_runtime
