@@ -4,6 +4,7 @@ user:
 run:
   workdir: /project/ds6011-sp22-002/runner/mlcommons
   resourcedir: /rpoject/ds6011-sp22-002
+  branch: 'features/63-cms-sbatch'
 
 system:
   python: "3.10.2"

@@ -24,8 +24,9 @@ PYTHON_VERSION={system.python}
 RUNSTAMP="${RUNSTAMP:-latest}"
 
 ## Specifies the git branch to use from the repository
+## by default using {run.branch}
 ## The SAFE version cleans the name of any path-like characters
-BRANCH="${BRANCH:-main}"
+BRANCH="${BRANCH:-{run.branch}}"
 BRANCH_SAFE=${BRANCH/\//-}
 
 ## Specifies a github fork to use when running the build
@@ -257,7 +258,7 @@ fi
 waitmake_lock mlcommons-data-earthquake.git
     git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
                  "${MLCOMMONS_HOME}/mlcommons-data-earthquake" \
-                 $BRANCH
+                 main
 release_lock mlcommons-data-earthquake.git
 
 # Checkout git repo for mlcommons main repository, locking the repo
