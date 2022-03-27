@@ -18,15 +18,10 @@ set -uxe
 ## Set the python version to target
 PYTHON_VERSION={system.python}
 
-## Gives the name for this specific run
-## This name becomes the folder in the ${MLCOMMONS_HOME}
-## folder.
-RUNSTAMP="${RUNSTAMP:-latest}"
-
 ## Specifies the git branch to use from the repository
 ## by default using {run.branch}
 ## The SAFE version cleans the name of any path-like characters
-BRANCH="${BRANCH:-{run.branch}}"
+BRANCH=${BRANCH:-{run.branch}}
 BRANCH_SAFE=${BRANCH/\//-}
 
 ## Specifies a github fork to use when running the build
@@ -34,13 +29,13 @@ FORK=${FORK:-"laszewsk"}
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-USER=${USER:-unknown}
+RUN_USER=${USER:-unknown}
 
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
-MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$USER}
-RUN_BASE=${MLCOMMONS_HOME}/${RUNSTAMP}
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$RUN_USER}
+RUN_BASE=${MLCOMMONS_HOME}/workspace
 VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
 ## Specifies a specific revision of the Earthquake notebook
@@ -92,7 +87,7 @@ function git_checkout() {
     # and checks out the named branch.
     else
         (cd ${MLCOMMONS_HOME}/${repo_folder} && \
-            git fetch origin && \
+            git fetch origin  && \
             git checkout $branch && \
             git reset --hard origin/$branch && \
             git clean -d --force)
@@ -234,7 +229,6 @@ mkdir -p ${RUN_BASE}
 RUN_BASE_ABS=$(realpath ${RUN_BASE})
 
 echo "Working in <$(pwd)>"
-echo "Run Timestamp <${RUNSTAMP}>"
 echo "Base directory in <${RUN_BASE}>"
 echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
@@ -267,13 +261,9 @@ waitmake_lock mlcommons.git
     git_checkout https://github.com/laszewsk/mlcommons.git \
                  "${MLCOMMONS_HOME}/mlcommons" \
                  $BRANCH
-    # Create the directory to for building the notebook files
-    mkdir -p ${RUN_BASE}/workspace
-
     # Extract the mlcommons eearthquake data to the required path.
-    if [ ! -e ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz \
-            -C ${RUN_BASE}
+    if [ ! -e data/EarthquakeDec2020 ]; then
+        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
     fi
@@ -283,13 +273,14 @@ waitmake_lock mlcommons.git
                ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
+    mkdir -p notebooks
     cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       ${RUN_BASE_ABS}/workspace/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
+       notebooks/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
 # Execute the notebook usign papermill
-(cd ${RUN_BASE}/workspace && \
-    papermill "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${USER}-${GIT_REV}_output.ipynb" \
+(cd notebooks && \
+    papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
        --no-progress-bar --log-output --log-level INFO)
 
 slurm_runtime
