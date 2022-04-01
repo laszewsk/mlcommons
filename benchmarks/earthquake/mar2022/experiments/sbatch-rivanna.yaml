@@ -1,0 +1,22 @@
+user:
+  account: ds6011-sp22-002
+
+run:
+  workdir: /project/ds6011-sp22-002/runner/mlcommons
+  resourcedir: /project/ds6011-sp22-002
+  datadir: data
+  branch: 'features/63-cms-sbatch'
+
+system:
+  python: "3.10.2"
+  num_cpus: 6
+
+config:
+  model_paramters:
+    set_soft_device_placement: False
+    debugging_set_log_device_placement: False
+    DLAnalysisOnly: False
+    DLRestorefromcheckpoint: False
+    DLinputCheckpointpostfix: 1
+    TFTTransformerepochs: 20
+
