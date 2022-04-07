@@ -3,7 +3,7 @@ debugging_set_log_device_placement: False
 DLAnalysisOnly: False
 DLRestorefromcheckpoint: False
 DLinputCheckpointpostfix: ''
-TFTTransformerepochs: 20 #num_epochs
+TFTTransformerepochs: 2 #num_epochs
 
 #Thomas
 TFTTransformerbatch_size: 64 #minibatch_size : basically split training data into batches used to calculate model error and update model coefficients
