@@ -45,7 +45,7 @@ REV="mar2022"
 
 ## Specifies a particular variant of the notebook to use
 ## if working on an alternate baseline.
-VARIANT="${VARIANT:--gregor}"
+VARIANT="${VARIANT:--gregor-parameters}"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
