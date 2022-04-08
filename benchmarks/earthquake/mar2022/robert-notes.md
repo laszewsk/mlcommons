@@ -14,8 +14,13 @@ cms sbatch generate rivanna.in.slurm --experiment_file=experiment.yaml
 experiment.yaml:
   config: sbatch-rivanna-localscratch.yaml
   name: earthquake2
-  experiment: \"card_name=v100 gpu_count=1 cpu_num=6 mem=32GB,64GB\"
-  attribute: \"time=12:00:00\"
+  experiment:
+    card_name: v100
+    gpu_count: 1
+    cpu_num: 6
+    mem: "32GB,64GB"
+  attribute:
+    time: 12:00:00
   mode: h
   dir: localscratch
 
