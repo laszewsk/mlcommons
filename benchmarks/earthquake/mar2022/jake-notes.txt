@@ -1,0 +1,10 @@
+1.
+Review notebook on existing on lines that deal with google colab data
+modify them in such a form that works without destroying others
+
+2.
+Function in python to download data from github using os
+
+3.
+making cloudmesh available
+!pip install cloudmesh-common
