@@ -3,16 +3,22 @@ debugging_set_log_device_placement: False
 DLAnalysisOnly: False
 DLRestorefromcheckpoint: False
 DLinputCheckpointpostfix: ''
-TFTTransformerepochs: 2 #num_epochs
+TFTTransformerepochs: 2 
+# TFTTransformerepochs = num_epochs
 
-#Thomas
-TFTTransformerbatch_size: 64 #minibatch_size : basically split training data into batches used to calculate model error and update model coefficients
-  #links for more info: https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/
-  #https://stats.stackexchange.com/questions/153531/what-is-batch-size-in-neural-network
+# Thomas
+TFTTransformerbatch_size: 64 
+# TFTTransformerbatch_size = minibatch_size : basically split training data into batches used to calculate model error and update model coefficients
+#links for more info: https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/
+#https://stats.stackexchange.com/questions/153531/what-is-batch-size-in-neural-network
+
 #TFTTransformertestvalbatch_size = max(128,TFTTransformerbatch_size) #maxibatch_size : explain in minibatch_size, basically this is a range between min and max for batch size
-TFTd_model: 160 #hidden_layer_size : number of hidden layers in model
 
-Tseq: 26 #num_encoder_steps : size of sequence window, number of days included in that section of data. This is used throughout a large portion of the code.
+TFTd_model: 160 
+#hidden_layer_size : number of hidden layers in model
+
+Tseq: 26 
+#num_encoder_steps : size of sequence window, number of days included in that section of data. This is used throughout a large portion of the code.
 
 TFTdropout_rate: 0.1 #dropout_rate : the dropout rate when training models. Basically randomly drop nodes from a neural network to prevent overfitting
   #link for more info: https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/
