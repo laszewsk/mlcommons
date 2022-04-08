@@ -19,3 +19,35 @@ experiment.yaml:
   mode: h
   dir: localscratch
 
+
+
+
+Summit
+--------
+https://docs.olcf.ornl.gov/systems/summit_user_guide.html#batch-scripts
+
+(uses BSUB vs SBATCH via LSF command)
+Consider converting SLURM command to handle summit.in.lsf.sh
+
+ #!/bin/bash
+ # Begin LSF Directives
+ #BSUB -P ABC123
+ #BSUB -W 3:00
+ #BSUB -nnodes 2048
+ #BSUB -alloc_flags gpumps
+ #BSUB -J RunSim123
+ #BSUB -o RunSim123.%J
+ #BSUB -e RunSim123.%J
+
+### Review Tensorflow at Summit
+### User Guide: https://docs.olcf.ornl.gov/systems/summit_user_guide.html?highlight=tensorflow#automatic-mixed-precision-amp-in-machine-learning-frameworks
+# Need to investigate how to start tensorflow on summit using just 1 GPU
+ cd $MEMBERWORK/abc123
+ cp $PROJWORK/abc123/RunData/Input.123 ./Input.123
+ date
+ jsrun -n 4092 -r 2 -a 12 -g 3 ./a.out
+ cp my_output_file /ccs/proj/abc123/Output.123
+#
+ 
+ 
+ 
