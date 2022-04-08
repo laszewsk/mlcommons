@@ -1,5 +1,6 @@
 
 
+```bash
 cms sbatch generate rivanna.in.slurm 
   --config=sbatch-rivanna-localscratch.yaml
   --name=earthquake2 \
@@ -7,10 +8,12 @@ cms sbatch generate rivanna.in.slurm
   --attribute=\"time=12:00:00\"
   --mode=h
   --dir=localscratch
-  
-# Implement in SBATCH
+```
+
+## Implement in SBATCH
 cms sbatch generate rivanna.in.slurm --experiment_file=experiment.yaml
 
+```yaml
 experiment.yaml:
   config: sbatch-rivanna-localscratch.yaml
   name: earthquake2
@@ -23,17 +26,18 @@ experiment.yaml:
     time: 12:00:00
   mode: h
   dir: localscratch
+```
 
 
 
+## Summit
 
-Summit
---------
 https://docs.olcf.ornl.gov/systems/summit_user_guide.html#batch-scripts
 
 (uses BSUB vs SBATCH via LSF command)
 Consider converting SLURM command to handle summit.in.lsf.sh
 
+```bash
  #!/bin/bash
  # Begin LSF Directives
  #BSUB -P ABC123
@@ -53,12 +57,12 @@ Consider converting SLURM command to handle summit.in.lsf.sh
  jsrun -n 4092 -r 2 -a 12 -g 3 ./a.out
  cp my_output_file /ccs/proj/abc123/Output.123
 #
+ ```
+ 
+## Suggestion
  
  
- ## Suggestion
- 
- 
-
+```bash
 #!/bin/bash
 #BSUB -W 1:59
 #BSUB -nnodes 1
@@ -76,4 +80,4 @@ pip install torchvision
 pip install scikit-learn
 echo "Running the benchmark"
 jsrun -n1 -a1 -g1 -c42 -r1 -b none python benchmark.py
-
+```
