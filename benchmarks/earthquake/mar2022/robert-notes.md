@@ -50,4 +50,25 @@ Consider converting SLURM command to handle summit.in.lsf.sh
 #
  
  
+ ## Suggestion
  
+ 
+
+#!/bin/bash
+#BSUB -W 1:59
+#BSUB -nnodes 1
+# GEN150_bench is a project code from Junqi
+#BSUB -P GEN150_bench
+#BSUB -o log_GPU_1.o%J
+#BSUB -J log_GPU_1_Jobx
+
+# You need this module for python and other libraries
+module load open-ce
+
+# These installations are application specific
+pip install pytorch-lightning==1.5.10
+pip install torchvision
+pip install scikit-learn
+echo "Running the benchmark"
+jsrun -n1 -a1 -g1 -c42 -r1 -b none python benchmark.py
+
