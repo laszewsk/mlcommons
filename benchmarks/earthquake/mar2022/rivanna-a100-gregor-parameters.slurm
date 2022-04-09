@@ -25,7 +25,7 @@ BASE=${RESOURCE_DIR}/$USER/${GPU_TYPE}
 HOME=${BASE}
 
 REV="mar2022"
-VARIANT="-gregor-parameter"
+VARIANT="-gregor-parameters"
 
 echo "Working in <$(pwd)>"
 echo "Base directory in <${BASE}>"
