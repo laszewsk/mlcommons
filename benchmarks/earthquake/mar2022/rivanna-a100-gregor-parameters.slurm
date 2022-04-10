@@ -3,7 +3,7 @@
 #SBATCH --job-name=mlcommons-science-earthquake-a100
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
-#SBATCH --partition=bii-gpu
+#SBATCH --partition=gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
 #SBATCH --time=06:00:00
