@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -P PROJECT_ID
+#BSUB -P GEN150_bench
 #BSUB -W 00:10
 #BSUB -nnodes 1
 #BSUB -J python
