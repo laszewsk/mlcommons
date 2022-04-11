@@ -1,0 +1,24 @@
+#!/bin/bash
+#BSUB -P PROJECT_ID
+#BSUB -W 00:10
+#BSUB -nnodes 1
+#BSUB -J python
+#BSUB -o python.%J.out
+#BSUB -e python.%J.err
+
+cd $LSB_OUTDIR
+date
+
+
+module load open-ce/1.5.2-py39-0
+which python
+python --version
+python -c 'import tensorflow as tf; print(tf.__version__)'
+
+lscpu
+
+nvidia-smi
+
+pip install cloudmesh-common -U
+
+python mnist.py
