@@ -1,10 +1,10 @@
 #!/bin/bash
-#BSUB -P PROJECT_ID
+#BSUB -P GEN150_bench
 #BSUB -W 00:10
 #BSUB -nnodes 1
-#BSUB -J python
-#BSUB -o python.%J.out
-#BSUB -e python.%J.err
+#BSUB -J mnist-tensorflow
+#BSUB -o mnist-tensorflow.%J.out
+#BSUB -e mnist-tensorflow.%J.err
 
 cd $LSB_OUTDIR
 date
