@@ -1,6 +1,6 @@
 #!/bin/bash
 #BSUB -P GEN150_bench
-#BSUB -W 00:10
+#BSUB -W 00:5
 #BSUB -nnodes 1
 #BSUB -J mnist-tensorflow
 #BSUB -o mnist-tensorflow.%J.out
@@ -21,4 +21,4 @@ nvidia-smi
 
 pip install cloudmesh-common -U
 
-python mnist.py
+python mnist-gpu.py
