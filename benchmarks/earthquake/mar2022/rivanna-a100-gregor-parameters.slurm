@@ -13,7 +13,7 @@
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
-
+PARTITION=bii-gpu
 GPU_TYPE="a100"
 PYTHON_VERSION="3.10.2"
 
@@ -92,4 +92,4 @@ fi
 (cd ${BASE}/mlcommons/benchmarks/earthquake/${REV} && \
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
-    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE.ipynb --no-progress-bar --log-output --log-level INFO)
+    papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE-$PARTITION.ipynb --no-progress-bar --log-output --log-level INFO)
