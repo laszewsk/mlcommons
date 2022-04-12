@@ -11,9 +11,13 @@ pprint(gpus)
 mnist = tf.keras.datasets.mnist
 
 device = f'/device:GPU:0'
+device = f'/GPU:0'
+device = f'/physical_device:GPU:0'
+device = gpus[0].name
+
 verbose = 0
 
-with tf.device('/GPU:0'):
+with tf.device(device):
     StopWatch.start("total")
     banner("start mnist")
     with tf.device(device):
