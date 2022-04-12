@@ -21,4 +21,4 @@ nvidia-smi
 
 pip install cloudmesh-common -U
 
-python mnist-gpu.py
+time python mnist-gpu.py
