@@ -122,6 +122,33 @@ jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USE
 To see the output, you need to open the notebook.
    
 
+# Running the code on Google Colab
+   
+Open Google Colab and select Github
+   
+Search for https://github.com/laszewsk/mlcommons
+   
+Select the latest notebook *
+   
+Open the runtime terminal
+   
+Make the dataset directory 
+   
+```bash
+cd /content/gdrive/My Drive
+mkdir Colab\ Datasets/
+```
+Make a copy of the data
+  
+```bash
+cd /content/gdrive/MyDrive/Colab\ Datasets/
+git clone https://github.com/laszewsk/mlcommons-data-earthquake.git mlcommons-data-earthquake
+tar Jxvf mlcommons-data-earthquake/data.tar.xz -C .
+```
+From the 'Runtime' dropdown menu select 'Run all'
+   
+When promted, approve the notebook to access your Google Drive
+
 # Deprecated/Todo Instructions
    
 ## Building the container image
