@@ -8,7 +8,7 @@
 ### Two Epoch Case
 
 
-| Timer                        | Status  | K80       | V100       | A100     | RTX3090(G) | RTX3080(R) |
+| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) |
 |------------------------------|---------|-----------|------------|----------|------------|------------|
 | total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 |
 | data head setup              |  failed |           |            |          |            |            |
@@ -24,6 +24,10 @@
 | label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 |
 | label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 |
 | RunTFTCustomVersion stop     | failed  |           |            |          |            |            |
+ 
+G = Gregor
+R = Robert
+r = RIvanna
  
 ## Running the code
 
