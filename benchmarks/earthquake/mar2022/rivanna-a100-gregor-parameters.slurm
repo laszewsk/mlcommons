@@ -3,7 +3,7 @@
 #SBATCH --job-name=mlcommons-science-earthquake-a100
 #SBATCH --output=mlcommons-science-earthquake-a100.out
 #SBATCH --error=mlcommons-science-earthquake-a100.err
-#SBATCH --partition=bii-gpu
+#SBATCH --partition=gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
 #SBATCH --time=06:00:00
@@ -13,7 +13,7 @@
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
-PARTITION=bii-gpu
+PARTITION=gpu
 GPU_TYPE="a100"
 PYTHON_VERSION="3.10.2"
 
