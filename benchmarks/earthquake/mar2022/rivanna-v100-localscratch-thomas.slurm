@@ -51,7 +51,7 @@ rm -rf /localscratch/${USER}/${GPU_TYPE}
 mkdir -p ${BASE}
 cd ${BASE}
 
-if [ ! -e "${BASE}/.local/python/${PYTHON_VESRION}" ] ; then
+if [ ! -e "${BASE}/.local/python/${PYTHON_VERSION}" ] ; then
     tar Jxvf "${RESOURCE_DIR}/python-${PYTHON_VERSION}.tar.xz" -C "${BASE}"
 fi
 
