@@ -10,6 +10,13 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --account=ds6011-sp22-002
 
+echo "=============================================================================================================="
+echo "SLURM_JOB_ID:" $SLURM_JOB_ID
+echo "SLURM_JOB_NAME:" $SLURM_JOB_NAME
+echo "SLURM_JOB_PARTITION:" $SLURM_JOB_PARTITION
+echo "SLURMD_NODENAME:" $SLURMD_NODENAME
+echo "=============================================================================================================="
+
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
@@ -93,3 +100,11 @@ fi
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
     papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE-$PARTITION.ipynb --no-progress-bar --log-output --log-level INFO)
+echo "JOB COMPLETE"
+mkdir -p ${OUTPUT}
+cp -r ${BASE} ${OUTPUT}
+echo "SAVING JOB COMPLETED" 
+echo "=============================================================================================================="
+printenv | grep "SLURM_"
+echo "=============================================================================================================="
+#
