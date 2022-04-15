@@ -8,26 +8,26 @@
 ### Two Epoch Case
 
 
-| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) |
-|------------------------------|---------|-----------|------------|----------|------------|------------|
-| total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 |
-| data head setup              |  failed |           |            |          |            |            |
-| legal sampling location      |  ok     |   1779.63 |   1546.38  |  1226.95 |   457.886  |    532.535 |
-| RunTFTCustomVersion tft only |  ok     |     0.001 |     0.001  |    0.001 |       0    |        0   |
-| RunTFTCustomVersion print    |  failed |           |            |          |            |            |
-| RunTFTCustomVersion init     |  ok     |     5.327 |     5.624  |    8.078 |      0.84  |     3.612  |
-| RunTFTCustomVersion restore  |  ok     |        0  |        0   |        0 |         0  |          0 |
-| RunTFTCustomVersion analysis |  ok     |        0  |        0   |        0 |         0  |          0 |
-| RunTFTCustomVersion train    |  ok     |   6967.26 |    1671.35 |  1373.01 |   1103.15  |    2068.9  |
-| RunTFTCustomVersion bestfit  |  ok     |   17037.6 |    14795.1 |  13022.1 |   4420.31  |    4997.13 |
-| label1                       |  ok     |        0  |        0   |       0  |       0    |        0   |
-| label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 |
-| label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 |
-| RunTFTCustomVersion stop     | failed  |           |            |          |            |            |
+| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) | T???    |
+|------------------------------|---------|-----------|------------|----------|------------|------------|---------|
+| total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 | 17580.4 |
+| data head setup              |  failed |           |            |          |            |            |         |
+| legal sampling location      |  ok     |   1779.63 |   1546.38  |  1226.95 |   457.886  |    532.535 | 1228.35 |
+| RunTFTCustomVersion tft only |  ok     |     0.001 |     0.001  |    0.001 |       0    |        0   | 0.001   |
+| RunTFTCustomVersion print    |  failed |           |            |          |            |            |         |
+| RunTFTCustomVersion init     |  ok     |     5.327 |     5.624  |    8.078 |      0.84  |     3.612  | 4.163   |
+| RunTFTCustomVersion restore  |  ok     |        0  |        0   |        0 |         0  |          0 | 0       |
+| RunTFTCustomVersion analysis |  ok     |        0  |        0   |        0 |         0  |          0 | 0       |
+| RunTFTCustomVersion train    |  ok     |   6967.26 |    1671.35 |  1373.01 |   1103.15  |    2068.9  | 1342.07 |
+| RunTFTCustomVersion bestfit  |  ok     |   17037.6 |    14795.1 |  13022.1 |   4420.31  |    4997.13 | 13018.4 |
+| label1                       |  ok     |        0  |        0   |       0  |       0    |        0   | 0       |
+| label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 | 0.002   |
+| label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 | 0.1     |
  
 G = Gregor
 R = Robert
 r = RIvanna
+T= Thomas posted something incomplete post so we do not know what it is
  
 ## Running the code
 
