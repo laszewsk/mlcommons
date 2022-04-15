@@ -2,7 +2,7 @@
 #SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
-#SBATCH --partition=gpu
+#SBATCH --partition={system.partition}
 #SBATCH -c {cpu_num}
 #SBATCH --mem={mem}
 #SBATCH --time={time}

@@ -1,7 +1,29 @@
 # EQ Code
 
 * Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
-* Original data at ???
+* Original data at 
+
+## Benchmark Results
+
+### Two Epoch Case
+
+
+| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) | T1(?)   | V100(L) |
+|------------------------------|---------|-----------|------------|----------|------------|------------|---------|---------|
+| total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 | 17580.4 | 19697.1 |
+| legal sampling location      |  ok     |   1779.63 |   1546.38  |  1226.95 |   457.886  |    532.535 | 1228.35 | 1229.91 |
+| RunTFTCustomVersion tft only |  ok     |     0.001 |     0.001  |    0.001 |       0    |        0   | 0.001   | 0.001   |
+| RunTFTCustomVersion init     |  ok     |     5.327 |     5.624  |    8.078 |      0.84  |     3.612  | 4.163   | 3.548   |
+| RunTFTCustomVersion train    |  ok     |   6967.26 |    1671.35 |  1373.01 |   1103.15  |    2068.9  | 1342.07 | 1608.61 |
+| RunTFTCustomVersion bestfit  |  ok     |   17037.6 |    14795.1 |  13022.1 |   4420.31  |    4997.13 | 13018.4 | 14303.7 |
+| label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 | 0.002   | 0.002   |
+| label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 | 0.1     | 0.01    |
+ 
+G = Gregor
+R = Robert
+r = RIvanna
+T1 = Thomas posted something incomplete post so we do not know what it is https://spring22ds6011002.slack.com/archives/C038HBX9FME/p1649616003897029
+L = 2 epoch bii=gpu localscratch https://spring22ds6011002.slack.com/archives/C038HBX9FME/p1650019967536729
 
 ## Running the code
 
@@ -121,6 +143,33 @@ jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USE
 
 To see the output, you need to open the notebook.
    
+
+# Running the code on Google Colab
+   
+Open Google Colab and select Github
+   
+Search for https://github.com/laszewsk/mlcommons
+   
+Select the latest notebook *
+   
+Open the runtime terminal
+   
+Make the dataset directory 
+   
+```bash
+cd /content/gdrive/My Drive
+mkdir Colab\ Datasets/
+```
+Make a copy of the data
+  
+```bash
+cd /content/gdrive/MyDrive/Colab\ Datasets/
+git clone https://github.com/laszewsk/mlcommons-data-earthquake.git mlcommons-data-earthquake
+tar Jxvf mlcommons-data-earthquake/data.tar.xz -C .
+```
+From the 'Runtime' dropdown menu select 'Run all'
+   
+When promted, approve the notebook to access your Google Drive
 
 # Deprecated/Todo Instructions
    
