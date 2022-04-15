@@ -5,6 +5,8 @@
 
 ## Benchmark Results
 
+### Two Epoch Case
+
 ```
 Timer                           Status     K80       V100        A100       RTX3090(G)    RTX3080(R)
 ------------------------------------------------------------------------------------------------------
@@ -16,11 +18,11 @@ Timer                           Status     K80       V100        A100       RTX3
  RunTFTCustomVersion init       ok             5.327      5.624      8.078        0.84        3.612
  RunTFTCustomVersion restore    ok             0          0          0            0           0
  RunTFTCustomVersion analysis   ok             0          0          0            0           0
- RunTFTCustomVersion train      ok          6967.26     1671.35	 1373.01     1103.15     2068.9
+ RunTFTCustomVersion train      ok          6967.26     1671.35	 1373.01       1103.15     2068.9
  RunTFTCustomVersion bestfit    ok         17037.6     14795.1	   13022.1      4420.31     4997.13
- label1                         ok             0          0          0		  0             0
- label2                         ok             0.002      0.002      0.002	  0.001         0.001
- label3                         ok             0.108      0.096      0.099	  0.033         0.036
+ label1                         ok             0          0          0		          0           0
+ label2                         ok             0.002      0.002      0.002	       0.001       0.001
+ label3                         ok             0.108      0.096      0.099	       0.033       0.036
  RunTFTCustomVersion stop       failed   
 -----------------------------------------------------------------------------------------------------
 ```
