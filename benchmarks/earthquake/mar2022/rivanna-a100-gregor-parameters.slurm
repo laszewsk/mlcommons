@@ -23,13 +23,9 @@ echo "==========================================================================
 PARTITION=gpu
 GPU_TYPE="a100"
 PYTHON_VERSION="3.10.2"
-EXECUTION_DIRECTORY=/localscratch
 RESOURCE_DIR="/project/ds6011-sp22-002"
-RESULTS_DIR=${USER}/output
 
 # BASE=/scratch/$USER/${GPU_TYPE}
-# BASE=${RESOURCE_DIR}/$USER/${GPU_TYPE}
-BASE=${EXECUTION_DIRECTORY}/${USER}/${GPU_TYPE}
 HOME=${BASE}
 
 REV="mar2022"
@@ -47,7 +43,6 @@ module load cuda cudnn
 
 nvidia-smi
 
-rm -rf /localscratch/${USER}/${GPU_TYPE}
 mkdir -p ${BASE}
 cd ${BASE}
 
