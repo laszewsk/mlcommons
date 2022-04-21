@@ -3,25 +3,30 @@
 #SBATCH --job-name=mlcommons-science-earthquake-v100
 #SBATCH --output=mlcommons-science-earthquake-v100.out
 #SBATCH --error=mlcommons-science-earthquake-v100.err
-#SBATCH --partition=bii-gpu
+#SBATCH --partition=gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
-#SBATCH --time=06:00:00
+#SBATCH --time=3-00:00:00
 #SBATCH --gres=gpu:v100:1
 #SBATCH --account=ds6011-sp22-002
+
+echo "=============================================================================================================="
+echo "SLURM_JOB_ID:" $SLURM_JOB_ID
+echo "SLURM_JOB_NAME:" $SLURM_JOB_NAME
+echo "SLURM_JOB_PARTITION:" $SLURM_JOB_PARTITION
+echo "SLURMD_NODENAME:" $SLURMD_NODENAME
+echo "=============================================================================================================="
 
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
-PARTITION=bii-gpu
+PARTITION=gpu
 GPU_TYPE="v100"
 PYTHON_VERSION="3.10.2"
-
 RESOURCE_DIR="/project/ds6011-sp22-002"
 
 # BASE=/scratch/$USER/${GPU_TYPE}
 BASE=${RESOURCE_DIR}/$USER/${GPU_TYPE}
-
 HOME=${BASE}
 
 REV="mar2022"
@@ -93,3 +98,11 @@ fi
     cp "FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb" FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb)
 (cd mlcommons/benchmarks/earthquake/mar2022 && \
     papermill FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb FFFFWNPFEARTHQ_newTFTv29-$USER-$GPU_TYPE-$PARTITION.ipynb --no-progress-bar --log-output --log-level INFO)
+echo "JOB COMPLETE"
+mkdir -p ${OUTPUT}
+cp -r ${BASE} ${OUTPUT}
+echo "SAVING JOB COMPLETED" 
+echo "=============================================================================================================="
+printenv | grep "SLURM_"
+echo "=============================================================================================================="
+#
