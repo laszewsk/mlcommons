@@ -24,13 +24,13 @@ EPOCH=2
 PARTITION=bii-gpu
 GPU_TYPE="v100"
 PYTHON_VERSION="3.10.2"
-EXECUTION_DIRECTORY=/localscratch/${EPOCH}
+EXECUTION_DIRECTORY=/localscratch
 RESOURCE_DIR="/project/ds6011-sp22-002"
 RESULTS_DIR=${USER}/output
 
 # BASE=/scratch/$USER/${GPU_TYPE}
 # BASE=${RESOURCE_DIR}/$USER/${GPU_TYPE}
-BASE=${EXECUTION_DIRECTORY}/${USER}/${GPU_TYPE}
+BASE=${EXECUTION_DIRECTORY}/${USER}/${GPU_TYPE}/${EPOCH}
 HOME=${BASE}
 
 REV="mar2022"
@@ -48,7 +48,7 @@ module load cuda cudnn
 
 nvidia-smi
 
-rm -rf /localscratch/${EPOCH}/${USER}/${GPU_TYPE}
+rm -rf /localscratch/${EPOCH}/${USER}/${GPU_TYPE}/${EPOCH}
 mkdir -p ${BASE}
 cd ${BASE}
 
