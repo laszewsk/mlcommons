@@ -48,7 +48,7 @@ module load cuda cudnn
 
 nvidia-smi
 
-rm -rf /localscratch/${EPOCH}/${USER}/${GPU_TYPE}/${EPOCH}
+rm -rf /localscratch/${USER}/${GPU_TYPE}/${EPOCH}
 mkdir -p ${BASE}
 cd ${BASE}
 
