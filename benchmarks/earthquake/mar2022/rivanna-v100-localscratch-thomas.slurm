@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-science-earthquake-v100-thomas
-#SBATCH --output=mlcommons-science-earthquake-v100-%u.out
-#SBATCH --error=mlcommons-science-earthquake-v100-%u.err
+#SBATCH --job-name=mlcommons-science-earthquake-v100-thomas-e2
+#SBATCH --output=mlcommons-science-earthquake-v100-%u-e2.out
+#SBATCH --error=mlcommons-science-earthquake-v100-%u-e2.err
 #SBATCH --partition=bii-gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
@@ -20,10 +20,11 @@ echo "==========================================================================
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
+EPOCH=e2
 PARTITION=bii-gpu
 GPU_TYPE="v100"
 PYTHON_VERSION="3.10.2"
-EXECUTION_DIRECTORY=/localscratch
+EXECUTION_DIRECTORY=/localscratch/${EPOCH}
 RESOURCE_DIR="/project/ds6011-sp22-002"
 RESULTS_DIR=${USER}/output
 
@@ -47,7 +48,7 @@ module load cuda cudnn
 
 nvidia-smi
 
-rm -rf /localscratch/${USER}/${GPU_TYPE}
+rm -rf /localscratch/${EPOCH}/${USER}/${GPU_TYPE}
 mkdir -p ${BASE}
 cd ${BASE}
 
