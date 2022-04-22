@@ -23,7 +23,7 @@ echo "==========================================================================
 PARTITION=bii-gpu
 GPU_TYPE="v100"
 PYTHON_VERSION="3.10.2"
-EXECUTION_DIRECTORY=/localscratch/vra2cf
+EXECUTION_DIRECTORY=/localscratch
 RESOURCE_DIR="/project/ds6011-sp22-002"
 RESULTS_DIR=${USER}/output
 
