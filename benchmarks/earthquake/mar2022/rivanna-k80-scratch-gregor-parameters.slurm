@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-science-earthquake-k80-2
-#SBATCH --output=mlcommons-science-earthquake-k80-2.out
-#SBATCH --error=mlcommons-science-earthquake-k80-2.err
+#SBATCH --job-name=mlcommons-science-earthquake-k80-scratch-2
+#SBATCH --output=mlcommons-science-earthquake-k80-scratch-2.out
+#SBATCH --error=mlcommons-science-earthquake-k80-scratch-2.err
 #SBATCH --partition=gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
