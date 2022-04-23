@@ -5,9 +5,9 @@ DLRestorefromcheckpoint: False
 DLinputCheckpointpostfix: ''
 
 #remove in the future.
-run.datadirlocalscratch: /localscratch/2/vra2cf/v100/mlcommons/benchmarks/earthquake/data
-run.datadirscratch: /scratch/vra2cf/2/v100/mlcommons/benchmarks/earthquake/data
-run.datadirproject: /project/ds6011-sp22-002/vra2cf/2/v100/mlcommons/benchmarks/earthquake/data
+run.datadirlocalscratch: /localscratch/vra2cf/v100/2/mlcommons/benchmarks/earthquake/data
+run.datadirscratch: /scratch/vra2cf/v100/2/mlcommons/benchmarks/earthquake/data
+run.datadirproject: /project/ds6011-sp22-002/vra2cf/v100/2/mlcommons/benchmarks/earthquake/data
 
 # Thomas
 
