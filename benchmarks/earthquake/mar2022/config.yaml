@@ -12,7 +12,7 @@ run.datadir: /mlcommons/benchmarks/earthquake/data
 
 # Thomas
 
-TFTTransformerepochs: 2
+TFTTransformerepochs: 70
 # TFTTransformerepochs = num_epochs
 
 TFTTransformerbatch_size: 64 
