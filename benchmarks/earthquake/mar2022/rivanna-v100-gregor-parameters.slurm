@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-science-earthquake-v100-20
-#SBATCH --output=mlcommons-science-earthquake-v100-20.out
-#SBATCH --error=mlcommons-science-earthquake-v100-20.err
+#SBATCH --job-name=mlcommons-science-earthquake-v100-30
+#SBATCH --output=mlcommons-science-earthquake-v100-30.out
+#SBATCH --error=mlcommons-science-earthquake-v100-30.err
 #SBATCH --partition=gpu
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
@@ -20,7 +20,7 @@ echo "==========================================================================
 # record top ond gpustat output
 # ./sampleTop2.sh thf2bn ${SLURM_JOB_ID} 10 &
 
-EPOCH=20
+EPOCH=30
 PARTITION=gpu
 GPU_TYPE="v100"
 PYTHON_VERSION="3.10.2"
