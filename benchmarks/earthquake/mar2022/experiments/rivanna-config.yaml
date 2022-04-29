@@ -5,7 +5,7 @@ run:
   workdir: /project/ds6011-sp22-002/runner/mlcommons
   resourcedir: /project/ds6011-sp22-002
   datadir: data
-  branch: 'features/63-cms-sbatch'
+  branch: 'features/63-sbatch-mods'
 
 system:
   python: "3.10.2"

@@ -5,7 +5,7 @@ run:
   workdir: /localscratch/mlcommons
   resourcedir: /project/ds6011-sp22-002
   datadir: data
-  branch: 'features/63-sbatch-localscratch'
+  branch: 'features/63-sbatch-mods'
 
 system:
   python: "3.10.2"
