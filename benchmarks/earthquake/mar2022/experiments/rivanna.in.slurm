@@ -45,11 +45,11 @@ REV="mar2022"
 
 ## Specifies a particular variant of the notebook to use
 ## if working on an alternate baseline.
-VARIANT="${VARIANT:--gregor}"
+VARIANT="${VARIANT:--gregor-parameters}"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
-RESOURCE_DIR="{run.resource_dir}"
+RESOURCE_DIR="{run.resourcedir}"
 
 
 ### END CONFIGURATION
@@ -234,10 +234,6 @@ echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_VERSION}>"
-#echo "GPU: <${GPU_TYPE}>"
-
-
-
 
 # Load cuda/python on HPCs if module is present.
 if command -v module ; then
@@ -262,10 +258,11 @@ waitmake_lock mlcommons.git
                  "${MLCOMMONS_HOME}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
-    if [ ! -e data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz
+    if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
+        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz \
+            -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
-        mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
+        mkdir -p {RUN_BASE}/data/EarthquakeDec2020/Outputs
     fi
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
@@ -275,12 +272,17 @@ waitmake_lock mlcommons.git
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p notebooks
     cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
+       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
-# Execute the notebook usign papermill
-papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
-          "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+# Execute the notebook using papermill
+papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
+          "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
+# Save the final notebook after everything's done
+cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+   "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb"
+
 slurm_runtime
+
