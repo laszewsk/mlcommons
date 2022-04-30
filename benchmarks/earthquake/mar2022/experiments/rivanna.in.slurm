@@ -37,8 +37,8 @@ RUN_USER="${RUN_USER:-_{meta.parent.uuid}}"
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
-MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$RUN_USER}
-RUN_BASE=${MLCOMMONS_HOME}/workspace-${RUN_ID}
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
+RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
 VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
 ## Specifies a specific revision of the Earthquake notebook
@@ -272,7 +272,7 @@ waitmake_lock mlcommons.git
         tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz \
             -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
-        mkdir -p {RUN_BASE}/data/EarthquakeDec2020/Outputs
+        mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
     fi
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
@@ -282,7 +282,7 @@ waitmake_lock mlcommons.git
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p notebooks
     cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
+       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
 # Execute the notebook using papermill
