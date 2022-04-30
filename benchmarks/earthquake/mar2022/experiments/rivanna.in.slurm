@@ -243,6 +243,12 @@ if command -v module ; then
   module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
 
+if [ -e "$(pwd)/config.yaml" ]; then
+	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
+fi
+
+
+
 # Checkout git repo for mlcommons earthquake data, locking the repo
 # to prevent concurrent git operations 
 waitmake_lock mlcommons-data-earthquake.git
