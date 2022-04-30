@@ -7,18 +7,17 @@ experiments:
   gpu_count: 1
   cpu_num: 6
   mem: "32GB,64GB"
+  ## TFTTransformerepochs = num_epochs
+  #
+  TFTTransformerepochs: "2,10,20,30,40,50,60"
 attributes:
-  time: 12:00:00
+  time: "3-0"
   set_soft_device_placement: False
   debugging_set_log_device_placement: False
   DLAnalysisOnly: False
   DLRestorefromcheckpoint: False
   DLinputCheckpointpostfix: ''
-
-  ## TFTTransformerepochs = num_epochs
-  #
-  TFTTransformerepochs: 30
-
+  
   ## TFTTransformerbatch_size = minibatch_size : basically split training data into batches used to calculate model error and update model coefficients
   ## links for more info: https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/
   ## https://stats.stackexchange.com/questions/153531/what-is-batch-size-in-neural-network

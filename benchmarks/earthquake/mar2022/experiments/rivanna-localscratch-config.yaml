@@ -12,12 +12,3 @@ system:
   num_cpus: 6
   partition: "bii-gpu"
 
-config:
-  model_paramters:
-    set_soft_device_placement: False
-    debugging_set_log_device_placement: False
-    DLAnalysisOnly: False
-    DLRestorefromcheckpoint: False
-    DLinputCheckpointpostfix: 1
-    TFTTransformerepochs: 20
-
