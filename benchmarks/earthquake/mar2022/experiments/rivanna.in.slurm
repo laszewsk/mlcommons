@@ -15,6 +15,9 @@ set -uxe
 
 ### BEGIN CONFIGURATION
 
+## Unique identifier to isolate executions from each other.
+RUN_ID="${RUN_ID:-{meta.uuid}}"
+
 ## Set the python version to target
 PYTHON_VERSION={system.python}
 
@@ -29,13 +32,13 @@ FORK=${FORK:-"laszewsk"}
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-RUN_USER=${USER:-unknown}
+RUN_USER="${USER:-{meta.parent.uuid}}"
 
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
 MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$RUN_USER}
-RUN_BASE=${MLCOMMONS_HOME}/workspace
+RUN_BASE=${MLCOMMONS_HOME}/workspace-${RUN_ID}
 VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
 ## Specifies a specific revision of the Earthquake notebook
@@ -234,6 +237,7 @@ echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_VERSION}>"
+echo "Run ID: <${RUN_ID}>"
 
 # Load cuda/python on HPCs if module is present.
 if command -v module ; then
