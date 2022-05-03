@@ -116,15 +116,15 @@ WARNING: TBD. Next values will all be replaced with application
 specific values
 
 |===
-| Model | Name | Constraint | Definition | Reference Code |
-| Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config |
-| Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | config |
+| Model | Name | Constraint | Definition | Reference Code 
+| Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config 
+| Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | config 
 | Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | config |
-| Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model | config |
-| Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | config |
-| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting | config |
-| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | config |
-| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | config |
+| Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model | config 
+| Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | config 
+| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting | config 
+| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | config 
+| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | config 
 |===
  
 === Hyperparameters and Optimizer Other App
