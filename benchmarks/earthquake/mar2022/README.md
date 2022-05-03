@@ -1,5 +1,41 @@
 # EQ Code
 
+## Versions
+
+v 1.2
+
+* https://github.com/cloudmesh/cloudmesh-sbatch/pull/4
+
+* spawned 72 jobs in sbatch from each of these scripts without rivanna
+  applying a limiting quota to me, and 32 of them are executing
+  concurrently (however there is still some things to work out, as
+  there's concurrent access issues still), so this reenforces the lack
+  of a maximum number of jobs you can request (although it looks like
+  it did queue me after 32 (but this may be due to the lack of
+  resources, the full spawning does ask for roughly 6 TBs of memory in
+  32GB and 64GB chunks), so we may want to split things up or start to
+  iron out what permutations are meaningful.
+
+* Possible concurrency issues in the slurm script I've been using (the
+  lock files for git do not appear to be working properly (some
+  commands are going too fast and git "thinks" that it's not a
+  repository), and there's errors in creating temp files), so there's
+  some improvements to be done there.
+
+* An easy fix for this is to switch back to having all files be
+  isolated in each job, but this reintroduces the file handle
+  reduction I worked in previously (but maybe this doesn't matter
+  anymore if we're not planning on running anything from /scratch.
+
+
+v1.1 - before integration of pull request 4
+
+
+
+v 1.0
+
+
+
 * Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
 * Original data at 
 
