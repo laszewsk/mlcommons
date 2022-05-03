@@ -27,6 +27,15 @@ in the final version, but could be helping in shaping this draft:
 
 == Overview
 
+The Science WG will have training and inference benchmarks. Here we specify the rules for training submissions (the first 4 benchmarks are training but we expect inference benchmarks in the next round)
+
+The Science WG will have Closed and Open divisions and submissions to these divisions must be separate although the same  activity could qualify for both. The Open division is expected to be the primary focus.
+
+A Closed division submission should report system performance as the result and give the logging information outlined in MLPerf HPC Rules. The stopping criterion will be the value of loss specified in the benchmark. Power measurements may also be supplied.
+
+An Open division submission aims to improve scientific discovery from the dataset specified in the benchmark which will specify one or more scientific measurements to be calculated in the submission. The result will be the value of these specified measurements from the submitted model. This model can be based on the supplied reference model or totally distinct. Data augmentation is allowed and all hyperparameters can be changed in the reference model if used. The result should be a GitHub (markdown) document starting with a table listing Measurement name, Reference model value, Submitted model value. For benchmarks with more than one measurement, an average difference between submitted and reference measurements should be given. Power and performance values are optional but encouraged in the results document. The result document should give enough details on the submitted model and any data augmentation that the review team can evaluate its scientific soundness. Citations should be included to describe the scientific basis of the approach. Other rules for the Open division are as described in MLCommons Training Rules (HPC has no special rules for the Open division).
+
+
 All rules are taken from the
 https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc[MLPerf
 Training Rules] except for those that are overridden here.
