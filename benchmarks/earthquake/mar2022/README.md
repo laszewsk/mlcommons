@@ -2,7 +2,6 @@
 
 ## Versions
 
-
 v 1.2.2
 
 * cloudmesh-sbatch has been tag eq1.2.2
