@@ -44,6 +44,26 @@ v 1.0
 * Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
 * Original data at 
 
+## Running Benchmarks with Cloudmesh sbatch
+
+Install cloudmesh sbatch
+
+```bash
+python3.10 -m venv ~/ENV3
+source ~/ENV3/bin/activate
+pip install cloudmesh-installer
+cloudmesh-installer get sbatch
+```
+
+Install prg
+
+```bash
+git clone https://github.com/laszewsk/mlcommons.git
+cd benchmark/earthquake/mar2022/esperiments/rivanna
+# cd benchmark/earthquake/mar2022/esperiments/summit
+
+```
+
 ## Benchmark Results
 
 ### Two Epoch Case
