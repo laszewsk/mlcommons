@@ -2,7 +2,13 @@
 
 ## Versions
 
-v 1.2
+
+v 1.2.2
+
+* cloudmesh-sbatch has been tag eq1.2.2
+
+v 1.2.1
+
 
 * https://github.com/cloudmesh/cloudmesh-sbatch/pull/4
 
