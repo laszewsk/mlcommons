@@ -116,17 +116,7 @@ WARNING: TBD. Next values will all be replaced with application
 specific values
 
 |===
- |Model |Name |Constraint |Definition |Reference Code
- |CosmoFlow |global_batch_size |unconstrained |the global batch size for training |local `batch_size` (`--batch-size`) times number of workers. Baseline config is 64
- |CosmoFlow |opt_name |"sgd" |the optimizer name |`--optimizer` or link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L33[config]
- |CosmoFlow |sgd_opt_momentum |0.9 |SGD momentum |link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L34[config]
- |CosmoFlow |opt_base_learning_rate |unconstrained |The base learning rate |`base_lr` times scaling factor, e.g. `global_batch_size/base_batch_size` if scaling="linear". link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L38[Config]
- |CosmoFlow |opt_learning_rate_warmup_epochs |unconstrained |the number of epochs for learning rate to warm up to base value |link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L47[config]
- |CosmoFlow |opt_learning_rate_warmup_factor |unconstrained |the constant factor applied at learning rate warm up |scaled learning rate / `base_lr`
- |CosmoFlow |opt_learning_rate_decay_boundary_epochs |list of positive integers |Epochs at which learning rate decays |link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L51[config]
- |CosmoFlow |opt_learning_rate_decay_factor |`0 < value < 1`, and you may use a different value for each decay |the learning rate decay factor(s) at the decay boundary epochs |link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L51[config]
- |CosmoFlow |dropout |`0 <= value < 1` |Dropout regularization probability for the dense layers |`dropout` setting in config
- |CosmoFlow |opt_weight_decay | `value >= 0` | L2 regularization parameter for the dense layers |`l2` setting in config
+| Model | Name | Constraint | Definition | Reference Code |
 | Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config |
 | Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | config |
 | Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | config |
