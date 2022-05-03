@@ -127,6 +127,14 @@ specific values
  |CosmoFlow |opt_learning_rate_decay_factor |`0 < value < 1`, and you may use a different value for each decay |the learning rate decay factor(s) at the decay boundary epochs |link:https://github.com/sparticlesteve/cosmoflow-benchmark/blob/57c2454a28e415ca7df0135f016297763f6e4946/configs/cosmo.yaml#L51[config]
  |CosmoFlow |dropout |`0 <= value < 1` |Dropout regularization probability for the dense layers |`dropout` setting in config
  |CosmoFlow |opt_weight_decay | `value >= 0` | L2 regularization parameter for the dense layers |`l2` setting in config
+| Earthquake | TFTTransformerepochs|  40 | num_epochs |
+| Earthquake | TFTTransformerbatch_size | 64 | batch size to split training data into batches used to calculate model error and update model coefficients 
+| Earthquake | TFTTransformertestvalbatch_size | max(128,TFTTransformerbatch_size) | this is a range between min and max for batch size |
+| Earthquake | TFTd_model | 160 | number of hidden layers in model |
+| Earthquake | Tseq: 26 | num of encoder steps. The size of sequence window, number of days included in that section of data |
+| Earthquake |  TFTdropout_rate | 0.1  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting |
+| Earthquake | learning_rate | 0.0000005 | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. |
+| Earthquake | early_stopping_patience | 60 |  Early stopping param for keras, a way to prevent overfit or various metric decreases |
 |===
  
 === Hyperparameters and Optimizer Other App
