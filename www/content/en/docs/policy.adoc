@@ -3,7 +3,7 @@
 
 :sectnums:
 
-= Science Benchmark Policy Draft (Training): MLCommons Science Benchmark Suite Training Rules
+= Science Benchmark Policy Draft: MLCommons Science Benchmark Suite Rules
 
 Under development.
 
@@ -12,8 +12,8 @@ The Policy draft document
 :sectnums:
 
 
-Version 0.1 
-January 31, 2021
+Version 0.2 
+May 3, 2022
 
 Points of contact: Gregor von Laszewski(laszewski@gmail.com), Juri Papay (juripapay@hotmail.com)
 
