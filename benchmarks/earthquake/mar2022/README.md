@@ -61,16 +61,32 @@ Install prg
 git clone https://github.com/laszewsk/mlcommons.git
 cd benchmark/earthquake/mar2022/esperiments/rivanna
 # cd benchmark/earthquake/mar2022/esperiments/summit
-# partition ds6011-sp22-002 
+```
 
+Running under partition ds6011-sp22-002 
+
+```bash
 # running under /project
-cms sbatch generate rivanna.in.slurm --setup=rivanna-experiments.yaml --name="project" --noos 
-# creates ???
+cms sbatch generate rivanna.in.slurm --setup=rivanna-project-experiments.yaml --name="project" --noos 
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+```
 
+Running under partition bii_gpu
 
-# partition bii_gpu
+```bash
 #running under /localscratch
 cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch-experiments.yaml --name="localscratch" --noos
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+
+
+#running under /project
+cms sbatch generate rivanna.in.slurm --setup=rivanna-project-experiments.yaml --name="localscratch" --noos
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+```bash
+
 # creates ???
 
 ```
