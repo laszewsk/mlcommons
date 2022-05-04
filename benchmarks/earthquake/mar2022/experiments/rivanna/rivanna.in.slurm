@@ -124,7 +124,7 @@ function make_lock() {
 ### FUNCTION END
 function release_lock() {
     local lockname="${MLCOMMONS_HOME}/.$1.lock"
-    if [ -e "${lockname}" ];
+    if [ -e "${lockname}" ] ; then
       rm -f "${lockname}"
     fi
 }
