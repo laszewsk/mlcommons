@@ -52,14 +52,14 @@ acceptable.
 The benchmark suite consists of the benchmarks shown in the following
 table.
 
-WARNING: change the table
+WARNING: change the table, add Geoffrey's paper (Gregor), Juri - STEMDL, CloudMask, Juri - talk to Murali. What is the scientific metrics, convergence target (loss value).
 
 |===
 |Problem |Dataset |Quality Target
-| Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), 0.8<NNSE<0.99
-| CloudMask | Multispectral image data from Sea and Land Surface Temperature Radiometer (SLSTR) instrument. | convergence target 0.9
-| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | convergence target 0.9
-| UNO |Molecular features of tumor cells across multiple data sources. | Score: 0.0054
+| Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`
+| CloudMask | Multispectral image data from Sea and Land Surface Temperature Radiometer (SLSTR) instrument. | convergence target `0.9`
+| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | convergence target `0.9`
+| UNO |Molecular features of tumor cells across multiple data sources. | Score: `0.0054`
 |===
 
 == Divisions
@@ -74,13 +74,26 @@ training method as the reference implementation.
 
 The closed division models are:
 
+Internal Repository
+
 |===
 |Problem |Model
-|EarthQuake  |https://colab.research.google.com/drive/1JrPcRwX06xIN5iLhc53_MOLzU9q_Q7wD?usp=sharing
-|CloudMask | https://github.com/stfc-sciml/sciml-bench/tree/master/sciml_bench/benchmarks/slstr_cloud
-|STEMDL  |https://github.com/at-aaims/stemdl-benchmark
-|CANDLE UNO  |https://github.com/ECP-CANDLE/Benchmarks/tree/develop/Pilot1/Uno
+|EarthQuake  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake
+|CloudMask | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/cloudmask
+|STEMDL  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/stemdl
+|CANDLE UNO  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
 |===
+
+Future MLCommons Repository
+
+|===
+|Problem |Model
+|EarthQuake  | https://github.com/mlcommons/science/
+|CloudMask | https://github.com/mlcommons/science/
+|STEMDL  | https://github.com/mlcommons/science/
+|CANDLE UNO  | https://github.com/mlcommons/science/
+|===
+
 
 == Data Set
 
@@ -122,9 +135,6 @@ behavior and settings of the reference implementations.
 
 === Hyperparameters and Optimizer Earth Quake Prediction
 
-WARNING: TBD. Next values will all be replaced with application
-specific values
-
 |===
 | Model | Name | Constraint | Definition | Reference Code 
 | Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config 
@@ -139,8 +149,6 @@ specific values
  
 === Hyperparameters and Optimizer CloudMask
 
-WARNING: TBD. Next values will all be replaced with application specific values
- 
 |===
 |Model |Name |Constraint |Definition |Reference Code
 | CloudMask | epochs| `value > 0` | num_epochs | config 
@@ -212,7 +220,7 @@ multiplexing in case of metric 3, we use the adjusted requirement that
 the number of trained instances has to be at least equal to the number
 of runs for metric 1 and 2.
 
-WARNING: TBD. Next values will all be replaced with application specific values
+The numbers given below reflect the minimum number of repetitive runs required to produce repeatable metrics.
 
 |===
 |Benchmark |Number of Runs (Metric 1, 2) | M' (Metric 3)
