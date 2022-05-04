@@ -58,7 +58,7 @@ RESOURCE_DIR="{run.resourcedir}"
 ### END CONFIGURATION
 
 # Cleanup locks and temporary files on failed execution
-trap "rm -f ${VENV_PATH}.lock ${MLCOMMONS_HOME}/mlcommons.lock; exit" 1 2 3 6 15
+trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 
 
 ### FUNCTION BEGIN
@@ -138,7 +138,7 @@ function release_lock() {
 ### FUNCTION END
 function wait_lock() {
     local lockname="${MLCOMMONS_HOME}/.$1"
-    local delay=${2:-5}
+    local delay=${2:-1}
     printf "Checking for lock ${lockname}"
     while [ -e ${lockname}.lock ] ; do
       printf "."
@@ -160,7 +160,7 @@ function wait_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function waitmake_lock() {
-    wait_lock $1 ${2:-5}
+    wait_lock $1 ${2:-1}
     make_lock $1
 }
 
@@ -257,7 +257,7 @@ fi
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
     git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
-                 "${RUN_BASE}/git/mlcommons-data-earthquake" \
+                 "${MLCOMMONS_HOME}/git/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
 
@@ -265,11 +265,11 @@ release_lock mlcommons-data-earthquake.git
 # to prevent concurrent git operations
 waitmake_lock mlcommons.git
     git_checkout https://github.com/laszewsk/mlcommons.git \
-                 "${RUN_BASE}/git/mlcommons" \
+                 "${MLCOMMONS_HOME}/git/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
     if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
-        tar Jxvf ${RUN_BASE}/git/mlcommons-data-earthquake/data.tar.xz \
+        tar Jxvf ${MLCOMMONS_HOME}/git/mlcommons-data-earthquake/data.tar.xz \
             -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
