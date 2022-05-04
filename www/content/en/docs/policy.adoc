@@ -56,10 +56,10 @@ WARNING: change the table
 
 |===
 |Problem |Dataset |Quality Target
-| Earth Quake Prediction | TBD | TBD (some error minimization)
-| CloudMask | TBD | TBD (some error minimization)
-| STEMDL Classification | TBD | TBD (some error minimization)
-| UNO | TBD | TBD (some error minimization)
+| Earth Quake Prediction | TBD | Normalized Nash–Sutcliffe model efficiency (NNSE), 0.8<NNSE<0.99
+| CloudMask | TBD | convergence target 0.9
+| STEMDL Classification | TBD | convergence target 0.9
+| UNO | TBD | Score: 0.0054
 |===
 
 == Divisions
