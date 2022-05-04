@@ -9,6 +9,8 @@ run.datadirlocalscratch: /localscratch/vra2cf
 run.datadirscratch: /scratch/vra2cf
 run.datadirproject: /project/ds6011-sp22-002/vra2cf
 run.datadir: /mlcommons/benchmarks/earthquake/data
+meta.uuid: b8ea0e0c-0214-4313-a917-3f2800da7baf
+meta.parent.uuid: bcd0b9cd-1192-4345-8c01-cc499d22e0d0
 
 # Thomas
 
