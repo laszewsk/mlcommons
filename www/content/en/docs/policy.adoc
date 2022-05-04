@@ -136,29 +136,21 @@ specific values
 | Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | config 
 |===
  
-=== Hyperparameters and Optimizer Other App
+=== Hyperparameters and Optimizer CloudMask
 
 WARNING: TBD. Next values will all be replaced with application specific values
  
 |===
- |Model |Name |Constraint |Definition |Reference Code
- |DeepCAM |global_batch_size |unconstrained |the global batch size for training |`--local_batch_size` times number of workers
- |DeepCAM |batchnorm_group_size | `value >= 1` | Determines how many ranks participate in the batchnorm | `--batchnorm_group_size`
- |DeepCAM |opt_name |Adam, AdamW, or LAMB |the optimizer name |`--optimizer`
- |DeepCAM |opt_eps |1e-6 |epsilon for Adam |`--adam_eps`
- |DeepCAM |opt_betas |unconstrained |Momentum terms for Adam-type optimizers |`--optimizer_betas`
- |DeepCAM |opt_weight_decay |`value >= 0` |L2 weight regularization |`--weight_decay`
- |DeepCAM |opt_lr |unconstrained |the base learning rate |`--start_lr` times warmup factor
- |DeepCAM |scheduler_lr_warmup_steps | `value >= 0` |the number of epochs for learning rate to warm up to base value |`--lr_warmup_steps`
- |DeepCAM |scheduler_lr_warmup_factor | `value >= 1` |When warmup is used, the target learning_rate will be lr_warmup_factor * start_lr |`--lr_warmup_factor`
- |DeepCAM |scheduler_type |multistep or cosine_annealing |Specifies the learning rate schedule |`--lr_schedule`
- |DeepCAM |scheduler_milestones |unconstrained |If multistep, the steps at which learning rate is decayed |milestones in `--lr_schedule type="multistep",milestones="3000 10000",decay_rate="0.1"`
- |DeepCAM |scheduler_decay_rate |unconstrained |If multistep, the learning rate decay factor |decay_rate in `--lr_schedule type="multistep",milestones="15000 25000",decay_rate="0.1"`
- |DeepCAM |scheduler_t_max |`value >= 0` |For cosine_annealing, period length in steps |`--lr_schedule`
- |DeepCAM |scheduler_eta_min |`value >= 0` |For cosine_annealing, sets the minimal LR |`--lr_schedule`
- |DeepCAM |gradient_accumulation_frequency |`value >= 1` |Specifies the number of gradient accumulation steps before a weight update is performed |`--gradient_accumulation_frequency`
-|===
-
+|Model |Name |Constraint |Definition |Reference Code
+| CloudMask | epochs| `0 < value` | num_epochs | config 
+| CloudMask | learning_rate| `0.0 < value`. Example: `0.001` | learning_rate | config 
+| CloudMask | batch_size| `0 < value` | batch_size | config 
+| CloudMask | MIN_SST| `273.15 < value` | Min allowable Sea Surface Temperature | config 
+| CloudMask | MIN_SST| `273.15 < value` | Min allowable Sea Surface Temperature | config 
+| CloudMask | PATCH_SIZE| `256 = value` | Size of image patches | config
+| CloudMask | IMAGE_H| `1200 = value` | Image height | config
+| CloudMask | IMAGE_W| `1500 = value` | Image width | config
+| CloudMask | N_CHANNELS| `9 = value` | Number of channels | config
 === Hyperparameters and Optimizer Other App
 
 WARNING: TBD. Next values will all be replaced with application specific values
