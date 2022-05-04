@@ -86,7 +86,7 @@ function git_checkout() {
     # targeted branch.
     if [ ! -e "$target" ]; then
         git clone $repo_url $target
-        (cd target && \
+        (cd $target && \
             git checkout $branch)
     # Ensure that the current checkout doesn't have any local edits
     # and checks out the named branch.
@@ -283,7 +283,7 @@ waitmake_lock mlcommons.git
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p notebooks
-    cp ${RUN_BASE}/git/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
+    cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
