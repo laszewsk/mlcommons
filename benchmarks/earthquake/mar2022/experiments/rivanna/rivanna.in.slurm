@@ -110,7 +110,7 @@ function git_checkout() {
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function make_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
+    local lockname="${MLCOMMONS_HOME}/.$1.lock"
     touch "${lockname}"
 }
 
@@ -123,8 +123,10 @@ function make_lock() {
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function release_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
-    rm "${lockname}"
+    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    if [ -e "${lockname}" ];
+      rm -f "${lockname}"
+    fi
 }
 
 ### FUNCTION BEGIN
@@ -139,10 +141,10 @@ function release_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function wait_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
+    local lockname="${MLCOMMONS_HOME}/.$1.lock"
     local delay=${2:-1}
     printf "Checking for lock ${lockname}"
-    while [ -e ${lockname}.lock ] ; do
+    while [ -e ${lockname} ] ; do
       printf "."
       sleep $delay
     done
