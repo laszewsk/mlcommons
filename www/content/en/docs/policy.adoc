@@ -142,7 +142,7 @@ WARNING: TBD. Next values will all be replaced with application specific values
  
 |===
 |Model |Name |Constraint |Definition |Reference Code
-| CloudMask | epochs| `0 < value` | num_epochs | config 
+| CloudMask | epochs| `value > 0` | num_epochs | config 
 | CloudMask | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
 | CloudMask | batch_size| `value > 0` | batch_size | config 
 | CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | config 
@@ -152,19 +152,21 @@ WARNING: TBD. Next values will all be replaced with application specific values
 | CloudMask | N_CHANNELS| `value =9` | Number of channels | config
 |=== 
 
-===Hyperparameters and Optimizer STEMDL
+=== Hyperparameters and Optimizer Earth Quake Prediction
 
-WARNING: TBD. Next values will all be replaced with application specific values
+WARNING: TBD. Next values will all be replaced with application
+specific values
 
 |===
- |Model |Name |Constraint |Definition |Reference Code
- |OpenCatalyst |global_batch_size |`value >= 1` |the global batch size |`batch_size` times number of GPUs
- |OpenCatalyst |opt_name |AdamW |the optimizer name |config setting `optim` `name`
- |OpenCatalyst |opt_base_learning_rate |`value > 0` |the base learning rate |config setting `lr_initial`
- |OpenCatalyst |opt_learning_rate_warmup_steps |`value >= 0` |the number of steps for learning rate to warm up to base value |`warmup_steps`
- |OpenCatalyst |opt_learning_rate_warmup_factor |`0 <= value <= 1` |the factor applied to the learning rate at the start of warmup |`warmup_factor`
- |OpenCatalyst |opt_learning_rate_decay_boundary_steps |list of positive integers |`lr_milestones`
- |OpenCatalyst |opt_learning_rate_decay_factor |`0 <= value <= 1` |the factor applied to decay the learning rate at each decay boundary step |`lr_gamma`
+| Model | Name | Constraint | Definition | Reference Code 
+| Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config 
+| Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | config 
+| Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | config
+| Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model | config 
+| Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | config 
+| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting | config 
+| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | config 
+| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | config 
 |===
 
 OPEN: Hyperparameters and optimizer may be freely changed.
