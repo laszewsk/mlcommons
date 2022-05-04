@@ -169,6 +169,20 @@ specific values
 | STEMDL | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |===
 
+=== Hyperparameters and Optimizer UNO
+
+WARNING: TBD. Next values will all be replaced with application
+specific values
+
+|===
+| Model | Name | Constraint | Definition | Reference Code 
+| UNO | num_epochs| `value > 0` | num_epochs | config 
+| UNO | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
+| UNO | batch_size| `value > 0`.Example: `32` | Batch size | config
+| UNO | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
+|===
+
+
 OPEN: Hyperparameters and optimizer may be freely changed.
 
 == Run Results
