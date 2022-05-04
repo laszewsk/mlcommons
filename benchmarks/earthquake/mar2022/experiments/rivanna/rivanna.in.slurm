@@ -75,27 +75,29 @@ trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 ### FUNCTION END
 function git_checkout() {
     local repo_url=$1
-    local target=$2
+    local target=${2:-$(basename ${repo_url} .git)}
     local branch=${3:-main}
 
-    repo_folder=$(basename ${repo_url} .git)
+    # Make sure the base directory we're cloning into exists.
+    local target_lead=$(dirname $target)
+    mkdir -p ${target_lead}
 
     # Clone the repo if it doesn't already exist and switch to the
     # targeted branch.
-    if [ ! -e "${MLCOMMONS_HOME}/${repo_folder}" ]; then
-        git clone $repo_url "${MLCOMMONS_HOME}/${repo_folder}"
-        (cd ${MLCOMMONS_HOME}/${repo_folder} && \
+    if [ ! -e "$target" ]; then
+        git clone $repo_url $target
+        (cd target && \
             git checkout $branch)
     # Ensure that the current checkout doesn't have any local edits
     # and checks out the named branch.
     else
-        (cd ${MLCOMMONS_HOME}/${repo_folder} && \
+        (cd $target && \
             git fetch origin  && \
             git checkout $branch && \
             git reset --hard origin/$branch && \
             git clean -d --force)
     fi
-    GIT_REV="$(cd "${MLCOMMONS_HOME}/${repo_folder}" && git rev-parse --short=8 HEAD)"
+    GIT_REV="$(cd "$target" && git rev-parse --short=8 HEAD)"
 }
 
 
