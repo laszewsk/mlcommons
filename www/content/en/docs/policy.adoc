@@ -76,9 +76,10 @@ The closed division models are:
 
 |===
 |Problem |Model
-|REPLACE: Climate segmentation  |https://github.com/azrael417/mlperf-deepcam
-|REPLACE: Cosmological parameter prediction |https://github.com/sparticlesteve/cosmoflow-benchmark
-|REPLACE: Modeling catalysts |https://github.com/sparticlesteve/ocp/tree/mlperf-hpc-reference
+|EarthQuake  |https://colab.research.google.com/drive/1JrPcRwX06xIN5iLhc53_MOLzU9q_Q7wD?usp=sharing
+|CloudMask | https://github.com/stfc-sciml/sciml-bench/tree/master/sciml_bench/benchmarks/slstr_cloud
+|STEMDL  |https://github.com/at-aaims/stemdl-benchmark
+|CANDLE UNO  |https://github.com/ECP-CANDLE/Benchmarks/tree/develop/Pilot1/Uno
 |===
 
 == Data Set
@@ -169,17 +170,17 @@ specific values
 | STEMDL | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |===
 
-=== Hyperparameters and Optimizer UNO
+=== Hyperparameters and Optimizer CANDLE UNO
 
 WARNING: TBD. Next values will all be replaced with application
 specific values
 
 |===
 | Model | Name | Constraint | Definition | Reference Code 
-| UNO | num_epochs| `value > 0` | num_epochs | config 
-| UNO | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
-| UNO | batch_size| `value > 0`.Example: `32` | Batch size | config
-| UNO | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
+| CANDLE UNO | num_epochs| `value > 0` | num_epochs | config 
+| CANDLE UNO | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
+| CANDLE UNO | batch_size| `value > 0`.Example: `32` | Batch size | config
+| CANDLE UNO | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |===
 
 
