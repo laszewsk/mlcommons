@@ -48,7 +48,7 @@ batchsize: 32
 
 train_split: 0.8
 
-resnet: resnet18
+resnet: resnet50
 
 nodes: 1
 
