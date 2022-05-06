@@ -55,7 +55,7 @@ acceptable.
 The benchmark suite consists of the benchmarks shown in the following
 table.
 
-WARNING: change the table, add Geoffrey's paper (Gregor), Juri - STEMDL, CloudMask, Juri - talk to Murali. What is the scientific metrics, convergence target (loss value).
+WARNING: change the table, add Geoffrey's paper (Gregor), CloudMask, Juri - talk to Murali. What is the scientific metrics, convergence target (loss value).
 
 |===
 |Problem |Dataset |Quality Target
@@ -158,9 +158,9 @@ We recommend a yaml format for config file.
 
 |===
 |Model |Name |Constraint |Definition |Reference Code
-| CloudMask | epochs| `value > 0` | num_epochs | config 
-| CloudMask | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
-| CloudMask | batch_size| `value > 0`. Example: `32` | batch_size | config 
+| CloudMask | epochs| `value > 0` | Number of epochs | config 
+| CloudMask | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
+| CloudMask | batch_size| `value > 0`. Example: `32` | Batch size | config 
 | CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | config 
 | CloudMask | PATCH_SIZE| `value = 256` | Size of image patches | config
 | CloudMask | seed| `value = 1234` | Random seed | config
@@ -169,26 +169,25 @@ We recommend a yaml format for config file.
 === Hyperparameters and Optimizer STEMDL Classification
 
 WARNING: TBD. Next values will all be replaced with application
-specific values
+specific values. 
 
 |===
 | Model | Name | Constraint | Definition | Reference Code 
-| STEMDL | num_epochs| `value > 0` | num_epochs | config 
-| STEMDL | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
+| STEMDL | num_epochs| `value > 0` | Number of epochs | config 
+| STEMDL | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
 | STEMDL | batch_size| `value > 0`.Example: `32` | Batch size | config
 |===
 
 === Hyperparameters and Optimizer CANDLE UNO
 
 WARNING: TBD. Next values will all be replaced with application
-specific values
+specific values. Are the input parameters for UNO in config file?
 
 |===
 | Model | Name | Constraint | Definition | Reference Code 
-| CANDLE UNO | num_epochs| `value > 0` | num_epochs | config 
-| CANDLE UNO | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
+| CANDLE UNO | num_epochs| `value > 0` |  Number of epochs | config 
+| CANDLE UNO | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
 | CANDLE UNO | batch_size| `value > 0`.Example: `32` | Batch size | config
-| CANDLE UNO | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |===
 
 
