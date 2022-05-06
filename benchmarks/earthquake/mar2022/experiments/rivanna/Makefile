@@ -1,6 +1,10 @@
 
 all: project localscratch generate
 
+submit: all
+	sh jobs-project.sh
+	sh jobs-localscratch.sh
+
 .PHONY: project
 project:
 	cms sbatch generate rivanna.in.slurm --setup=rivanna-experiments.yaml --name="project" --noos
@@ -23,7 +27,12 @@ run:
 	sh ./jobs-project.sh
 	sh ./jobs-localscratch.sh
 
+.PHONY: stop
+stop:
+	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
+
 .PHONY: clean
 clean:
-	@-rm -r localscratch localscratch.json jobs-localscratch.sh
-	@-rm -r project project.json jobs-project.sh
+	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
+	@-rm -rf project project.json jobs-project.sh
+	@-rm -f rivanna.slurm
