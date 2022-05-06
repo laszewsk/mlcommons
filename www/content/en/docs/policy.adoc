@@ -61,7 +61,7 @@ WARNING: change the table, add Geoffrey's paper (Gregor), CloudMask, Juri - talk
 |Problem |Dataset |Quality Target
 | Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`
 | CloudMask | Multispectral image data from Sea and Land Surface Temperature Radiometer (SLSTR) instrument. | convergence target `0.9`
-| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | The scientific metric for this problem is the top1 classification accuracy and F1-score (the higher the better). The main challenge is to predict 3D geometry from its 3 projections (2D images). Information about the best accuracy so far for this dataset can be found here: https://link.springer.com/chapter/10.1007/978-3-030-63393-6_30 (best accuracy so far for this dataset)
+| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | The scientific metric for this problem is the top1 classification accuracy and F1-score (the higher the better). The main challenge is to predict 3D geometry from its 3 projections (2D images). Information about the best accuracy so far for this dataset can be found here: https://link.springer.com/chapter/10.1007/978-3-030-63393-6_30
 | UNO |Molecular features of tumor cells across multiple data sources. | Score: `0.0054`
 |===
 
