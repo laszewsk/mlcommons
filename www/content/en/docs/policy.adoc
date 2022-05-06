@@ -61,7 +61,7 @@ WARNING: change the table, add Geoffrey's paper (Gregor), Juri - STEMDL, CloudMa
 |Problem |Dataset |Quality Target
 | Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`
 | CloudMask | Multispectral image data from Sea and Land Surface Temperature Radiometer (SLSTR) instrument. | convergence target `0.9`
-| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | convergence target `0.9`
+| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | The scientific metric for this problem is the top1 classification accuracy and F1-score (the higher the better). 
 | UNO |Molecular features of tumor cells across multiple data sources. | Score: `0.0054`
 |===
 
@@ -163,13 +163,7 @@ We recommend a yaml format for config file.
 | CloudMask | batch_size| `value > 0`. Example: `32` | batch_size | config 
 | CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | config 
 | CloudMask | PATCH_SIZE| `value = 256` | Size of image patches | config
-| CloudMask | IMAGE_H| `value = 1200` | Image height | config
-| CloudMask | IMAGE_W| `value = 1500` | Image width | config
-| CloudMask | N_CHANNELS| `value = 9` | Number of channels | config
-| CloudMask | CROP_SIZE| `value = 80` | Amount to crop the edges of the images by | config
-| CloudMask | clip_offset| `value = 15` | Clip offset | config
 | CloudMask | seed| `value = 1234` | Random seed | config
-| CloudMask | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |=== 
 
 === Hyperparameters and Optimizer STEMDL Classification
@@ -182,7 +176,6 @@ specific values
 | STEMDL | num_epochs| `value > 0` | num_epochs | config 
 | STEMDL | learning_rate| `value > 0.0`. Example: `0.001` | learning_rate | config 
 | STEMDL | batch_size| `value > 0`.Example: `32` | Batch size | config
-| STEMDL | train_split| `value = 0.8` | Ratio of splitting the dataset into training and testing data | config
 |===
 
 === Hyperparameters and Optimizer CANDLE UNO
