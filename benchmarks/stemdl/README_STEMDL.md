@@ -3,7 +3,7 @@
 ## 1.Introduction
 
 The STEMDL classification benchmark represents a machine learning model which can classify CBED patterns obtained 
-from crystals into one of the 230 crystallographic space groups. The benchmark uses resnet18, it is written in Pytorch Lightning 
+from crystals into one of the 230 crystallographic space groups. The benchmark uses resnet50, it is written in Pytorch Lightning 
 and enables distributed learning on multiple GPUs. The source code is a single Python program "stemdl_classification.py" 
 which reads the configuration file "stemdlConfig.yaml" containing the values of parameters. The sequence of steps 
 performed by the benchmark can be described as follows:
