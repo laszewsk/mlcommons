@@ -37,8 +37,7 @@ import logging
 # Custom dataset class
 class NPZDataset(Dataset):
     def __init__(self, npz_root):
-        files1 = glob.glob(npz_root + "/*.npz")
-        self.files = files1[0:63]
+        self.files = glob.glob(npz_root + "/*.npz")
 
     def __getitem__(self, index):
         sample = np.load(self.files[index])
@@ -55,8 +54,8 @@ class StemdlModel(pl.LightningModule):
         super().__init__()
         self.input_size = 128
         self.num_classes = 231
-        self.model_name = "resnet18"
-        self.model = models.resnet18(pretrained=False) 
+        self.model_name = "resnet50"
+        self.model = models.resnet50(pretrained=False) 
         self.num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(self.num_ftrs, self.num_classes)
         self.params_to_update = self.model.parameters()
