@@ -1,56 +1,53 @@
-# stemdlConfig.yaml
+# STEMDL classification benchmark
 
-# SciML-Bench
-# Copyright © 2021 Scientific Machine Learning Research Group
-# Scientific Computing Department, Rutherford Appleton Laboratory
-# Science and Technology Facilities Council, UK.
-# All rights reserved.
+## 1.Introduction
 
-# This is a configuration file for STEMDL classification benchmark.
+The STEMDL classification benchmark represents a machine learning model which can classify CBED patterns obtained from crystals into one of the 230 crystallographic space groups. The benchmark is written in Pytorch Lightning and enables distributed learning on multiple GPUs. The source code is a single Python program "stemdl_classification.py" which reads the configuration file "stemdlConfig.yaml" containing the values of parameters. The sequence of steps performed by the benchmark can be described as follows:
+1. read the configuration file ("stemdlConfig.yaml")
+2. read the datasets from the training, validation, testing and inference directories as specified in "stemdlConfig.yaml"
+3. train the model
+4. test the model
+4. perform inferencing
+5. measure the time of trainig per epoch and time of a single inference operation
+6. save the time measurements in "log_file" (see stemdlConfig.yaml)
+7. save MLCOmmons logging in "mlperf_logfile" (see stemdlConfig.yaml)
 
-# General info
-benchmark: STEMDL
-organisation: STFC
-division: SciML
-status: research
-platform: nvidia gtx-2
-accelerators_per_node: 6
+## 2.Datasets
 
-# Training dir
-train_dir: ~/sciml_bench/datasets/stemdl_ds1a/training
+Before running the benchmark all datasets must be downloaded from the remore server. The dataset used by the benchmark is `35` GB which is split into four folders: training (`28` GB, `148006` files), validation (`3.8` GB, `20401` files), testing (`1.8` GB, `9374` files) and inference (`1.8` GB, `9375` files).
 
-# Test dir
-test_dir: ~/sciml_bench/datasets/stemdl_ds1a/testing
+The datasets can be downloaded from remote server by using this command:
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/ms/stemdl_ds1a ./
 
-# Validation dir
-val_dir: ~/sciml_bench/datasets/stemdl_ds1a/validation
+The target directory in this case is the local one "./", but any other directory path with a write permission can also be provided.  As a result of the aws command four directories will be created: training, testing, validation and inference.
 
-# Inference dir
-inference_dir: ~/sciml_bench/datasets/stemdl_ds1a/inference
+## 3.Installation
 
-# Log file for recording runtimes
-log_file: ./stemdlLog
+It is recommended to run the Stemdl benchmark in the Anaconda environment.
 
-# Log file for MLCommons logging
-mlperf_logfile: ./mlperf_stemdl.log
+1) If Anaconda is not already installed on the system, it can be downloaded from
+ here:
+    wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
 
-# Model file
-model_file : ./stemdlModel.h5
+2)Install Anaconda
+    bash Anaconda3-2021.05-Linux-x86_64.sh
 
-# Hyperparameters
-seed: 1234
+3) Create conda environment
+      conda create --name bench python=3.8
 
-learning_rate: 0.001
+4) conda activate bench
 
-epochs: 1
+5) pip install pytorch-lightning
 
-batchsize: 32
+6) pip install torchvision
+7) pip install scikit-learn
+8) For installing the MLCommons logging library please follow the instructions at https://github.com/mlcommons/logging
 
-train_split: 0.8
+9) Running the benchmark
+python sytemdl_classification.py --config stemdlConfig.yaml
 
-resnet: resnet18
 
-nodes: 1
+## 4.Notes
 
-gpu: 2
-
+1) Print the accuracy/loss for epoch.
+2) Use resnet50, resnet101.
