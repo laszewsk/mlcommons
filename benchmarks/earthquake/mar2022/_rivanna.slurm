@@ -27,7 +27,7 @@ PYTHON_VERSION=3.10.2
 ## Specifies the git branch to use from the repository
 ## by default using features/63-sbatch-mods
 ## The SAFE version cleans the name of any path-like characters
-BRANCH=${BRANCH:-features/63-sbatch-mods}
+BRANCH=${BRANCH:-main}
 BRANCH_SAFE=${BRANCH/\//-}
 
 ## Specifies a github fork to use when running the build
