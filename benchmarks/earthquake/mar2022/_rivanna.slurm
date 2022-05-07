@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
+#SBATCH --job-name=mlcommons-eq-v100-1
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
-#SBATCH --partition={system.partition}
-#SBATCH -c {cpu_num}
-#SBATCH --mem={mem}
-#SBATCH --time={time}
-#SBATCH --gres=gpu:{card_name}:{gpu_count}
+#SBATCH --partition=gpu
+#SBATCH -c 6
+#SBATCH --mem=64GB
+#SBATCH --time=3-0
+#SBATCH --gres=gpu:v100:1
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={user.account}
+#SBATCH --account=ds6011-sp22-002
 
 set -uxe
 
 ### BEGIN CONFIGURATION
 
 ## Specifies the path to save the final output
-NB_OUTPUT="_output"
+NB_OUTPUT="$USER-output"
 
 ## Unique identifier to isolate executions from each other.
-RUN_ID="${RUN_ID:-{meta.uuid}}"
+RUN_ID="${RUN_ID:-manual}"
 
 ## Set the python version to target
-PYTHON_VERSION={system.python}
+PYTHON_VERSION=3.10.2
 
 ## Specifies the git branch to use from the repository
-## by default using {run.branch}
+## by default using features/63-sbatch-mods
 ## The SAFE version cleans the name of any path-like characters
-BRANCH=${BRANCH:-{run.branch}}
+BRANCH=${BRANCH:-features/63-sbatch-mods}
 BRANCH_SAFE=${BRANCH/\//-}
 
 ## Specifies a github fork to use when running the build
@@ -35,12 +35,12 @@ FORK=${FORK:-"laszewsk"}
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-RUN_USER="${RUN_USER:-_{meta.parent.uuid}}"
+RUN_USER="${RUN_USER:-run}"
 
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
-MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-/project/ds6011-sp22-002/runner/mlcommons}
 RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
 VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
@@ -55,7 +55,7 @@ VARIANT="${VARIANT:--gregor-parameters}"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
-RESOURCE_DIR="{run.resourcedir}"
+RESOURCE_DIR="/project/ds6011-sp22-002"
 
 
 ### END CONFIGURATION
