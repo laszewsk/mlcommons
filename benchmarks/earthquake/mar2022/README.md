@@ -44,6 +44,53 @@ v 1.0
 * Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
 * Original data at 
 
+## Running Benchmarks with Cloudmesh sbatch
+
+Install cloudmesh sbatch
+
+```bash
+python3.10 -m venv ~/ENV3
+source ~/ENV3/bin/activate
+pip install cloudmesh-installer
+cloudmesh-installer get sbatch
+```
+
+Install prg
+
+```bash
+git clone https://github.com/laszewsk/mlcommons.git
+cd benchmark/earthquake/mar2022/esperiments/rivanna
+# cd benchmark/earthquake/mar2022/esperiments/summit
+```
+
+Running under partition ds6011-sp22-002 
+
+```bash
+# running under /project
+cms sbatch generate rivanna.in.slurm --setup=rivanna-project-experiments.yaml --name="project" --noos 
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+```
+
+Running under partition bii_gpu
+
+```bash
+#running under /localscratch
+cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch-experiments.yaml --name="localscratch" --noos
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+
+
+#running under /project
+cms sbatch generate rivanna.in.slurm --setup=rivanna-project-experiments.yaml --name="localscratch" --noos
+cms sbatch generate submit --name="project" > jobs # fix this so that we can use either project or project.json
+# copy results back to a ????
+```bash
+
+# creates ???
+
+```
+
 ## Benchmark Results
 
 ### Two Epoch Case
