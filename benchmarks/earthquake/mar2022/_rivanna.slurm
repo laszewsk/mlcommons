@@ -302,9 +302,9 @@ echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
-echo "Saving graphical outputs to ${NB_OUTPUT}"
-cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs/DLResults" ${NB_OUTPUT}
-cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs/QRegions" ${NB_OUTPUT}
+echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
+mkdir ${NB_OUTPUT}/gfx
+cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/gfx
 
 echo "Execution Complete"
 exit 0
