@@ -15,6 +15,9 @@ set -uxe
 
 ### BEGIN CONFIGURATION
 
+## Specifies the path to save the final output
+NB_OUTPUT="_output"
+
 ## Unique identifier to isolate executions from each other.
 RUN_ID="${RUN_ID:-{meta.uuid}}"
 
@@ -281,10 +284,10 @@ waitmake_lock mlcommons.git
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
     setup_venv ${VENV_PATH} \
-               ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
+               ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
-    mkdir -p notebooks
+    mkdir -p ${NB_OUTPUT}
     cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
@@ -295,8 +298,13 @@ papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
 # Save the final notebook after everything's done
+echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
-   "FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
+   "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
+
+echo "Saving graphical outputs to ${NB_OUTPUT}"
+cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs/DLResults" ${NB_OUTPUT}
+cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs/QRegions" ${NB_OUTPUT}
 
 echo "Execution Complete"
 exit 0
