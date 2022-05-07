@@ -1,15 +1,28 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
-#SBATCH --output=%u-%j.out
-#SBATCH --error=%u-%j.err
-#SBATCH --partition={system.partition}
-#SBATCH -c {cpu_num}
-#SBATCH --mem={mem}
-#SBATCH --time={time}
-#SBATCH --gres=gpu:{card_name}:{gpu_count}
-#SBATCH --mail-user=%u@virginia.edu
-#SBATCH --mail-type=ALL
-#SBATCH --account={user.account}
+
+#!/bin/bash
+
+# Begin LSF Directives
+#BSUB -P ABC12
+#BSUB -W 3:00
+#BSUB -nnodes 2048
+#BSUB -alloc_flags gpumps
+#BSUB -J RunSim123
+#BSUB -o RunSim123.%J
+#BSUB -e RunSim123.%J
+
+
+# ... SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
+# ... SBATCH --output=%u-%j.out
+# ... SBATCH --error=%u-%j.err
+# ... SBATCH --partition={system.partition}
+# ... SBATCH -c {cpu_num}
+# ... SBATCH --mem={mem}
+# ... SBATCH --time={time}
+# ... SBATCH --gres=gpu:{card_name}:{gpu_count}
+# ... SBATCH --mail-user=%u@virginia.edu
+# ... SBATCH --mail-type=ALL
+# ... SBATCH --account={user.account}
 
 set -uxe
 
