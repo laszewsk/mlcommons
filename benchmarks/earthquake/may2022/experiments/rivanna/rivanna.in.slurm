@@ -13,6 +13,11 @@
 
 set -uxe
 
+# This has not yet cms gpu watch into a logfile we want to specify in the config.yaml
+# cms gpu watch
+# cms gpu watch [--gpu=GPU] [--delay=SECONDS] [--logfile=LOGFILE] [--count=COUNT] [--dense]
+# with &
+
 ### BEGIN CONFIGURATION
 
 ## Specifies the path to save the final output
@@ -47,7 +52,7 @@ VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 ## Specifies a specific revision of the Earthquake notebook
 ## Used to select the different folder names in the earthquake
 ## directory
-REV="mar2022"
+REV="{revision}"
 
 ## Specifies a particular variant of the notebook to use
 ## if working on an alternate baseline.

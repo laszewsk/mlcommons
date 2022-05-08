@@ -1,4 +1,3 @@
-config: rivanna-localscratch-config.yaml
 name: earthquake-localscratch
 mode: h
 dir: localscratch
@@ -11,7 +10,20 @@ experiments:
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
 attributes:
+  revision: may2022
+  user.account: ds6011-sp22-002
+  # user.account: ds6011-sp22-002
+  run.workdir: /localscratch/mlcommons
+  run.resourcedir: /project/ds6011-sp22-002
+  run.datadir: data
+  run.branch: 'main'
+
+  system.python: "3.10.2"
+  system.num_cpus: 6
+  system.partition: "bii-gpu"
+
   time: "3-0"
   set_soft_device_placement: False
   debugging_set_log_device_placement: False
