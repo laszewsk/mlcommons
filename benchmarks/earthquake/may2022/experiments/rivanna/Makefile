@@ -7,11 +7,11 @@ submit: all
 
 .PHONY: project
 project:
-	cms sbatch generate rivanna.in.slurm --setup=rivanna-experiments.yaml --name="project" --noos
+	cms sbatch generate rivanna.in.slurm --setup=rivanna-project.yaml --name="project" --noos
 
 .PHONY: localscratch
 localscratch:
-	cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch-experiments.yaml --name="localscratch" --noos
+	cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch.yaml --name="localscratch" --noos
 
 .PHONY: cli
 cli:

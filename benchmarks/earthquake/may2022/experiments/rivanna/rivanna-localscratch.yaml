@@ -14,16 +14,19 @@ experiments:
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: may2022
-  user.account: ds6011-sp22-002
+  user:
+     account: ds6011-sp22-002
   # user.account: ds6011-sp22-002
-  run.workdir: /localscratch/mlcommons
-  run.resourcedir: /project/ds6011-sp22-002
-  run.datadir: data
-  run.branch: 'main'
+  run:
+    workdir: /localscratch/mlcommons
+    resourcedir: /project/ds6011-sp22-002
+    datadir: data
+    branch: 'main'
 
-  system.python: "3.10.2"
-  system.num_cpus: 6
-  system.partition: "bii-gpu"
+  system:
+    python: "3.10.2"
+    num_cpus: 6
+    partition: "bii-gpu"
 
   time: "3-0"
   set_soft_device_placement: False
