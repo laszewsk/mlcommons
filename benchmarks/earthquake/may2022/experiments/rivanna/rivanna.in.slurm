@@ -54,10 +54,6 @@ VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 ## directory
 REV="{revision}"
 
-## Specifies a particular variant of the notebook to use
-## if working on an alternate baseline.
-VARIANT="${VARIANT:--gregor-parameters}"
-
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
 RESOURCE_DIR="{run.resourcedir}"
@@ -247,7 +243,7 @@ echo "Working in <$(pwd)>"
 echo "Base directory in <${RUN_BASE}>"
 echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
-echo "Variant: <${VARIANT}>"
+echo "Script: <{script}>"
 echo "Python: <${PYTHON_VERSION}>"
 echo "Run ID: <${RUN_ID}>"
 
@@ -293,7 +289,7 @@ waitmake_lock mlcommons.git
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p ${NB_OUTPUT}
-    cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
+    cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/{script} \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
