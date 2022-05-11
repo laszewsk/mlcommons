@@ -1,3 +1,15 @@
+# Set up python 3.10 on rivanna
+
+```bash
+module purge
+module load singularity
+module load anaconda
+
+conda create -y -n py3.10 python=3.10
+source activate py3.10
+
+```
+
 # RUN ON RIVANNA
 
 ```bash
@@ -13,19 +25,19 @@ cloudmesh-installer get sbatch
 export EQ_VERSION=may2022
 export EQ_VERSION=may2022
 git clone https://github.com/laszewsk/mlcommons.git
-cd benchmark/earthquake/${EQ_VERSION}/experiments/rivanna
-# cd benchmark/earthquake/${EQ_VERSION}/experiments/summit
+cd benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+# cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 
 # running under /project
-cms sbatch generate rivanna.in.slurm --setup=rivanna-experiments.yaml --name="project" --noos 
+cms sbatch generate rivanna.in.slurm --setup=rivanna-project.yaml --name="project" --noos 
 # You can manually inspect the job files in $(pwd)/project/<identifier>
 # To verify the output is correct
 
 
 # partition bii_gpu
 #running under /localscratch
-cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch-experiments.yaml --name="localscratch" --noos
+cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch.yaml --name="localscratch" --noos
 
 # Generate the submit scripts
 cms sbatch generate submit --name="project.json" > job-project.sh
