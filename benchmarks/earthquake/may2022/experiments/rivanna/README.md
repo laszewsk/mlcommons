@@ -25,8 +25,8 @@ cloudmesh-installer get sbatch
 export EQ_VERSION=may2022
 export EQ_VERSION=may2022
 git clone https://github.com/laszewsk/mlcommons.git
-cd benchmark/earthquake/${EQ_VERSION}/experiments/rivanna
-# cd benchmark/earthquake/${EQ_VERSION}/experiments/summit
+cd benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+# cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 
 # running under /project
