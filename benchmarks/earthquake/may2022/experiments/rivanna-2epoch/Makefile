@@ -1,5 +1,5 @@
 
-all: project localscratch generate
+all: project generate
 
 submit: all
 	sh jobs-project.sh
@@ -20,6 +20,18 @@ run:
 .PHONY: stop
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
+
+.PHONY: watch
+watch:
+	tail -f project/*/$(shell whoami)-*.err project/*/$(shell whoami)-*.out
+
+.PHONY: out
+out: 
+	tail -f project/*/$(shell whoami)-*.out
+
+.PHONY: err
+err: 
+	tail -f project/*/$(shell whoami)-*.err
 
 .PHONY: clean
 clean:
