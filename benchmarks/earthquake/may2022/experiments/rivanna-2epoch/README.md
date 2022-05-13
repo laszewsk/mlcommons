@@ -50,8 +50,10 @@ take several hours, so correcting errors by inspecting the output will
 save time when troubleshooting.
 
 ```
-vim project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/slurm.sh
+emacs project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/slurm.sh
 ```
+
+INstead of emacs use your favorite editor
 
 3. Running the experiments
 
