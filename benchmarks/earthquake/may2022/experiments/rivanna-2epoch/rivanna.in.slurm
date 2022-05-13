@@ -40,7 +40,7 @@ FORK=${FORK:-"laszewsk"}
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-RUN_USER="${RUN_USER:-_{meta.parent.uuid}}"
+RUN_USER="${RUN_USER:-{USER}}"
 
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
