@@ -13,7 +13,6 @@ project:
 .PHONY: generate
 generate:
 	cms sbatch generate submit --name=project.json > jobs-project.sh
-    cat jobs-project.sh
 
 .PHONY: run
 run:
