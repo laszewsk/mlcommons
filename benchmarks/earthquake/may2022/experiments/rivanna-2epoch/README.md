@@ -4,6 +4,7 @@
 module purge
 module load singularity
 module load anaconda
+module load texlive/2020
 
 conda create -y -n py3.10 python=3.10
 source activate py3.10
