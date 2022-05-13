@@ -296,6 +296,100 @@ From the 'Runtime' dropdown menu select 'Run all'
    
 When promted, approve the notebook to access your Google Drive
 
+# Setting Up Envirionments
+## Rivanna
+
+For rivanna based workloads, the scripts depend upon a lmod module and an optimized version of python that is setup in the
+`<gitrepo>/systems/rivanna/buildscripts/python-rivanna` folder.
+This script automates the construction of several versions of python and installs python in the rivanna `/project` folder.
+
+See the readme file in `/systems/rivanna/readme.md` file more details on how this script works.
+
+
+### Manual build
+
+#### Compile Modern OpenSSL
+
+```bash
+# Specify the version of OpenSSL to build
+OPENSSL_VERSION="1.1.1m"
+
+# Specify where OpenSSL should use as its `/usr` folder
+# In this case, we use the project space assigned to ds6011-sp22-002
+BASE="/project/ds6011-sp22-002/python/base"
+
+# Download OpenSSL
+(cd ${BASE}/src && curl -OL https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz)
+
+# Extract the source
+tar -zxvf ${BASE}/src/${OPENSSL_VERSION}.tar.gz -C ${BASE}/src/
+
+# Build OpenSSL and install it for use for future python installs.
+echo "Building OpenSSL"
+(cd ${BASE}/src/${OPENSSL_VERSION}/ && \
+    ./config --prefix=${BASE}/ssl --openssldir=${BASE}/ssl shared zlib && \
+    make && \
+    make install && \
+    make clean)
+```
+
+#### Compile Python
+
+```bash
+# Set to the desired version of python you wish to use
+PYTHON_VERSION=3.10.2 # or any modern version
+
+# Specify where Python should use as its `/usr` folder
+# In this case, we use the project space assigned to ds6011-sp22-002
+# Note this MUST be the same path where OpenSSL was set to.
+BASE="/project/ds6011-sp22-002/python/base"
+
+
+# Extracts the major version of python (i.e. 3.10 in 3.10.2)
+PYTHON_MAJ=${PYTHON_VERSION%.*}
+# Extracts the minor version of python (i.e. 2 from 3.10.2)
+PYTHON_MIN=${PYTHON_VERSION/${PYTHON_MAJ}./}
+
+# Specify where python will use as its virtual root folder.
+# this is the path where there will be the bin/, include/, lib64/, ...
+PREFIX="${BASE}/versions/${PYTHON_VERSION}"
+
+echo "Building Python <${PYTHON_VERSION}>"
+echo "Installing to <${PREFIX}>"
+echo "Using Shared Lib Folder <${BASE}>"
+
+mkdir -p ${BASE}/src
+
+# Download Python
+(cd ${BASE}/src && curl -OL https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz)
+
+# Extract the archive
+tar Jxvf ${BASE}/src/Python-${PYTHON_VERSION}.tar.xz -C ${BASE}/src/
+cd ${BASE}/src/Python-${PYTHON_VERSION}
+
+# Include the previously compiled OpenSSL code compiled earlier and use
+# this custom version of OpenSSL to build against python.  If this does not
+# work, python will not build.
+export CPPFLAGS=" -I${BASE}/ssl/include "
+export LDFLAGS=" -L${BASE}/ssl/lib "
+export LD_LIBRARY_PATH=${BASE}/ssl/lib:$LD_LIBRARY_PATH
+# Configure python to use safe compilation optimizations.
+./configure --prefix=${PREFIX} --enable-optimizations --with-lto --with-computed-gotos --with-system-ffi
+
+# Build Python in parallel based on the number of processors availible
+make -j "$(nproc)"
+# Runs all regression tests.
+# This tends to take a while to complete (runs all 437 regression tests)
+make test
+# Install python to the specified prefix in a safe way (doesn't overwrite any other versions
+make altinstall
+# Cleanup all intermediate compilation objects
+make clean
+# Create a friendly link to the python call (so python 3.10 can be called python)
+(cd ${PREFIX}/bin && ln -s python${PYTHON_MAJ} python)
+```
+
+
 # Deprecated/Todo Instructions
    
 ## Building the container image

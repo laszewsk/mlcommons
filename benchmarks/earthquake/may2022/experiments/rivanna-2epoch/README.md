@@ -11,31 +11,41 @@ source activate py3.10
 
 # RUN ON RIVANNA
 
+
+
 ```bash
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
+mkdir ~/cm
+cd ~/cm
 pip install cloudmesh-installer
 cloudmesh-installer get sbatch
+cms help
 ```
 
 2. Generating experiment configurations
 
 ```bash
+cd ~
 export EQ_VERSION=may2022
 git clone https://github.com/laszewsk/mlcommons.git
-cd benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
-# cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
-# partition ds6011-sp22-002 
+cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna-2epoch
 
-# running under /project
+# build slurm scripts
 cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos 
 
 # Generate the submit scripts
 cms sbatch generate submit --name="project.json" > job-project.sh
+cat job-project.sh
+
 ```
 
 It's strongly advised that you inspect the output of the above to validate that all generated scripts and files are correct.
 Most jobs take several hours, so correcting errors by inspecting the output will save time when troubleshooting.
+
+```
+vim project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/slurm.sh
+```
 
 3. Running the experiments
 
@@ -43,6 +53,10 @@ If all the output from above looks correct, you can execute the jobs by running 
 
 ```bash
 sh job-project.sh
+# Submitted batch job ######### (this will be your sbatch job id, such as 38197018)
+
+squeue --job 38197018
+squeue | fgrep $USER
 ```
 
 This will request all jobs to be run immediately by slurm, and the notebook file will be outputted in the `$(pwd)/project/<experiment_id>` directory.
