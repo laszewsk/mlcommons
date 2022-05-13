@@ -5,6 +5,7 @@ submit: all
 	sh jobs-project.sh
 
 .PHONY: project
+
 project:
 	cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos
 
@@ -12,6 +13,7 @@ project:
 .PHONY: generate
 generate:
 	cms sbatch generate submit --name=project.json > jobs-project.sh
+    cat jobs-project.sh
 
 .PHONY: run
 run:
