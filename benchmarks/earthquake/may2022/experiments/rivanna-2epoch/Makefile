@@ -23,7 +23,7 @@ stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
 status:
-	squeue | fgrep $USER
+	squeue | fgrep ${USER}
 
 clean:
 	@-rm -rf project project.json jobs-project.sh
