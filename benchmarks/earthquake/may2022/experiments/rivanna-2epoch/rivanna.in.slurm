@@ -86,7 +86,9 @@ RUN_USER="$(DETECT_RUN_USER)"
 ## Sets up the base directory for running the experiment from the
 ## previously defined vars.
 RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
-VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
+VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${PYTHON_VERSION}
+GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
 
 
 ### FUNCTION BEGIN
@@ -133,12 +135,12 @@ function git_checkout() {
 # Creates a file lock handle.  Creates an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function make_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    local lockname="${LOCKDB}/.$1.lock"
     touch "${lockname}"
 }
 
@@ -146,12 +148,12 @@ function make_lock() {
 # Releases a file lock handle.  Deletes an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function release_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    local lockname="${LOCKDB}/.$1.lock"
     if [ -e "${lockname}" ] ; then
       rm -f "${lockname}"
     fi
@@ -161,7 +163,7 @@ function release_lock() {
 # Deadwait function that stops execution while the named
 # lock is present on the filesystem.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 #   $2 - The duration to wait in seconds.  Defaults to 5 seconds.
@@ -169,7 +171,7 @@ function release_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function wait_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    local lockname="${LOCKDB}/.$1.lock"
     local delay=${2:-1}
     printf "Checking for lock ${lockname}"
     while [ -e ${lockname} ] ; do
@@ -289,7 +291,7 @@ fi
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
     git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
-                 "${MLCOMMONS_HOME}/git/mlcommons-data-earthquake" \
+                 "${GIT_BASEPATH}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
 
@@ -297,11 +299,11 @@ release_lock mlcommons-data-earthquake.git
 # to prevent concurrent git operations
 waitmake_lock mlcommons.git
     git_checkout https://github.com/laszewsk/mlcommons.git \
-                 "${MLCOMMONS_HOME}/git/mlcommons" \
+                 "${GIT_BASEPATH}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
     if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/git/mlcommons-data-earthquake/data.tar.xz \
+        tar Jxvf ${GIT_BASEPATH}/mlcommons-data-earthquake/data.tar.xz \
             -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
@@ -309,11 +311,11 @@ waitmake_lock mlcommons.git
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
     setup_venv ${VENV_PATH} \
-               ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
+               ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p ${NB_OUTPUT}
-    cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/{script} \
+    cp ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/{script} \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
