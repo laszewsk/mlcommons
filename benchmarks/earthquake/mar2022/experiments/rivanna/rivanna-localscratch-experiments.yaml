@@ -2,6 +2,11 @@ config: rivanna-localscratch-config.yaml
 name: earthquake-localscratch
 mode: h
 dir: localscratch
+permission:
+  group: bii_dsc
+  owner: bii_dsc
+
+  # run groups on rivanna to see user groupings are right
 experiments:
   card_name: v100
   gpu_count: 1
