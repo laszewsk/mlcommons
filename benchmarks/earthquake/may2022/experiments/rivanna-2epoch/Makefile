@@ -1,10 +1,10 @@
 
-all: project localscratch generate
+all: project generate
 
 submit: all
 	sh jobs-project.sh
 
-.PHONY: project generate inspect run stop clean status
+.PHONY: project generate inspect run stop clean status watch out err status
 
 project:
 	cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos
@@ -21,6 +21,15 @@ run:
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
+
+watch:
+	tail -f project/*/$(shell whoami)-*.err project/*/$(shell whoami)-*.out
+
+out: 
+	tail -f project/*/$(shell whoami)-*.out
+
+err: 
+	tail -f project/*/$(shell whoami)-*.err
 
 status:
 	squeue | fgrep ${USER}
