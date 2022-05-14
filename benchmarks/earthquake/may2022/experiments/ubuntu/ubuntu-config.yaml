@@ -1,16 +1,15 @@
 user:
-  account: ds6011-sp22-002
+  account: os.USER
 
 run:
-  workdir: /project/ds6011-sp22-002/runner/mlcommons
-  resourcedir: /project/ds6011-sp22-002
-  datadir: data
-  branch: 'features/63-cms-sbatch'
+  workdir: /project/eq/runner/mlcommons
+  resourcedir: /project/eq
+  branch: 'main'
 
 system:
-  python: "3.10.2"
-  num_cpus: 6
-  partition: "gpu"
+  python: "3.10.4"
+  num_cpus: 1
+  partition: "local"
 
 config:
   model_paramters:
