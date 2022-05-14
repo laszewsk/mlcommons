@@ -26,6 +26,7 @@ attributes:
     workdir: /project/eq/runner/mlcommons
     resourcedir: /project/eq
     branch: 'main'
+    datadir: data
 
   system:
     python: "3.10.4"
