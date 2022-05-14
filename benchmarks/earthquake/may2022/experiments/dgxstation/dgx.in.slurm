@@ -6,7 +6,7 @@
 #SBATCH -c {cpu_num}
 #SBATCH --mem={mem}
 #SBATCH --time={time}
-#SBATCH --gres=gpu:{card_name}:{gpu_count}
+## #SBATCH --gres=gpu:{card_name}:{gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
 #SBATCH --account={user.account}
@@ -14,9 +14,6 @@
 set -uxe
 
 ### BEGIN CONFIGURATION
-
-## Unique identifier to isolate executions from each other.
-RUN_ID="${RUN_ID:-{meta.uuid}}"
 
 ## Set the python version to target
 PYTHON_VERSION={system.python}
@@ -32,13 +29,13 @@ FORK=${FORK:-"laszewsk"}
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-RUN_USER="${RUN_USER:-_{meta.parent.uuid}}"
+RUN_USER={USER}
 
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
-MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
-RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$RUN_USER}
+RUN_BASE=${MLCOMMONS_HOME}/workspace
 VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
 ## Specifies a specific revision of the Earthquake notebook
@@ -48,11 +45,11 @@ REV="mar2022"
 
 ## Specifies a particular variant of the notebook to use
 ## if working on an alternate baseline.
-VARIANT="${VARIANT:--gregor-parameters}"
+VARIANT="${VARIANT:--gregor}"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
-RESOURCE_DIR="{run.resourcedir}"
+RESOURCE_DIR="{run.resource_dir}"
 
 
 ### END CONFIGURATION
@@ -237,7 +234,10 @@ echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
 echo "Variant: <${VARIANT}>"
 echo "Python: <${PYTHON_VERSION}>"
-echo "Run ID: <${RUN_ID}>"
+#echo "GPU: <${GPU_TYPE}>"
+
+
+
 
 # Load cuda/python on HPCs if module is present.
 if command -v module ; then
@@ -246,12 +246,6 @@ if command -v module ; then
   # BUG need to reconfigure script to support python on other platforms.
   module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
-
-if [ -e "$(pwd)/config.yaml" ]; then
-	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
-fi
-
-
 
 # Checkout git repo for mlcommons earthquake data, locking the repo
 # to prevent concurrent git operations 
@@ -268,9 +262,8 @@ waitmake_lock mlcommons.git
                  "${MLCOMMONS_HOME}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
-    if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz \
-            -C ${RUN_BASE}
+    if [ ! -e data/EarthquakeDec2020 ]; then
+        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
     fi
@@ -282,17 +275,12 @@ waitmake_lock mlcommons.git
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p notebooks
     cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
+       FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
-# Execute the notebook using papermill
-papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
-          "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+# Execute the notebook usign papermill
+papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
+          "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
-# Save the final notebook after everything's done
-cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
-   "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb"
-
 slurm_runtime
-
