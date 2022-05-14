@@ -1,6 +1,13 @@
 user:
   account: ds6011-sp22-002
 
+benchmark:
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: TBD
+
 run:
   workdir: /project/ds6011-sp22-002/runner/mlcommons
   resourcedir: /project/ds6011-sp22-002

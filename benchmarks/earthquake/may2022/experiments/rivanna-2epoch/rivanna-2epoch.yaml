@@ -2,6 +2,13 @@ name: earthquake-project
 mode: h
 dir: project
 
+benchmark:
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: TBD
+
 experiments:
   card_name: "a100"
   gpu_count: 1

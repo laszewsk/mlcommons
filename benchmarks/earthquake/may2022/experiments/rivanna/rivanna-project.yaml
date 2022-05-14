@@ -2,6 +2,14 @@ name: earthquake-project
 mode: h
 dir: project
 
+benchmark:
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: TBD
+  # platform: rivanna-{cardname}
+
 experiments:
   card_name: "a100,p100,v100,k80,rtx2080,rtx3080"
   gpu_count: 1
