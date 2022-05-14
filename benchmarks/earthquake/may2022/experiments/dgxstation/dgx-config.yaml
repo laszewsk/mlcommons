@@ -7,10 +7,10 @@ benchmark:
   organization: University of Virginia
   division: BII
   status: TBD
-  platform: "RTX3090-desktop-nvm"
+  platform: "dgx-station"
 
 experiments:
-  card_name: "rtx3090"
+  card_name: "A100"
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
