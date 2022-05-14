@@ -14,7 +14,8 @@ generate:
 	cat jobs-project.sh
 
 inspect:
-	emacs project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/slurm.sh
+    # works only if we do one experiement
+	emacs project/*/slurm.sh
 
 run:
 	sh ./jobs-project.sh
