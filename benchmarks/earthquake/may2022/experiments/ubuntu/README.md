@@ -1,17 +1,10 @@
 # Set up python 3.10 on rivanna
 
-```bash
-module purge
-module load singularity
-module load anaconda
-module load texlive/2020
+* We assume you have python 3.10.4 installed 
+* We assume if you like to use the automated report generated (under development) you have  
+  full latex installed
 
-conda create -y -n py3.10 python=3.10
-conda activate py3.10
-```
-
-# RUN ON RIVANNA
-
+  
 ```bash
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
@@ -24,11 +17,16 @@ cms help
 
 2. Generating experiment configurations
 
+# chose a PROJECT_DIR where youlike to install the code
+
+
 ```bash
-cd ~
+export PROJECT_DIR=/project/mlcommons
+mkdir -p ${PROJECT_DIR}
+cd ${PROJECT_DIR}
 export EQ_VERSION=may2022
-git clone https://github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna-2epoch
+git clone ssh://git@github.com/laszewsk/mlcommons.git
+cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu
 
 # build slurm scripts
 # cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos 
