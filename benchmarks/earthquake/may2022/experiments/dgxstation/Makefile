@@ -17,6 +17,10 @@ inspect:
     # works only if we do one experiement
 	emacs project/*/slurm.sh
 
+test:
+	cms sbatch generate  dgx-config-test.yaml --out=dgx-config-test-out.yaml --name=a
+	cat dgx-config-test-out.yaml
+
 run:
 	sh ./jobs-project.sh
 
