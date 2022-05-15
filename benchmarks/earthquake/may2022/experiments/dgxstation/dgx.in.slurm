@@ -1,15 +1,15 @@
 #!/usr/bin/bash
-#SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
-#SBATCH --output=%u-%j.out
-#SBATCH --error=%u-%j.err
-#SBATCH --partition={system.partition}
-#SBATCH -c {cpu_num}
-#SBATCH --mem={mem}
-#SBATCH --time={time}
-## #SBATCH --gres=gpu:{card_name}:{gpu_count}
-#SBATCH --mail-user={email}
-#SBATCH --mail-type=ALL
-#SBATCH --account={user.account}
+# ... SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
+# ... SBATCH --output=%u-%j.out
+# ... SBATCH --error=%u-%j.err
+# ... SBATCH --partition={system.partition}
+# ... SBATCH -c {cpu_num}
+# ... SBATCH --mem={mem}
+# ... SBATCH --time={time}
+## # ... SBATCH --gres=gpu:{card_name}:{gpu_count}
+# ... SBATCH --mail-user={email}
+# ... SBATCH --mail-type=ALL
+# ... SBATCH --account={user.account}
 
 
 set -uxe
@@ -66,7 +66,8 @@ trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 # Finds the current user's common name from the current operating
 # environment.
 ### FUNCTION END
-function DETECT_RUN_USER() {
+#function DETECT_RUN_USER() {
+DETECT_RUN_USER() {
    # Gets the current username from the current system password database
    # will be an empty string if the command fails or a bad username is
    # supplied
@@ -108,7 +109,8 @@ LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
 # OUTPUTS:
 #   Git command line output
 ### FUNCTION END
-function git_checkout() {
+git_checkout() {
+# function git_checkout() {
     local repo_url=$1
     local target=${2:-$(basename ${repo_url} .git)}
     local branch=${3:-main}
@@ -144,7 +146,8 @@ function git_checkout() {
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
-function make_lock() {
+make_lock() {
+# function make_lock() {
     local lockname="${LOCKDB}/.$1.lock"
     touch "${lockname}"
 }
@@ -157,7 +160,8 @@ function make_lock() {
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
-function release_lock() {
+# function release_lock() {
+release_lock() {
     local lockname="${LOCKDB}/.$1.lock"
     if [ -e "${lockname}" ] ; then
       rm -f "${lockname}"
@@ -175,7 +179,8 @@ function release_lock() {
 # OUTPUTS:
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
-function wait_lock() {
+wait_lock() {
+# function wait_lock() {
     local lockname="${LOCKDB}/.$1.lock"
     local delay=${2:-1}
     printf "Checking for lock ${lockname}"
@@ -198,7 +203,8 @@ function wait_lock() {
 # OUTPUTS:
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
-function waitmake_lock() {
+waitmake_lock() {
+# function waitmake_lock() {
     wait_lock $1 ${2:-1}
     make_lock $1
 }
@@ -213,7 +219,8 @@ function waitmake_lock() {
 #   a CSV prefixed with '# slurmjob,' with the jobid, username, submittion time
 #   start time, end time, and status.
 ### FUNCTION END
-function slurm_runtime() {
+# function slurm_runtime() {
+slurm_runtime() {
     # Run only if done in a slurm job
     if [[ ! -z "${SLURM_JOBID}" ]] ; then
       # Query current job details and substitute end time with the current time.
@@ -234,7 +241,8 @@ function slurm_runtime() {
 #   $1 - The folder to establish the python virtual environment into
 #   $2 - The path to a python requirements.txt file
 ### FUNCTION END
-function setup_venv(){
+setup_venv(){
+# function setup_venv(){
     local target=$1
     local requirements_path=$2
     # Prevent parallel updates to pip
@@ -257,7 +265,8 @@ function setup_venv(){
 #   beginning with SLURM_.  This is only displayed if the
 #   current environment has the sbatch command installed.
 ### FUNCTION END
-function slurm_env() {
+slurm_env() {
+# function slurm_env() {
   if command -v sbatch ; then
     echo "Slurm Environment Details"
     echo "===start[env]==========="
