@@ -23,19 +23,19 @@ test:
 
 run:
 	# sh ./jobs-project.sh
-	cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; /usr/bin/bash slurm.sh
+	cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; /usr/bin/bash slurm.sh 2>&1 | tee -a $$USER.out
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
 watch:
-	tail -f project/*/$(shell whoami)-*.err project/*/$(shell whoami)-*.out
+	tail -f project/*/$$USER.out
 
 out: 
-	tail -f project/*/$(shell whoami)-*.out
+	tail -f project/*/$$USER.out
 
-err: 
-	tail -f project/*/$(shell whoami)-*.err
+err:
+	tail -f project/*/$$USER.out
 
 status:
 	squeue | fgrep ${USER}
