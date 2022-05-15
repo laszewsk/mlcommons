@@ -1,10 +1,11 @@
-
-all: project generate
+all: project generate run
+	sleep 3
+	make -f Makefile watch
 
 submit: all
 	sh jobs-project.sh
 
-.PHONY: project generate inspect run stop clean status watch out err status
+.PHONY: project generate inspect run stop clean status watch out err status watch
 
 project:
 	cms sbatch generate ubuntu.in.slurm --setup=ubuntu-config.yaml --name="project"
@@ -34,6 +35,9 @@ err:
 
 status:
 	squeue | fgrep ${USER}
+
+kill: stop clean
+	@echo DONE
 
 clean:
 	@-rm -rf project project.json jobs-project.sh
