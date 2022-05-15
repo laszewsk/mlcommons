@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 #SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
