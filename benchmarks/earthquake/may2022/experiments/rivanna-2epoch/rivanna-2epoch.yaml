@@ -33,6 +33,7 @@ attributes:
     python: "3.10.2"
     num_cpus: 6
     partition: "gpu"
+    host: rivanna
 
   time: "3-0"
   set_soft_device_placement: False

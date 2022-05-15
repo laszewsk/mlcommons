@@ -32,6 +32,7 @@ attributes:
     python: "3.10.4"
     num_cpus: 1
     partition: "local"
+    host: dgxstation
 
   config:
     model_paramters:

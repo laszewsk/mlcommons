@@ -25,6 +25,7 @@ system:
   python: "3.10.2"
   num_cpus: 6
   partition: "gpu"
+  host: summit
 
 config:
   model_paramters:
