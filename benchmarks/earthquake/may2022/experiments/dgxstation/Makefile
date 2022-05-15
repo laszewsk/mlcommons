@@ -23,7 +23,7 @@ test:
 
 run:
 	# sh ./jobs-project.sh
-    cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; sh slurm.sh
+	cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; sh slurm.sh
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
