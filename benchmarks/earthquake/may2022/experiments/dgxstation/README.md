@@ -21,11 +21,11 @@ cms help
 
 
 ```bash
-export PROJECT_DIR=/project/mlcommons
+export PROJECT_DIR=/project
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 export EQ_VERSION=may2022
-git clone ssh://git@github.com/laszewsk/mlcommons.git
+git clone ssh://git@github.com/laszewsk/mlcommons.git 
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/dgxstation
 
 # build slurm scripts

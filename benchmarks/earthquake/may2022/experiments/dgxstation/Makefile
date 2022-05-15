@@ -22,7 +22,8 @@ test:
 	cat dgx-config-test-out.yaml
 
 run:
-	sh ./jobs-project.sh
+	# sh ./jobs-project.sh
+    card_name=a100 gpu_count=1 cpu_num=1 mem=64GB TFTTransformerepochs=2; cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; sh slurm.sh
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
