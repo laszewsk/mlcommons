@@ -17,4 +17,8 @@ image:
 	docker pull tensorflow/tensorflow
 
 run:
-	docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu python mnist.py
+	# this is not the right way
+	docker run -v `pwd`:`pwd` -w `pwd` -i -t  tensorflow/tensorflow:latest-gpu pip install -r requirements.txt; python mnist.py --gpu=4
+
+shell:
+	docker run -v `pwd`:/tmp --gpus all -it --rm tensorflow/tensorflow:latest-gpu bash
