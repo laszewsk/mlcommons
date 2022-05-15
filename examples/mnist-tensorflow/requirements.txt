@@ -1,4 +1,5 @@
 cloudmesh-common
+cloudmesh-cmd5
 tensorflow
 #tensorflow_dataset
 jupyterlab

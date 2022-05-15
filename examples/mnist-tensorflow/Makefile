@@ -26,3 +26,5 @@ shell:
 plain:
 	pip install -r requirements.txt
 	python mnist.py --gpu=4	
+	nvidia-smi
+
