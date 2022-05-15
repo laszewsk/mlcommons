@@ -34,7 +34,9 @@ PYTHON_VERSION={system.python}
 ## by default using {run.branch}
 ## The SAFE version cleans the name of any path-like characters
 BRANCH=${BRANCH:-{run.branch}}
-BRANCH_SAFE=${BRANCH/\//-}
+#BRANCH_SAFE=${BRANCH/\//-}
+BRANCH_SAFE=${BRANCH}
+
 
 ## Specifies a github fork to use when running the build
 FORK=${FORK:-"laszewsk"}
