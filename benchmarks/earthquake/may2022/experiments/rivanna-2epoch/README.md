@@ -7,7 +7,7 @@ module load anaconda
 module load texlive/2020
 
 conda create -y -n py3.10 python=3.10
-conda activate py3.10
+source activate py3.10
 ```
 
 # RUN ON RIVANNA
