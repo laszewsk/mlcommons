@@ -7,38 +7,37 @@ benchmark:
   organization: University of Virginia
   division: BII
   status: TBD
-  platform: TBD
-  # platform: rivanna-{cardname}
+  platform: "RTX3090-desktop-nvm"
 
 experiments:
-  card_name: "a100,p100,v100,k80,rtx2080,rtx3080"
+  card_name: "rtx3090"
   gpu_count: 1
-  cpu_num: 6
-  mem: "32GB,64GB"
-  ## TFTTransformerepochs = num_epochs
-  #
-  TFTTransformerepochs: "2,10,20,30,34,40,50,60,66,70"
+  cpu_num: 1
+  mem: "64GB"
+  TFTTransformerepochs: "2"
 
 attributes:
+  email: laszewski@gmail.com
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: may2022
 
+  time: 12:00:00
+
   user:
-    account: ds6011-sp22-002
+    account: {USER}
 
   run:
-    workdir: /project/ds6011-sp22-002/runner/mlcommons
-    resourcedir: /project/ds6011-sp22-002
-    datadir: data
+    workdir: /project/eq/runner/mlcommons
+    resourcedir: /project/eq
     branch: 'main'
+    datadir: data
 
   system:
-    python: "3.10.2"
-    num_cpus: 6
-    partition: "gpu"
-    host: rivanna
+    python: "3.10.4"
+    num_cpus: 1
+    partition: "local"
+    host: ubuntu
 
-  time: "3-0"
   set_soft_device_placement: False
   debugging_set_log_device_placement: False
   DLAnalysisOnly: False

@@ -6,10 +6,11 @@
 #SBATCH -c {cpu_num}
 #SBATCH --mem={mem}
 #SBATCH --time={time}
-#SBATCH --gres=gpu:{card_name}:{gpu_count}
-#SBATCH --mail-user=%u@virginia.edu
+## #SBATCH --gres=gpu:{card_name}:{gpu_count}
+#SBATCH --mail-user={email}
 #SBATCH --mail-type=ALL
 #SBATCH --account={user.account}
+
 
 set -uxe
 
@@ -58,6 +59,7 @@ RESOURCE_DIR="{run.resourcedir}"
 # Cleanup locks and temporary files on failed execution
 trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 
+
 ### FUNCTION BEGIN
 # Finds the current user's common name from the current operating
 # environment.
@@ -78,7 +80,6 @@ function DETECT_RUN_USER() {
    #fi
    echo $(whoami)
 }
-
 
 
 ## Specifies the username to apply when running on a

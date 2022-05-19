@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#!/bin/bash
-
 # Begin LSF Directives
 #BSUB -P ABC12
 #BSUB -W 3:00
@@ -26,7 +24,18 @@
 
 set -uxe
 
+# This has not yet cms gpu watch into a logfile we want to specify in the config.yaml
+# cms gpu watch
+# cms gpu watch [--gpu=GPU] [--delay=SECONDS] [--logfile=LOGFILE] [--count=COUNT] [--dense]
+# with &
+
 ### BEGIN CONFIGURATION
+
+## Specifies the path to save the final output
+NB_OUTPUT="_output"
+
+## Unique identifier to isolate executions from each other.
+RUN_ID="${RUN_ID:-{meta.uuid}}"
 
 ## Set the python version to target
 PYTHON_VERSION={system.python}
@@ -40,35 +49,59 @@ BRANCH_SAFE=${BRANCH/\//-}
 ## Specifies a github fork to use when running the build
 FORK=${FORK:-"laszewsk"}
 
-## Specifies the username to apply when running on a
-## clustrered environment
-RUN_USER=${USER:-unknown}
-
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
-MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}/$RUN_USER}
-RUN_BASE=${MLCOMMONS_HOME}/workspace
-VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
 
 ## Specifies a specific revision of the Earthquake notebook
 ## Used to select the different folder names in the earthquake
 ## directory
-REV="mar2022"
-
-## Specifies a particular variant of the notebook to use
-## if working on an alternate baseline.
-VARIANT="${VARIANT:--gregor}"
+REV="{revision}"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
-RESOURCE_DIR="{run.resource_dir}"
+RESOURCE_DIR="{run.resourcedir}"
 
 
 ### END CONFIGURATION
 
 # Cleanup locks and temporary files on failed execution
-trap "rm -f ${VENV_PATH}.lock ${MLCOMMONS_HOME}/mlcommons.lock; exit" 1 2 3 6 15
+trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
+
+### FUNCTION BEGIN
+# Finds the current user's common name from the current operating
+# environment.
+### FUNCTION END
+function DETECT_RUN_USER() {
+   # Gets the current username from the current system password database
+   # will be an empty string if the command fails or a bad username is
+   # supplied
+
+   #local MY_NAME="$(getent passwd $(whoami) | cut -d: -f5 || true)"
+   ## When the username is not known or the password database cannot run
+   ## set the value to the current system username
+   #if [ x"${MY_NAME}" == x"" ]; then
+   #     echo $(whoami)
+   ## Otherwise, use the human friendly username
+   #else
+   #     echo ${MY_NAME}
+   #fi
+   echo $(whoami)
+}
+
+
+
+## Specifies the username to apply when running on a
+## clustrered environment
+RUN_USER="$(DETECT_RUN_USER)"
+
+## Sets up the base directory for running the experiment from the
+## previously defined vars.
+RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
+VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${PYTHON_VERSION}
+GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
 
 
 ### FUNCTION BEGIN
@@ -85,27 +118,29 @@ trap "rm -f ${VENV_PATH}.lock ${MLCOMMONS_HOME}/mlcommons.lock; exit" 1 2 3 6 15
 ### FUNCTION END
 function git_checkout() {
     local repo_url=$1
-    local target=$2
+    local target=${2:-$(basename ${repo_url} .git)}
     local branch=${3:-main}
 
-    repo_folder=$(basename ${repo_url} .git)
+    # Make sure the base directory we're cloning into exists.
+    local target_lead=$(dirname $target)
+    mkdir -p ${target_lead}
 
     # Clone the repo if it doesn't already exist and switch to the
     # targeted branch.
-    if [ ! -e "${MLCOMMONS_HOME}/${repo_folder}" ]; then
-        git clone $repo_url "${MLCOMMONS_HOME}/${repo_folder}"
-        (cd ${MLCOMMONS_HOME}/${repo_folder} && \
+    if [ ! -e "$target" ]; then
+        git clone $repo_url $target
+        (cd $target && \
             git checkout $branch)
     # Ensure that the current checkout doesn't have any local edits
     # and checks out the named branch.
     else
-        (cd ${MLCOMMONS_HOME}/${repo_folder} && \
+        (cd $target && \
             git fetch origin  && \
             git checkout $branch && \
             git reset --hard origin/$branch && \
             git clean -d --force)
     fi
-    GIT_REV="$(cd "${MLCOMMONS_HOME}/${repo_folder}" && git rev-parse --short=8 HEAD)"
+    GIT_REV="$(cd "$target" && git rev-parse --short=8 HEAD)"
 }
 
 
@@ -113,12 +148,12 @@ function git_checkout() {
 # Creates a file lock handle.  Creates an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function make_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
+    local lockname="${LOCKDB}/.$1.lock"
     touch "${lockname}"
 }
 
@@ -126,20 +161,22 @@ function make_lock() {
 # Releases a file lock handle.  Deletes an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function release_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
-    rm "${lockname}"
+    local lockname="${LOCKDB}/.$1.lock"
+    if [ -e "${lockname}" ] ; then
+      rm -f "${lockname}"
+    fi
 }
 
 ### FUNCTION BEGIN
 # Deadwait function that stops execution while the named
 # lock is present on the filesystem.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 #   $2 - The duration to wait in seconds.  Defaults to 5 seconds.
@@ -147,10 +184,10 @@ function release_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function wait_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1"
-    local delay=${2:-5}
+    local lockname="${LOCKDB}/.$1.lock"
+    local delay=${2:-1}
     printf "Checking for lock ${lockname}"
-    while [ -e ${lockname}.lock ] ; do
+    while [ -e ${lockname} ] ; do
       printf "."
       sleep $delay
     done
@@ -170,7 +207,7 @@ function wait_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function waitmake_lock() {
-    wait_lock $1 ${2:-5}
+    wait_lock $1 ${2:-1}
     make_lock $1
 }
 
@@ -245,12 +282,9 @@ echo "Working in <$(pwd)>"
 echo "Base directory in <${RUN_BASE}>"
 echo "MLCommons home in <${MLCOMMONS_HOME}>"
 echo "Revision: <${REV}>"
-echo "Variant: <${VARIANT}>"
+echo "Script: <{script}>"
 echo "Python: <${PYTHON_VERSION}>"
-#echo "GPU: <${GPU_TYPE}>"
-
-
-
+echo "Run ID: <${RUN_ID}>"
 
 # Load cuda/python on HPCs if module is present.
 if command -v module ; then
@@ -260,40 +294,57 @@ if command -v module ; then
   module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 fi
 
+if [ -e "$(pwd)/config.yaml" ]; then
+	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
+fi
+
+
+
 # Checkout git repo for mlcommons earthquake data, locking the repo
-# to prevent concurrent git operations 
+# to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
     git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
-                 "${MLCOMMONS_HOME}/mlcommons-data-earthquake" \
+                 "${GIT_BASEPATH}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
 
 # Checkout git repo for mlcommons main repository, locking the repo
-# to prevent concurrent git operations 
+# to prevent concurrent git operations
 waitmake_lock mlcommons.git
     git_checkout https://github.com/laszewsk/mlcommons.git \
-                 "${MLCOMMONS_HOME}/mlcommons" \
+                 "${GIT_BASEPATH}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
-    if [ ! -e data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/mlcommons-data-earthquake/data.tar.xz
+    if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
+        tar Jxvf ${GIT_BASEPATH}/mlcommons-data-earthquake/data.tar.xz \
+            -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
     fi
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
     setup_venv ${VENV_PATH} \
-               ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
+               ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
-    mkdir -p notebooks
-    cp ${MLCOMMONS_HOME}/mlcommons/benchmarks/earthquake/${REV}/FFFFWNPFEARTHQ_newTFTv29${VARIANT}.ipynb \
-       FFFFWNPFEARTHQ_newTFTv29-$USER-${GIT_REV}.ipynb
+    mkdir -p ${NB_OUTPUT}
+    cp ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/{script} \
+       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
-# Execute the notebook usign papermill
-papermill "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
-          "FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+# Execute the notebook using papermill
+papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
+          "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
-slurm_runtime
+# Save the final notebook after everything's done
+echo "Saving final notebook to ${NB_OUTPUT}"
+cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+   "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
+
+echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
+mkdir ${NB_OUTPUT}/images
+cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
+
+echo "Execution Complete"
+exit 0

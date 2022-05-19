@@ -1,19 +1,21 @@
-
-all: project generate
+all: project generate run
+	sleep 3
+	make -f Makefile watch
 
 submit: all
 	sh jobs-project.sh
 
-.PHONY: project generate inspect run stop clean status watch out err status
+.PHONY: project generate inspect run stop clean status watch out err status watch
 
 project:
-	cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos
+	cms sbatch generate ubuntu.in.slurm --setup=ubuntu-config.yaml --name="project"
 
 generate:
 	cms sbatch generate submit --name=project.json > jobs-project.sh
 	cat jobs-project.sh
 
 inspect:
+    # works only if we do one experiement
 	emacs project/*/slurm.sh
 
 run:
@@ -34,6 +36,9 @@ err:
 status:
 	squeue | fgrep ${USER}
 
+kill: stop clean
+	@echo DONE
+
 clean:
 	@-rm -rf project project.json jobs-project.sh
-	@-rm -f rivanna.slurm
+	@-rm -f ubuntu.slurm

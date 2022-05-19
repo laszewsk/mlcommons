@@ -2,6 +2,13 @@ name: earthquake-project
 mode: h
 dir: project
 
+benchmark:
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: TBD
+
 experiments:
   card_name: "a100"
   gpu_count: 1
@@ -17,14 +24,16 @@ attributes:
   user:
     account: ds6011-sp22-002
   run:
-    workdir: /project/ds6011-sp22-002/runner/mlcommons-2epoch
-    resourcedir: /project/ds6011-sp22-002
+    workdir: /project/bii_dsc/users
+    resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
+
   system:
     python: "3.10.2"
     num_cpus: 6
     partition: "gpu"
+    host: rivanna
 
   time: "3-0"
   set_soft_device_placement: False

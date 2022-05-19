@@ -1,0 +1,43 @@
+name: earthquake-project
+mode: h
+dir: project
+
+user:
+  account: {USER}
+
+benchmark:
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: "dgx-station"
+
+experiments:
+  card_name: "A100"
+  gpu_count: 1
+  cpu_num: 1
+  mem: "64GB"
+  TFTTransformerepochs: "2"
+
+batch:
+  time: "12:00:00"
+
+run:
+  workdir: /project/eq/runner/mlcommons
+  resourcedir: /project/eq
+  branch: 'main'
+  datadir: data
+
+system:
+  python: "3.10.4"
+  num_cpus: 1
+  partition: "local"
+
+model_paramters:
+  set_soft_device_placement: False
+  debugging_set_log_device_placement: False
+  DLAnalysisOnly: False
+  DLRestorefromcheckpoint: False
+  DLinputCheckpointpostfix: 1
+  TFTTransformerepochs: 20
+
