@@ -10,7 +10,7 @@ Assumes Python 3.9 or above cna cloudmesh-sbatch
 
 ## Rivanna 2-epoch
 
-See [here](experiments/rivanna-2epoch)
+See [here](experiments/rivanna-2epoch/README.md)
 
 ## Rivanna
 
