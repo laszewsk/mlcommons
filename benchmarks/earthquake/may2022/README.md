@@ -14,11 +14,14 @@ See [here](experiments/rivanna-2epoch/README.md)
 
 ## Rivanna
 
-
-
+See [here](experiments/rivanna/README.md)
 
 
 ## Ubuntu Slurm
 
+See [here](experiments/ubuntu-slurm/README.md)
+
+
 ## Colab
 
+See [here](experiments/ubuntu-slurm/README.md)
