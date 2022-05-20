@@ -79,4 +79,4 @@ Please follow instructions [here](experiments/ubuntu-slurm/README.md)
 
 ## Colab
 
-See [here](experiments/colab/README.md) Note: currently work in progress
+Please follow instructions [here](experiments/colab/README.md) Note: currently work in progress
