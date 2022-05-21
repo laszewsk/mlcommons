@@ -15,7 +15,7 @@ source activate py3.10
 ```bash
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
-mkdir ~/cm
+mkdir -p ~/cm
 cd ~/cm
 pip install cloudmesh-installer
 cloudmesh-installer get sbatch
