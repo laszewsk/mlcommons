@@ -26,7 +26,7 @@ cms help
 
 ```bash
 cd ~
-export EQ_VERSION=may2022
+export EQ_VERSION=latest
 git clone https://github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna-2epoch
 

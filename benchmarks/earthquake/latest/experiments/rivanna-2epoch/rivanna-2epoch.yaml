@@ -20,7 +20,7 @@ experiments:
 
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-  revision: may2022
+  revision: latest
   user:
     account: ds6011-sp22-002
   run:
