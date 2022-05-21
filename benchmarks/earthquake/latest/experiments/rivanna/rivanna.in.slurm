@@ -38,16 +38,10 @@ BRANCH_SAFE=${BRANCH/\//-}
 ## Specifies a github fork to use when running the build
 FORK=${FORK:-"laszewsk"}
 
-## Specifies the username to apply when running on a
-## clustrered environment
-RUN_USER="${RUN_USER:-_{meta.parent.uuid}}"
-
 ## Specifies the primary directory to use when running the
 ## benchmark.  When not specifies, it assumes the username
 ## on the sytem as the directory.
 MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
-RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
-VENV_PATH=${MLCOMMONS_HOME}/venv-${PYTHON_VERSION}
 
 ## Specifies a specific revision of the Earthquake notebook
 ## Used to select the different folder names in the earthquake
@@ -61,8 +55,45 @@ RESOURCE_DIR="{run.resourcedir}"
 
 ### END CONFIGURATION
 
+
+### FUNCTION BEGIN
+# Finds the current user's common name from the current operating
+# environment.
+### FUNCTION END
+function DETECT_RUN_USER() {
+   # Gets the current username from the current system password database
+   # will be an empty string if the command fails or a bad username is
+   # supplied
+
+   #local MY_NAME="$(getent passwd $(whoami) | cut -d: -f5 || true)"
+   ## When the username is not known or the password database cannot run
+   ## set the value to the current system username
+   #if [ x"${MY_NAME}" == x"" ]; then
+   #     echo $(whoami)
+   ## Otherwise, use the human friendly username
+   #else
+   #     echo ${MY_NAME}
+   #fi
+   echo $(whoami)
+}
+
+
+
+## Specifies the username to apply when running on a
+## clustrered environment
+RUN_USER="$(DETECT_RUN_USER)"
+
+## Sets up the base directory for running the experiment from the
+## previously defined vars.
+RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
+VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${RUN_ID}-${PYTHON_VERSION}
+GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git-${RUN_ID}
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}/lockdb-${RUN_ID}
+
+mkdir -p ${LOCKDB}
+
 # Cleanup locks and temporary files on failed execution
-trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
+trap "rm -f ${MLCOMMONS_HOME}/${RUN_USER}/.*.lock ; exit" 1 2 3 6 15
 
 
 ### FUNCTION BEGIN
@@ -109,12 +140,12 @@ function git_checkout() {
 # Creates a file lock handle.  Creates an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function make_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    local lockname="${LOCKDB}/.$1.lock"
     touch "${lockname}"
 }
 
@@ -122,12 +153,12 @@ function make_lock() {
 # Releases a file lock handle.  Deletes an empty file in
 # $MLCOMMONS_HOME with the passed name as a dot file.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
 function release_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
+    local lockname="${LOCKDB}/.$1.lock"
     if [ -e "${lockname}" ] ; then
       rm -f "${lockname}"
     fi
@@ -137,7 +168,7 @@ function release_lock() {
 # Deadwait function that stops execution while the named
 # lock is present on the filesystem.
 # GLOBALS:
-#   MLCOMMONS_HOME
+#   LOCKDB
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 #   $2 - The duration to wait in seconds.  Defaults to 5 seconds.
@@ -145,8 +176,8 @@ function release_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function wait_lock() {
-    local lockname="${MLCOMMONS_HOME}/.$1.lock"
-    local delay=${2:-1}
+    local lockname="${LOCKDB}/.$1.lock"
+    local delay=${2:-5}
     printf "Checking for lock ${lockname}"
     while [ -e ${lockname} ] ; do
       printf "."
@@ -168,7 +199,7 @@ function wait_lock() {
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
 function waitmake_lock() {
-    wait_lock $1 ${2:-1}
+    wait_lock $1 ${2:-5}
     make_lock $1
 }
 
@@ -265,7 +296,7 @@ fi
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
     git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
-                 "${MLCOMMONS_HOME}/git/mlcommons-data-earthquake" \
+                 "${GIT_BASEPATH}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
 
@@ -273,11 +304,11 @@ release_lock mlcommons-data-earthquake.git
 # to prevent concurrent git operations
 waitmake_lock mlcommons.git
     git_checkout https://github.com/laszewsk/mlcommons.git \
-                 "${MLCOMMONS_HOME}/git/mlcommons" \
+                 "${GIT_BASEPATH}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
     if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
-        tar Jxvf ${MLCOMMONS_HOME}/git/mlcommons-data-earthquake/data.tar.xz \
+        tar Jxvf ${GIT_BASEPATH}/mlcommons-data-earthquake/data.tar.xz \
             -C ${RUN_BASE}
         # BUG; should be in zip file (or created as part of the python file
         mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
@@ -285,11 +316,11 @@ waitmake_lock mlcommons.git
 
     # Create a python virtual environment based on the current benchmark's requirements.txt file
     setup_venv ${VENV_PATH} \
-               ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
+               ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
 
     # Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
     mkdir -p ${NB_OUTPUT}
-    cp ${MLCOMMONS_HOME}/git/mlcommons/benchmarks/earthquake/${REV}/{script} \
+    cp ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/{script} \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
@@ -304,8 +335,8 @@ cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
 echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
-mkdir ${NB_OUTPUT}/gfx
-cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/gfx
+mkdir -p ${NB_OUTPUT}/images
+cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
 
 echo "Execution Complete"
 exit 0
