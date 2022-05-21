@@ -1,4 +1,4 @@
-# Set up python 3.10 on rivanna
+e# Set up python 3.10 on rivanna
 
 ```bash
 module purge

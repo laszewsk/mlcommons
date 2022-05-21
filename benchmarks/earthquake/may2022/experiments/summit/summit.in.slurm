@@ -343,7 +343,7 @@ cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
 echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
-mkdir ${NB_OUTPUT}/images
+mkdir -p ${NB_OUTPUT}/images
 cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
 
 echo "Execution Complete"
