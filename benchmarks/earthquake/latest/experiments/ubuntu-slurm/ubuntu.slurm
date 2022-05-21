@@ -47,7 +47,7 @@ MLCOMMONS_HOME=${MLCOMMONS_HOME:-/project/eq/runner/mlcommons}
 ## Specifies a specific revision of the Earthquake notebook
 ## Used to select the different folder names in the earthquake
 ## directory
-REV="may2022"
+REV="latest"
 
 ## Specifies the path that contains utilities on the HPC
 ## cluster, such as the system scripts.
