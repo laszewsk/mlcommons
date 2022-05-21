@@ -11,13 +11,13 @@ benchmark:
   # platform: rivanna-{cardname}
 
 experiments:
-  card_name: "a100,p100,v100,k80,rtx2080,rtx3080"
+  card_name: "a100,p100,v100"
   gpu_count: 1
   cpu_num: 6
-  mem: "32GB,64GB"
+  mem: "32GB"
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2,10,20,30,34,40,50,60,66,70"
+  TFTTransformerepochs: "2,3,10"
 
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
@@ -27,8 +27,8 @@ attributes:
     account: ds6011-sp22-002
 
   run:
-    workdir: /project/ds6011-sp22-002/runner/mlcommons
-    resourcedir: /project/ds6011-sp22-002
+    workdir: /project/bii_dsc/users
+    resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
 
