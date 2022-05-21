@@ -22,8 +22,8 @@ cloudmesh-installer get sbatch
 2. Generating experiment configurations
 
 ```bash
-export EQ_VERSION=may2022
-export EQ_VERSION=may2022
+export EQ_VERSION=latest
+export EQ_VERSION=latest
 git clone https://github.com/laszewsk/mlcommons.git
 cd benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
 # cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit

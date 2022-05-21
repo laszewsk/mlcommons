@@ -24,7 +24,7 @@ cms help
 export PROJECT_DIR=/project/mlcommons
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
-export EQ_VERSION=may2022
+export EQ_VERSION=latest
 git clone ssh://git@github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu
 
