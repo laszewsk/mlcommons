@@ -333,7 +333,7 @@ cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
 
 echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
 mkdir -p ${NB_OUTPUT}/images
-cp -a "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
 
 echo "Execution Complete"
 exit 0
