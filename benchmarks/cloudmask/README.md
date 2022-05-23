@@ -14,13 +14,13 @@ either thresholding or Bayesian methods.
 
 ## Scientific Objective
 
-The scientific objective is to develop a surrogate model for the classification of pixels in satellite images. 
+The scientific objective is to develop a segmentation model for the classification of pixels in satellite images. 
 This classification allows to determine whether the given pixel belongs to a cloud or to a clear sky. Unfortunately in 
 this case the “true ground truth” was not available and for training we used the Bayesian masks which were supplied by 
 the provider of satellite images. These masks are not always accurate, however the model has demonstrated that in some 
 cases it can produce better predictions. The model is suitable for this type of task since it can achieve above 90% accuracy 
 on the training and testing datasets. The next scientific objective is to avoid the use of Bayesian masks and make real 
-cloudmask predictions by using unsupervised segmentation. Further objective of the benchmark is to achieve high accuracy 
+cloudmask predictions by using unsupervised segmentation. The benchmark aims to achieve high accuracy 
 on the given training and testing datasets, and to demonstrate the scalability of data parallel distributed training on multiple GPUs.
 
 ## Benchmark files
@@ -29,11 +29,7 @@ This is a standalone version of CloudMask benchmark intended as a reference
 implementation for MLCommons. The main program is slstr_cloud.py which reads 
 cloudMaskConfig.yaml containing configuration details.
 
-Files required for the CloudMask benchmark:
-    slstr_cloud.py
-    data_loader.py
-    model.py
-    cloudMaskConfig.yaml
+The CloudMask benchmark contains these files: slstr_cloud.py, data_loader.py, model.py, cloudMaskConfig.yaml
 
 ## Data
 
@@ -66,16 +62,12 @@ the required packages can be easily installed and the versioning of libraries ca
 
 7. `pip install h5py`
 
-8. Running the benchmark
-   `python slstr_cloud.py`
-
 ## Running the benchmark
-
+TensorFlow automatically detects the available GPUs and runs the application in a data parallel mode.
+For running the benchmark use this command:
 `python slstr_cloud.py --config ./cloudMaskConfig.yaml`
 
-## Multiple GPUs
 
-TensorFlow automatically detects the available GPUs and runs the application in a data parallel mode.
 
 
 
