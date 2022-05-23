@@ -37,7 +37,7 @@ The benchmark includes two datasets of cloud_slstr_ds1 and cloud_slstr_ds2, with
 Each dataset is made up of two parts: reflectance and brightness temperature. The reflectance is captured 
 across six channels with the resolution of 2400 x 3000 pixels, and the brightness temperature is captured 
 across three channels with the resolution of 1200 x 1500 pixels. In the current setup (see `cloudMaskConfig.yaml`) only a 
-subset of the available data is used. The training files are in the "one-day" folder (163GB) and the files used for inferencing are in "ssts" folder (17GB)
+subset of the available data is used. The training files are in the "one-day" folder (163GB) and the files used for inferencing are in "ssts" folder (17GB).
 The datasets can be downloaded from the STFC server by using these commands: `aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 sync s3://sciml-datasets/en/cloud_slstr_ds1`, `aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 sync s3://sciml-datasets/en/cloud_slstr_ds2`
