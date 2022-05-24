@@ -25,11 +25,9 @@ on the given training and testing datasets, and to demonstrate the scalability o
 
 ## Benchmark files
 
-This is a standalone version of CloudMask benchmark intended as a reference 
-implementation for MLCommons. The main program is slstr_cloud.py which reads 
-cloudMaskConfig.yaml containing configuration details.
-
-The CloudMask benchmark contains these files: slstr_cloud.py, data_loader.py, model.py, cloudMaskConfig.yaml
+The CloudMask benchmark consists of the following files: `slstr_cloud.py`, `data_loader.py`,`model.py`, `cloudMaskConfig.yaml`.
+The main program is `slstr_cloud.py` which reads `cloudMaskConfig.yaml` containing configuration details. 
+The benchmark also produces a log file with information about the parameters and runtime of training and inference.
 
 ## Data
 
