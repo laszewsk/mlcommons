@@ -1,4 +1,4 @@
-# STEMDL classification, Pytorch-Lightning implementation
+# STEMDL classification benchmark
 
 ## 1.Introduction
 
