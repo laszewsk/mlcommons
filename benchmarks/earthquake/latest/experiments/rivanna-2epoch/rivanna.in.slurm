@@ -243,6 +243,7 @@ function setup_venv(){
         esac
         python -m pip install -r ${requirements_path} \
             --progress-bar off
+        python -m pip install cloudmesh-gpu --progress-bar off
         python -m pip freeze > ${RUN_BASE}/pip-freeze.txt
     release_lock pip.lock
 }
@@ -320,6 +321,8 @@ waitmake_lock mlcommons.git
     cp ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/{script} \
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
+
+cms gpu watch --gpu=0 --delay=1 --dense > ${RUN_BASE}/data/EarthquakeDec2020/Outputs/gpu0.log &
 
 # Execute the notebook using papermill
 papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
