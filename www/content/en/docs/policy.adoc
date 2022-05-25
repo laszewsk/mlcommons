@@ -81,7 +81,7 @@ Internal Repository
 
 |===
 |Problem |Model
-|EarthQuake  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake
+|EarthQuake  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest
 |CloudMask | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/cloudmask
 |STEMDL  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/stemdl
 |CANDLE UNO  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
