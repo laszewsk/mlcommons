@@ -1,12 +1,20 @@
 # cloudMaskConfig.yml
 
 # SciML-Bench
-# Copyright © 2021 Scientific Machine Learning Research Group
+# Copyright © 2022 Scientific Machine Learning Research Group
 # Scientific Computing Department, Rutherford Appleton Laboratory
 # Science and Technology Facilities Council, UK. 
 # All rights reserved.
 
 # This is a configuration file for the CloudMask benchmark.
+
+# General info
+benchmark: CloudMask
+organisation: STFC
+division: SciML
+status: research
+platform: nvidia gtx-2
+accelerators_per_node: 16
 
 # Training data
 train_dir: ~/sciml_bench/datasets/cloud_slstr_ds1/one-day
@@ -20,8 +28,11 @@ model_file : ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
 # Output directory
 output_dir : ~/sciml_bench/outputs/slstr_cloud
 
-# Log file fort recording runtimes
-log_file: ~/sciml_bench/outputs/slstr_cloud/cloudMask_Log
+# Log file for recording runtimes
+log_file: ./cloudMask_Log
+
+# Log file for MLCommons logging
+mlperf_logfile: ./mlperf_stemdl.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
@@ -46,7 +57,7 @@ seed: 1234
 
 learning_rate: 0.001
 
-epochs: 2
+epochs: 1
 
 batch_size: 32
 
@@ -59,6 +70,7 @@ no_cache: False
 nodes: 1
 
 gpu: 1
+
 
 
 
