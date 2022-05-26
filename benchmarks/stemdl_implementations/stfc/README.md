@@ -35,15 +35,16 @@ It is recommended to run the Stemdl benchmark in the Anaconda environment.
 
 1) If Anaconda is not already installed on the system, it can be downloaded from
  here:
-    wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
+   `wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh`
 
 2)Install Anaconda
-    bash Anaconda3-2021.05-Linux-x86_64.sh
+   `bash Anaconda3-2021.05-Linux-x86_64.sh`
 
 3) Create conda environment
-      conda create --name bench python=3.8
+   `conda create --name bench python=3.8`
 
-4) conda activate bench
+4) Activate environment
+   'conda activate bench'
 
 5) pip install pytorch-lightning
 
@@ -51,12 +52,13 @@ It is recommended to run the Stemdl benchmark in the Anaconda environment.
 
 7) pip install scikit-learn
  
-8) For installing the MLCommons logging library please follow the instructions at https://github.com/mlcommons/logging
+8) For installing the MLCommons logging library please follow the instructions at `https://github.com/mlcommons/logging`
 
-9) Running the benchmark
-python sytemdl_classification.py --config stemdlConfig.yaml
+9) `git clone https://github.com/mlperf/logging.git mlperf-logging`
 
-## 4.Notes
+10) `pip install -e mlperf-logging`
 
-1) Print the accuracy/loss for epoch.
-2)  resnet50
+## 4.Running the benchmark
+
+`python sytemdl_classification.py --config stemdlConfig.yaml`
+
