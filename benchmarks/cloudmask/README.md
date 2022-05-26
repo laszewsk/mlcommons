@@ -61,6 +61,14 @@ the required packages can be easily installed and the versioning of libraries ca
 
 7. `pip install h5py`
 
+8. `pip install pyyaml`
+
+9. For installing the MLCommons logging library please follow the instructions at `https://github.com/mlcommons/logging`
+
+10. `git clone https://github.com/mlperf/logging.git mlperf-logging`
+
+11. `pip install -e mlperf-logging`
+
 ## Running the benchmark
 TensorFlow automatically detects the available GPUs and runs the application in a data parallel mode.
 For running the benchmark use this command:
