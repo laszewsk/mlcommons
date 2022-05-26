@@ -1,7 +1,7 @@
 # stemdlConfig.yaml
 
 # SciML-Bench
-# Copyright © 2021 Scientific Machine Learning Research Group
+# Copyright © 2022 Scientific Machine Learning Research Group
 # Scientific Computing Department, Rutherford Appleton Laboratory
 # Science and Technology Facilities Council, UK.
 # All rights reserved.
@@ -52,4 +52,4 @@ resnet: resnet50
 
 nodes: 1
 
-gpu: 2
+gpu: 1
