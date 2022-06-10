@@ -1,4 +1,4 @@
-# Earthqauke code
+# Earthquake code
 
 ## Run on arbitrary system
 
