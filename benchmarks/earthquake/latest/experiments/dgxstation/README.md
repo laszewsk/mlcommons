@@ -78,7 +78,7 @@ nohup bash slurm.sh &
 
 5. Note that the nohup command will not immediately return your input prompt.  You can simply press enter after its notification on output redirection.
 
-6. All stdout and stderr logging will now be printed to nohup.out.  Make sure the process spawned by reviewing the output of this file using `less nohup.out` or `tail-f nohup.out`
+6. All stdout and stderr logging will now be printed to nohup.out.  Make sure the process spawned by reviewing the output of this file using `less nohup.out` or `tail -f nohup.out`
 
 
 ## Results
