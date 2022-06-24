@@ -355,9 +355,9 @@ echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
-echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
-mkdir -p ${NB_OUTPUT}/output
-cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/output
+echo "Saving outputs to ${NB_OUTPUT}"
+mkdir -p ${NB_OUTPUT}
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
 
 echo "Stopping background tasks."
 kill -SIGTERM ${GPU_MONITOR}
