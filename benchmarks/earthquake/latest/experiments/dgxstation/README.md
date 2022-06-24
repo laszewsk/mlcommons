@@ -1,4 +1,4 @@
-# Set up python 3.10 on rivanna
+# Set up system tools
 
 * We assume you have python 3.10.4 installed 
 * We assume if you like to use the automated report generated (under development) you have  
