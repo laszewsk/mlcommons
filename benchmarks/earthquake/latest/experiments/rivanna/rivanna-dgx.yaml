@@ -1,8 +1,8 @@
-name: earthquake-localscratch
+name: earthquake-dgx
 mode: h
-dir: localscratch
+dir: dgx
 experiments:
-  card_name: v100
+  card_name: 1
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
@@ -15,11 +15,10 @@ attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
   user:
-     account: ds6011-sp22-002
+     account: bii_dsc
   # user.account: ds6011-sp22-002
   run:
     workdir: /localscratch/mlcommons
-    venvpath: /localscratch/mlcommons
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
