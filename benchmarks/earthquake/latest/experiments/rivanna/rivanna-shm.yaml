@@ -1,11 +1,11 @@
-name: earthquake-localscratch
+name: earthquake-shm
 mode: h
-dir: localscratch
+dir: shm 
 experiments:
-  card_name: v100
+  card_name: "a100,v100,p100,k80,rtx2080"
   gpu_count: 1
   cpu_num: 6
-  mem: "32GB"
+  mem: "64GB"
 
   ## TFTTransformerepochs = num_epochs
   #
@@ -18,8 +18,8 @@ attributes:
      account: ds6011-sp22-002
   # user.account: ds6011-sp22-002
   run:
-    workdir: /localscratch/mlcommons
-    venvpath: /localscratch/mlcommons
+    workdir: /dev/shm/mlcommons-tmp
+    venvpath: /project/bii_dsc/users
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
@@ -27,7 +27,7 @@ attributes:
   system:
     python: "3.10.2"
     num_cpus: 6
-    partition: "bii-gpu"
+    partition: "gpu"
     host: "rivanna"
 
   time: "3-0"
