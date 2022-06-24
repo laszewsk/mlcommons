@@ -254,6 +254,7 @@ setup_venv(){
         esac
         python -m pip install -r ${requirements_path} \
             --progress-bar off
+        python -m pip install cloudmesh-gpu --progress-bar off
         python -m pip freeze > ${RUN_BASE}/pip-freeze.txt
     release_lock pip.lock
 }
@@ -333,6 +334,17 @@ waitmake_lock mlcommons.git
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
+# Watch visable cards if the variable is set
+# otherwise monitor all
+if [ -z "${CUDA_VISIBLE_DEVICES+x}" ]; then
+  GPU_SWITCH="--gpu=${CUDA_VISIBLE_DEVICES}"
+else
+  GPU_SWITCH=" "
+fi
+
+cms gpu watch --delay=1 ${GPU_SWITCH} --dense > ${RUN_BASE}/data/EarthquakeDec2020/Outputs/gpu0.log &
+GPU_MONITOR=$!
+
 # Execute the notebook using papermill
 papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
           "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
@@ -343,9 +355,12 @@ echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
-echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
-mkdir -p ${NB_OUTPUT}/images
-cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
+echo "Saving outputs to ${NB_OUTPUT}"
+mkdir -p ${NB_OUTPUT}
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
+
+echo "Stopping background tasks."
+kill -SIGTERM ${GPU_MONITOR}
 
 echo "Execution Complete"
 exit 0

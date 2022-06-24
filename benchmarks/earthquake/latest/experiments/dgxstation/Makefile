@@ -1,45 +1,36 @@
 
-all: project generate
 
-submit: all
-	sh jobs-project.sh
+CUDA_VISIBLE_DEVICES ?= 1
+EXPERIMENTS = $(foreach exp,$(wildcard dgx/*),$(exp)/nohup.out)
 
-.PHONY: project generate inspect run stop clean status watch out err status
 
-project:
-	cms sbatch generate dgx.in.slurm --setup=dgx-config.yaml --name="project"
+.PHONY: all
+all: dgx
 
-generate:
-	cms sbatch generate submit --name=project.json > jobs-project.sh
-	cat jobs-project.sh
+.PHONY: run
+run: $(EXPERIMENTS)
 
-inspect:
-    # works only if we do one experiement
-	emacs project/*/slurm.sh
+.PHONY: dgx
+dgx: dgx.json
+	$(info Experiments generated)
 
-test:
-	cms sbatch generate  dgx-config-test.yaml --out=dgx-config-test-out.yaml --name=a
-	cat dgx-config-test-out.yaml
+dgx.json:
+	cms sbatch generate dgx.in.slurm --setup=dgx-config.yaml --name=dgx
 
-run:
-	# sh ./jobs-project.sh
-	cd project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2; /usr/bin/bash slurm.sh 2>&1 | tee -a $$USER.out
+run-%: dgx/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_%/nohup.out
+	$(info Experiment launched)
 
-stop:
-	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
+$(EXPERIMENTS): dgx.json
+	$(info Running experiment $@)
+	(cd $(dir $@) && export CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) && nohup bash slurm.sh &  echo $$! > $(dir $@)/pid.txt)
+	sleep 2
+	printf -- "Running in process %s" "$(shell cat $(dir $@)pid.txt)"
 
+.PHONY: watch
 watch:
-	tail -f project/*/$$USER.out
+	tail -f dgx/*/nohup.out
 
-out: 
-	tail -f project/*/$$USER.out
-
-err:
-	tail -f project/*/$$USER.out
-
-status:
-	squeue | fgrep ${USER}
-
+.PHONY: clean
 clean:
-	@-rm -rf project project.json jobs-project.sh
+	@-rm -rf dgx dgx.json jobs-dgx.sh
 	@-rm -f dgx.slurm

@@ -1,6 +1,6 @@
 name: earthquake-project
 mode: h
-dir: project
+dir: dgx
 
 benchmark:
   name: Gregor von Laszewski
@@ -16,7 +16,7 @@ experiments:
   mem: "64GB"
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2"
+  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
@@ -26,7 +26,7 @@ attributes:
     account: {USER}
 
   run:
-    workdir: /project/mlcommons
+    workdir: workspace 
     resourcedir: /project/mlcommons-system
     datadir: data
     branch: 'main'
