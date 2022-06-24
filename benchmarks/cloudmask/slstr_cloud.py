@@ -4,7 +4,7 @@
 # slstr_cloud.py
 
 # SciML-Bench
-# Copyright © 2021 Scientific Machine Learning Research Group
+# Copyright © 2022 Scientific Machine Learning Research Group
 # Scientific Computing Department, Rutherford Appleton Laboratory
 # Science and Technology Facilities Council, UK.
 # All rights reserved.
@@ -16,6 +16,10 @@ from model import unet
 from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
+
+# MLCommons logging
+from mlperf_logging import mllog
+import logging
 
 # Loss function
 def weighted_cross_entropy(beta):
@@ -83,10 +87,9 @@ def cloud_inference(args)-> None:
     modelPath = os.path.expanduser(args['model_file'])    
     model = tf.keras.models.load_model(modelPath)
 
-    # Read inference files, ssts/day:55, ssts/night:45
+    # Read inference files
     inference_dir = os.path.expanduser(args['inference_dir'])
-    file_paths1 = list(Path(inference_dir).glob('**/S3A*.hdf'))
-    file_paths = file_paths1[0:3]
+    file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
 
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time so they can be
@@ -97,7 +100,7 @@ def cloud_inference(args)-> None:
     # Inference Loop
     for patches, file_name in dataset:
         file_name = Path(file_name.numpy().decode('utf-8'))
-        print(f"Processing file {file_name}")
+        #print(f"Processing file {file_name}")
 
         # convert patches to a batch of patches
         n, ny, nx, _ = patches.shape
@@ -113,9 +116,8 @@ def cloud_inference(args)-> None:
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         output_dir = os.path.expanduser(args['output_dir'])
-        #mask_name = (output_dir / file_name.name).with_suffix('.h5')
         mask_name = output_dir + file_name.name + '.h5'
-        print('mask_name: ', mask_name)
+        # print('mask_name: ', mask_name)
 
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
@@ -136,15 +138,15 @@ def cloud_training(args)-> None:
     
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
+    print("num_samples: ", num_samples)
 
     # Running training on multiple GPUs
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(args['learning_rate'])
     
     with mirrored_strategy.scope():
-        # create UNet model
+        # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
-
         model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
@@ -159,7 +161,6 @@ def cloud_training(args)-> None:
 
 ### Main
 # Running the benchmark: python slstr_cloud.py --config ./cloudMaskConfig.yaml
-# TF automatically picks up the available GPUs
 def main():
 
     # Read command line arguments
@@ -173,16 +174,33 @@ def main():
 
     # Read YAML file
     with open(configFile, 'r') as stream:
-        config = yaml.safe_load(stream)
-
-    # Read YAML file
-    with open(configFile, 'r') as stream:
         args = yaml.safe_load(stream)
     log_file = os.path.expanduser(args['log_file'])
+
+    # MLCommons logging
+    mlperf_logfile = os.path.expanduser(args['mlperf_logfile'])
+    mllog.config(filename=mlperf_logfile)
+    mllogger = mllog.get_mllogger()
+    logger = logging.getLogger(__name__)
+
+     # Values extracted from cloudMaskConfig.yaml
+    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=args['benchmark'])
+    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=args['organisation'])
+    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=args['division'])
+    mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value=args['status'])
+    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=args['platform']) 
+    mllogger.start(key=mllog.constants.INIT_START)
+
+    mllogger.event(key='number_of_ranks', value=args['gpu']) 
+    mllogger.event(key='number_of_nodes', value=args['nodes'])
+    mllogger.event(key='accelerators_per_node', value=args['accelerators_per_node']) 
+    mllogger.end(key=mllog.constants.INIT_STOP)
     
     # Training
     start = time.time()
+    mllogger.event(key=mllog.constants.EVAL_START, value="Start: Taining")
     samples = cloud_training(args)
+    mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Training")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_epoch = elapsedTime/int(args['epochs'])
@@ -192,15 +210,18 @@ def main():
 
     # Inference
     start = time.time()
+    mllogger.event(key=mllog.constants.EVAL_START, value="Start: Inference")
     number_inferences = cloud_inference(args)
+    mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Inference")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_inference = elapsedTime/number_inferences
     time_per_inference_str = f"{time_per_inference:.2f}"
-    print(number_inferences)
+    print("number_inferences: ", number_inferences)
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
-
     
+    mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
 if __name__ == "__main__":
     main()
+

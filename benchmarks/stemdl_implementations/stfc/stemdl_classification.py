@@ -1,6 +1,15 @@
-###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# stemdl_classification.py
+
 # Stemdl Classification benchmark
-###
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# All rights reserved.
 
 import torch
 from torch import nn

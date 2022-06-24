@@ -1,13 +1,22 @@
-# data_loader converts images 1200x1500x9 to 256x256x9 so that it can be used with unet.
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# data_loader.py
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# All rights reserved.
 
 from pathlib import Path
-
 import h5py
 import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split
 from typing import Union, List
 
+# Convert images 1200x1500x9 to 256x256x9 to be used with U-net.
 class SLSTRDataLoader:
 
     def __init__(self, args:dict, paths: Union[Path, List[Path]], shuffle: bool = True, batch_size: int = 32, single_image: bool = False, crop_size: int = 20, no_cache=False):
@@ -71,7 +80,7 @@ class SLSTRDataLoader:
 
     def _transform_image(self, img):
         # Crop to image which is divisible by the patch size
-        # This also removes boarders of image which are all zero
+        # This also removes image boarders which are all zero
         IMAGE_H = self.image_h
         IMAGE_W = self.image_w
         PATCH_SIZE = self.patch_size
@@ -117,7 +126,6 @@ class SLSTRDataLoader:
         return dataset
 
     def to_dataset(self):
-        """Input function for training"""
         dataset = tf.data.Dataset.from_tensor_slices(self._image_paths)
 
         if self._shuffle:
@@ -140,13 +148,10 @@ class SLSTRDataLoader:
         dataset = dataset.batch(self.batch_size, drop_remainder=True)
         return dataset
 
-
 # Dataloader specific to this benchmark
 def load_datasets(dataset_dir: Path, args: dict):
-    data_paths1 = list(Path(dataset_dir).glob('**/S3A*.hdf'))
-    # Smaller dataset for testing only
-    data_paths = data_paths1[0:63]
-
+    data_paths = list(Path(dataset_dir).glob('**/S3A*.hdf'))
+    
     train_paths, test_paths = train_test_split(data_paths, train_size=args['train_split'], random_state=42)
 
     train_data_loader = SLSTRDataLoader(args, train_paths, batch_size=args['batch_size'], no_cache=args['no_cache'])
