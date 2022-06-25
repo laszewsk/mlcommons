@@ -1,31 +1,41 @@
 
-all: project localscratch generate
+all: project localscratch shm generate
+
+generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
+
+run: submit
 
 submit: all
 	sh jobs-project.sh
 	sh jobs-localscratch.sh
+	sh jobs-dgx.sh
 
 .PHONY: project
-project:
-	cms sbatch generate rivanna.in.slurm --setup=rivanna-project.yaml --name="project" --noos
+project: project.json
 
 .PHONY: localscratch
-localscratch:
-	cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch.yaml --name="localscratch" --noos
+localscratch: localscratch.json
+
+.PHONY: dgx
+dgx: dgx.json
+
+.PHONY: shm
+shm: shm.json
 
 .PHONY: cli
 cli:
 	cms sbatch generate rivanna-project.in.slurm --config=sbatch-rivanna.yaml --name=earthquake --noos --experiment=\"card_name=a100 gpu_count=1 cpu_num=6 mem=32GB\" --attribute=\"time=12:00:00\" --mode=h --dir=project
 
-.PHONY: generate
-generate:
-	cms sbatch generate submit --name=project.json > jobs-project.sh
-	cms sbatch generate submit --name=localscratch.json > jobs-localscratch.sh
 
-.PHONY: run
-run:
-	sh ./jobs-project.sh
-	sh ./jobs-localscratch.sh
+jobs-%.sh: %.json
+	cms sbatch generate submit --name=$< > $@
+
+%.json: rivanna-%.yaml
+	cms sbatch generate rivanna.in.slurm --setup=$< --name=$(basename $@) --noos
+
+dgx.json: rivanna-dgx.yaml
+	cms sbatch generate rivanna-dgx.in.slurm --setup=$< --name=$(basename $@) --noos
+
 
 .PHONY: stop
 stop:
@@ -35,4 +45,5 @@ stop:
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
+	@-rm -rf dgx dgx.json jobs-dgx.sh
 	@-rm -f rivanna.slurm

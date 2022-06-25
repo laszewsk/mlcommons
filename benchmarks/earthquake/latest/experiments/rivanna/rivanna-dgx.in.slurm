@@ -1,16 +1,16 @@
-#!/usr/bin/bash
-# ... SBATCH --job-name=mlcommons-eq-{card_name}-{gpu_count}
-# ... SBATCH --output=%u-%j.out
-# ... SBATCH --error=%u-%j.err
-# ... SBATCH --partition={system.partition}
-# ... SBATCH -c {cpu_num}
-# ... SBATCH --mem={mem}
-# ... SBATCH --time={time}
-## # ... SBATCH --gres=gpu:{card_name}:{gpu_count}
-# ... SBATCH --mail-user={email}
-# ... SBATCH --mail-type=ALL
-# ... SBATCH --account={user.account}
-
+#!/usr/bin/env bash
+#SBATCH --job-name=mlcommons-eq-dgx-{gpu_count}
+#SBATCH --output=%u-%j.out
+#SBATCH --error=%u-%j.err
+#SBATCH --partition={system.partition}
+#SBATCH -c {cpu_num}
+#SBATCH --mem={mem}
+#SBATCH --time={time}
+#SBATCH --gres=gpu:{gpu_count}
+#SBATCH --reservation=bi_fox_dgx
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
+#SBATCH --account={user.account}
 
 set -uxe
 
@@ -34,9 +34,7 @@ PYTHON_VERSION={system.python}
 ## by default using {run.branch}
 ## The SAFE version cleans the name of any path-like characters
 BRANCH=${BRANCH:-{run.branch}}
-#BRANCH_SAFE=${BRANCH/\//-}
-BRANCH_SAFE=${BRANCH}
-
+BRANCH_SAFE=${BRANCH/\//-}
 
 ## Specifies a github fork to use when running the build
 FORK=${FORK:-"laszewsk"}
@@ -58,16 +56,12 @@ RESOURCE_DIR="{run.resourcedir}"
 
 ### END CONFIGURATION
 
-# Cleanup locks and temporary files on failed execution
-trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
-
 
 ### FUNCTION BEGIN
 # Finds the current user's common name from the current operating
 # environment.
 ### FUNCTION END
-#function DETECT_RUN_USER() {
-DETECT_RUN_USER() {
+function DETECT_RUN_USER() {
    # Gets the current username from the current system password database
    # will be an empty string if the command fails or a bad username is
    # supplied
@@ -85,6 +79,7 @@ DETECT_RUN_USER() {
 }
 
 
+
 ## Specifies the username to apply when running on a
 ## clustrered environment
 RUN_USER="$(DETECT_RUN_USER)"
@@ -92,9 +87,14 @@ RUN_USER="$(DETECT_RUN_USER)"
 ## Sets up the base directory for running the experiment from the
 ## previously defined vars.
 RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
-VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${PYTHON_VERSION}
-GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git
-LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
+VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${RUN_ID}-${PYTHON_VERSION}
+GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git-${RUN_ID}
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}/lockdb-${RUN_ID}
+
+mkdir -p ${LOCKDB}
+
+# Cleanup locks and temporary files on failed execution
+trap "rm -f ${MLCOMMONS_HOME}/${RUN_USER}/.*.lock ; exit" 1 2 3 6 15
 
 
 ### FUNCTION BEGIN
@@ -109,8 +109,7 @@ LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
 # OUTPUTS:
 #   Git command line output
 ### FUNCTION END
-git_checkout() {
-# function git_checkout() {
+function git_checkout() {
     local repo_url=$1
     local target=${2:-$(basename ${repo_url} .git)}
     local branch=${3:-main}
@@ -146,8 +145,7 @@ git_checkout() {
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
-make_lock() {
-# function make_lock() {
+function make_lock() {
     local lockname="${LOCKDB}/.$1.lock"
     touch "${lockname}"
 }
@@ -160,8 +158,7 @@ make_lock() {
 # ARGUMENTS:
 #   $1 - The lock name to register in MLCOMMONS_HOME
 ### FUNCTION END
-# function release_lock() {
-release_lock() {
+function release_lock() {
     local lockname="${LOCKDB}/.$1.lock"
     if [ -e "${lockname}" ] ; then
       rm -f "${lockname}"
@@ -179,10 +176,9 @@ release_lock() {
 # OUTPUTS:
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
-wait_lock() {
-# function wait_lock() {
+function wait_lock() {
     local lockname="${LOCKDB}/.$1.lock"
-    local delay=${2:-1}
+    local delay=${2:-5}
     printf "Checking for lock ${lockname}"
     while [ -e ${lockname} ] ; do
       printf "."
@@ -203,9 +199,8 @@ wait_lock() {
 # OUTPUTS:
 #   Prints a dot every increment that the file lock is present.
 ### FUNCTION END
-waitmake_lock() {
-# function waitmake_lock() {
-    wait_lock $1 ${2:-1}
+function waitmake_lock() {
+    wait_lock $1 ${2:-5}
     make_lock $1
 }
 
@@ -219,8 +214,7 @@ waitmake_lock() {
 #   a CSV prefixed with '# slurmjob,' with the jobid, username, submittion time
 #   start time, end time, and status.
 ### FUNCTION END
-# function slurm_runtime() {
-slurm_runtime() {
+function slurm_runtime() {
     # Run only if done in a slurm job
     if [[ ! -z "${SLURM_JOBID}" ]] ; then
       # Query current job details and substitute end time with the current time.
@@ -241,8 +235,7 @@ slurm_runtime() {
 #   $1 - The folder to establish the python virtual environment into
 #   $2 - The path to a python requirements.txt file
 ### FUNCTION END
-setup_venv(){
-# function setup_venv(){
+function setup_venv(){
     local target=$1
     local requirements_path=$2
     # Prevent parallel updates to pip
@@ -266,8 +259,7 @@ setup_venv(){
 #   beginning with SLURM_.  This is only displayed if the
 #   current environment has the sbatch command installed.
 ### FUNCTION END
-slurm_env() {
-# function slurm_env() {
+function slurm_env() {
   if command -v sbatch ; then
     echo "Slurm Environment Details"
     echo "===start[env]==========="
@@ -334,16 +326,7 @@ waitmake_lock mlcommons.git
        ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
 release_lock mlcommons.git
 
-# Watch visable cards if the variable is set
-# otherwise monitor all
-if [ -z "${CUDA_VISIBLE_DEVICES+x}" ]; then
-  GPU_SWITCH="--gpu=${CUDA_VISIBLE_DEVICES}"
-else
-  GPU_SWITCH=" "
-fi
-
-cms gpu watch --delay=1 ${GPU_SWITCH} --dense > ${RUN_BASE}/data/EarthquakeDec2020/Outputs/gpu0.log &
-GPU_MONITOR=$!
+cms gpu watch --gpu=0 --delay=1 --dense > ${RUN_BASE}/data/EarthquakeDec2020/Outputs/gpu0.log &
 
 # Execute the notebook using papermill
 papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
@@ -355,12 +338,9 @@ echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
-echo "Saving outputs to ${NB_OUTPUT}"
-mkdir -p ${NB_OUTPUT}
-cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
-
-echo "Stopping background tasks."
-kill -SIGTERM ${GPU_MONITOR}
+echo "Saving graphical outputs to ${NB_OUTPUT}/images"
+mkdir -p ${NB_OUTPUT}/images
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
 
 echo "Execution Complete"
 exit 0
