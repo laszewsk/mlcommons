@@ -27,7 +27,7 @@ attributes:
     workdir: /project/bii_dsc/users
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
-    branch: 'update_graphs'
+    branch: 'main'
 
   system:
     python: "3.10.2"
