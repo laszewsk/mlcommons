@@ -14,8 +14,8 @@
 
 set -uxe
 
-NOTEBOOK_REPO=https://github.com/laszewsk/mlcommons.git 
-DATA_REPO="https://github.com/laszewsk/mlcommons-data-earthquake.git"
+NOTEBOOK_REPO="https://github.com/laszewsk/mlcommons.git" 
+EARTHQUAKE_DATA_REPO="https://github.com/laszewsk/mlcommons-data-earthquake.git"
 
 # This has not yet cms gpu watch into a logfile we want to specify in the config.yaml
 # cms gpu watch
@@ -308,7 +308,7 @@ fi
 # Checkout git repo for mlcommons earthquake data, locking the repo
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
-    git_checkout ${DATA_REPO} \
+    git_checkout ${EARTHQUAKE_DATA_REPO} \
                  "${GIT_BASEPATH}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git

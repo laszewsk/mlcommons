@@ -14,6 +14,9 @@
 
 set -uxe
 
+NOTEBOOK_REPO="https://github.com/laszewsk/mlcommons.git" 
+EARTHQUAKE_DATA_REPO="https://github.com/laszewsk/mlcommons-data-earthquake.git"
+
 # This has not yet cms gpu watch into a logfile we want to specify in the config.yaml
 # cms gpu watch
 # cms gpu watch [--gpu=GPU] [--delay=SECONDS] [--logfile=LOGFILE] [--count=COUNT] [--dense]
@@ -297,7 +300,7 @@ fi
 # Checkout git repo for mlcommons earthquake data, locking the repo
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
-    git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
+    git_checkout ${EARTHQUAKE_DATA_REPO} \
                  "${GIT_BASEPATH}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
@@ -305,7 +308,7 @@ release_lock mlcommons-data-earthquake.git
 # Checkout git repo for mlcommons main repository, locking the repo
 # to prevent concurrent git operations
 waitmake_lock mlcommons.git
-    git_checkout https://github.com/laszewsk/mlcommons.git \
+    git_checkout ${NOTEBOOK_REPO} \
                  "${GIT_BASEPATH}/mlcommons" \
                  $BRANCH
     # Extract the mlcommons eearthquake data to the required path.
