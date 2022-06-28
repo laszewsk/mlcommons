@@ -30,7 +30,7 @@ To run the MLCommons Science Earthquake TFT notebook, there are a few prerequesi
 
 #### Establishing your python environment
 
-First establish establish a virtual enviornment and install all the requirements as defined in the [requirements.txt](./requirements.txt) file.
+First establish a virtual enviornment and install all the requirements as defined in the [requirements.txt](./requirements.txt) file.
 
   
 ```bash
