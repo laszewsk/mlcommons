@@ -14,7 +14,7 @@
 
 set -uxe
 
-NOTEBOOK_REPO="https://github.com/laszewsk/mlcommons.git" 
+NOTEBOOK_REPO="hhttps://github.com/mlcommons/science.git" 
 EARTHQUAKE_DATA_REPO="https://github.com/laszewsk/mlcommons-data-earthquake.git"
 
 # This has not yet cms gpu watch into a logfile we want to specify in the config.yaml
