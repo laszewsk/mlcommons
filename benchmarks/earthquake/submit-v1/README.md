@@ -1,4 +1,43 @@
-# MLCommons Science 
+# MLCommons Science Earthquake benchmark
+
+## Acknowledgements and References
+
+The following people were instrumental for the development of this
+benchmark
+
+* Geoffrey C. Fox
+* Gregor von Laszewski
+* Robert Knuuti
+* Thomas Buttler
+* Jake Kolesar
+
+A paper about the firs results are published at
+
+* [1] Benchmarking for Science: Efforts from the MLCommons Science
+  Working Group Jeyan Thiyagalingam, Gregor von Laszewski, Junqi Yin,
+  Murali Emani, Juri Papay, Gregg Barrett, Piotr Luszczek, Aristeidis
+  Tsaris, Christine Kirkpatrick, Feiyi Wang, Tom Gibbs, Venkatram
+  Vishwanath, Mallikarjun Shankar, Geoffrey Fox, Tony Hey, ISC
+  Workshop ISC High Performance 2022 Workshop: HPC on Heterogeneous
+  Hardware (H3) <http://www.icl.utk.edu/~luszczek/conf/2022/h3/> May
+  29 - June 2, 2022, URL: TBD
+
+A paper about the scientific aspects is published at 
+
+* [2] Fox, G.C.; Rundle, J.B.; Donnellan, A.; Feng, B. Earthquake
+  Nowcasting with Deep Learning. GeoHazards 2022, 3,
+  199-226. https://doi.org/10.3390/geohazards3020011
+
+The system uses cloudmesh-sbatch for managing hyperparameter sweeps
+
+* [3] Gregor von Laszewski, Robert Knuuti, cloudmesh-sbatch,
+  <https://pypi.org/project/cloudmesh-sbatch/>
+
+The system uses cloudmesh-gpu for energy and temperature monitoring of
+NVIDIA GPUS
+
+* [4] Gregor von Laszewski, cloudmesh-gpu,
+  <https://pypi.org/project/cloudmesh-gpu/>
 
 ## Source and Development Version
 
@@ -12,29 +51,6 @@ and computers.  If you have improvement suggestion, please get in
 contact with Gregor von Laszewski who coordinates the updates and to
 create appropriate branches.
 
-## Acknowledgements and References
-
-The following people were instrumental for the development of this
-benchmark
-
-* Geoffrey C. Fox
-* Gregor von Laszewski
-* Robert Knuuti
-* Thomas Buttler
-* Jake Kolesar
-
-A paper about the firs results are published at ...
-
-[1] ...
-
-A paper about the scientific aspects is published at 
-
-[2] ...
-
-The system uses cloudmesh-sbatch
-
-[3] Gregor von Laszewski, Robert Knuuti, cloudmesh-sbatch,
-<https://pypi.org/project/cloudmesh-sbatch/>
 
 ## Earthquake TFT Model
 
@@ -134,8 +150,7 @@ to run the notebook interactively using jupyterlab or as a batch
 execution using papermill.
 
 ```bash
-papermill "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb" \
-          "output.ipynb"
+papermill "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb" "output.ipynb"
 ```
 
 This will create a new notebook named `output.ipynb` that contains the
@@ -165,6 +180,5 @@ throughout the execution of the notebook. Note that you will need to
 kill this process manually after papermill is completed.
 Please note that `cms gpu` is an extension to cloudmesh allowing you
 to monitor resource usage on the GPU such as energy and temperature.
-More deatils can be found at:
+More deatils can be found at [4].
 
-* cloudmesh-gpu, Gregor von Laszewski, <https://pypi.org/project/cloudmesh-gpu/>
