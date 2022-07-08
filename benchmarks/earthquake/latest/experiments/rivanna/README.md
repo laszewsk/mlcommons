@@ -26,7 +26,7 @@ cloudmesh-installer get sbatch
 ```bash
 export EQ_VERSION=latest
 git clone https://github.com/laszewsk/mlcommons.git
-cd benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
 # cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 
