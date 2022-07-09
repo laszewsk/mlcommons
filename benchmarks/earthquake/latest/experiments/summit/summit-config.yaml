@@ -27,8 +27,8 @@ attributes:
     account: GEN150_bench
 
   run:
-    workdir: output
-    resourcedir: output
+    workdir: {USER}/eq/runner/mlcommons
+    resourcedir: {USER}/project/eq
     branch: 'main'
     datadir: data
 
@@ -80,3 +80,5 @@ attributes:
 
   ## TFTnum_heads = num_heads : number of attention heads?
   TFTnum_heads: 4
+
+
