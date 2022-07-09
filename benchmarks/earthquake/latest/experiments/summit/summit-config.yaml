@@ -21,10 +21,10 @@ attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
 
-  time: 12:00:00
+  time: 3:00
 
   user:
-    account: {USER}
+    account: GEN150_bench
 
   run:
     workdir: {USER}/eq/runner/mlcommons
