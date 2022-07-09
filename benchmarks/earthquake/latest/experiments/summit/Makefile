@@ -15,7 +15,7 @@ jobs-%.sh: %.json
 	cms sbatch generate submit --name=$< > $@
 
 %.json: summit-config.yaml
-	cms sbatch generate summit.in.slurm --setup=$< --name=$(basename $@) --noos
+	cms sbatch generate summit.in.lsf --setup=$< --name=$(basename $@) --noos
 
 .PHONY: stop
 stop:
