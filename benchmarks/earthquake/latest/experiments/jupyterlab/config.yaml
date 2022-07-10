@@ -26,10 +26,10 @@ attributes:
     branch: 'main'
 
   system:
-    python: "3.10.2"
-    num_cpus: 6
+    python: "3.10.5"
+    num_cpus: 1
     partition: "gpu"
-    host: "rivanna"
+    host: "ubuntu"
 
   time: "3-0"
   set_soft_device_placement: False
