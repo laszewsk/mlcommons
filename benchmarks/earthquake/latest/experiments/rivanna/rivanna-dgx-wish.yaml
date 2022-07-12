@@ -1,42 +1,35 @@
-name: earthquake-shm
+name: earthquake-dgx
 mode: h
-dir: shm
-
-card_name: "rtx3090"
-gpu_count: 1
-cpu_num: 6
-mem: "64GB"
-TFTTransformerepochs: "2"
-
-meta.uuid: 0
-
+dir: dgx
 experiments:
-  card_name: "rtx3090"
+  card_name: 1
   gpu_count: 1
   cpu_num: 6
-  mem: "64GB"
+  mem: "32GB"
+
   ## TFTTransformerepochs = num_epochs
   #
-  # TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
-  TFTTransformerepochs: "2"
+  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-2.ipynb
+attribute:
+  gregor: "gergor does not use this"
+
+script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 revision: latest
 user:
-   account: ds6011-sp22-002
+   account: bii_dsc
 # user.account: ds6011-sp22-002
 run:
-  workdir: .
-  venvpath: NA
-  resourcedir: NA
+  workdir: /localscratch/mlcommons
+  resourcedir: /project/bii_dsc/mlcommons-system
   datadir: data
   branch: 'main'
 
 system:
-  python: "3.10.5"
-  num_cpus: 1
-  partition: "gpu"
-  host: "ubuntu"
+  python: "3.10.2"
+  num_cpus: 6
+  partition: "bii-gpu"
+  host: "rivanna"
 
 time: "3-0"
 set_soft_device_placement: False
