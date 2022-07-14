@@ -15,7 +15,7 @@ dgx: dgx.json
 	$(info Experiments generated)
 
 dgx.json:
-	cms sbatch generate dgx.in.slurm --setup=dgx-config.yaml --name=dgx
+	cms sbatch generate dgx.in.slurm --setup=dgx-config.yaml --noos --name=dgx
 
 run-%: dgx/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_%/nohup.out
 	$(info Experiment launched)

@@ -25,6 +25,13 @@ attributes:
   user:
     account: {USER}
 
+  benchmark:
+    name: mlcommons-science-earthquake
+    organisation: tbd
+    division: tbd
+    status: alpha
+    platform: dgxstation
+
   run:
     workdir: workspace 
     resourcedir: /project/mlcommons-system

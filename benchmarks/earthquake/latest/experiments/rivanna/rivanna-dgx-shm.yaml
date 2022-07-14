@@ -1,38 +1,25 @@
-name: earthquake-project
+name: earthquake-dgx-shm
 mode: h
-dir: project
-
-benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
-  division: BII
-  status: TBD
-  platform: TBD
-
+dir: dgx-shm
 experiments:
-  card_name: "a100"
+  card_name: 1
   gpu_count: 1
   cpu_num: 6
-  mem: "64GB"
+  mem: "32GB"
+
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2"
+  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
   user:
-    account: ds6011-sp22-002
-
-  benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
-    platform: rivanna-2epoch
-
+     account: bii_dsc
+  # user.account: ds6011-sp22-002
   run:
-    workdir: /project/bii_dsc/users
+    workdir: /dev/shm/mlcommons-tmp
+    venvpath: /project/bii_dsc/users
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
@@ -40,8 +27,8 @@ attributes:
   system:
     python: "3.10.2"
     num_cpus: 6
-    partition: "gpu"
-    host: rivanna
+    partition: "bii-gpu"
+    host: "rivanna"
 
   time: "3-0"
   set_soft_device_placement: False

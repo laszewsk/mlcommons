@@ -20,6 +20,13 @@ experiments:
   # TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
   TFTTransformerepochs: "2"
 
+benchmark:
+  name: mlcommons-science-earthquake
+  organisation: tbd
+  division: tbd
+  status: alpha
+  platform: unknown
+
 script: FFFFWNPFEARTHQ_newTFTv29-gregor-2.ipynb
 revision: latest
 user:

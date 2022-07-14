@@ -87,7 +87,7 @@ RUN_USER="$(DETECT_RUN_USER)"
 ## Sets up the base directory for running the experiment from the
 ## previously defined vars.
 RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
-VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${RUN_ID}-${PYTHON_VERSION}
+VENV_PATH={run.venvpath}/${RUN_USER}/venv-${RUN_ID}-${PYTHON_VERSION}
 GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git-${RUN_ID}
 LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}/lockdb-${RUN_ID}
 
@@ -338,9 +338,23 @@ echo "Saving final notebook to ${NB_OUTPUT}"
 cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
    "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
 
-echo "Saving graphical outputs to ${NB_OUTPUT}/images"
-mkdir -p ${NB_OUTPUT}/images
-cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
+echo "Saving outputs to ${NB_OUTPUT}"
+mkdir -p ${NB_OUTPUT}
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
+
+echo "Cleaning up workspace"
+# perform a safe delete; if variables become unset, this will delete ./$USERNAME/./, which should fall
+# through.  This is a safety measure to prevent unbounded deletion errors.
+# Workspace
+rm -rf --preserve-root ${MLCOMMONS_HOME:-.}/${RUN_USER:-$(whoami)}/workspace-${RUN_ID}
+# Venv
+rm -rf --preserve-root {run.venvpath}/${RUN_USER:-$(whoami)}/venv-${RUN_ID}-${PYTHON_VERSION}
+# Git repos
+rm -rf --preserve-root ${MLCOMMONS_HOME:-.}/${RUN_USER:-$(whoami)}/git-${RUN_ID}
+# Lock database
+rm -rf --preserve-root ${MLCOMMONS_HOME:-.}/${RUN_USER:-$(whoami)}/lockdb-${RUN_ID}
+
+echo "Cleanup complete"
 
 echo "Execution Complete"
 exit 0

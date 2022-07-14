@@ -26,6 +26,13 @@ attributes:
   user:
     account: GEN150_bench
 
+  benchmark:
+    name: mlcommons-science-earthquake
+    organisation: tbd
+    division: tbd
+    status: alpha
+    platform: summit
+
   run:
     workdir: output
     resourcedir: output

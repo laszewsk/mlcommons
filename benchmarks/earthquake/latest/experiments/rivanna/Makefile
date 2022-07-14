@@ -19,6 +19,9 @@ localscratch: localscratch.json
 .PHONY: dgx
 dgx: dgx.json
 
+.PHONY: dgx-shm
+dgx-shm: dgx-shm.json
+
 .PHONY: shm
 shm: shm.json
 
@@ -34,6 +37,9 @@ jobs-%.sh: %.json
 	cms sbatch generate rivanna.in.slurm --setup=$< --name=$(basename $@) --noos
 
 dgx.json: rivanna-dgx.yaml
+	cms sbatch generate rivanna-dgx.in.slurm --setup=$< --name=$(basename $@) --noos
+
+dgx-shm.json: rivanna-dgx-shm.yaml
 	cms sbatch generate rivanna-dgx.in.slurm --setup=$< --name=$(basename $@) --noos
 
 

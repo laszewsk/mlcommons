@@ -26,6 +26,13 @@ attributes:
   user:
     account: ds6011-sp22-002
 
+  benchmark:
+    name: mlcommons-science-earthquake
+    organisation: tbd
+    division: tbd
+    status: alpha
+    platform: rivanna-project
+
   run:
     workdir: /project/bii_dsc/users
     venvpath: /project/bii_dsc/users

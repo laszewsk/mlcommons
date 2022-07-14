@@ -17,6 +17,14 @@ attributes:
   user:
      account: ds6011-sp22-002
   # user.account: ds6011-sp22-002
+
+  benchmark:
+    name: mlcommons-science-earthquake
+    organisation: tbd
+    division: tbd
+    status: alpha
+    platform: rivanna-localscratch
+
   run:
     workdir: /localscratch/mlcommons
     venvpath: /localscratch/mlcommons
