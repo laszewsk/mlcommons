@@ -14,26 +14,17 @@ experiments:
 attributes:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
-
-  benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
-    platform: rivanna-dgx
-
   user:
      account: bii_dsc
   # user.account: ds6011-sp22-002
   run:
     workdir: /localscratch/mlcommons
-    venvpath: /localscratch/mlcommons
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
 
   system:
-    python: "3.10.2"
+    python: "3.10.5"
     num_cpus: 6
     partition: "bii-gpu"
     host: "rivanna"

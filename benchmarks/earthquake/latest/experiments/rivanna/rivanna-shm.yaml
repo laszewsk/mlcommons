@@ -17,23 +17,15 @@ attributes:
   user:
      account: ds6011-sp22-002
   # user.account: ds6011-sp22-002
-
-  benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
-    platform: rivanna-shm
-
   run:
     workdir: /dev/shm/mlcommons-tmp
-    venvpath: /project/bii_dsc/users
+    venvpath: /tmp/mlcommons-pip
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
 
   system:
-    python: "3.10.2"
+    python: "3.10.5"
     num_cpus: 6
     partition: "gpu"
     host: "rivanna"
