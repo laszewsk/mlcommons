@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-BASE="/project/ds6011-sp22-002/python/base"
+BASE="/project/bii_dsc/mlcommons-system/python/base"
 
 echo $BASE
 
