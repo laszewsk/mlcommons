@@ -15,7 +15,7 @@ performed by the benchmark can be described as follows:
 4. perform inferencing
 5. measure the time of trainig per epoch and time of a single inference operation
 6. save the time measurements in "log_file" (see stemdlConfig.yaml)
-7. save MLCOmmons logging in "mlperf_logfile" (see stemdlConfig.yaml)\\
+7. save MLCOmmons logging in "mlperf_logfile" (see stemdlConfig.yaml)\
 
 Authors of the code: Junqi Yin (ORNL), Sajal Dash  (ORNL), Aris Tsaris (ORNL), Feiyi Wang (ORNL), Arjun Shankar (ORNL), Juri Papay (STFC)\
 Contact person: Junqi Yin (yinj@ornl.gov), Juri Papay (juri.papay@stfc.ac.uk)
