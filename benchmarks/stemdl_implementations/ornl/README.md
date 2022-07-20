@@ -1,4 +1,4 @@
-This folder contains the original implementation of STEMDL developed at ORNL.
+This folder contains the original implementation of STEMDL developed at ORNL.\
 Authors of the code: Junqi Yin (ORNL), Sajal Dash  (ORNL), Aris Tsaris (ORNL), Feiyi Wang (ORNL), Arjun Shankar (ORNL)\
 Contact person: Junqi Yin (yinj@ornl.gov)
 
