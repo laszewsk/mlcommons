@@ -16,7 +16,7 @@ benchmarks are formed out of problems and data at the population level.
 The high level goal of the problem behind the P3 benchmarks is to
 predict cancer recurrence in patients based on patient related data.
 
-Authors of the code: Hyunseung Yoo (previously at ANL) and Thomas Brettin (ANL)
+Authors of the code: Hyunseung Yoo (previously at ANL) and Thomas Brettin (ANL)\
 Contact person: Murali Emani (memani@anl.gov)
 
 ## Benchmark objectives
