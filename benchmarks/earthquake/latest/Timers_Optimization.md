@@ -85,7 +85,7 @@ data head setup test
 
 **For optimization** data head setup (~1hour), Individually call and read in train, validation and test data. Lots of for loops inside TFTdatasetup class which sets up the data.
 
-**Model starts here!**
+#### **Model starts here!**
 
 **RunTFTCustomVersion A**: Full model is under this timer.
 
