@@ -30,7 +30,7 @@ attributes:
   # user.account: ds6011-sp22-002
   run:
     workdir: /localscratch/mlcommons
-    venvpath: /localscratch/mlcommons
+    venvpath: /tmp/mlcommons/python   
     resourcedir: /project/bii_dsc/mlcommons-system
     datadir: data
     branch: 'main'
