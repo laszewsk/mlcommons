@@ -19,6 +19,15 @@ experiments:
   TFTTransformerepochs: "2"
 
 attributes:
+  benchmark:
+    name: Earthquake
+    user: Gregor von Laszewski
+    e-mail: laszewski@gmail.com
+    organisation: University of Virginia
+    division: BII
+    status: submission
+    platform: summit
+
   email: laszewski@gmail.com
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest

@@ -21,17 +21,19 @@ experiments:
   TFTTransformerepochs: "2"
 
 attributes:
+  benchmark:
+    name: Earthquake
+    user: Gregor von Laszewski
+    e-mail: laszewski@gmail.com
+    organisation: University of Virginia
+    division: BII
+    status: submission
+    platform: rivanna
+
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
   user:
     account: ds6011-sp22-002
-
-  benchmark:
-    name: Gregor von Laszewski
-    organisation:  University of Virginia
-    division: BII
-    status: submission
-    platform: rivanna
 
   run:
     workdir: /project/bii_dsc/users

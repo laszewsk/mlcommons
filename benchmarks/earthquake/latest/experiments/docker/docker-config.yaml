@@ -14,11 +14,13 @@ experiments:
 attributes:
 
   benchmark:
-    name: Gregor von Laszewski
-    organization: University of Virginia
+    name: Earthquake
+    user: Gregor von Laszewski
+    e-mail: laszewski@gmail.com
+    organisation: University of Virginia
     division: BII
-    status: TBD
-    platform: A100-dgx-station
+    status: submission
+    platform: docker-dgx-station
 
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
