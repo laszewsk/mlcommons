@@ -4,7 +4,7 @@ I have put these timers in time order of when they appear. there are some timers
 
 **CELL_READ_DATA**: reading data directory files and putting those into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
 
-**EVAL**: Everything from CELL_READ_DATA. E^0.25 to input properties, plot fault discovery, Normalize those properties. Map locations. Note there are 2 important lists. Properties which includes input and predicted time series. Predictions which are predictions on the time series. Pick input and predicted properties. Create and calculate predictions which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions. Plot prediction arrays. Set up a location validator. (Location validator isn’t currently used? Maybe used in model)
+**EVAL**: Everything from CELL_READ_DATA. E^0.25 to input properties, plot fault discovery, Normalize those properties. Map locations. Note there are 2 important lists. Properties which includes input and predicted time series. Predictions which are predictions on the time series. Pick input and predicted properties. Create and calculate predictions which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions. Plot prediction arrays.
 
 **Data head**: load and split train, validation and test data.
 
