@@ -27,11 +27,11 @@ attributes:
     account: ds6011-sp22-002
 
   benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
-    platform: rivanna-project
+    name: Gregor von Laszewski
+    organisation:  University of Virginia
+    division: BII
+    status: submission
+    platform: rivanna
 
   run:
     workdir: /project/bii_dsc/users

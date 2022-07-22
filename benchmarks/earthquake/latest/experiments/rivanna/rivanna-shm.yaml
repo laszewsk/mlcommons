@@ -12,6 +12,13 @@ experiments:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 attributes:
+  benchmark:
+    name: Gregor von Laszewski
+    organisation: University of Virginia
+    division: BII
+    status: submission
+    platform: rivanna
+
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
   user:

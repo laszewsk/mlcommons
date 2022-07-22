@@ -27,12 +27,11 @@ attributes:
     account: GEN150_bench
 
   benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
+    name: Gregor von Laszewski
+    organisation:  University of Virginia
+    division: BII
+    status: submission
     platform: summit
-
   run:
     workdir: output
     resourcedir: output

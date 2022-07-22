@@ -2,12 +2,7 @@ name: earthquake-project
 mode: h
 dir: dgx
 
-benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
-  division: BII
-  status: TBD
-  platform: A100-dgx-station
+
 
 experiments:
   card_name: "a100"
@@ -19,18 +14,19 @@ experiments:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 attributes:
+
+  benchmark:
+    name: Gregor von Laszewski
+    organization: University of Virginia
+    division: BII
+    status: TBD
+    platform: A100-dgx-station
+
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
 
   user:
     account: {USER}
-
-  benchmark:
-    name: mlcommons-science-earthquake
-    organisation: tbd
-    division: tbd
-    status: alpha
-    platform: dgxstation
 
   run:
     workdir: workspace 

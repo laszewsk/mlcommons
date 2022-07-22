@@ -6,7 +6,7 @@ benchmark:
   name: Gregor von Laszewski
   organization: University of Virginia
   division: BII
-  status: TBD
+  status: submission
   platform: "RTX3090-desktop-nvm"
 
 experiments:

@@ -2,13 +2,6 @@ name: earthquake-project
 mode: h
 dir: project
 
-benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
-  division: BII
-  status: TBD
-  platform: A100-dgx-station
-
 experiments:
   card_name: "a100"
   gpu_count: 1
@@ -19,6 +12,14 @@ experiments:
   TFTTransformerepochs: "2"
 
 attributes:
+
+  benchmark:
+    name: Gregor von Laszewski
+    organization: University of Virginia
+    division: BII
+    status: TBD
+    platform: A100-dgx-station
+
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
 
