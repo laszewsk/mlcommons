@@ -3,11 +3,13 @@ mode: h
 dir: project
 
 benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation:  University of Virginia
   division: BII
-  status: TBD
-  platform: TBD
+  status: submission
+  platform: rivanna
 
 experiments:
   card_name: "a100"

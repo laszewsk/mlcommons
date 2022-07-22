@@ -1,6 +1,16 @@
 name: earthquake-shm
 mode: h
-dir: shm 
+dir: shm
+
+benchmark:
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation:  University of Virginia
+  division: BII
+  status: submission
+  platform: rivanna
+
 experiments:
   card_name: "a100,v100,p100,k80,rtx2080"
   gpu_count: 1
@@ -12,12 +22,6 @@ experiments:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 attributes:
-  benchmark:
-    name: Gregor von Laszewski
-    organisation: University of Virginia
-    division: BII
-    status: submission
-    platform: rivanna
 
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest

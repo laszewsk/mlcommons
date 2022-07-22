@@ -12,7 +12,9 @@ experiments:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 benchmark:
-  name: Gregor von Laszewski
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
   organisation:  University of Virginia
   division: BII
   status: submission

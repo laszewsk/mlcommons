@@ -3,11 +3,13 @@ mode: h
 dir: project
 
 benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation:  University of Virginia
   division: BII
-  status: TBD
-  platform: "summit"
+  status: submission
+  platform: summit
 
 experiments:
   card_name: "v100"
@@ -26,12 +28,6 @@ attributes:
   user:
     account: GEN150_bench
 
-  benchmark:
-    name: Gregor von Laszewski
-    organisation:  University of Virginia
-    division: BII
-    status: submission
-    platform: summit
   run:
     workdir: output
     resourcedir: output

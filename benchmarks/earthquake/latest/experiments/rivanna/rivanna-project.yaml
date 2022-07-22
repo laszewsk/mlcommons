@@ -3,12 +3,13 @@ mode: h
 dir: project
 
 benchmark:
-  name: Gregor von Laszewski
-  organization: University of Virginia
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation:  University of Virginia
   division: BII
-  status: TBD
-  platform: TBD
-  # platform: rivanna-{cardname}
+  status: submission
+  platform: rivanna
 
 experiments:
   card_name: "a100,p100,v100,k80,rtx2080"
@@ -25,13 +26,6 @@ attributes:
 
   user:
     account: ds6011-sp22-002
-
-  benchmark:
-    name: Gregor von Laszewski
-    organisation:  University of Virginia
-    division: BII
-    status: submission
-    platform: rivanna
 
   run:
     workdir: /project/bii_dsc/users
