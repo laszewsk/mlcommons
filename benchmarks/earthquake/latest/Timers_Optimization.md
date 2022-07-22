@@ -65,28 +65,21 @@ Pick input and predicted properties. Create and calculate predictions which sets
 Temporal and Spatial Positional Encoding added to predictions. Plot prediction arrays.
 
 Not included in timers - Lasts 1 minute at most.
-
-Convert FFFFWNPF to TFT
-
-TFT Setup (initialize a bunch of parameters)
-
-Setup Classic TFT (initialize more parameters)
+- Convert FFFFWNPF to TFT
+- TFT Setup (initialize a bunch of parameters)
+- Setup Classic TFT (initialize more parameters)
 
 data head
-
-Loading and splitting data
+- Loading and splitting data
 
 data head setup train
-
-Samples data to create train data
+- Samples data to create train data
 
 data head setup valid
-
-Samples data to create valid data
+- Samples data to create valid data
 
 data head setup test
-
-Samples data to create test data
+- Samples data to create test data
 
 **Data head**: load and split train, validation and test data.
 
@@ -99,8 +92,7 @@ Samples data to create test data
 alll RunTFTCustomVersion timers are under this. Full model is under this timer.
 
 RunTFTCustomVersion init
-
-Initialize various flags and variables
+- Initialize various flags and variables
 
 RunTFTCustomVersion train
 - Initialize progress bars
@@ -120,20 +112,17 @@ RunTFTCustomVersion bestfit
 **RunTFTCustomVersion bestfit**: takes best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
 
 RunTFTCustomVersion bestfit finalize TFTTestpredict (hour long processing, can be looked at for improvement. check function TFTTestpredict)
-
-Computes predictions for TFT dataset and returns formatted dataframes for prediction.
+- Computes predictions for TFT dataset and returns formatted dataframes for prediction.
 
 **For optimization**. I think the 2 for loops are the slow down. At least one of them is embarrassingly parallel.
 
 **TFTTestpredict**: Computes predictions for TFT dataset and returns formatted dataframes for prediction.
 
 RunTFTCustomVersion bestfit finalize VisualizeTFT
-
-includes every timer under RunTFTCustomVersion bestfit finalize VisualizeTFT ...
+- includes every timer under RunTFTCustomVersion bestfit finalize VisualizeTFT ...
 
 RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping (1 hour long processing, look for parallelization, check class TFTSaveandInterpret function setFFFFmapping)
-
-Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets a index and mapping for these values in TFTSaveandInterpret class.
+- Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets a index and mapping for these values in TFTSaveandInterpret class.
 
 **for optimization**. there are alot of nested for loops.
 
