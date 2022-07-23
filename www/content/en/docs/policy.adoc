@@ -1,10 +1,9 @@
 :toc:
-:toclevels: 4
+:toclevels: 5
 
 :sectnums:
 
 = Science Benchmark Policy: MLCommons® Science Benchmark Suite Rules
-
 
 
 * https://github.com/laszewsk/mlcommons/edit/main/www/content/en/docs/science_policy.adoc
@@ -134,15 +133,19 @@ preprocessing and allowance for reformatting.
 
 === Hyperparameters and Optimizer
 
-CLOSED:
+==== OPEN
+
+Hyperparameters and optimizers may be freely changed.
+
+==== CLOSED
 
 Allowed hyperparameter and optimizer settings are specified here. For
 anything not explicitly mentioned here, submissions must match the
 behavior and settings of the reference implementations.
 
-In order to simplify the complex setup for scientific benchmarks 
+In order to simplify the complex setup for scientific benchmarks,
 we require that all parameters are included in the config file when available.
-We recommend a yaml format for config file.
+We recommend a YAML format for the config file.
 
 
 
@@ -155,11 +158,11 @@ We recommend a yaml format for config file.
 | Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
 | Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model |
 | Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
-| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting |https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
-| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
-| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate: the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting |https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if the learning rate is too small. In general, a variable learning rate is best. start larger and decrease as you see fewer returns or as your solution converges. | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for Keras, a way to prevent overfit or various metric decreases | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
 |===
- 
+
 === Hyperparameters and Optimizer CloudMask
 
 |===
@@ -170,12 +173,9 @@ We recommend a yaml format for config file.
 | CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
 | CloudMask | PATCH_SIZE| `value = 256` | Size of image patches | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
 | CloudMask | seed| `value = 1234` | Random seed | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
-|=== 
+|===
 
 === Hyperparameters and Optimizer STEMDL Classification
-
-WARNING: TBD. Next values will all be replaced with application
-specific values. 
 
 |===
 | Model | Name | Constraint | Definition | Reference Configuration
@@ -186,9 +186,6 @@ specific values.
 
 === Hyperparameters and Optimizer CANDLE UNO
 
-WARNING: TBD. Next values will all be replaced with application
-specific values. Are the input parameters for UNO in config file?
-
 |===
 | Model | Name | Constraint | Definition | Reference Configuration
 | CANDLE UNO | num_epochs| `value > 0` |  Number of epochs |
@@ -197,7 +194,6 @@ specific values. Are the input parameters for UNO in config file?
 |===
 
 
-OPEN: Hyperparameters and optimizer may be freely changed.
 
 == Run Results
 
@@ -213,7 +209,7 @@ reference. The same rules apply here.
 
 === Weak Scaling (Throughput)
 
-At this time we are not considering weak scaling. 
+At this time we are not considering weak scaling.
 
 == Benchmark Results
 
@@ -227,7 +223,7 @@ of runs for metric 1 and 2.
 
 The numbers given below reflect the minimum number of repetitive runs
 required to produce repeatable metrics.
-In case of the Earthuake benchmark we have reduced the number of runs to 1 for metric 1, as the runs take a long time (between 5 - 12h on NVidia GPUs).
+In case of the Earthquake benchmark, we have reduced the number of runs to 1 for metric 1, as the runs take a long time (between 5 - 12h on NVidia GPUs).
 
 |===
 | |Number of Runs |Number of Runs |Number of Runs
@@ -240,7 +236,7 @@ In case of the Earthuake benchmark we have reduced the number of runs to 1 for m
 
 == Identifying Information
 
-To identify a benchmark user must add the following information at the beginning of the submisison (We use here an example for the Earthuake Benchmark:
+To identify a benchmark user must add the following information at the beginning of the submission (We use here an example for the Earthquake Benchmark:
 
   name: Earthquake
   user: Gregor von Laszewski
@@ -258,11 +254,11 @@ This can easily be achieved through a configuration file and inclusion into the 
 
 We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for the contribution workflow
 
-1. The initial benchmark is hosted on a group accessible GitHub repository, where memberes have full access rights. This may be different repositories. Currently, we have one repository at https://github.com/laszewsk/mlcommons[[10]].
+1. The initial benchmark is hosted on a group accessible GitHub repository, where members have full access rights. These may be different repositories. Currently, we have one repository at https://github.com/laszewsk/mlcommons[[10]].
 2. New version will first be made available in that group repository while using branching.
 3. A new candidate version is created and merged into main.
-4. The candidate version is internally tested by the group members to evaluate expected behaviour.
-5. Once passsed, the code is uploaded to the  https://github.com/mlcommons/science[MLCommons® Science GitHub Repository [9]].
+4. The candidate version is internally tested by the group members to evaluate expected behavior.
+5. Once passed, the code is uploaded to the  https://github.com/mlcommons/science[MLCommons® Science GitHub Repository [9]].
 6. Announcements are made to solicit submissions.
 7. Submissions are checked and integrated according to the MLCommons® rules and policies.
 
@@ -279,7 +275,7 @@ The links to the current development repositories are as follows:
 
 == Logging Libraries
 
-Augmentation of codes for consideration into the inclusion of the science benchmarks, must use the
+Augmentation of codes for consideration into the inclusion of the science benchmarks must use the
 
 * https://github.com/mlcommons/logging[MLCommons® Logging Library]
 
@@ -288,7 +284,7 @@ An alternative library that internally produces MLCommons® events for logging  
 * https://github.com/cloudmesh/cloudmesh-common/blob/main/cloudmesh/common/StopWatch.py[StopWatch] from https://github.com/cloudmesh/cloudmesh-common[cloudmesh-common]
 * https://github.com/cloudmesh/cloudmesh-common/blob/main/README-mlcommons.md[Quickstart for using Cloudmesh StopWatch for MLcommons]
 
-This library has the advantage of generating human readable summary table in addition to the mlcommons log events.
+This library has the advantage of generating a human-readable summary table in addition to the MLCommons® log events.
 
 
 [bibliography]
