@@ -3,29 +3,48 @@
 
 :sectnums:
 
-= Science Benchmark Policy Draft: MLCommons Science Benchmark Suite Rules
+= Science Benchmark Policy: MLCommons Science Benchmark Suite Rules
 
-Under development. 
+
+
 * https://github.com/laszewsk/mlcommons/edit/main/www/content/en/docs/science_policy.adoc
-* Future location
-* https://github.com/mlcommons/science/blob/master/science_policy.adoc
-
-The Policy draft document
 
 :sectnums:
 
 
-Version 0.3 
-May 4, 2022
+Version 0.4
+July 23, 2022
 
-Points of contact: Gregor von Laszewski(laszewski@gmail.com), Juri Papay (juripapay@hotmail.com)
+Points of contact:
 
-Supporting documents
+* Geoffrey Fox(gcfexchange@gmail.com)
+* Tony Hey (Tony.Hey@stfc.ac.uk)
+* Gregor von Laszewski(laszewski@gmail.com)
+* Juri Papay (juripapay@hotmail.com)
 
-We included here a list of supporting documents that will be removed
-in the final version, but could be helping in shaping this draft:
+Refernces
 
-* https://docs.google.com/presentation/d/1xo_M3dEV1BS7OcXjvjyOUOLkHh8WyHuawqj1OR2iJw4/edit#slide=id.g10e8f04304c_1_73[Presentation]
+We included here a list of supporting documents
+
+* https://docs.google.com/presentation/d/1xo_M3dEV1BS7OcXjvjyOUOLkHh8WyHuawqj1OR2iJw4/edit#slide=id.g10e8f04304c_1_73[Ovrrview presentation of the MLScience Group] Gregg Barrett,
+Wahid Bhimji,
+Bala Desinghu,
+Murali Emani,
+Geoffrey Fox,
+Grigori Fursin,
+Tony Hey,
+David Kanter,
+Christine Kirkpatrick,Hai Ah Nam,
+Juri Papay,
+Amit  Ruhela,
+Mallikarjun Shankar,
+Jeyan Thiyagalingam
+Aristeidis Tsaris,
+Gregor von Laszewski,
+Feiyi Wang,
+Junqi Yin
+, MLCommons Community Meeting, December 9 2021
+
 * https://docs.google.com/document/d/1WwcS0gjVoz5Bf0G05xKIgoh2WEBxmNQM8VmkHNP67ag/edit[Benchmarks] Is this the correct link?
 
 == Overview
