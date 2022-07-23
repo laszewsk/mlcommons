@@ -12,10 +12,10 @@ submit: all
 summit: summit.json
 
 jobs-%.sh: %.json
-	cms sbatch generate submit --name=$< > $@
+	cms sbatch generate submit --name=$< --type=lsf > $@
 
 %.json: summit-config.yaml
-	cms sbatch generate summit.in.lsf --setup=$< --name=$(basename $@) --noos
+	cms sbatch generate summit.in.lsf --config=$< --name=$(basename $@) --noos
 
 .PHONY: stop
 stop:
