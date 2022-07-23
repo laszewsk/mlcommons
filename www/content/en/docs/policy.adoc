@@ -75,8 +75,6 @@ acceptable.
 The benchmark suite consists of the benchmarks shown in the following
 table.
 
-WARNING: change the table, add Geoffrey's paper (Gregor), CloudMask, Juri - talk to Murali. What is the scientific metrics, convergence target (loss value).
-
 |===
 |Problem |Dataset |Quality Target
 | Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`, Details can be found in [3].
@@ -97,15 +95,6 @@ training method as the reference implementation.
 
 The closed division models are:
 
-Internal Repository
-
-|===
-|Problem |Model
-|EarthQuake  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest
-|CloudMask | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/cloudmask
-|STEMDL  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/stemdl
-|CANDLE UNO  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
-|===
 
 Future MLCommons® Repository
 
@@ -132,17 +121,12 @@ shared among users at the facility. Any staging to node-local disk or
 memory or system burst buffer should be included in the benchmark time
 measurement.
 
-NOTE: discuss parallel. some scence benchmarks may not be parallel,
-
 You must flush/reset the on-node caches prior to running each instance
 of the benchmark. Due to practicality issues, you are not required to
 reset off-node system-level caches.
 
-NOTE: discuss what exactly an on node cache is ... is this an
-application on node cache or something else.
-
 We otherwise follow the training rule
-xref:training_rules.adoc#data-state-at-start-of-run[Data State at
+https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#6-data-set[Data State at
 Start of Run] on consistency with the reference implementation
 preprocessing and allowance for reformatting.
 
@@ -157,33 +141,35 @@ anything not explicitly mentioned here, submissions must match the
 behavior and settings of the reference implementations.
 
 In order to simplify the complex setup for scientific benchmarks 
-we require that all parameters are included in the config file. 
+we require that all parameters are included in the config file when available.
 We recommend a yaml format for config file.
+
+
 
 === Hyperparameters and Optimizer Earth Quake Prediction
 
 |===
-| Model | Name | Constraint | Definition | Reference Code 
-| Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | config 
-| Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | config 
-| Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | config
-| Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model | config 
-| Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | config 
-| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting | config 
-| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | config 
-| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | config 
+| Model | Name | Constraint | Definition | Reference Configuration
+| Earthquake | TFTTransformerepochs| `0 < value` | num_epochs | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | TFTTransformerbatch_size | `0 < value`, example: `64` | batch size to split training data into batches used to calculate model error and update model coefficients | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | TFTTransformertestvalbatch_size | `max(128,TFTTransformerbatch_size)` | this is a range between min and max for batch size | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | TFTd_model | `0 < value`. Example: `160` | number of hidden layers in model |
+| Earthquake | Tseq | `0 < value`. Example `26` | num of encoder steps. The size of sequence window, number of days included in that section of data | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake |  TFTdropout_rate | `9.9 < value`. Example: `0.1`  | dropout rate : the dropout rate when training models to randomly drop nodes from a neural network to prevent overfitting |https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | learning_rate | `0.0 < value`. Example: `0.0000005` | how quickly the model adapts to the problem, larger means faster convergence but less optimal solutions, slower means slower convergence but more optimal solutions potentially fail if learning rate it too small.in general a variable learning rate is best. start larger and decrease as you see less returns or as your solution converges. | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
+| Earthquake | early_stopping_patience | `0 < value`. Example: `60` |  Early stopping param for keras, a way to prevent overfit or various metric decreases | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest/experiments[config], https://github.com/laszewsk/mlcommons/blob/main/benchmarks/earthquake/latest/experiments/rivanna/rivanna-shm.yaml[UVA]
 |===
  
 === Hyperparameters and Optimizer CloudMask
 
 |===
-|Model |Name |Constraint |Definition |Reference Code
-| CloudMask | epochs| `value > 0` | Number of epochs | config 
-| CloudMask | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
-| CloudMask | batch_size| `value > 0`. Example: `32` | Batch size | config 
-| CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | config 
-| CloudMask | PATCH_SIZE| `value = 256` | Size of image patches | config
-| CloudMask | seed| `value = 1234` | Random seed | config
+|Model |Name |Constraint |Definition |Reference Configuration
+| CloudMask | epochs| `value > 0` | Number of epochs | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
+| CloudMask | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
+| CloudMask | batch_size| `value > 0`. Example: `32` | Batch size | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
+| CloudMask | MIN_SST| `value > 273.15` | Min allowable Sea Surface Temperature | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
+| CloudMask | PATCH_SIZE| `value = 256` | Size of image patches | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
+| CloudMask | seed| `value = 1234` | Random seed | https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/cloudMaskConfig.yaml[config]
 |=== 
 
 === Hyperparameters and Optimizer STEMDL Classification
@@ -192,10 +178,10 @@ WARNING: TBD. Next values will all be replaced with application
 specific values. 
 
 |===
-| Model | Name | Constraint | Definition | Reference Code 
-| STEMDL | num_epochs| `value > 0` | Number of epochs | config 
-| STEMDL | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
-| STEMDL | batch_size| `value > 0`.Example: `32` | Batch size | config
+| Model | Name | Constraint | Definition | Reference Configuration
+| STEMDL | num_epochs| `value > 0` | Number of epochs | https://github.com/mlcommons/science/blob/main/benchmarks/stemdl/stfc/stemdlConfig.yaml[config]
+| STEMDL | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | https://github.com/mlcommons/science/blob/main/benchmarks/stemdl/stfc/stemdlConfig.yaml[config]
+| STEMDL | batch_size| `value > 0`.Example: `32` | Batch size | https://github.com/mlcommons/science/blob/main/benchmarks/stemdl/stfc/stemdlConfig.yaml[config]
 |===
 
 === Hyperparameters and Optimizer CANDLE UNO
@@ -204,10 +190,10 @@ WARNING: TBD. Next values will all be replaced with application
 specific values. Are the input parameters for UNO in config file?
 
 |===
-| Model | Name | Constraint | Definition | Reference Code 
-| CANDLE UNO | num_epochs| `value > 0` |  Number of epochs | config 
-| CANDLE UNO | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate | config 
-| CANDLE UNO | batch_size| `value > 0`.Example: `32` | Batch size | config
+| Model | Name | Constraint | Definition | Reference Configuration
+| CANDLE UNO | num_epochs| `value > 0` |  Number of epochs |
+| CANDLE UNO | learning_rate| `value > 0.0`. Example: `0.001` | Learning rate |
+| CANDLE UNO | batch_size| `value > 0`.Example: `32` | Batch size |
 |===
 
 
@@ -222,7 +208,7 @@ submission whereas metric 2 is considered optional:
 === Strong Scaling (Time to Convergence)
 
 This is a *mandatory* metric: see MLPerf Training
-xref:training_rules.adoc#section-run-results[Run Results] for
+https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#section-run-results[Run Results] for
 reference. The same rules apply here.
 
 === Weak Scaling (Throughput)
@@ -252,6 +238,22 @@ In case of the Earthuake benchmark we have reduced the number of runs to 1 for m
 |CANDLE UNO | 5 | 5 | >=5
 |===
 
+== Identifying Information
+
+To identify a benchmark user must add the following information at the beginning of the submisison (We use here an example for the Earthuake Benchmark:
+
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation:  University of Virginia
+  division: BII
+  status: submission
+  platform: rivanna shared memory
+
+This can easily be achieved through a configuration file and inclusion into the benchmark with the mlcommons logging library.
+
+
+
 == Contributing
 
 We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for the contribution workflow
@@ -264,12 +266,37 @@ We expect that over time additional benchmarks will be contributed. At this time
 6. Announcements are made to solicit submissions.
 7. Submissions are checked and integrated according to the MLCommons® rules and policies.
 
+The links to the current development repositories are as follows:
+
+
+|===
+|Problem | MLCommons® Repository | Development Repository
+| EarthQuake  | https://github.com/mlcommons/science/tree/main/benchmarks/earthquake[link] | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake/latest[link]
+| CloudMask | https://github.com/mlcommons/science/tree/main/benchmarks/cloudmask[link] | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/cloudmask[link]
+| STEMDL  | https://github.com/mlcommons/science/tree/main/benchmarks/stemdl[link] | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/stemdl[link]
+| CANDLE UNO | https://github.com/mlcommons/science/tree/main/benchmarks/uno[link] | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno[link]
+|===
+
+== Logging Libraries
+
+Augmentation of codes for consideration into the inclusion of the science benchmarks, must use the
+
+* https://github.com/mlcommons/logging[MLCommons® Logging Library]
+
+An alternative library that internally produces MLCommons® events for logging  is the
+
+* https://github.com/cloudmesh/cloudmesh-common/blob/main/cloudmesh/common/StopWatch.py[StopWatch] from https://github.com/cloudmesh/cloudmesh-common[cloudmesh-common]
+* https://github.com/cloudmesh/cloudmesh-common/blob/main/README-mlcommons.md[Quickstart for using Cloudmesh StopWatch for MLcommons]
+
+This library has the advantage of generating human readable summary table in addition to the mlcommons log events.
+
+
 [bibliography]
 == References
 
 We included here a list of supporting and related documents
 
-* [1] https://github.com/laszewsk/mlcommons/raw/main/pub/Science-WG-of-MLCommons-presentation.pdf[Overview presentation of the MLScience Group]  Barrett,
+* [1] https://github.com/laszewsk/mlcommons/raw/main/pub/Science-WG-of-MLCommons®-presentation.pdf[Overview presentation of the MLScience Group]  Barrett,
 Wahid Bhimji,
 Bala Desinghu,
 Murali Emani,
@@ -311,4 +338,4 @@ Learning], Fox, G., Rundle, J., Donnellan, A., Feng, B., Geohazards 3(2), 199, A
 
 * [9] https://github.com/mlcommons/science[MLCommons® Science GitHub Repository]
 
-* [10] https://github.com/laszewsk/mlcommons[Science Development GitHub Repository to prepare release candidates for the MLCommons repository]
+* [10] https://github.com/laszewsk/mlcommons[Science Development GitHub Repository to prepare release candidates for the MLCommons® repository]
