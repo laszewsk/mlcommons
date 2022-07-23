@@ -116,6 +116,20 @@ We recommend a YAML format for the config file.
 ==== Open Division
 
 Hyperparameters and optimizers may be freely changed.
+For Science benchmarks this is the most important division as the goal is to improve the science and identify algorithms that optimize the science. For this reason any algorithm and hyper paerameter specification for that algorithm is allowed.
+
+As this may inlude new algorithms we like to collect them as discussed in the *Contribution* section.
+
+When specifying new algorithms, please provide us with the set of the hyperparametes as defined by the examples given in this document.
+
+Algorithms in the Open Division must be properly documented and archived in a GitHub repository with a tagged version so they can easily be reproduced. To be fully included the code must be archived in the official MLCommons Science GitHub repository.
+
+As the algorithms provided here can also be used in the open division we place the same rules on them as other algorithms.
+
+Most importantly the scientific accuracy must be measured in some fashion so that alternative implementations and hyperparameter choices can be comparted with each other. Each science application can define a set of
+comparative measures.
+
+Algorithms that are not open source do not qualify for the science benchamrks as reproducability and review is limited.
 
 == Data Set
 
