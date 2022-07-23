@@ -94,7 +94,6 @@ training method as the reference implementation.
 
 The closed division models are:
 
-
 Future MLCommons® Repository
 
 |===
@@ -105,6 +104,18 @@ Future MLCommons® Repository
 |CANDLE UNO  | https://github.com/mlcommons/science/
 |===
 
+Allowed hyperparameter and optimizer settings are specified in the section *Hyperparameters and Optimizer*. For
+anything not explicitly mentioned there, submissions must match the
+behavior and settings of the reference implementations.
+
+In order to simplify the complex setup for scientific benchmarks,
+we recommend that all parameters are included in the config file when available.
+We recommend a YAML format for the config file.
+
+
+==== Open Division
+
+Hyperparameters and optimizers may be freely changed.
 
 == Data Set
 
@@ -132,22 +143,6 @@ preprocessing and allowance for reformatting.
 == Training Loop
 
 === Hyperparameters and Optimizer
-
-==== OPEN
-
-Hyperparameters and optimizers may be freely changed.
-
-==== CLOSED
-
-Allowed hyperparameter and optimizer settings are specified here. For
-anything not explicitly mentioned here, submissions must match the
-behavior and settings of the reference implementations.
-
-In order to simplify the complex setup for scientific benchmarks,
-we require that all parameters are included in the config file when available.
-We recommend a YAML format for the config file.
-
-
 
 === Hyperparameters and Optimizer Earth Quake Prediction
 
@@ -203,9 +198,8 @@ submission whereas metric 2 is considered optional:
 
 === Strong Scaling (Time to Convergence)
 
-This is a *mandatory* metric: see MLPerf Training
-https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#section-run-results[Run Results] for
-reference. The same rules apply here.
+This is a *mandatory* metric (see MLPerf Training
+https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#section-run-results[Run Results]). The same rules apply here.
 
 === Weak Scaling (Throughput)
 
