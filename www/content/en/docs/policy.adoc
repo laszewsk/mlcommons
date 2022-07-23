@@ -3,7 +3,7 @@
 
 :sectnums:
 
-= Science Benchmark Policy: MLCommons Science Benchmark Suite Rules
+= Science Benchmark Policy: MLCommons® Science Benchmark Suite Rules
 
 
 
@@ -22,50 +22,51 @@ Points of contact:
 * Gregor von Laszewski(laszewski@gmail.com)
 * Juri Papay (juripapay@hotmail.com)
 
-Refernces
-
-We included here a list of supporting documents
-
-* https://docs.google.com/presentation/d/1xo_M3dEV1BS7OcXjvjyOUOLkHh8WyHuawqj1OR2iJw4/edit#slide=id.g10e8f04304c_1_73[Ovrrview presentation of the MLScience Group] Gregg Barrett,
-Wahid Bhimji,
-Bala Desinghu,
-Murali Emani,
-Geoffrey Fox,
-Grigori Fursin,
-Tony Hey,
-David Kanter,
-Christine Kirkpatrick,Hai Ah Nam,
-Juri Papay,
-Amit  Ruhela,
-Mallikarjun Shankar,
-Jeyan Thiyagalingam
-Aristeidis Tsaris,
-Gregor von Laszewski,
-Feiyi Wang,
-Junqi Yin
-, MLCommons Community Meeting, December 9 2021
-
-* https://docs.google.com/document/d/1WwcS0gjVoz5Bf0G05xKIgoh2WEBxmNQM8VmkHNP67ag/edit[Benchmarks] Is this the correct link?
 
 == Overview
 
-The Science WG will have training and inference benchmarks. Here we specify the rules for training submissions (the first 4 benchmarks are training but we expect inference benchmarks in the next round)
+The Science WG will have training and inference benchmarks. Here we
+specify the rules for training submissions.
 
-The Science WG will have Closed and Open divisions and submissions to these divisions must be separate although the same  activity could qualify for both. The Open division is expected to be the primary focus.
+The Science WG will have Closed and Open divisions and submissions to
+these divisions must be separate although the same activity could
+qualify for both. The Open division is expected to be the primary
+focus.
 
-A Closed division submission should report system performance as the result and give the logging information outlined in MLPerf HPC Rules. The stopping criterion will be the value of loss specified in the benchmark. Power measurements may also be supplied.
+A Closed division submission should report system performance as the
+result and give the logging information outlined in MLPerf HPC
+Rules. The stopping criterion will be the value of loss specified in
+the benchmark. Power measurements may also be supplied.
 
-An Open division submission aims to improve scientific discovery from the dataset specified in the benchmark which will specify one or more scientific measurements to be calculated in the submission. The result will be the value of these specified measurements from the submitted model. This model can be based on the supplied reference model or totally distinct. Data augmentation is allowed and all hyperparameters can be changed in the reference model if used. The result should be a GitHub (markdown) document starting with a table listing Measurement name, Reference model value, Submitted model value. For benchmarks with more than one measurement, an average difference between submitted and reference measurements should be given. Power and performance values are optional but encouraged in the results document. The result document should give enough details on the submitted model and any data augmentation that the review team can evaluate its scientific soundness. Citations should be included to describe the scientific basis of the approach. Other rules for the Open division are as described in MLCommons Training Rules (HPC has no special rules for the Open division).
+An Open division submission aims to improve scientific discovery from
+the dataset specified in the benchmark which will specify one or more
+scientific measurements to be calculated in the submission. The result
+will be the value of these specified measurements from the submitted
+model. This model can be based on the supplied reference model or
+distinct. Data augmentation is allowed and all hyperparameters
+can be changed in the reference model if used. The result should be a
+GitHub (markdown) document starting with a table listing *Measurement
+name*, *Reference model value*, *Submitted model value*. For benchmarks
+with more than one measurement, an average difference between submitted
+and reference measurements should be given. Power and
+performance values are optional but encouraged in the results
+document. The resulting document should give enough details on the
+submitted model and any data augmentation so that the review team can
+evaluate its scientific soundness. Citations should be included to
+describe the scientific basis of the approach. Other rules for the
+Open division are as described in MLCommons® Training Rules (HPC has
+no special rules for the Open division).
+
 
 
 All rules are taken from the
 https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc[MLPerf
 Training Rules] except for those that are overridden here.
 
-The MLPerf and https://mlcommons.org[MLCommons] name and logo are
+The MLPerf and https://mlcommons.org[MLCommons®] name and logo are
 trademarks. In order to refer to a result using the MLPerf and
-MLCommons name, the result must conform to the letter and spirit of
-the rules specified in this document. The MLCommons organization
+MLCommons® name, the result must conform to the letter and spirit of
+the rules specified in this document. The MLCommons® organization
 reserves the right to solely determine if a use of its name or logo is
 acceptable.
 
@@ -78,9 +79,9 @@ WARNING: change the table, add Geoffrey's paper (Gregor), CloudMask, Juri - talk
 
 |===
 |Problem |Dataset |Quality Target
-| Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`
+| Earthquake Prediction |Earthquake data from USGS. | Normalized Nash–Sutcliffe model efficiency (NNSE), `0.8<NNSE<0.99`, Details can be found in [3].
 | CloudMask | Multispectral image data from Sea and Land Surface Temperature Radiometer (SLSTR) instrument. | convergence target `0.9`
-| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | The scientific metric for this problem is the top1 classification accuracy and F1-score (the higher the better). The main challenge is to predict 3D geometry from its 3 projections (2D images). Information about the best accuracy so far for this dataset can be found here: https://link.springer.com/chapter/10.1007/978-3-030-63393-6_30
+| STEMDL Classification | Convergent Beam Electron Diffraction (CBED) patterns. | The scientific metric for this problem is the top1 classification accuracy and F1-score (the higher the better). The main challenge is to predict 3D geometry from its 3 projections (2D images). Information about the best accuracy so far for this dataset can be found in [4]
 | UNO |Molecular features of tumor cells across multiple data sources. | Score: `0.0054`
 |===
 
@@ -106,7 +107,7 @@ Internal Repository
 |CANDLE UNO  | https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
 |===
 
-Future MLCommons Repository
+Future MLCommons® Repository
 
 |===
 |Problem |Model
@@ -214,7 +215,7 @@ OPEN: Hyperparameters and optimizer may be freely changed.
 
 == Run Results
 
-MLCommon Science Benchmark Suite submissions consist of the following
+MLCommon® Science Benchmark Suite submissions consist of the following
 two metrics: metrics 1 is considered mandatory for a complete
 submission whereas metric 2 is considered optional:
 
@@ -231,19 +232,83 @@ At this time we are not considering weak scaling.
 == Benchmark Results
 
 We follow MLPerf Training
-xref:training_rules.adoc#benchmark-results[Benchmark Results] rule
+Benchmark Results rule
 along with the following required number of runs per benchmark.  Note
 that since run-to-run variability is already captured by spatial
 multiplexing in case of metric 3, we use the adjusted requirement that
 the number of trained instances has to be at least equal to the number
 of runs for metric 1 and 2.
 
-The numbers given below reflect the minimum number of repetitive runs required to produce repeatable metrics.
+The numbers given below reflect the minimum number of repetitive runs
+required to produce repeatable metrics.
+In case of the Earthuake benchmark we have reduced the number of runs to 1 for metric 1, as the runs take a long time (between 5 - 12h on NVidia GPUs).
 
 |===
-|Benchmark |Number of Runs (Metric 1, 2) | M' (Metric 3)
-|Earthquake | 5 | >=5
-|CloudMask | 10 | >=10
-|STEMDL Classification | 5 | >=5
-|CANDLE UNO | 5 | >=5
+| |Number of Runs |Number of Runs |Number of Runs
+|Benchmark | Metric 1 |  Metric 2 | Metric 3
+|Earthquake | 1 | 5 | >=5
+|CloudMask | 10 | 10 | >=10
+|STEMDL Classification | 5 | 5 | >=5
+|CANDLE UNO | 5 | 5 | >=5
 |===
+
+== Contributing
+
+We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for the contribution workflow
+
+1. The initial benchmark is hosted on a group accessible GitHub repository, where memberes have full access rights. This may be different repositories. Currently, we have one repository at https://github.com/laszewsk/mlcommons[[10]].
+2. New version will first be made available in that group repository while using branching.
+3. A new candidate version is created and merged into main.
+4. The candidate version is internally tested by the group members to evaluate expected behaviour.
+5. Once passsed, the code is uploaded to the  https://github.com/mlcommons/science[MLCommons® Science GitHub Repository [9]].
+6. Announcements are made to solicit submissions.
+7. Submissions are checked and integrated according to the MLCommons® rules and policies.
+
+[bibliography]
+== References
+
+We included here a list of supporting and related documents
+
+* [1] https://github.com/laszewsk/mlcommons/raw/main/pub/Science-WG-of-MLCommons-presentation.pdf[Overview presentation of the MLScience Group]  Barrett,
+Wahid Bhimji,
+Bala Desinghu,
+Murali Emani,
+Geoffrey Fox,
+Grigori Fursin,
+Tony Hey,
+David Kanter,
+Christine Kirkpatrick,Hai Ah Nam,
+Juri Papay,
+Amit  Ruhela,
+Mallikarjun Shankar,
+Jeyan Thiyagalingam
+Aristeidis Tsaris,
+Gregor von Laszewski,
+Feiyi Wang,
+Junqi Yin
+, MLCommons® Community Meeting, (also available in
+https://docs.google.com/presentation/d/1xo_M3dEV1BS7OcXjvjyOUOLkHh8WyHuawqj1OR2iJw4/edit#slide=id.g10e8f04304c_1_73[Google docs]), December 9 2021.
+
+* [2] https://github.com/laszewsk/mlcommons/raw/main/pub/mlcommons_science_wg_paper_2022.pdf[AI Benchmarking for Science: Efforts from the
+MLCommons® Science Working Group], Jeyan Thiyagalingam, Gregor von Laszewski, Junqi Yin, Murali Emani,
+Juri Papay, Gregg Barrett, Piotr Luszczek, Aristeidis Tsaris,
+Christine Kirkpatrick, Feiyi Wang, Tom Gibbs, Venkatram Vishwanath,
+Mallikarjun Shankar, Geoffrey Fox, Tony Hey, June 2022
+
+* [3] https://mdpi-res.com/d_attachment/geohazards/geohazards-03-00011/article_deploy/geohazards-03-00011-v2.pdf?version=1650104721[Earthquake Nowcasting with Deep
+Learning], Fox, G., Rundle, J., Donnellan, A., Feng, B., Geohazards 3(2), 199, April 2022
+
+* [4] https://doi.org/10.1007/978-3-030-63393-6_30[Probability Flow for Classifying Crystallographic Space Groups] Pan, J.,  In: Nichols, J., Verastegui, B., Maccabe, A.‘., Hernandez, O., Parete-Koon, S., Ahearn, T. (eds) Driving Scientific and Engineering Discoveries Through the Convergence of HPC, Big Data and AI. SMC 2020. Communications in Computer and Information Science, vol 1315. Springer, Cham., 2022
+
+
+* [5] https://mlcommons.org/en/policies/[MLCommons® Policies]
+
+* [6] https://github.com/mlcommons/training_policies[MLCommons® Training policies]
+
+* [7] https://github.com/mlcommons/inference_policies[MLCommons® Interference Policies]
+
+* [8] https://github.com/mlcommons/policies[MLCommons® submission Rules for training and inference]
+
+* [9] https://github.com/mlcommons/science[MLCommons® Science GitHub Repository]
+
+* [10] https://github.com/laszewsk/mlcommons[Science Development GitHub Repository to prepare release candidates for the MLCommons repository]
