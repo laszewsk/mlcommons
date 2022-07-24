@@ -113,7 +113,7 @@ we recommend that all parameters are included in the config file when available.
 We recommend a YAML format for the config file.
 
 
-==== Open Division
+=== Open Division
 
 Hyperparameters and optimizers may be freely changed.
 For Science benchmarks this is the most important division as the goal is to improve the science and identify algorithms that optimize the science. For this reason, any algorithm and hyperpaerameter specification for that algorithm is allowed.
@@ -259,9 +259,9 @@ This can easily be achieved through a configuration file and inclusion into the 
 
 
 
-== Contributing
+== Contributiion
 
-We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for contributing
+We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for contribution:
 
 1. The initial benchmark is hosted on a group accessible GitHub repository, where members have full access rights. These may be different repositories. Currently, we have one repository at https://github.com/laszewsk/mlcommons[[10]].
 2. New version will first be made available in that group repository while using branching.
