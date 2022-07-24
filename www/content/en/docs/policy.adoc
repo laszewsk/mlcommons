@@ -259,7 +259,7 @@ This can easily be achieved through a configuration file and inclusion into the 
 
 
 
-== Contributiion
+== Contribution
 
 We expect that over time additional benchmarks will be contributed. At this time we have adopted the following best practice for contribution:
 
