@@ -35,7 +35,7 @@ https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
 | Fixed
 | Variable
 | Fixed
-| “Science Quality” ~= Accuracy
+| "Science Quality" ~= Accuracy
 | Time, memory, power
 
 | Open
@@ -54,7 +54,6 @@ https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
 | Speed,
 | Accuracy
 | None
-
 |===
 
 
