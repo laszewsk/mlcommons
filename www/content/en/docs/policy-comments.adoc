@@ -1,0 +1,174 @@
+# comments
+
+https://docs.google.com/document/d/1ioE8bs_oQ5yJj1ydgEUsQqIrvwJQt1J0Zic6pgBsoFA/edit#heading=h.7u9useqdwcbg
+
+Peter: comment: put at very beginning on the documents
+our goal is better science accuracy through benchmarks. accuracy is the metric, but we make time a secondary metric for some submissions
+
+comment on what the variability of the dataset is, e.g. can we improve model by providing better data ….
+
+Policy document
+
+https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
+
+|===
+| Division
+| Hardware
+| System
+| Training data
+| Model
+| Test data / method
+| Primary
+|Metric
+| Secondary Metrics (optional)
+
+| Training Closed
+| Anything
+| Fixed
+| Fixed
+| Fixed
+| Speed
+| None
+
+| Closed
+| Fixed chip-years?
+| Fixed
+| Variable
+| Fixed
+| “Science Quality” ~= Accuracy
+| Time, memory, power
+
+| Open
+| Anything
+| Variable
+| Variable
+| Fixed
+| "Science Quality" ~= Accuracyc + Optional user-defined metric
+| Time, memory, power
+
+| Training Open
+| Anything
+| Variable
+| Variable
+| Fixed
+| Speed,
+| Accuracy
+| None
+
+|===
+
+
+Why performance at all? (Consider fixed time and variable accuracy)
+Primary:
+science value (most important)!
+
+
+Secondary:
+space (practice showed that data management in space is super important)
+time
+energy
+they could indirectly showcase how to get a faster pathway to science
+Fixed dataset?
+Yes, we use fixed datasets for open and closed division. This allows us an easier review
+However, the open division also allows open data if the submitter considers data augmentation achieves better science. The ability for us to review the dataset and instructions for replication will need to be supplied by the submitter.
+We also will use unique identifiers for the model and data,
+Investigate if we can leverage DataPerf MLCommons working group studies
+Support clear versioning using GitHub tags
+Add versioning strategy to policy document
+Fixed target accuracy?
+Yes, we consider a fixed target accuracy for the open division. This will also provide a base point for the closed division.
+Relation to HPC
+
+The scientific examples could be used in some cases for HPC evaluation
+HPC working group has a focus on infrastructure and closed division
+Science working group has a focus on science and the open division
+We work together well at this time and attend each other's meetings
+
+
+===
+Hyperparameter scaling?
+
+Suggest: not using full Training closed HP rules – just let people pick things. Might not have any since models change. Require documented them in config.
+
+Gregor notes: config files are just examples …. parameters can be changed
+
+High performance scaling?
+    (answered wrong question hp vs ho high performance vs hyper parameter)
+Closed division projects strong scaling as a point of interest for a submission. We do not intend a weak scaling component in closed division as introduced by HPC working group.
+
+===
+Clarify inference vs. training separation in draft
+
+Just say that “Current benchmarks are all training benchmarks”
+
+If your only metric is accuracy, may not care.
+
+
+Training is the current focus. However, we want to do both in the future.
+We will delineate the issue better in the document.
+In case a new science metric is needed or proposed, it needs to be approved and discussed.
+
+Submission log format
+
+kongtao@google.com emizan@google.com: can supply an “ Training  Open Log format and verifier” and help with debugging.
+
+review once more the standard training submission default format for mlcommons
+review start times and endtimes.
+which should we look at ??????? get a “golden log example”
+open training division
+
+Primary:  submitter and science accuracy (primary). The log format for each benchmark supports this. Each benchmark will propose its own log format.
+
+Optional: log more details during the run in the open division, configurable via parameters
+
+
+For closed division:
+we have an example for each application
+submission will focus on closed submission first
+we will be using default config files as example of how to set things up
+automated checking desired so errors at submission times are minimized
+Submission review process
+
+Desired: automated script for reviewing log file for each benchmark for closed division. The format will be clearly documented in the policy document.
+
+
+Integration with Web page: Ask mlcommons to enable a science upload process through the main mlcommons web page
+We create a private github repo for each submission round
+Submitters upload tarball, verifier checks
+Scripts convert tarballs into to github content
+Each submitter gets a directory, where they can fix issues
+
+Interesting: verifying repeatability?
+How to handle hidden test set?  overfitting while cheating … mistake by accident ….
+
+
+Submission Review: Science group will go through each submission
+
+Calendar: Establish calendar and document in policy document
+
+Science group at this time just uses regular MLcommons logging as sufficient at this time
+HPC group suggests that we evaluate: https://github.com/mlcommons/logging/tree/hpc-1.0-branch to see if we need an enhanced logger
+Submission schedule
+Target: Release benchmarks so submissions can be evaluated in time for SC22. Based on this experience consider future cadence
+
+
+Calendar: (see previously) Identify if similar document is needed as HPCworking group has.
+HPC example schedule:  https://docs.google.com/spreadsheets/d/1szBWL108tL6cr--6fYOjKDnEO600PtMa161V1m0e-4Y/edit#gid=0
+possibly talk with HPC group to make sure there is no problem with similar deadlines.
+
+
+
+
+
+How to get things into MLcommons
+We will issue a support ticket system in MLcommons systems@mlcommons.org
+systems@ = routine stuff sys admins – they do github access
+support@ = business admins – they do mailing lists, meeting schedules, etc.
+
+
+emizan@, kongtao@: ran/run the submission process for
+Tarballs submitted to a server (which does the verification) -> A private submitters repo during review -> A public “final” repo + a web page with embedded results table
+
+We want to make sure we integrate smoothly with the technical aspect of the submission process already established by MLcommons.
+
+
