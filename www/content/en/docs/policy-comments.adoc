@@ -16,7 +16,7 @@ https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
 | Existing Training Closed * | Anything | Fixed | Fixed | Fixed | Speed | None
 | Closed | Fixed chip-years? | Fixed | Variable | Fixed | "Science Quality" ~= Accuracy | Time, memory, power
 | Open | Anything | Variable | Variable | Fixed | "Science Quality" ~= Accuracyc + Optional user-defined metric | Time, memory, power
-| Training Open | Anything | Variable | Variable | Fixed | Speed, | Accuracy | None
+| Training Open | Anything | Variable | Variable | Fixed | Speed, Accuracy | None
 |===
 
 
