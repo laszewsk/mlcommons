@@ -46,7 +46,8 @@ Investigate if we can leverage DataPerf MLCommons working group studies
 Support clear versioning using GitHub tags
 Add versioning strategy to policy document
 Fixed target accuracy?
-Yes, we consider a fixed target accuracy for the open division. This will also provide a base point for the closed division.
+Yes, we consider a fixed target accuracy for the open division.
+This will also provide a base point for the closed division.
 Relation to HPC
 
 The scientific examples could be used in some cases for HPC evaluation
@@ -58,7 +59,9 @@ We work together well at this time and attend each other's meetings
 ===
 Hyperparameter scaling?
 
-Suggest: not using full Training closed HP rules – just let people pick things. Might not have any since models change. Require documented them in config.
+Suggest: not using full Training closed HP rules –
+just let people pick things. Might not have any since models change.
+ Require documented them in config.
 
 Gregor notes: config files are just examples …. parameters can be changed
 
