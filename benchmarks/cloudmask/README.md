@@ -10,7 +10,10 @@ direct measurements of surface temperature from these satellites everywhere, exc
 Clouds can really affect the signals measured by satellites so it is then much harder to retrieve the temperature 
 measurements. One of the aspects that underpins the derivation of SST is cloud screening, which is a step that 
 marks each pixel of thousands of satellite images as containing cloud or clear sky, historically performed using
-either thresholding or Bayesian methods.
+either thresholding or Bayesian methods.\
+\
+Authors of the code: Samuel Jackson, Caroline Cox, Jeyan Thiyagalingam, Tony Hey, Juri Papay\
+Contact person: Juri Papay (juri.papay@stfc.ac.uk)
 
 ## Scientific Objective
 

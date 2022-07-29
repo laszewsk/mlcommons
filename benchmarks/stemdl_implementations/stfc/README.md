@@ -17,6 +17,9 @@ performed by the benchmark can be described as follows:
 6. save the time measurements in "log_file" (see stemdlConfig.yaml)
 7. save MLCOmmons logging in "mlperf_logfile" (see stemdlConfig.yaml)
 
+Authors of the code: Junqi Yin (ORNL), Sajal Dash  (ORNL), Aris Tsaris (ORNL), Feiyi Wang (ORNL), Arjun Shankar (ORNL), Juri Papay (STFC)\
+Contact person: Junqi Yin (yinj@ornl.gov), Juri Papay (juri.papay@stfc.ac.uk)
+
 ## 2.Datasets
 
 Before running the benchmark all datasets must be downloaded from the remore server. The dataset used by the benchmark 

@@ -21,11 +21,11 @@ experiments:
   TFTTransformerepochs: "2"
 
 benchmark:
-  name: mlcommons-science-earthquake
-  organisation: tbd
-  division: tbd
-  status: alpha
-  platform: unknown
+  name: Gregor von Laszewski
+  organization: University of Virginia
+  division: BII
+  status: TBD
+  platform: A100-dgx-station
 
 script: FFFFWNPFEARTHQ_newTFTv29-gregor-2.ipynb
 revision: latest

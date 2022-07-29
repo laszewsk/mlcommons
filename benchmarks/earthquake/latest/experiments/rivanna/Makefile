@@ -31,16 +31,16 @@ cli:
 
 
 jobs-%.sh: %.json
-	cms sbatch generate submit --name=$< > $@
+	cms sbatch generate submit --name=$<  > $@
 
 %.json: rivanna-%.yaml
-	cms sbatch generate rivanna.in.slurm --setup=$< --name=$(basename $@) --noos
+	cms sbatch generate rivanna.in.slurm --config=$< --name=$(basename $@) --noos
 
 dgx.json: rivanna-dgx.yaml
-	cms sbatch generate rivanna-dgx.in.slurm --setup=$< --name=$(basename $@) --noos
+	cms sbatch generate rivanna-dgx.in.slurm --config=$< --name=$(basename $@) --noos
 
 dgx-shm.json: rivanna-dgx-shm.yaml
-	cms sbatch generate rivanna-dgx.in.slurm --setup=$< --name=$(basename $@) --noos
+	cms sbatch generate rivanna-dgx.in.slurm --config=$< --name=$(basename $@) --noos
 
 
 .PHONY: stop
