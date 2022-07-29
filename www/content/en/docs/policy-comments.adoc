@@ -2,14 +2,18 @@
 
 https://docs.google.com/document/d/1ioE8bs_oQ5yJj1ydgEUsQqIrvwJQt1J0Zic6pgBsoFA/edit#heading=h.7u9useqdwcbg
 
-Peter: comment: put at very beginning on the documents
-our goal is better science accuracy through benchmarks. accuracy is the metric, but we make time a secondary metric for some submissions
+DONE: Peter: comment: put at very beginning on the documents
+our goal is better science accuracy through benchmarks. accuracy is the metric,
+but we make time a secondary metric for some submissions
 
 comment on what the variability of the dataset is, e.g. can we improve model by providing better data ….
 
 Policy document
 
 https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
+
+
+INCLUDED IN THE DOCUMENT:
 
 |===
 | Division | Hardware System | Training data | Model | Test data / method | Primary Metric | Secondary Metrics (optional)
@@ -25,12 +29,16 @@ Primary:
 science value (most important)!
 
 
+IN DOCUMENT:
+
 Secondary:
 space (practice showed that data management in space is super important)
 time
 energy
 they could indirectly showcase how to get a faster pathway to science
+
 Fixed dataset?
+
 Yes, we use fixed datasets for open and closed division. This allows us an easier review
 However, the open division also allows open data if the submitter considers data augmentation achieves better science. The ability for us to review the dataset and instructions for replication will need to be supplied by the submitter.
 We also will use unique identifiers for the model and data,
@@ -84,6 +92,7 @@ Primary:  submitter and science accuracy (primary). The log format for each benc
 Optional: log more details during the run in the open division, configurable via parameters
 
 
+DONE
 For closed division:
 we have an example for each application
 submission will focus on closed submission first
