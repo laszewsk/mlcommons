@@ -58,8 +58,6 @@ RESOURCE_DIR="{run.resourcedir}"
 
 ### END CONFIGURATION
 
-# Cleanup locks and temporary files on failed execution
-trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 
 
 ### FUNCTION BEGIN
@@ -88,13 +86,16 @@ DETECT_RUN_USER() {
 ## Specifies the username to apply when running on a
 ## clustrered environment
 RUN_USER="$(DETECT_RUN_USER)"
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
 
 ## Sets up the base directory for running the experiment from the
 ## previously defined vars.
 RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
-VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${PYTHON_VERSION}
+VENV_PATH={run.venvpath}
 GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git
-LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
+
+# Cleanup locks and temporary files on failed execution
+trap "rm -f ${MLCOMMONS_HOME}/${LOCKDB}/.*.lock ; exit" 1 2 3 6 15
 
 
 ### FUNCTION BEGIN
@@ -210,25 +211,6 @@ waitmake_lock() {
 }
 
 
-### FUNCTION BEGIN
-# Outputs the total runtime accoring to the script.  Only functions
-# when running on a slurm system
-# GLOBALS
-#   SLURM_JOBID
-# OUTPUTS
-#   a CSV prefixed with '# slurmjob,' with the jobid, username, submittion time
-#   start time, end time, and status.
-### FUNCTION END
-# function slurm_runtime() {
-slurm_runtime() {
-    # Run only if done in a slurm job
-    if [[ ! -z "${SLURM_JOBID}" ]] ; then
-      # Query current job details and substitute end time with the current time.
-      sacct -j ${SLURM_JOBID} -P --delimiter=, -o jobid,user,submit,start,end,state \
-        | sed -e 's/^/# slurmjob,/g' \
-              -e 's/,Unknown,RUNNING$/,'$(date +%Y-%m-%dT%H:%m:%S -d @${END_TIME})'DONE/g'
-    fi
-}
 
 ### FUNCTION BEGIN
 # Creates a virtual environment in a specified directory using a
@@ -259,23 +241,6 @@ setup_venv(){
     release_lock pip.lock
 }
 
-### FUNCTION BEGIN
-# Outputs slurm-aware environment variables
-# OUTPUT
-#   A fenced listing of all current environment variables
-#   beginning with SLURM_.  This is only displayed if the
-#   current environment has the sbatch command installed.
-### FUNCTION END
-slurm_env() {
-# function slurm_env() {
-  if command -v sbatch ; then
-    echo "Slurm Environment Details"
-    echo "===start[env]==========="
-    printenv | grep "SLURM_"
-    echo "===end[env]============="
-  fi
-}
-
 
 mkdir -p ${RUN_BASE}
 RUN_BASE_ABS=$(realpath ${RUN_BASE})
@@ -288,13 +253,6 @@ echo "Script: <{script}>"
 echo "Python: <${PYTHON_VERSION}>"
 echo "Run ID: <${RUN_ID}>"
 
-# Load cuda/python on HPCs if module is present.
-if command -v module ; then
-  module purge
-  module use ${RESOURCE_DIR}/modulefiles
-  # BUG need to reconfigure script to support python on other platforms.
-  module load python-rivanna/${PYTHON_VERSION} cuda cudnn
-fi
 
 if [ -e "$(pwd)/config.yaml" ]; then
 	cp $(pwd)/config.yaml ${RUN_BASE_ABS}

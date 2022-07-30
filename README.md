@@ -1,13 +1,13 @@
 # mlcommon
 
-* Policy document: https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc
+* Policy document: <https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc>
 * Meeting Notes:
 * Summary   
 
 ## Contributors
 
-Gregor von Laszewski, laszewski@gmil.com https://github.com/laszewsk
-Juri https://github.com/juripapay
+* Gregor von Laszewski, <laszewski@gmail.com>, <https://github.com/laszewsk>
+* Juri <https://github.com/juripapay>
 
 
 ## Install locally the web 
