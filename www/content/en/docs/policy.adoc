@@ -11,8 +11,8 @@
 :sectnums:
 
 
-Version 0.4
-July 23, 2022
+Version 0.5
+August 1, 2022
 
 Points of contact:
 
@@ -34,11 +34,11 @@ acceptable.
 == Overview
 
 Our goal is better science accuracy through benchmarks. Our main
-metric is the accuracy of the science. However we will have secondary
-metrics that report time, space, and resource such as energy and
-temperature behaviour.
+metric is the accuracy of the science. However, we will have secondary
+metrics that report time, space, and resources such as energy and
+temperature behavior.
 
-The Science WG will use training as primary benchmarks. Here we
+The Science WG will use training as the primary benchmark. Here we
 specify the rules for training submissions.
 
 The Science WG will have Closed and Open divisions and submissions to
@@ -71,21 +71,20 @@ Open division are as described in MLCommons® Training Rules (HPC has
 no special rules for the Open division).
 
 To showcase the various aspects of the benchmarks and contrast it to
-with existing training benchmarks from MLCOmmons at the time of writing
+with existing training benchmarks from MLCommons® at the time of writing
 of this document, we have included Table 1.
-The firs line *Existing Training closed* refers to training conducted by
+The first line *Existing Training closed* refers to training conducted by
 other MLCommons® groups.
-The rows with Science in the Divisin shows the target attributs for that
-division so the focus of the bench marks can easily be contrasted.
+The rows with Science in the Division show the target attributes for that
+division so the focus of the benchmarks can easily be contrasted.
 
-Table 1: Target ed aspects of the MLCOmons Science benchmark.
+Table 1: Targeted aspects of the MLCommons® Science benchmark.
 
 |===
 | Division | Hardware System | Training data | Model | Test data / method | Primary Metric | Secondary Metrics (optional)
-| *Existing Training Closed* | Anything | Fixed | Fixed | Fixed | Speed | None
-| Science Closed | Fixed chip-years? | Fixed | Variable | Fixed | "Science Quality" ~= Accuracy | Time, memory, power
-| Science Open | Anything | Variable | Variable | Fixed | "Science Quality" ~= Accuracyc + Optional user-defined metric | Time, memory, power
-| Science Training Open | Anything | Variable | Variable | Fixed | Speed, Accuracy | None
+| *Non Science Training Closed* | *Anything* | *Fixed* | *Fixed* | *Fixed* | *Speed* | *None*
+| Science Closed | Anything | Fixed | Variable | Fixed | "Science Quality", Accuracy | Time, memory, power
+| Science Open | Anything | Variable | Variable | Fixed | "Science Quality", Accuracy, Optional user-defined metric | Time, memory, power
 |===
 
 The secondary metrics include
@@ -102,9 +101,9 @@ Training Rules] except for those that are overridden here.
 == Relationship to the MLCommons HPC group
 
 HPC working group has a focus on infrastructure and closed division
-Science working group has a focus on science and the open division
+Science working group has a focus on science and the open division.
 
-While in HPC the focus of the benhmarks is on infrastructure, the
+While in HPC the focus of the benchmarks is on infrastructure, the
 focus here is on scientific accuracy.  Nevertheless, the scientific
 benchmark applications could be used in some cases for HPC evaluation.
 
@@ -127,7 +126,6 @@ table.
 There are two divisions of the Science Benchmark Suite, the Closed
 division and the Open division.
 
-TODO: do we realy have 3 devision as in the table?
 
 === Closed Division
 
@@ -161,7 +159,7 @@ We recommend a YAML format for the config file.
 Hyperparameters and optimizers may be freely changed.  For Science
 benchmarks this is the most important division as the goal is to
 improve the science and identify algorithms that optimize the
-science. For this reason, any algorithm and hyperpaerameter
+science. For this reason, any algorithm and hyperparameter
 specification for that algorithm is allowed.
 
 As this may include new algorithms we like to collect them as
@@ -209,14 +207,14 @@ implementation preprocessing and allowance for reformatting.
 
 === Default Data Sets
 
-For the closed division we have a number of defined data sets that can
+For the closed division, we have a number of defined data sets that can
 be used for obtaining scientific results. This allows us an easier
 review
 
 === Open Data Sets
 
-For the open division we also allows open data sets to be part of the
-submission, if the submitter considers data augmentation achieves
+For the open division, we also allow open data sets to be part of the
+submission if the submitter considers data augmentation achieves
 better science.  The ability for us to review the dataset and
 instructions for replication will need to be supplied by the
 submitter.  We will be introducing unique identifiers for the model
@@ -225,14 +223,20 @@ models.
 
 === Identifiers
 
-We will leverage DataPerf MLCommons® working group studies to
-integrate such identifiers.  Support clear versioning using GitHub
-tags. Each submission will have a uniquq tag that is revlected in
-DataPerf, as well as in GitHub.
+All benchmark sources are contained in a GitHub repository and a tagged version is
+provided for all benchmarked applications. In addition, all data will be using a
+tagging mechanism and will be part of the benchmark submission. If the data fits in GitHub we will be using GitHub. Otherwise, we will be placing it in a data archive that is openly accessible.
+
+We support the DataPerf MLCommons® working group studies to
+integrate such identifiers and when available will evaluate their integration.
 
 == Training Loop
 
+Our focus is the training of data, but it may take considerable effort to prepare the data for the training loop. Such preparation and their performance is integrated into the benchmark.
+
 === Hyperparameters and Optimizer
+
+Each application has its own hyperparameters and optimizer configurations. They can be controlled with the parameters listed for each application.
 
 === Hyperparameters and Optimizer Earth Quake Prediction
 
@@ -284,7 +288,7 @@ DataPerf, as well as in GitHub.
 
 MLCommon® Science Benchmark Suite submissions consist of the following
 three metrics: metrics 1 is considered mandatory for a complete
-submission whereas metric 2 and 3 are considered optional.
+submission whereas metrics 2 and 3 are considered optional.
 
 === Strong Scaling (Time to Convergence)
 
@@ -302,11 +306,11 @@ We follow MLPerf Training Benchmark Results rule along with the
 following required number of runs per benchmark.  Note that since
 run-to-run variability is already captured by spatial multiplexing in
 case of metric 3, we use the adjusted requirement that the number of
-trained instances has to be at least equal to the number of runs for
+trained instances have to be at least equal to the number of runs for
 metric 1 and 2.
 
 The numbers given below reflect the minimum number of repetitive runs
-required to produce repeatable metrics.  In case of the Earthquake
+required to produce repeatable metrics.  In the case of the Earthquake
 benchmark, we have reduced the number of runs to 1 for metric 1, as
 the runs take a long time (between 5 - 12h on NVidia GPUs).
 
@@ -319,23 +323,22 @@ the runs take a long time (between 5 - 12h on NVidia GPUs).
 |CANDLE UNO | 5 | 5 | >=5
 |===
 
-For the closed division we will have one or more sample submission results.
-Their links are listed in the following table
+For the closed division, we will have one or more sample submission results.
 
-|===
-|Benchmark | single benchmark outut log file
-|Earthquake | TODO
-|CloudMask | TODO
-|STEMDL Classification | TODO
-|CANDLE UNO | TODO
-|===
+// Their links are listed in the following table
+//
+// |===
+// |Benchmark | single benchmark output log file
+// |Earthquake | TODO: link
+// |CloudMask | TODO: link
+// |STEMDL Classification | TODO: link
+// |CANDLE UNO | TODO: link
+// |===
+//
+// In case of repeated logs, they are placed into a directory.
 
-In case of repeated logs, they are placed into a directory.
-
-The results are tared and submitetd through the usual MLCommons
-submission site at the following link
-
-* TODO
+The results are tared and submitted through the https://github.com/mlcommons/policies/blob/master/submission_rules.adoc[MLCommons®
+submission process].
 
 == Identifying Information
 
@@ -362,7 +365,7 @@ We expect that over time additional benchmarks will be contributed. At
 this time we have adopted the following best practice for
 contribution:
 
-1. The initial benchmark is hosted on a group accessible GitHub
+1. The initial benchmark is hosted on a group-accessible GitHub
    repository, where members have full access rights. These may be
    different repositories. Currently, we have one repository at
    https://github.com/laszewsk/mlcommons[[10]].
