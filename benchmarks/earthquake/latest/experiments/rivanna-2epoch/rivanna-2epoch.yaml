@@ -38,7 +38,7 @@ run:
   workdir: /project/bii_dsc/users
   resourcedir: /project/bii_dsc/mlcommons-system
   datadir: data
-  branch: 'main'
+  branch: 'setFFFFmapping'
 
 system:
   python: "3.10.2"
