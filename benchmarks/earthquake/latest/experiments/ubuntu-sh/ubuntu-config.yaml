@@ -42,6 +42,8 @@ run:
   branch: 'main'
   datadir: data
 
+colortheme: "True"
+
 system:
   python: "3.10.4"
   num_cpus: 1

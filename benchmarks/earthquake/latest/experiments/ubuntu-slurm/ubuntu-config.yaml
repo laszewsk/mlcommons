@@ -39,6 +39,8 @@ system:
   partition: "local"
   host: ubuntu
 
+colortheme: "True"
+
 set_soft_device_placement: False
 debugging_set_log_device_placement: False
 DLAnalysisOnly: False

@@ -39,6 +39,8 @@ system:
   partition: "gpu"
   host: "rivanna"
 
+colortheme: "True"
+
 time: "3-0"
 set_soft_device_placement: False
 debugging_set_log_device_placement: False
