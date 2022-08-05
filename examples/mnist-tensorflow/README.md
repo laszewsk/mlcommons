@@ -21,6 +21,8 @@ PYTHON=`which python`
 
 ## Rivanna singuarity container
 
+To get the singularity container follow the following commands.
+
 ```
 module load singularity
 module avail tensorflow
@@ -76,6 +78,9 @@ benchmarks may not be accurate, real time is what we probably want to focus on
 
 ## Summit
 
+To Run in Summit
+
+```
 module load open-ce/1.5.2-py39-0
 (open-ce-1.5.2-py39-0) [gregorvl@login5.summit ~]$ which python
 /sw/summit/open-ce/anaconda-base/envs/open-ce-1.5.2-py39-0/bin/python
@@ -90,20 +95,22 @@ Type "help", "copyright", "credits" or "license" for more information.
 <module 'tensorflow._api.v2.version' from '/sw/summit/open-ce/anaconda-base/envs/open-ce-1.5.2-py39-0/lib/python3.9/site-packages/tensorflow/_api/v2/version/__init__.py'>
 >>> tensorflow.__version__
 '2.7.1'
+```
 
 
-
-
+```
 $ module load open-ce
 $ python -m venv ~/ENV3
 $ source ~/ENV3/bin/activate
 $ python --version
 Python 3.8.10
 No tensorflow
+```
 
-
+```
 # $ module load python
 # $ conda create -p ~/ENV3 python=3.8.10
 # $ source activate ~/ENV3
 # $ python --version
 # Python 3.10.4
+```
