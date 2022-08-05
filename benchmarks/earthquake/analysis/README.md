@@ -36,7 +36,7 @@ Example structure:
 - plot_GPU_train_times.ipynb
 - NNSE_analysis.ipynb
 
-## Analysis notebooks
+## About the analysis notebooks
 
 ### plot_GPU_events.ipynb
 - Creates plots of the GPU power usage during execution
