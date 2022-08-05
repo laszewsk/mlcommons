@@ -1,12 +1,15 @@
 # Rivanna
 
-
+```
 Gregor will improve this with git clone form the repo
+```
 
 ## Setting up Python 3.10 on rivanna
 
+```
 In your terminal you execute the following to simulate an environment that you will use 
 on the compute nodes
+```
 
 ```
 module purge
@@ -47,7 +50,9 @@ time singularity run --nv /scratch/$USER/rivanna/tensorflow-2.7.0.sif mnist.py
 
 ## Benchmarks
 
+```
 benchmarks may not be accurate, real time is what we probably want to focus on
+```
 
 | Machine     	   | real      | user      | sys       | Driver      | CUDA | GPU                   | CPU                                       | Date CPU released
 |------------------|-----------|-----------|-----------| ----------- | ---- | ----                  |-------------------------------------------| ----
@@ -77,6 +82,7 @@ benchmarks may not be accurate, real time is what we probably want to focus on
 
 ## Summit
 
+```
 module load open-ce/1.5.2-py39-0
 (open-ce-1.5.2-py39-0) [gregorvl@login5.summit ~]$ which python
 /sw/summit/open-ce/anaconda-base/envs/open-ce-1.5.2-py39-0/bin/python
@@ -108,4 +114,4 @@ No tensorflow
 # $ source activate ~/ENV3
 # $ python --version
 # Python 3.10.4
-
+```
