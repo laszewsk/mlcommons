@@ -1,0 +1,47 @@
+---
+metadata:
+  image: "cover.png"
+  title: "Proceedings of MLCommons Projects"
+  subtitle: "Collection"
+  author: "Editors Gregor von Laszewski, Geoffrey C. Fox"
+#  subauthor: "Geoffrey C. Fox"
+  email: "laszewski@gmail.com"
+  url: "https:/cloudmesh-community.github.io/pub/vonlaszewski-mlcommons.epub"
+  description: ""
+  abstract: ""
+  keywords: "REU"
+  stylesheet: "epub.css"
+  dest: "./dest/book"
+  filename: "vonLaszewski-mlcommons.epub"
+  rights: (c) Gregor von Laszewski, 2022
+  date: 04 June, 2022
+git:
+  "chapters": "https://github.com/cloudmesh-community/book/blob/main/chapters"
+  "credit": "https:/raw.githubusercontent.com/cyberaide/bookmanager/main/bookmanager/template"
+file:
+  "mpi": "https:/raw.githubusercontent.com/cloudmesh/cloudmesh-mpi/main/docs"
+  "mlcommons": "file://.."
+  "nlp": "file://../../cloudmesh-nlp"
+https:
+  "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
+BOOK:
+  - DOCUMENTS:
+    - "{file.mlcommons}/Timers_Optimization.md"
+    - "{file.mlcommons}/README.md"
+    - "{file.mlcommons}/README-NOTES.md"
+  - TWO_EPOCH:
+    - "{file.mlcommons}/experiments/rivanna-2epoch/RAEDME.md"
+  - RIVANNA:
+    - "{file.mlcommons}/experiments/rivanna/RAEDME.md"
+  - MAIN:
+    - "{file.mlcommons}/../RAEDME.md"
+##  - COMMUNICATION:
+##    - "{file.chapter}/doc/communicate.md"
+##    - "{file.mpi}/report-group.md"
+##     - "{file.chapter}/doc/piazza.md"
+##     - "{file.chapter}/git/github.md"
+##    - "{file.chapter}/preface/git.md"
+##  - PRESENTATIONS:
+##    - "{file.chapter}/doc/ppt.md"
+  - REFERENCES:
+    - "{file.reu2022}/empty.md"
