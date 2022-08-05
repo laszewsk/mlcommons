@@ -23,7 +23,7 @@ file:
   "earthquake": "file://benchmark/earthquakes"
   "stemdl": "file://benchmark/stemdl"
   "home": "file://"
-  "nlp": "file://../../cloudmesh-nlp"
+  "nlp": "file://cloudmesh-nlp"
 https:
   "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
 BOOK:
