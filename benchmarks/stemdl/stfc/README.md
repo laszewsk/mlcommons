@@ -84,6 +84,8 @@ It is recommended to run the Stemdl benchmark in the Anaconda environment.
 
 ## 4. Running the benchmark
 
+After everything is set up above, run the line of code below to run the benchmark.
+
 ```bash
 $ python sytemdl_classification.py --config stemdlConfig.yaml
 ```
