@@ -27,6 +27,15 @@ Example structure:
    |   |   |   |   |-- slurm.sh
    |   |   |   |   |-- uqq5zz-38718151.err
    |   |   |   |   |-- uqq5zz-38718151.out
+   |-- rivanna-dgx
+   |   |-- localscratch
+   |   |   |-- 2022-07-13
+   |   |   |   |-- card_name_1_gpu_count_1_cpu_num_6_mem_32GB_TFTTransformerepochs_10
+   |   |   |   |   |-- config.yaml
+   |   |   |   |   |-- _output
+   |   |   |   |   |-- slurm.sh
+   |   |   |   |   |-- uqq5zz-40788237.err
+   |   |   |   |   |-- uqq5zz-40788237.out
 ```
 3. Copy the collect_earthquake_data.ipynb notebook to the results directory and execute the entire notebook
 - This will generate a pickle file named 'experiment_data.pkl' which stores relevant data
