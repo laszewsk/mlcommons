@@ -15,7 +15,7 @@ This README outlines how to generate analysis output for the earthquake experime
    |   |   |   |   |-- outputFiles
 
 ```
-example
+Example structure:
 ```bash
  results
    |-- rivanna
@@ -30,3 +30,24 @@ example
 ```
 3. Copy the collect_earthquake_data.ipynb notebook to the results directory and execute the entire notebook
 - This will generate a pickle file named 'experiment_data.pkl' which stores relevant data
+4. Copy the following notebooks to results directory to perform analysis
+- plot_GPU_events.ipynb
+- plot_GPU_power.ipynb
+- plot_GPU_train_times.ipynb
+- NNSE_analysis.ipynb
+
+## Analysis notebooks
+
+### plot_GPU_events.ipynb
+- Creates plots of the GPU power usage during execution
+- Annotates key times during execution
+
+### plot_GPU_power.ipynb
+- Generates GPU Power Usage Graphics
+
+### plot_GPU_train_times.ipynb
+- Generates Interactive plot of experiments and execution time
+- Create custom plots for experiments of interest
+
+### NNSE_analysis.ipynb
+- Generate markdown tables for earthquake predictions across epochs
