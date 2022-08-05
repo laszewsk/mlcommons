@@ -32,7 +32,7 @@ run:
   datadir: data
   branch: 'main'
 
-colortheme: "True"
+colortheme: "False"
 
 system:
   python: "3.10.5"

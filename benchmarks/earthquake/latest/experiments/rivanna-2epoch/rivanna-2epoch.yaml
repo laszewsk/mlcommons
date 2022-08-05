@@ -46,7 +46,7 @@ system:
   partition: "gpu"
   host: rivanna
 
-colortheme: "True"
+colortheme: "False"
 
 time: "3-0"
 set_soft_device_placement: False

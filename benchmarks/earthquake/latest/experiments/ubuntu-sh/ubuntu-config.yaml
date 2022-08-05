@@ -42,7 +42,7 @@ run:
   branch: 'main'
   datadir: data
 
-colortheme: "True"
+colortheme: "False"
 
 system:
   python: "3.10.4"
