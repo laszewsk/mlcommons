@@ -1,50 +1,27 @@
-# mlcommon
+# MLCommons® Science
 
-* Policy document: <https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc>
-* Meeting Notes:
-* Summary   
+The main working group Web page is at: 
 
-## Contributors
+* <https://mlcommons.org/en/groups/research-science/>
 
-* Gregor von Laszewski, <laszewski@gmail.com>, <https://github.com/laszewsk>
-* Juri <https://github.com/juripapay>
+The working group github is located at 
 
+* <https://github.com/mlcommons/science>
 
-## Install locally the web 
+The Policy document is located at 
 
-```
-git clone git@github.com:laszewsk/mlcommons.git
-cd mlcommons
-git submodule update --init --recursive
-```
+* <https://github.com/mlcommons/science/blob/main/policy.adoc>
 
-## Install hugo locally Ubuntu 20.04
+The following descriptions and code to scientific benchmarks are avialable at:
 
-```
-wget https://github.com/gohugoio/hugo/releases/download/v0.92.1/hugo_extended_0.92.1_Linux-64bit.deb
-sudo dpkg --install hugo_extended_0.92.1_Linux-64bit.deb 
+* [Cloudmask](https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/README.md)
+* [Earthqauke](https://github.com/mlcommons/science/blob/main/benchmarks/earthquake/README.md)
+* [Stemdl](https://github.com/mlcommons/science/tree/main/benchmarks/stemdl)
+* [Uno](https://github.com/mlcommons/science/tree/main/benchmarks/uno)
 
-```
+## Deveopment versions 
 
-## Install LTS version of nodejs
+Development versions of the codes prior to upload to the mlcommons directory are avalable as follows:
 
-```
-cd ~
-curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
-sudo apt -y install nodejs
-node -v
-```
-
-## Install PostCSS
-
-```
-npm install -D autoprefixer
-npm install -D postcss-cli
-npm install -D postcss
-```
-
-## Install Asciidoctor
-
-```
-sudo apt-get install asciidoctor
-```
+* [Science Policy Document](https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
+* [Benchmarks](https://github.com/laszewsk/mlcommons/tree/main/benchmarks)

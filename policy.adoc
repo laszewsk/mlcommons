@@ -9,7 +9,7 @@
 * https://github.com/laszewsk/mlcommons/edit/main/www/content/en/docs/science_policy.adoc
 
 :sectnums:
-
+-v0.5
 
 Version 0.5
 August 1, 2022
@@ -20,6 +20,7 @@ Points of contact:
 * Tony Hey (Tony.Hey@stfc.ac.uk)
 * Gregor von Laszewski(laszewski@gmail.com)
 * Juri Papay (juripapay@hotmail.com)
+* Jeyan Thiyagalingam (t.jeyan@stfc.ac.uk)
 
 == Disclaimer
 
