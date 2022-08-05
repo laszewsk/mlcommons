@@ -1,0 +1,105 @@
+---
+metadata:
+  image: "cover.png"
+  title: "Proceedings of MLCommons Projects"
+  subtitle: "Collection"
+  author: "Editors Gregor von Laszewski, Geoffrey C. Fox"
+#  subauthor: "Geoffrey C. Fox"
+  email: "laszewski@gmail.com"
+  url: "https:/cloudmesh-community.github.io/pub/vonlaszewski-mlcommons.epub"
+  description: ""
+  abstract: ""
+  keywords: "REU"
+  stylesheet: "epub.css"
+  dest: "./dest/book"
+  filename: "vonLaszewski-mlcommons.epub"
+  rights: (c) Gregor von Laszewski, 2022
+  date: 04 June, 2022
+git:
+  "chapters": "https://github.com/cloudmesh-community/book/blob/main/chapters"
+  "credit": "https:/raw.githubusercontent.com/cyberaide/bookmanager/main/bookmanager/template"
+file:
+  "mpi": "https:/raw.githubusercontent.com/cloudmesh/cloudmesh-mpi/main/docs"
+  "earthquake": "file://benchmark/earthquakes"
+  "stemdl": "file://benchmark/stemdl"
+  "home": file://../../..
+  "nlp": "file://../../cloudmesh-nlp"
+https:
+  "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
+BOOK:
+  - STEMDL:
+    - "{file.earthquake}/benchmarks/stemdl/README.md"
+    - ORNL:
+      - "{file.earthquake}/benchmarks/stemdl/ornl/README.md"
+    - STFC:
+      - "{file.earthquake}/benchmarks/stemdl/stfc/README.md"
+  - DOCUMENTS:
+    - "{file.earthquake}/latest/TimersOptimization.md"
+    - "{file.earthquake}/latest/README.md"
+    - "{file.earthquake}/latest/README-NOTES.md"
+  - TWO_EPOCH:
+    - "{file.earthquake}/latest/experiments/rivanna-2epoch/README.md"
+  - RIVANNA:
+    - "{file.earthquake}/latest/experiments/rivanna/README.md"
+  - MAIN:
+    - "{file.earthquake}/../../README.md"
+##  - COMMUNICATION:
+##    - "{file.chapter}/doc/communicate.md"
+##    - "{file.mpi}/report-group.md"
+##     - "{file.chapter}/doc/piazza.md"
+##     - "{file.chapter}/git/github.md"
+##    - "{file.chapter}/preface/git.md"
+##  - PRESENTATIONS:
+##    - "{file.chapter}/doc/ppt.md"
+  - REFERENCES:
+    - "{file.earthquake}/book/empty.md"
+
+#../../../.pytest_cache/README.md
+#../../../benchmarks/cloudmask/README.md
+## - EARTHQUAKE"
+#../../../benchmarks/earthquake/analysis/README.md
+#../../../benchmarks/earthquake/DOCUMENTS.md
+#../../../benchmarks/earthquake/version.md
+#../../../benchmarks/earthquake/latest/TimersOptimization.md
+#../../../benchmarks/earthquake/latest/experiments/docker/README.md
+#../../../benchmarks/earthquake/latest/experiments/rivanna/README.md
+#../../../benchmarks/earthquake/latest/experiments/colab/README.md
+#../../../benchmarks/earthquake/latest/experiments/ubuntu-slurm/README.md
+#../../../benchmarks/earthquake/latest/experiments/rivanna-2epoch/README.md
+#../../../benchmarks/earthquake/latest/experiments/README.md
+#../../../benchmarks/earthquake/latest/experiments/dgxstation/README.md
+#../../../benchmarks/earthquake/latest/experiments/ubuntu-sh/README.md
+#../../../benchmarks/earthquake/latest/README-NOTES.md
+#../../../benchmarks/earthquake/latest/README.md
+#../../../benchmarks/earthquake/submit-v1/README.md
+#../../../benchmarks/earthquake/submit-v1/systems/rivanna/README.md
+#../../../benchmarks/earthquake/submit-v1/systems/README.md
+#../../../benchmarks/earthquake/submit-v1/systems/dgxstation/README.md
+#../../../benchmarks/earthquake/submit-v1/TODO.md
+#../../../benchmarks/earthquake/book/empty.md
+#../../../benchmarks/earthquake/original/README.md
+#../../../benchmarks/earthquake/may2022/experiments/docker/README.md
+#../../../benchmarks/earthquake/may2022/experiments/rivanna/README.md
+#../../../benchmarks/earthquake/may2022/experiments/colab/README.md
+#../../../benchmarks/earthquake/may2022/experiments/ubuntu-slurm/README.md
+#../../../benchmarks/earthquake/may2022/experiments/rivanna-2epoch/README.md
+#../../../benchmarks/earthquake/may2022/experiments/README.md
+#../../../benchmarks/earthquake/may2022/experiments/dgxstation/README.md
+#../../../benchmarks/earthquake/may2022/experiments/ubuntu-sh/README.md
+#../../../benchmarks/earthquake/may2022/README-NOTES.md
+#../../../benchmarks/earthquake/may2022/README.md
+#../../../benchmarks/earthquake/README.md
+#../../../benchmarks/earthquake/feb-2022/README.md
+#../../../benchmarks/earthquake/mar2022/HARDWARE.md
+#../../../benchmarks/earthquake/mar2022/robert-notes.md
+#../../../benchmarks/earthquake/mar2022/README.md
+#../../../benchmarks/uno/README.md
+#../../../README.md
+#../../../README-orig.md
+#../../../CHANGELOG.md
+#../../../tools/singularity/readme.md
+#../../../systems/rivanna/readme.md
+#../../../systems/README.md
+#../../../examples/mnist-mxnet/README.md
+#../../../examples/mnist-tensorflow/README.md
+#../../../examples/mnist-pytorch/README.md
