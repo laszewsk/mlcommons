@@ -1,5 +1,5 @@
 NAME=mlcommons
-CM=${HOME}/Desktop/cm/reu2022
+CM=${HOME}/Desktop/cm
 BOOK=${CM}/book
 FINAL=${CM}/pub
 HOME=..
@@ -19,11 +19,11 @@ epub: clean version bib
 	# cat $(CM)/su22-reu-385/*.bib $(CM)/book/bib/*.bib $(HOME)/*.bib  > dest/all.bib
 	bookmanager $(NAME).yaml get
 	bookmanager $(NAME).yaml epub
-	cp ./dest/vonLaszewski-$(NAME).epub $(FINAL)/docs
+	# cp ./dest/vonLaszewski-$(NAME).epub $(FINAL)/docs
 
 pdf: epub
 	bookmanager $(NAME).yaml pdf
-	cp ./dest/vonLaszewski-$(NAME).pdf $(FINAL)/docs
+	# cp ./dest/vonLaszewski-$(NAME).pdf $(FINAL)/docs
 
 draft: clean version
 	mkdir -p dest
@@ -54,7 +54,7 @@ bib:
 	mkdir -p dest/book
 	touch dest/book/empty.md
 	touch dest/empty.md
-	cp $(BOOK)/bib/*.bib dest/bib
+	# cp $(BOOK)/bib/*.bib dest/bib
 
 version:
 	TZ=":US/Eastern"; date > ../version.md

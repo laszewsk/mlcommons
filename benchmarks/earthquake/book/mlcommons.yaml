@@ -26,15 +26,15 @@ https:
   "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
 BOOK:
   - DOCUMENTS:
-    - "{file.mlcommons}/Timers_Optimization.md"
-    - "{file.mlcommons}/README.md"
-    - "{file.mlcommons}/README-NOTES.md"
+    - "{file.mlcommons}/latest/TimersOptimization.md"
+    - "{file.mlcommons}/latest/README.md"
+    - "{file.mlcommons}/latest/README-NOTES.md"
   - TWO_EPOCH:
-    - "{file.mlcommons}/experiments/rivanna-2epoch/RAEDME.md"
+    - "{file.mlcommons}/latest/experiments/rivanna-2epoch/README.md"
   - RIVANNA:
-    - "{file.mlcommons}/experiments/rivanna/RAEDME.md"
+    - "{file.mlcommons}/latest/experiments/rivanna/README.md"
   - MAIN:
-    - "{file.mlcommons}/../RAEDME.md"
+    - "{file.mlcommons}/../../README.md"
 ##  - COMMUNICATION:
 ##    - "{file.chapter}/doc/communicate.md"
 ##    - "{file.mpi}/report-group.md"
@@ -44,4 +44,4 @@ BOOK:
 ##  - PRESENTATIONS:
 ##    - "{file.chapter}/doc/ppt.md"
   - REFERENCES:
-    - "{file.reu2022}/empty.md"
+    - "{file.mlcommons}/book/empty.md"
