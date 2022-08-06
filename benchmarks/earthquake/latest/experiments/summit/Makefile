@@ -1,6 +1,24 @@
 
 all: summit generate
 
+
+g: s r w
+	watch bjobs
+
+s: clean
+	-rm -rf project
+	make -f Makefile all
+	sed -i -e "s/sbatch/bsub/g" jobs-summit.sh 
+
+r:
+	sh jobs-summit.sh
+
+w:
+	echo "= ERROR ============================"
+	cat project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/err.*   
+	echo "= LOG ============================"
+	cat project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/out.*   
+
 generate: jobs-summit.sh
 
 run: submit
