@@ -45,7 +45,7 @@ Includes functions to be looked at for optimization at end of each timer section
 
 2. EVAL
 
-There are 2 important lists. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
+There are 2 important data structures. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
 
 - Everything from CELL_READ_DATA in here.
 - Reset time
