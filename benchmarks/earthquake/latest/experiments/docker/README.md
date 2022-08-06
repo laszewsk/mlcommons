@@ -1,4 +1,4 @@
-# Set up python 3.10 on rivanna
+Set up python 3.10 on rivanna
 
 * We assume you have python 3.10.4 installed 
 * We assume if you like to use the automated report generated (under development) you have  
@@ -17,8 +17,7 @@ cms help
 
 2. Generating experiment configurations
 
-# chose a PROJECT_DIR where youlike to install the code
-
+Chose a PROJECT_DIR where youlike to install the code.
 
 ```bash
 export PROJECT_DIR=/project
