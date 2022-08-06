@@ -116,12 +116,12 @@ data head setup test
 9. RunTFTCustomVersion bestfit finalize VisualizeTFT
 - Includes every timer that includes RunTFTCustomVersion bestfit finalize VisualizeTFT in the timer name.
 
-RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
+10. RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
 - Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
 
 **For optimization**. Check class TFTSaveandInterpret function setFFFFmapping
 
-10. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
+11. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
 - Takes TFTSaveandInterpret class
 - Calculates MSE on all values (there are 92 million total values with ~900k sequences)
 - Calculates NNSE
