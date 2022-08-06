@@ -2,7 +2,9 @@
 
 I have put these timers in time order of when they appear. there are some timers that appear inside of others. they are stated in description if that is the case.
 
-## **Summary of Model timers** - Detailed description is below this section.
+## **Summary of Model timers**
+
+Detailed description is below this section.
 
 * **CELL_READ_DATA**: reading data directory files and putting those into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
 
