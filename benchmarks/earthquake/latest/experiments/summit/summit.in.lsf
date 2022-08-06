@@ -272,12 +272,14 @@ echo "Python: <${PYTHON_VERSION}>"
 echo "Run ID: <${RUN_ID}>"
 
 # Load cuda/python on HPCs if module is present.
-if command -v module ; then
-  module purge
-  module use ${RESOURCE_DIR}/modulefiles
-  # BUG need to reconfigure script to support python on other platforms.
-  module load python-rivanna/${PYTHON_VERSION} cuda cudnn
-fi
+#if command -v module ; then
+#  module purge
+#  module use ${RESOURCE_DIR}/modulefiles
+#  # BUG need to reconfigure script to support python on other platforms.
+#  module load python-rivanna/${PYTHON_VERSION} cuda cudnn
+#fi
+module load python/3.8-anaconda
+conda activate ENV3
 
 if [ -e "$(pwd)/config.yaml" ]; then
 	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
