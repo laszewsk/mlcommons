@@ -15,6 +15,7 @@
 
 set -uxe
 
+export PS1="> "
 module load python/{system.python}
 # Summit does not source a user's bashrc first
 # we need this so that conda is available to our shell.
