@@ -87,7 +87,7 @@ create appropriate branches.
 ## Background
 
 The background of the science is explained in [2]. The first
-performanne results are published in [1]. The code uses cloudmesh
+performance results are published in [1]. The code uses cloudmesh
 sbatch and gpu [3][4].
 
 ## System Setup
