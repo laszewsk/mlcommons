@@ -34,7 +34,7 @@ run:
   datadir: data
 
 system:
-  python: "3.10.4"
+  python: "3.8-anaconda"
   num_cpus: 1
   partition: "local"
   host: summit

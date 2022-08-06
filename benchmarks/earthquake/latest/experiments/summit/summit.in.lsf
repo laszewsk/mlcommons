@@ -2,6 +2,7 @@
 
 # Begin LSF Directives
 #BSUB -P {user.account}
+#BSUB -q batch-hm
 #BSUB -J mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
 #BSUB -o out.%J
 #BSUB -e err.%J
@@ -13,6 +14,12 @@
 #BSUB -N
 
 set -uxe
+
+module load python/{system.python}
+# Summit does not source a user's bashrc first
+# we need this so that conda is available to our shell.
+source ~/.bashrc
+conda activate ENV3
 
 ### BEGIN CONFIGURATION
 
@@ -278,8 +285,6 @@ echo "Run ID: <${RUN_ID}>"
 #  # BUG need to reconfigure script to support python on other platforms.
 #  module load python-rivanna/${PYTHON_VERSION} cuda cudnn
 #fi
-module load python/3.8-anaconda
-conda activate ENV3
 
 if [ -e "$(pwd)/config.yaml" ]; then
 	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
