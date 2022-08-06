@@ -112,4 +112,5 @@ nohup bash slurm.sh &
 ## Results
 
 Once the notebook's execution has completed, the output will be
-located in the `dgx/<experiment_configuration>/_output` folder.
+located in the
+`dgx/<experiment_configuration>/_output` folder.
