@@ -1,6 +1,6 @@
 # Timers
 
-Bullet points under timers are in runtime order. Some timers appear inside of others. They are stated in description if that is the case.
+Bullet points under timers are in runtime order. Some timers appear inside of others. These are stated in description if that is the case.
 
 ## **Summary of Model timers**
 
