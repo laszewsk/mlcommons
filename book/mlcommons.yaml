@@ -22,15 +22,14 @@ file:
   "mpi": "https:/raw.githubusercontent.com/cloudmesh/cloudmesh-mpi/main/docs"
   "earthquake": "file://../benchmark/earthquakes"
   "stemdl": "file://../benchmark/stemdl"
-#  "home": "file://.."
-  "home": "https://raw.githubusercontent.com/laszewsk/mlcommons/main"
+  "home": "file://.."
+#  "home": "https://raw.githubusercontent.com/laszewsk/mlcommons/main"
   "nlp": "file://cloudmesh-nlp"
 https:
   "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
 BOOK:
-  - INTRODUCTION_TO_PROJECT:
-    - MAIN:
-      - "{file.home}/README.md"
+  - "{file.home}/webpage/frontpage.md"
+  - "{file.home}/README.md"
   - INTRODUCTION_TO_TOOLS_USED:
     - "{file.home}/tools/singularity/readme.md"
   - SYSTEMS_BENCHMARKS_ARE_RUN_ON:
