@@ -2,7 +2,7 @@
 all: summit generate
 
 
-g: s r w
+g: s r
 	watch bjobs
 
 s: clean
@@ -13,11 +13,16 @@ s: clean
 r:
 	sh jobs-summit.sh
 
+t:
+	tail -f project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/out.* project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/err.*   
+
 w:
 	echo "= ERROR ============================"
 	cat project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/err.*   
+	echo
 	echo "= LOG ============================"
 	cat project/card_name_v100_gpu_count_1_cpu_num_1_mem_64GB_TFTTransformerepochs_2/out.*   
+	echo
 
 generate: jobs-summit.sh
 
