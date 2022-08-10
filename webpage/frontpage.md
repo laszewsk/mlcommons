@@ -1,4 +1,4 @@
-# MlCommons Science
+# INTRODUCTION
 
 ## Overview and objective
 
@@ -247,8 +247,8 @@ found here, and here.  TEvolOp Specific Benchmark Targets
   * Reference Code: <https://colab.research.google.com/drive/1JrPcRwX06xIN5iLhc53_MOLzU9q_Q7wD?usp=sharing> (Second model below)
   * Run Instructions: This is set up currently as a Jupyter notebook to run on Colab/GitHub. A container DGX version is also available
   * Time-to-solution: 1 to 2 days on a single GPU
-
-### Example Implementation
+ 
+Example Implementation
 
 The example implementation is primarily to demonstrate feasibility,
 show how the data is represented, help address any interpretation

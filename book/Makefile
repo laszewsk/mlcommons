@@ -10,10 +10,16 @@ all: epub pdf
 
 # authors
 
+manuals:
+	cms help sbatch > sbatch.rst
+	pandoc sbatch.rst -o sbatch.md
+	cms help cc > cc.rst
+	pandoc cc.rst -o cc.md
+
 info:
 	ls ${CM}
 
-epub: clean version bib
+epub: clean manuals version bib
 	mkdir -p dest
 	# ./timeseries-references.bib
 	# cat $(CM)/su22-reu-385/*.bib $(CM)/book/bib/*.bib $(HOME)/*.bib  > dest/all.bib
