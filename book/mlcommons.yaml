@@ -20,29 +20,77 @@ git:
   "credit": "https:/raw.githubusercontent.com/cyberaide/bookmanager/main/bookmanager/template"
 file:
   "mpi": "https:/raw.githubusercontent.com/cloudmesh/cloudmesh-mpi/main/docs"
-  "earthquake": "file://benchmark/earthquakes"
-  "stemdl": "file://benchmark/stemdl"
-  "home": file://../../..
-  "nlp": "file://../../cloudmesh-nlp"
+  "earthquake": "file://../benchmark/earthquakes"
+  "stemdl": "file://../benchmark/stemdl"
+  "home": "file://.."
+#  "home": "https://raw.githubusercontent.com/laszewsk/mlcommons/main"
+  "nlp": "file://cloudmesh-nlp"
 https:
   "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
 BOOK:
+  - "{file.home}/webpage/frontpage.md"
+  - LINKS:
+    - "{file.home}/README.md"
+  - "{file.home}/benchmarks/uno/README.md"
   - STEMDL:
-    - "{file.earthquake}/benchmarks/stemdl/README.md"
+    - "{file.home}/benchmarks/stemdl/README.md"
     - ORNL:
-      - "{file.earthquake}/benchmarks/stemdl/ornl/README.md"
+      - "{file.home}/benchmarks/stemdl/ornl/README.md"
     - STFC:
-      - "{file.earthquake}/benchmarks/stemdl/stfc/README.md"
-  - DOCUMENTS:
-    - "{file.earthquake}/latest/TimersOptimization.md"
-    - "{file.earthquake}/latest/README.md"
-    - "{file.earthquake}/latest/README-NOTES.md"
-  - TWO_EPOCH:
-    - "{file.earthquake}/latest/experiments/rivanna-2epoch/README.md"
-  - RIVANNA:
-    - "{file.earthquake}/latest/experiments/rivanna/README.md"
-  - MAIN:
-    - "{file.earthquake}/../../README.md"
+      - "{file.home}/benchmarks/stemdl/stfc/README.md"
+  - "{file.home}/benchmarks/cloudmask/README.md"
+  - COMPUTING_RESOURCES:
+    - "{file.home}/tools/singularity/readme.md"
+    - "{file.home}/systems/README.md"
+    - RIVANNA:
+      - "{file.home}/systems/rivanna/readme.md"
+  - CLOUDMESH_EXPERIMENT_MANAGEMENT:
+    - "{file.home}/book/sbatch.md"
+    - "{file.home}/book/cc.md"
+  - EARTHQUAKE:
+    - "{file.home}/benchmarks/earthquake/README.md"
+    - "{file.home}/benchmarks/earthquake/DOCUMENTS.md"
+#    - "{file.home}/benchmarks/earthquake/version.md"
+    - ANALYSIS:
+      - "{file.home}/benchmarks/earthquake/analysis/README.md"
+    - LATEST_CODE:
+      - "{file.home}/benchmarks/earthquake/latest/README.md"
+      - "{file.home}/benchmarks/earthquake/latest/TimersOptimization.md"
+      - "{file.home}/benchmarks/earthquake/latest/README-NOTES.md"
+      - EXPERIMENTS:
+        - "{file.home}/benchmarks/earthquake/latest/experiments/README.md"
+        - DOCKER:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/docker/README.md"
+        - RIVANNA:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/rivanna/README.md"
+        - COLAB:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/colab/README.md"
+        - UBUNTU_SLURM:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/ubuntu-slurm/README.md"
+        - RIVANNA_2EPOCH:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/rivanna-2epoch/README.md"
+        - DGXSTATION:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/dgxstation/README.md"
+        - UBUNTU_SH:
+          - "{file.home}/benchmarks/earthquake/latest/experiments/ubuntu-sh/README.md"
+#    - SUBMIT_V1:
+#      - "{file.home}/benchmarks/earthquake/submit-v1/README.md"
+#      - "{file.home}/benchmarks/earthquake/submit-v1/TODO.md"
+#      - SYSTEMS:
+#        - "{file.home}/benchmarks/earthquake/submit-v1/systems/README.md"
+#        - RIVANNA:
+#          - "{file.home}/benchmarks/earthquake/submit-v1/systems/rivanna/README.md"
+#        - DGXSTATION:
+#          - "{file.home}/benchmarks/earthquake/submit-v1/systems/dgxstation/README.md"
+  - MNIST_EXAMPLE_CODE:
+    - MNIST_MXNET:
+      - "{file.home}/examples/mnist-mxnet/README.md"
+    - MNIST_TENSORFLOW:
+      - "{file.home}/examples/mnist-tensorflow/README.md"
+    - MNIST_PYTORCH:
+      - "{file.home}/examples/mnist-pytorch/README.md"
+
+
 ##  - COMMUNICATION:
 ##    - "{file.chapter}/doc/communicate.md"
 ##    - "{file.mpi}/report-group.md"
@@ -52,54 +100,5 @@ BOOK:
 ##  - PRESENTATIONS:
 ##    - "{file.chapter}/doc/ppt.md"
   - REFERENCES:
-    - "{file.earthquake}/book/empty.md"
+    - "{file.home}/book/empty.md"
 
-#../../../.pytest_cache/README.md
-#../../../benchmarks/cloudmask/README.md
-## - EARTHQUAKE"
-#../../../benchmarks/earthquake/analysis/README.md
-#../../../benchmarks/earthquake/DOCUMENTS.md
-#../../../benchmarks/earthquake/version.md
-#../../../benchmarks/earthquake/latest/TimersOptimization.md
-#../../../benchmarks/earthquake/latest/experiments/docker/README.md
-#../../../benchmarks/earthquake/latest/experiments/rivanna/README.md
-#../../../benchmarks/earthquake/latest/experiments/colab/README.md
-#../../../benchmarks/earthquake/latest/experiments/ubuntu-slurm/README.md
-#../../../benchmarks/earthquake/latest/experiments/rivanna-2epoch/README.md
-#../../../benchmarks/earthquake/latest/experiments/README.md
-#../../../benchmarks/earthquake/latest/experiments/dgxstation/README.md
-#../../../benchmarks/earthquake/latest/experiments/ubuntu-sh/README.md
-#../../../benchmarks/earthquake/latest/README-NOTES.md
-#../../../benchmarks/earthquake/latest/README.md
-#../../../benchmarks/earthquake/submit-v1/README.md
-#../../../benchmarks/earthquake/submit-v1/systems/rivanna/README.md
-#../../../benchmarks/earthquake/submit-v1/systems/README.md
-#../../../benchmarks/earthquake/submit-v1/systems/dgxstation/README.md
-#../../../benchmarks/earthquake/submit-v1/TODO.md
-#../../../benchmarks/earthquake/book/empty.md
-#../../../benchmarks/earthquake/original/README.md
-#../../../benchmarks/earthquake/may2022/experiments/docker/README.md
-#../../../benchmarks/earthquake/may2022/experiments/rivanna/README.md
-#../../../benchmarks/earthquake/may2022/experiments/colab/README.md
-#../../../benchmarks/earthquake/may2022/experiments/ubuntu-slurm/README.md
-#../../../benchmarks/earthquake/may2022/experiments/rivanna-2epoch/README.md
-#../../../benchmarks/earthquake/may2022/experiments/README.md
-#../../../benchmarks/earthquake/may2022/experiments/dgxstation/README.md
-#../../../benchmarks/earthquake/may2022/experiments/ubuntu-sh/README.md
-#../../../benchmarks/earthquake/may2022/README-NOTES.md
-#../../../benchmarks/earthquake/may2022/README.md
-#../../../benchmarks/earthquake/README.md
-#../../../benchmarks/earthquake/feb-2022/README.md
-#../../../benchmarks/earthquake/mar2022/HARDWARE.md
-#../../../benchmarks/earthquake/mar2022/robert-notes.md
-#../../../benchmarks/earthquake/mar2022/README.md
-#../../../benchmarks/uno/README.md
-#../../../README.md
-#../../../README-orig.md
-#../../../CHANGELOG.md
-#../../../tools/singularity/readme.md
-#../../../systems/rivanna/readme.md
-#../../../systems/README.md
-#../../../examples/mnist-mxnet/README.md
-#../../../examples/mnist-tensorflow/README.md
-#../../../examples/mnist-pytorch/README.md

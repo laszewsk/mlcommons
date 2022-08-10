@@ -17,8 +17,9 @@ cms help
 
 2. Generating experiment configurations
 
-# chose a PROJECT_DIR where youlike to install the code
+# chose a PROJECT_DIR where you like to install the code
 
+Pick a project directory and generate make file.
 
 ```bash
 export PROJECT_DIR=/project/mlcommons

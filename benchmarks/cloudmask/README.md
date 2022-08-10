@@ -1,4 +1,4 @@
-# CloudMask benchmark notes
+# CloudMask
 
 Sea and land surface temperatures (or SST/LST), have a significant
 influence on the Earth’s weather.  For instance, large variations of
@@ -90,7 +90,7 @@ use these sequence of instructions:
 
    ```bash
    $ conda create --name bench python=3.8
-   $ conda activate bench`
+   $ conda activate bench
    $ pip install tensorflow
    $ pip install scikit-learn
    $ pip install h5py

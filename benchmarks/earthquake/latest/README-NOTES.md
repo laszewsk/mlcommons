@@ -2,12 +2,13 @@
 
 ## Versions
 
+Versions of code shown below.
+
 v 1.2.2
 
 * cloudmesh-sbatch has been tag eq1.2.2
 
 v 1.2.1
-
 
 * https://github.com/cloudmesh/cloudmesh-sbatch/pull/4
 
@@ -33,13 +34,11 @@ v 1.2.1
   anymore if we're not planning on running anything from /scratch.
 
 
-v1.1 - before integration of pull request 4
+v1.1 
 
-
+* before integration of pull request 4
 
 v 1.0
-
-
 
 * Original code at <https://github.com/Data-ScienceHub/mlcommons-science/blob/main/code/earthquake/new/FFFFWNPFEARTHQ_newTFTv29.ipynb>
 * Original data at 
@@ -99,6 +98,8 @@ A copy of the final notebook is placed in the slurm expeeriments folder with the
 
 ### Example Structure
 
+\
+
 This is what the final structure looks like:
 
 ```text
@@ -133,22 +134,22 @@ experiments
 ### Two Epoch Case
 
 
-| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) | T1(?)   | V100(L) |
-|------------------------------|---------|-----------|------------|----------|------------|------------|---------|---------|
-| total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 | 17580.4 | 19697.1 |
-| legal sampling location      |  ok     |   1779.63 |   1546.38  |  1226.95 |   457.886  |    532.535 | 1228.35 | 1229.91 |
-| RunTFTCustomVersion tft only |  ok     |     0.001 |     0.001  |    0.001 |       0    |        0   | 0.001   | 0.001   |
-| RunTFTCustomVersion init     |  ok     |     5.327 |     5.624  |    8.078 |      0.84  |     3.612  | 4.163   | 3.548   |
-| RunTFTCustomVersion train    |  ok     |   6967.26 |    1671.35 |  1373.01 |   1103.15  |    2068.9  | 1342.07 | 1608.61 |
-| RunTFTCustomVersion bestfit  |  ok     |   17037.6 |    14795.1 |  13022.1 |   4420.31  |    4997.13 | 13018.4 | 14303.7 |
-| label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 | 0.002   | 0.002   |
-| label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 | 0.1     | 0.01    |
+| Timer                        | Status  | K80(r)    | V100(r)    | A100(r)  | RTX3090(G) | RTX3080(R) | V100(L) |
+|------------------------------|---------|-----------|------------|----------|------------|------------|---------|
+| total                        |  ok     |  28343.3  |   20295    |  17574.8 |   6589.41  |    8348.49 | 19697.1 |
+| legal sampling location      |  ok     |   1779.63 |   1546.38  |  1226.95 |   457.886  |    532.535 | 1229.91 |
+| RunTFTCustomVersion tft only |  ok     |     0.001 |     0.001  |    0.001 |       0    |        0   | 0.001   |
+| RunTFTCustomVersion init     |  ok     |     5.327 |     5.624  |    8.078 |      0.84  |     3.612  | 3.548   |
+| RunTFTCustomVersion train    |  ok     |   6967.26 |    1671.35 |  1373.01 |   1103.15  |    2068.9  | 1608.61 |
+| RunTFTCustomVersion bestfit  |  ok     |   17037.6 |    14795.1 |  13022.1 |   4420.31  |    4997.13 | 14303.7 |
+| label2                       |  ok     |     0.002 |      0.002 |    0.002 |      0.001 |      0.001 | 0.002   |
+| label3                       |  ok     |     0.108 |     0.096  |    0.099 |     0.033  |      0.036 | 0.01    |
  
 G = Gregor
 R = Robert
 r = RIvanna
-T1 = Thomas posted something incomplete post so we do not know what it is https://spring22ds6011002.slack.com/archives/C038HBX9FME/p1649616003897029
-L = 2 epoch bii=gpu localscratch https://spring22ds6011002.slack.com/archives/C038HBX9FME/p1650019967536729
+T1 = Thomas
+L = 2 epoch bii=gpu localscratch
 
 ## Running the code
 
@@ -199,6 +200,8 @@ To run this code, you have two pathways:
       
 ### Get the Code and Data
 
+Get code and data through bash.
+  
 ```bash
 # If doing updates, advise using ssh commands.
 #git clone git@github.com:laszewsk/mlcommons.git
@@ -221,13 +224,15 @@ this will create all data files necessary to run the notebook.
 
 ### Running notebook interactively
 
+Run below code to run notebook interatively.
+  
 ```bash
 cp mar2022/FFFFWNPFEARTHQ_newTFTv29-gregor.ipynb mar2022/FFFFWNPFEARTHQ_newTFTv29-$USER.ipynb
 jupyter lab mar2022/FFFFWNPFEARTHQ_newTFTv29-gregor.ipynb
 ```
 
 ### Running the notebook non-interactively
-
+  
 First, consider running your workload using SLURM (see 
 
 ```bash
@@ -239,9 +244,7 @@ jupyter nbconvert --to notebook --execute feb-2022/FFFFWNPFEARTHQ_newTFTv29-$USE
    
 Some useful reconfiguration of the notebook files that help during development
 
-#### Lowering the epoch count
-   
-This will make for faster runs, but will lower the overall performance of the model.
+You can lower the epoch count to make faster runs, but this will lower the overall performance of the model.
 
 ```
 DLAnalysisOnly = False
@@ -297,6 +300,7 @@ From the 'Runtime' dropdown menu select 'Run all'
 When promted, approve the notebook to access your Google Drive
 
 # Setting Up Envirionments
+
 ## Rivanna
 
 For rivanna based workloads, the scripts depend upon a lmod module and an optimized version of python that is setup in the
@@ -308,7 +312,7 @@ See the readme file in `/systems/rivanna/readme.md` file more details on how thi
 
 ### Manual build
 
-#### Compile Modern OpenSSL
+####Compile Modern OpenSSL
 
 ```bash
 # Specify the version of OpenSSL to build
@@ -333,7 +337,7 @@ echo "Building OpenSSL"
     make clean)
 ```
 
-#### Compile Python
+####Compile Python
 
 ```bash
 # Set to the desired version of python you wish to use

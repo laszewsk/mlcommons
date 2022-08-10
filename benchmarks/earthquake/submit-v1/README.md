@@ -2,13 +2,14 @@
 
 ## Acknowledgements and References
 
+
 The following people were instrumental for the development of this
 benchmark
 
 * Geoffrey C. Fox
 * Gregor von Laszewski
 * Robert Knuuti
-* Thomas Buttler
+* Thomas Butler
 * Jake Kolesar
 
 A paper about the firs results are published at
@@ -41,7 +42,8 @@ NVIDIA GPUS
 
 ## Source and Development Version
 
-The develoment version if this benchmark is located at
+
+The development version if this benchmark is located at
 
 <https://github.com/laszewsk/mlcommons.git>
 
@@ -99,7 +101,7 @@ prerequesits we assume about your system:
    * the MLCommons-Science repository <url-here>.
    * the earthquake dataset <url-here>.
 
-#### Establishing your python environment
+#### *Establishing your python environment*
 
 First establish a virtual enviornment and install all the requirements
 as defined in the [requirements.txt](./requirements.txt) file.
@@ -111,7 +113,7 @@ source venv.earthquake/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-#### Configure Hyperparameters
+#### *Configure Hyperparameters*
 
 Make a copy of the [config.yaml.tmpl](./config.yaml.tmpl) and name it
 as `config.yaml`.  This file has defaults for a simple model parameter
@@ -126,7 +128,7 @@ Take note of the configurations you set for:
 
 You will need these values when setting up the data for the model.
 
-#### Setting up the data
+#### *Setting up the data*
 
 Extract the `data.tar.xz` file located from the earthquake dataset
 repository so that the files are positioned in the directory of
@@ -146,7 +148,7 @@ mkdir -p $RUN_BASE
 tar -xf data.tar.xz -C $RUN_BASE
 ```
 
-#### Running the notebook
+#### *Running the notebook*
 
 If all the previous seteps have been executed, you should now be able
 to run the notebook interactively using jupyterlab or as a batch
