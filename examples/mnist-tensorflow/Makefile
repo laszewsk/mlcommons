@@ -24,7 +24,7 @@ run-native:
 	pip install -r requirements.txt
 	python mnist.py --gpu=4
 
-run-summit-frontent:
+run-summit-frontend:
 	module purge
 	module load open-ce/1.5.2-py39-0
 	which python

@@ -2,6 +2,10 @@ name: earthquake-project
 mode: h
 dir: project
 
+data:
+  git: https://github.com/laszewsk/mlcommons-data-earthquake.git
+  earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
+
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski
@@ -16,16 +20,7 @@ experiments:
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
-  TFTTransformerepochs: "2"
-
-benchmark:
-  name: Earthquake
-  user: Gregor von Laszewski
-  e-mail: laszewski@gmail.com
-  organisation: University of Virginia
-  division: BII
-  status: submission
-  platform: "RTX3090-desktop-nvm"
+  TFTTransformerepochs: "2,4"
 
 email: laszewski@gmail.com
 script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
@@ -45,7 +40,7 @@ run:
 colortheme: "False"
 
 system:
-  python: "3.10.4"
+  python: "3.10.5"
   num_cpus: 1
   partition: "local"
   host: ubuntu

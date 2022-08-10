@@ -37,7 +37,7 @@ system:
   python: "3.10.4"
   num_cpus: 1
   partition: "local"
-  host: ubuntu
+  host: "ubuntu"
 
 colortheme: "False"
 

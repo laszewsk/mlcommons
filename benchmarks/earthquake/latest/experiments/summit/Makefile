@@ -8,8 +8,6 @@ g: s r
 s: clean
 	-rm -rf project
 	make -f Makefile all
-	sed -i -e "s/sbatch/bsub/g" jobs-summit.sh 
-
 r:
 	sh jobs-summit.sh
 
