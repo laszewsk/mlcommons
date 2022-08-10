@@ -1,8 +1,11 @@
 
-all: project generate
+all: data project generate notebooks
 
-setup:
-	sh create_environment.sh
+data:
+	python create_data.py
+
+notebooks:
+	python create_notebook.py
 
 submit: all
 	sh jobs-project.sh
@@ -41,3 +44,4 @@ status:
 clean:
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f ubuntu.slurm
+	@-rm -rf mlcommons-data-earthquake
