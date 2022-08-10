@@ -2,11 +2,12 @@
 
 Bullet points under timers are in runtime order. Some timers appear inside of others. These are stated in description if that is the case.
 
-## **Summary of Model timers**
+## Summary of Model timers
 
 Detailed description of each timer is in next section.
 
-* **CELL_READ_DATA**: Reading data directory files and putting those into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
+* **CELL_READ_DATA**: Reading data directory files and putting those into a space 
+  filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
 
 * **EVAL**: **CELL_READ_DATA** timer inside this timer. There are 2 important lists. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
 Pick input and predicted properties. Calculate futures from properties. Create and calculate predictions, which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions.
@@ -68,11 +69,11 @@ Includes functions to be looked at for optimization at end of each timer section
    - Location Based Validation
    - LSTM Control Parameters, important parameters defining transformer, General Control Parameters defined
 
-   Not included in timers – Lasts about 1 minute.
-   -
-   - Convert FFFFWNPF to TFT
-   - TFT Setup (initialize parameters)
-   - Setup Classic TFT (initialize more parameters)
+   - Not included in timers – Lasts about 1 minute.
+   
+     - Convert FFFFWNPF to TFT
+     - TFT Setup (initialize parameters)
+     - Setup Classic TFT (initialize more parameters)
 
 3. data head
    - Loading and splitting data
