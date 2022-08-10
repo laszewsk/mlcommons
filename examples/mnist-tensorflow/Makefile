@@ -16,9 +16,14 @@ rivanna-activate:
 image:
 	docker pull tensorflow/tensorflow
 
-run:
+run-docker:
 	# this is not the right way
 	docker run -v `pwd`:`pwd` -w `pwd` -i -t  tensorflow/tensorflow:latest-gpu pip install -r requirements.txt; python mnist.py --gpu=4
+
+run-native:
+	pip install -r requirements.txt
+	python mnist.py --gpu=4
+
 
 shell:
 	docker run -v `pwd`:`pwd` -w `pwd` --gpus all -it --rm tensorflow/tensorflow:latest-gpu bash
@@ -28,3 +33,5 @@ plain:
 	python mnist.py --gpu=4	
 	nvidia-smi
 
+clean:
+	rm -rf __pycache__
