@@ -24,6 +24,13 @@ run-native:
 	pip install -r requirements.txt
 	python mnist.py --gpu=4
 
+run-summit-frontent:
+	module purge
+	module load open-ce/1.5.2-py39-0
+	which python
+	python --version
+	python -c "import tensorflow; tensorflow.version"
+
 
 shell:
 	docker run -v `pwd`:`pwd` -w `pwd` --gpus all -it --rm tensorflow/tensorflow:latest-gpu bash
