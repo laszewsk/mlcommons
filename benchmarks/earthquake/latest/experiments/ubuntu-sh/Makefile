@@ -1,11 +1,14 @@
 
-all: data project generate notebooks
+all: data project generate notebooks environment
 
 data:
 	python create_data.py
 
 notebooks:
 	python create_notebook.py
+
+environment:
+	python create_env.py
 
 submit: all
 	sh jobs-project.sh

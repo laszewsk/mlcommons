@@ -18,3 +18,4 @@ for experiment in glob.glob("project/*"):
     source = str(Path(f'../../{source}').resolve())
     print (f"{source} -> {destination}")
     Shell.copy_file(source=source, destination=destination)
+

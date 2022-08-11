@@ -32,8 +32,8 @@ user:
   account: {USER}
 
 run:
-  workdir: /project/eq/runner/mlcommons
-  resourcedir: /project/eq
+  workdir: .
+  resourcedir: .
   branch: 'main'
   datadir: data
 
