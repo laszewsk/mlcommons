@@ -28,8 +28,9 @@ revision: latest
 
 time: 12:00:00
 
+# remove as will be overwritten
 user:
-  account: {USER}
+  account: "{os_USER}"
 
 run:
   workdir: .
@@ -37,13 +38,19 @@ run:
   branch: 'main'
   datadir: data
 
-colortheme: "False"
+colortheme: True
 
 system:
   python: "3.10.5"
   num_cpus: 1
   partition: "local"
   host: ubuntu
+  # not used
+  config: config.yaml
+  notebook:
+     interactive: True
+     basepath: "."
+     colabrootdir: "../../mlcommons-data-earthquake/data"
 
 set_soft_device_placement: False
 debugging_set_log_device_placement: False

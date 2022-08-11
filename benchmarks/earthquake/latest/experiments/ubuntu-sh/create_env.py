@@ -16,6 +16,7 @@ config = yaml.safe_load(readfile("ubuntu-config.yaml"))
 
 for config_file in glob.glob("project/*/config.yaml"):
     print(config_file)
+    directory = config_file.replace("/config.yaml", "")
     env_file = config_file.replace("config.yaml", "env.sh")
     config = yaml.safe_load(readfile(config_file))
     lines = []
@@ -29,5 +30,6 @@ for config_file in glob.glob("project/*/config.yaml"):
     print()
     lines = "\n".join(lines)
     writefile(env_file, lines)
-
+    data_dir = str(Path("mlcommons-data-earthquake/data").resolve())
+    os.system(f"ln -s {data_dir} {directory}")
 
