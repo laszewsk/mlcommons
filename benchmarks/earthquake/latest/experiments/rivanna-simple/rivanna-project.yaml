@@ -8,7 +8,6 @@ data:
 #   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
   images: images
 
-
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski

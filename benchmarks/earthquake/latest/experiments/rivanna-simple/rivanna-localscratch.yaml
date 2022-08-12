@@ -2,6 +2,12 @@ name: earthquake-localscratch
 mode: h
 dir: localscratch
 
+data:
+  git: https://github.com/laszewsk/mlcommons-data-earthquake.git
+  destination: "/project/{user}/test3"
+#   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
+  images: images
+
 experiments:
   card_name: v100
   gpu_count: 1
