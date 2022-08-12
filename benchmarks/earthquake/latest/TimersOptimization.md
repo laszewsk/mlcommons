@@ -1,141 +1,138 @@
-I have put these timers in time order of when they appear. there are some timers that appear inside of others. they are stated in description if that is the case.
+# Timers
 
-# **Summary of Model timers** - Detailed description is below this section.
+Bullet points under timers are in runtime order. Some timers appear inside of others. These are stated in description if that is the case.
 
-**CELL_READ_DATA**: reading data directory files and putting those into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
+## Summary of Model timers
 
-**EVAL**: Everything from CELL_READ_DATA. E^0.25 to input properties, plot fault discovery, Normalize those properties. Map locations. Note there are 2 important lists. Properties which includes input and predicted time series. Predictions which are predictions on the time series. Pick input and predicted properties. Create and calculate predictions which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions. Plot prediction arrays.
+Detailed description of each timer is in next section.
 
-**Data head**: load and split train, validation and test data.
+* **CELL_READ_DATA**: Reading data directory files and putting those into a space 
+  filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
 
-**RunTFTCustomVersion A**: Full model is under this timer.
+* **EVAL**: **CELL_READ_DATA** timer inside this timer. There are 2 important lists. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
+Pick input and predicted properties. Calculate futures from properties. Create and calculate predictions, which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions.
 
-**RunTFTCustomVersion train**: trains model and determines and saves best fit from various epochs.
+* **Data head**: load and split train, validation and test data.
 
-**RunTFTCustomVersion bestfit**: takes best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
+* **RunTFTCustomVersion A**: Full model is under this timer. Every timer name with RunTFTCustomVersion in it is under this timer.
 
-**TFTTestpredict**: Computes predictions for TFT dataset and returns formatted dataframes for prediction.
+* **RunTFTCustomVersion train**: Trains model. Determines and saves best fit from various epochs.
 
-**setFFFFmapping**: takes TFTTestpredict dataframes and maps values and index in TFTSaveandInterpret class.
+* **RunTFTCustomVersion bestfit**: Takes best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
 
-**DLprediction**: Calculates MSE and NNSE from TFTSaveandInterpret class
+* **TFTTestpredict**: Computes predictions for TFT dataset and returns formatted dataframes for prediction.
 
-**End of model. A bunch of printouts and saving happens here.**
+* **setFFFFmapping**: Takes TFTTestpredict dataframes and maps values and index in TFTSaveandInterpret class.
 
+* **DLprediction**: Calculates MSE and NNSE from TFTSaveandInterpret class
 
-# **Detailed description of Model** - includes optimization recommendations and summaries of timer at end of each timer section.
+**End of model. Printouts and saving of notebook and various text and picture outputs.**
 
-CELL_READ_DATA
-- Data directory files (Magnitude, depth, multiplicity, RundleMultiplicity, Top Earthquakes, Fault Label)
-- Calculate space filling curve and plot it.
-- Location information
-- Time series set up
-- Read in data directory files to appropriate type (time series, static props)
-- map faults based on data.
-- set up Transformed data
-- Summed magnitudes as properties for all times used in model.
+## Detailed description of Model 
 
-**CELL_READ_DATA**: reading data directory files and putting those into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
+Includes functions to be looked at for optimization at end of each timer section where applicable.
 
-**For optimization** CELL_READ_DATA (~7 minutes), when reading in data and populating CalculatedTimeSeries there are a number of nested for loops
+1. CELL_READ_DATA
 
-EVAL
-- everything from CELL_READ_DATA in here + everything below.
-- Reset time
-- E^0.25 to input properties
-- Plot earthquake images (fault_discovery graphs)
-- Normalize all properties
-- Mapping locations
-- Set Properties Predictions Encoding
-- Pick input and predicted quantities
-- Calculate futures
-- Start predictions
-- Set up predictions
-- Clean-up Input quantities
-- Set up sequences and TFT Model (Various flags and values)
-- Generate sequences from time labeled data
-- Define and add Temporal and Spatial Positional Encoding to input and predictions
-- Initialize NNSE and plot predictions arrays
-- Location Based Validation
-- LSTM Control Parameters, important parameters defining transformer, General Control Parameters defined
+   - Data directory files (Magnitude, depth, multiplicity, RundleMultiplicity, Top Earthquakes, Fault Label)
+   - Calculate space filling curve and plot it.
+   - Location information
+   - Time series set up
+   - Read in data directory files to appropriate type (time series, static props)
+   - map faults based on data.
+   - set up Transformed data
+   - Summed magnitudes as properties for all times used in model.
 
-**EVAL**: Everything from CELL_READ_DATA. E^0.25 to input properties, plot fault discovery, Normalize those properties. Map locations. 
-Note there are 2 important lists. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
-Pick input and predicted properties. Create and calculate predictions which sets up predictions and removes input quantities. 
-Temporal and Spatial Positional Encoding added to predictions. Plot prediction arrays.
+**For optimization** During reading of data and populating CalculatedTimeSeries.
 
-Not included in timers - Lasts 1 minute at most.
-- Convert FFFFWNPF to TFT
-- TFT Setup (initialize a bunch of parameters)
-- Setup Classic TFT (initialize more parameters)
+2. EVAL
 
-data head
-- Loading and splitting data
+   There are 2 important data structures. **Properties** which include input and predicted 
+   time series. **Predictions** which are predictions on the time series. 
 
-data head setup train
-- Samples data to create train data
+   - Everything from CELL_READ_DATA in here.
+   - Reset time
+   - E^0.25 to input properties
+   - Plot earthquake images (fault_discovery graphs)
+   - Normalize all properties
+   - Mapping locations
+   - Set Properties Predictions Encoding
+   - Pick input and predicted properties
+   - Calculate futures
+   - Start predictions
+   - Set up predictions
+   - Clean-up Input quantities
+   - Set up sequences and TFT Model (Various flags and values)
+   - Generate sequences from time labeled data
+   - Define and add Temporal and Spatial Positional Encoding to input and predictions
+   - Initialize NNSE and plot predictions arrays
+   - Location Based Validation
+   - LSTM Control Parameters, important parameters defining transformer, General Control Parameters defined
 
-data head setup valid
-- Samples data to create valid data
+   - Not included in timers – Lasts about 1 minute.
+   
+     - Convert FFFFWNPF to TFT
+     - TFT Setup (initialize parameters)
+     - Setup Classic TFT (initialize more parameters)
 
-data head setup test
-- Samples data to create test data
+3. data head
+   - Loading and splitting data
 
-**Data head**: load and split train, validation and test data.
+   data head setup train
+   - Samples data to create train data
 
-**For optimization** data head setup (~1hour), Individually call and read in train, validation and test data. Lots of for loops inside TFTdatasetup class which sets up the data.
+   data head setup valid
+   - Samples data to create valid data
 
-#### **Model starts here!**
+   data head setup test
+   - Samples data to create test data
 
-**RunTFTCustomVersion A**: Full model is under this timer.
+   **Data head**: load and split train, validation and test data.
 
-alll RunTFTCustomVersion timers are under this. Full model is under this timer.
+   **For optimization** data head setup (~1hour), Individually call and read in train, 
+   validation and test data. Lots of for loops inside TFTdatasetup class which sets up the data.
 
-RunTFTCustomVersion init
-- Initialize various flags and variables
+### **Model starts here**
 
-RunTFTCustomVersion train
-- Initialize progress bars
-- Trains model
-- Validates if train is best fit and saves otherwise keeps best saved fit
-- Runs timer RunTFTCustomVersion train Epoch:{e}, RunTFTCustomVersion validation bestfit Epoch:{e}
+4. **RunTFTCustomVersion A**: Full model is under this timer.
 
-**RunTFTCustomVersion train**: trains model and determines and saves best fit from various epochs.
+   - Alll RunTFTCustomVersion timers are under this. Full model is under this timer.
 
-RunTFTCustomVersion bestfit
-- set best possible fit
-- prints out best fit networks
-- make Ouput Loss v Epoch graph
-- Setup TFT
-- runs timers RunTFTCustomVersion bestfit finalize TFTTestpredict, RunTFTCustomVersion bestfit finalize VisualizeTFT
+5. RunTFTCustomVersion init
+   - Initialize various flags and variables
 
-**RunTFTCustomVersion bestfit**: takes best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
+6. RunTFTCustomVersion train
+   - Initialize progress bars
+   - Trains model
+   - Validates if train is best fit and saves otherwise keeps best saved fit
+   - Runs timer RunTFTCustomVersion train Epoch:{e}, RunTFTCustomVersion validation bestfit Epoch:{e}
 
-RunTFTCustomVersion bestfit finalize TFTTestpredict (hour long processing, can be looked at for improvement. check function TFTTestpredict)
-- Computes predictions for TFT dataset and returns formatted dataframes for prediction.
+7. RunTFTCustomVersion bestfit
+   - Set best possible fit
+   - Prints out best fit networks
+   - Make Output Loss v Epoch graph
+   - Setup TFT
+   - Runs timers RunTFTCustomVersion bestfit finalize TFTTestpredict, RunTFTCustomVersion bestfit finalize VisualizeTFT
 
-**For optimization**. I think the 2 for loops are the slow down. At least one of them is embarrassingly parallel.
+8. RunTFTCustomVersion bestfit finalize TFTTestpredict
+   - Computes predictions for TFT dataset and returns formatted dataframes for prediction.
 
-**TFTTestpredict**: Computes predictions for TFT dataset and returns formatted dataframes for prediction.
+   **For optimization**. Check function TFTTestpredict
 
-RunTFTCustomVersion bestfit finalize VisualizeTFT
-- includes every timer under RunTFTCustomVersion bestfit finalize VisualizeTFT ...
+9. RunTFTCustomVersion bestfit finalize VisualizeTFT
+   - Includes every timer that includes RunTFTCustomVersion bestfit finalize VisualizeTFT in the timer name.
 
-RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping (1 hour long processing, look for parallelization, check class TFTSaveandInterpret function setFFFFmapping)
-- Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets a index and mapping for these values in TFTSaveandInterpret class.
+10. RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
+    - Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
 
-**for optimization**. there are alot of nested for loops.
+   **For optimization**. Check class TFTSaveandInterpret function setFFFFmapping
 
-**setFFFFmapping**: takes TFTTestpredict dataframes and maps values and index in TFTSaveandInterpret class.
+11. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
+    - Takes TFTSaveandInterpret class
+    - Calculates MSE on all values (there are 92 million total values with ~900k sequences)
+    - Calculates NNSE
+    - Creates DLResults_Graphs
 
-RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction (1 hour long processing, check DLprediction function)
-- Takes TFTSaveandInterpret class
-- Calculates MSE on all values (there are 92 million total values with ~900k sequences)
-- Calculates NNSE
-- Creates DLResults_Graphs
+    **For optimization**. Check DLprediction function
 
-**for optimization**. a number of nested for loop with alot going on.
-
-**DLprediction**: Calculates MSE and NNSE from TFTSaveandInterpret class
-
-**End of model. A bunch of printouts and saving happens here.**
+    **End of model. Printouts and saving of notebook and various text and picture outputs.**

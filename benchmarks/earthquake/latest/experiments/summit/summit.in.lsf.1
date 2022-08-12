@@ -1,0 +1,297 @@
+#!/usr/bin/env bash
+
+# Begin LSF Directives
+#BSUB -q batch-hm
+#BSUB -P {user.account}
+#BSUB -J mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
+#BSUB -o out.%J
+#BSUB -e err.%J
+#BSUB -W {time}
+#BSUB -c {experiments.cpu_num}
+#BSUB -v {experiments.mem}
+#BSUB -nnodes 1
+#BSUB -N
+
+set -uxe
+
+### SOURCE BASHRC AND CONDA
+
+
+
+module load python/3.8-anaconda
+
+# HOW I HATE CONDA 
+
+export PS1=">"
+
+# WHAT STUFF IS THIS ....
+
+source ~/.bashrc
+conda activate ENV3
+
+cms banner "BEGIN CONFIGURATION"
+cms progress 1 --banner --now
+
+### BEGIN CONFIGURATION
+
+## Specifies the path to save the final output
+NB_OUTPUT="_output"
+
+## Unique identifier to isolate executions from each other.
+RUN_ID="${RUN_ID:-{meta.uuid}}"
+
+## Set the python version to target
+PYTHON_VERSION={system.python}
+
+## Specifies the git branch to use from the repository
+## by default using {run.branch}
+## The SAFE version cleans the name of any path-like characters
+BRANCH=${BRANCH:-{run.branch}}
+BRANCH_SAFE=${BRANCH/\//-}
+
+## Specifies a github fork to use when running the build
+FORK=${FORK:-"laszewsk"}
+
+## Specifies the primary directory to use when running the
+## benchmark.  When not specifies, it assumes the username
+## on the sytem as the directory.
+MLCOMMONS_HOME=${MLCOMMONS_HOME:-{run.workdir}}
+
+## Specifies a specific revision of the Earthquake notebook
+## Used to select the different folder names in the earthquake
+## directory
+REV="{revision}"
+
+## Specifies the path that contains utilities on the HPC
+## cluster, such as the system scripts.
+RESOURCE_DIR="{run.resourcedir}"
+
+
+### END CONFIGURATION
+
+
+# Cleanup locks and temporary files on failed execution
+trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
+
+cms banner "GENERAL SETUP OF FUNCTIONS"
+cms progress 2 --banner --now
+
+### FUNCTION BEGIN
+# Finds the current user's common name from the current operating
+# environment.
+### FUNCTION END
+function DETECT_RUN_USER() {
+   # Gets the current username from the current system password database
+   # will be an empty string if the command fails or a bad username is
+   # supplied
+
+   #local MY_NAME="$(getent passwd $(whoami) | cut -d: -f5 || true)"
+   ## When the username is not known or the password database cannot run
+   ## set the value to the current system username
+   #if [ x"${MY_NAME}" == x"" ]; then
+   #     echo $(whoami)
+   ## Otherwise, use the human friendly username
+   #else
+   #     echo ${MY_NAME}
+   #fi
+   echo $(whoami)
+}
+
+
+
+## Specifies the username to apply when running on a
+## clustrered environment
+RUN_USER="$(DETECT_RUN_USER)"
+
+## Sets up the base directory for running the experiment from the
+## previously defined vars.
+RUN_BASE=${MLCOMMONS_HOME}/${RUN_USER}/workspace-${RUN_ID}
+VENV_PATH=${MLCOMMONS_HOME}/${RUN_USER}/venv-${PYTHON_VERSION}
+GIT_BASEPATH=${MLCOMMONS_HOME}/${RUN_USER}/git
+LOCKDB=${MLCOMMONS_HOME}/${RUN_USER}
+
+
+### FUNCTION BEGIN
+# Performs a git checkout
+# GLOBALS:
+#   MLCOMMONS_HOME
+#   GIT_REV
+# ARGUMENTS:
+#   $1 - The url to use with the git command
+#   $2 - The folder to place the cloned repo into
+#   $3 - The branch to checkout after cloning.  By default, this is "main".
+# OUTPUTS:
+#   Git command line output
+### FUNCTION END
+function git_checkout() {
+    local repo_url=$1
+    local target=${2:-$(basename ${repo_url} .git)}
+    local branch=${3:-main}
+
+    # Make sure the base directory we're cloning into exists.
+    local target_lead=$(dirname $target)
+    mkdir -p ${target_lead}
+
+    # Clone the repo if it doesn't already exist and switch to the
+    # targeted branch.
+    if [ ! -e "$target" ]; then
+        git clone $repo_url $target
+        (cd $target && \
+            git checkout $branch)
+    # Ensure that the current checkout doesn't have any local edits
+    # and checks out the named branch.
+    else
+        (cd $target && \
+            git fetch origin  && \
+            git checkout $branch && \
+            git reset --hard origin/$branch && \
+            git clean -d --force)
+    fi
+    GIT_REV="$(cd "$target" && git rev-parse --short=8 HEAD)"
+}
+
+
+### FUNCTION BEGIN
+# Outputs the total runtime accoring to the script.  Only functions
+# when running on a slurm system
+# GLOBALS
+#   SLURM_JOBID
+# OUTPUTS
+#   a CSV prefixed with '# slurmjob,' with the jobid, username, submittion time
+#   start time, end time, and status.
+### FUNCTION END
+function slurm_runtime() {
+    # Run only if done in a slurm job
+    if [[ ! -z "${SLURM_JOBID}" ]] ; then
+      # Query current job details and substitute end time with the current time.
+      sacct -j ${SLURM_JOBID} -P --delimiter=, -o jobid,user,submit,start,end,state \
+        | sed -e 's/^/# slurmjob,/g' \
+              -e 's/,Unknown,RUNNING$/,'$(date +%Y-%m-%dT%H:%m:%S -d @${END_TIME})'DONE/g'
+    fi
+}
+
+### FUNCTION BEGIN
+# Creates a virtual environment in a specified directory using a
+# specific requirements.txt file.
+# GLOBALS
+#   RUN_BASE
+# CALLTREE
+#   waitmake_lock
+# ARGUMENTS
+#   $1 - The folder to establish the python virtual environment into
+#   $2 - The path to a python requirements.txt file
+### FUNCTION END
+function setup_venv(){
+    local target=$1
+    local requirements_path=$2
+    # Prevent parallel updates to pip
+    python -m venv --upgrade-deps ${target}
+    case "$(uname -s)" in
+       MINGW*) source ${target}/Scripts/activate ;;
+       *) source ${target}/bin/activate ;;
+    esac
+    python -m pip install -r ${requirements_path} # --progress-bar off
+    python -m pip freeze > ${RUN_BASE}/pip-freeze.txt
+}
+
+###############################################################################
+mkdir -p ${RUN_BASE}
+RUN_BASE_ABS=$(realpath ${RUN_BASE})
+###############################################################################
+
+
+###############################################################################
+# INFO
+cms banner INFO
+# ===========================================================================--
+
+echo "Working in <$(pwd)>"
+echo "Base directory in <${RUN_BASE}>"
+echo "MLCommons home in <${MLCOMMONS_HOME}>"
+echo "Revision: <${REV}>"
+echo "Script: <{script}>"
+echo "Python: <${PYTHON_VERSION}>"
+echo "Run ID: <${RUN_ID}>"
+
+if [ -e "$(pwd)/config.yaml" ]; then
+	cp $(pwd)/config.yaml ${RUN_BASE_ABS}
+fi
+
+###############################################################################
+cms banner "GIT CHECKOUT DATA"
+###############################################################################
+git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
+                 "${GIT_BASEPATH}/mlcommons-data-earthquake" \
+                 main
+
+###############################################################################
+cms banner "GIT CHECKOUT MLCOMMONS"
+cms progress 10 --banner --now
+git_checkout https://github.com/laszewsk/mlcommons.git \
+                 "${GIT_BASEPATH}/mlcommons" \
+                 $BRANCH
+
+# Extract the mlcommons eearthquake data to the required path.
+if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then
+        tar Jxvf ${GIT_BASEPATH}/mlcommons-data-earthquake/data.tar.xz \
+            -C ${RUN_BASE}
+        # BUG; should be in zip file (or created as part of the python file
+        mkdir -p ${RUN_BASE}/data/EarthquakeDec2020/Outputs
+
+fi
+
+###############################################################################
+cms banner "create python venv"
+# =============================================================================
+
+# Create a python virtual environment based on the current benchmark's requirements.txt file
+setup_venv ${VENV_PATH} \
+               ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/requirements.txt
+
+
+###############################################################################
+
+# Copy the earthquake notebook into our working directory to prevent any modifications to the git repo.
+mkdir -p ${NB_OUTPUT}
+cp ${GIT_BASEPATH}/mlcommons/benchmarks/earthquake/${REV}/{script} \
+       ${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb
+
+
+###############################################################################
+cms banner "GIT CHECKOUT COMPLETED"
+cms progress 9 --banner --now
+###############################################################################
+
+
+###############################################################################
+cms banner "RUN NOTEBOOK IN PAPERMILL"
+cms progress 10 --banner --now
+# =============================================================================
+
+# Execute the notebook using papermill
+papermill "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}.ipynb" \
+          "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+          --no-progress-bar --log-output --log-level INFO
+
+cms progress 90 --banner --now
+###############################################################################
+
+cms bannner "SAVE OUTPUT"
+
+# Save the final notebook after everything's done
+echo "Saving final notebook to ${NB_OUTPUT}"
+cp "${RUN_BASE}/FFFFWNPFEARTHQ_newTFTv29-${RUN_USER}-${GIT_REV}_output.ipynb" \
+   "${NB_OUTPUT}/FFFFWNPFEARTHQ_newTFTv29-${GIT_REV}_output.ipynb"
+
+echo "Saving graphical outputs to ${NB_OUTPUT}/gfx"
+mkdir -p ${NB_OUTPUT}/images
+cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}/images
+
+echo "Execution Complete"
+
+###############################################################################
+cms banner "EXECUTION DONE"
+cms progress 100 --banner --now
+###############################################################################
+
+exit 0

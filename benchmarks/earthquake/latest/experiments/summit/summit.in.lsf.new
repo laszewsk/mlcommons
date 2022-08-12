@@ -1,6 +1,33 @@
 #!/usr/bin/env bash
 
+# Begin LSF Directives
+#BSUB -q batch-hm
+#BSUB -P {user.account}
+#BSUB -J mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
+#BSUB -o out.%J
+#BSUB -e err.%J
+#BSUB -W {time}
+#BSUB -c {experiments.cpu_num}
+#BSUB -v {experiments.mem}
+#BSUB -nnodes 1
+#BSUB -N
+
 set -uxe
+
+### SOURCE BASHRC AND CONDA
+
+
+
+module load python/3.8-anaconda
+
+# HOW I HATE CONDA 
+
+export PS1=">"
+
+# WHAT STUFF IS THIS ....
+
+source ~/.bashrc
+conda activate ENV3
 
 cms banner "BEGIN CONFIGURATION"
 cms progress 1 --banner --now
@@ -25,6 +52,9 @@ REV="{revision}"
 
 ### END CONFIGURATION
 
+
+# Cleanup locks and temporary files on failed execution
+trap "rm -f ${MLCOMMONS_HOME}/.*.lock ; exit" 1 2 3 6 15
 
 cms banner "GENERAL SETUP OF FUNCTIONS"
 cms progress 2 --banner --now
@@ -65,7 +95,7 @@ fi
 
 
 ###############################################################################
-cms banner "Extract the mlcommons earthquake data"
+cms banner "Extract the mlcommons eearthquake data"
 # -----------------------------------------------------------------------------
 
 if [ ! -e ${RUN_BASE}/data/EarthquakeDec2020 ]; then

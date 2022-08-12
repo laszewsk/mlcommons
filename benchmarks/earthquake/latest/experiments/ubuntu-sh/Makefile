@@ -1,5 +1,14 @@
 
-all: project generate
+all: data project generate notebooks environment
+
+data:
+	python create_data.py
+
+notebooks:
+	python create_notebook.py
+
+environment:
+	python create_env.py
 
 submit: all
 	sh jobs-project.sh
@@ -7,10 +16,10 @@ submit: all
 .PHONY: project generate inspect run stop clean status watch out err status
 
 project:
-	cms sbatch generate ubuntu.in.slurm --config=ubuntu-config.yaml --name="project"
+	cms sbatch generate ubuntu.in.slurm --noos --config=ubuntu-config.yaml --name="project"
 
 generate:
-	cms sbatch generate submit --name=project.json > jobs-project.sh
+	cms sbatch generate submit --type=bash --name=project.json > jobs-project.sh
 	cat jobs-project.sh
 
 inspect:
@@ -38,3 +47,4 @@ status:
 clean:
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f ubuntu.slurm
+	@-rm -rf mlcommons-data-earthquake

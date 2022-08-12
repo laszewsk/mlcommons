@@ -22,38 +22,31 @@ file:
   "mpi": "https:/raw.githubusercontent.com/cloudmesh/cloudmesh-mpi/main/docs"
   "earthquake": "file://../benchmark/earthquakes"
   "stemdl": "file://../benchmark/stemdl"
-#  "home": "file://.."
-  "home": "https://raw.githubusercontent.com/laszewsk/mlcommons/main"
+  "home": "file://.."
+#  "home": "https://raw.githubusercontent.com/laszewsk/mlcommons/main"
   "nlp": "file://cloudmesh-nlp"
 https:
   "reu2022": "https://raw.githubusercontent.com/cybertraining-dsc/reu2022/main"
 BOOK:
-  - INTRODUCTION_TO_PROJECT:
-    - MAIN:
-      - "{file.home}/README.md"
-  - INTRODUCTION_TO_TOOLS_USED:
-    - "{file.home}/tools/singularity/readme.md"
-  - SYSTEMS_BENCHMARKS_ARE_RUN_ON:
-    - "{file.home}/systems/README.md"
-    - RIVANNA:
-      - "{file.home}/systems/rivanna/readme.md"
-  - EXAMPLE_CODE:
-    - MNIST_MXNET:
-      - "{file.home}/examples/mnist-mxnet/README.md"
-    - MNIST_TENSORFLOW:
-      - "{file.home}/examples/mnist-tensorflow/README.md"
-    - MNIST_PYTORCH:
-      - "{file.home}/examples/mnist-pytorch/README.md"
-  - UNO:
-    - "{file.home}/benchmarks/uno/README.md"
+  - "{file.home}/webpage/frontpage.md"
+  - LINKS:
+    - "{file.home}/README.md"
+  - "{file.home}/benchmarks/uno/README.md"
   - STEMDL:
     - "{file.home}/benchmarks/stemdl/README.md"
     - ORNL:
       - "{file.home}/benchmarks/stemdl/ornl/README.md"
     - STFC:
       - "{file.home}/benchmarks/stemdl/stfc/README.md"
-  - CLOUDMASK:
-    - "{file.home}/benchmarks/cloudmask/README.md"
+  - "{file.home}/benchmarks/cloudmask/README.md"
+  - COMPUTING_RESOURCES:
+    - "{file.home}/tools/singularity/readme.md"
+    - "{file.home}/systems/README.md"
+    - RIVANNA:
+      - "{file.home}/systems/rivanna/readme.md"
+  - CLOUDMESH_EXPERIMENT_MANAGEMENT:
+    - "{file.home}/book/sbatch.md"
+    - "{file.home}/book/cc.md"
   - EARTHQUAKE:
     - "{file.home}/benchmarks/earthquake/README.md"
     - "{file.home}/benchmarks/earthquake/DOCUMENTS.md"
@@ -80,15 +73,22 @@ BOOK:
           - "{file.home}/benchmarks/earthquake/latest/experiments/dgxstation/README.md"
         - UBUNTU_SH:
           - "{file.home}/benchmarks/earthquake/latest/experiments/ubuntu-sh/README.md"
-    - SUBMIT_V1:
-      - "{file.home}/benchmarks/earthquake/submit-v1/README.md"
-      - "{file.home}/benchmarks/earthquake/submit-v1/TODO.md"
-      - SYSTEMS:
-        - "{file.home}/benchmarks/earthquake/submit-v1/systems/README.md"
-        - RIVANNA:
-          - "{file.home}/benchmarks/earthquake/submit-v1/systems/rivanna/README.md"
-        - DGXSTATION:
-          - "{file.home}/benchmarks/earthquake/submit-v1/systems/dgxstation/README.md"
+#    - SUBMIT_V1:
+#      - "{file.home}/benchmarks/earthquake/submit-v1/README.md"
+#      - "{file.home}/benchmarks/earthquake/submit-v1/TODO.md"
+#      - SYSTEMS:
+#        - "{file.home}/benchmarks/earthquake/submit-v1/systems/README.md"
+#        - RIVANNA:
+#          - "{file.home}/benchmarks/earthquake/submit-v1/systems/rivanna/README.md"
+#        - DGXSTATION:
+#          - "{file.home}/benchmarks/earthquake/submit-v1/systems/dgxstation/README.md"
+  - MNIST_EXAMPLE_CODE:
+    - MNIST_MXNET:
+      - "{file.home}/examples/mnist-mxnet/README.md"
+    - MNIST_TENSORFLOW:
+      - "{file.home}/examples/mnist-tensorflow/README.md"
+    - MNIST_PYTORCH:
+      - "{file.home}/examples/mnist-pytorch/README.md"
 
 
 ##  - COMMUNICATION:

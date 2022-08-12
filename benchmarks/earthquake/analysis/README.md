@@ -60,3 +60,6 @@ Example structure:
 
 ### NNSE_analysis.ipynb
 - Generate markdown tables for earthquake predictions across epochs
+
+## Output
+- PNG and PDF files of the images will be saved in a directory named analysis which is placed at the top level of the results directory
