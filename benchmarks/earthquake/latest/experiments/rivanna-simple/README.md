@@ -42,10 +42,17 @@ cloudmesh-installer --ssh get sbatch
 ```bash
 cd ~
 export EQ_VERSION=latest
+
+# FOR USERS
 git clone https://github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
-# Thi next line is only needed for developmen
-git checkout v2.0
+cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
+
+# FOR DEELOPERS
+# git clone git@github.com:laszewsk/mlcommons.git
+# cd mlcommons
+# git checkout 2.0
+# cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna-simple
+
 # cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 

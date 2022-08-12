@@ -18,7 +18,8 @@ benchmark:
   platform: rivanna
 
 experiments:
-  card_name: "a100,p100,v100,k80,rtx2080"
+  #card_name: "a100,p100,v100,k80,rtx2080"
+  card_name: "a100"
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
