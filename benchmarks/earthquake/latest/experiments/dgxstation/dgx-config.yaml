@@ -2,8 +2,6 @@ name: earthquake-project
 mode: h
 dir: dgx
 
-
-
 experiments:
   card_name: "a100"
   gpu_count: 1

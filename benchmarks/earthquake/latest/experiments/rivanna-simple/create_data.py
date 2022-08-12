@@ -47,9 +47,11 @@ banner("GET DATA")
 pprint (config["data"])
 
 user = Shell.user()
+home = os.environ["HOME"]
 
 git = config["data"]["git"]
-destination = config["data"]["destination"].format(user=user)
+destination = config["data"]["destination"].format(user=user, home=home)
+
 print (destination)
 Shell.mkdir(destination)
 

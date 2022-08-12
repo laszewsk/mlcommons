@@ -9,7 +9,7 @@
 #SBATCH --gres=gpu:{experiments.card_name}:{experiments.gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={user.account}
+#SBATCH --account={system.account}
 
 set -uxe
 
@@ -24,6 +24,8 @@ set -uxe
 NB_OUTPUT="_output"
 
 ## Unique identifier to isolate executions from each other.
+
+RUN_ID=${SLURM_JOB_ID}
 RUN_ID="${RUN_ID:-{meta.uuid}}"
 
 ## Set the python version to target
@@ -56,32 +58,10 @@ RESOURCE_DIR="{run.resourcedir}"
 ### END CONFIGURATION
 
 
-### FUNCTION BEGIN
-# Finds the current user's common name from the current operating
-# environment.
-### FUNCTION END
-function DETECT_RUN_USER() {
-   # Gets the current username from the current system password database
-   # will be an empty string if the command fails or a bad username is
-   # supplied
-
-   #local MY_NAME="$(getent passwd $(whoami) | cut -d: -f5 || true)"
-   ## When the username is not known or the password database cannot run
-   ## set the value to the current system username
-   #if [ x"${MY_NAME}" == x"" ]; then
-   #     echo $(whoami)
-   ## Otherwise, use the human friendly username
-   #else
-   #     echo ${MY_NAME}
-   #fi
-   echo $(whoami)
-}
-
-
 
 ## Specifies the username to apply when running on a
 ## clustrered environment
-RUN_USER="$(DETECT_RUN_USER)"
+RUN_USER="{system.user}"
 
 ## Sets up the base directory for running the experiment from the
 ## previously defined vars.
