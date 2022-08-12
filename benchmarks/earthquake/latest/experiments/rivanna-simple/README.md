@@ -56,7 +56,8 @@ cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
 # cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 
-# running under /project
+# running under ./project
+# rm -rf ./project
 cms sbatch generate rivanna.in.slurm --setup=rivanna-project.yaml --name="project" --noos 
 # You can manually inspect the job files in $(pwd)/project/<identifier>
 # To verify the output is correct
