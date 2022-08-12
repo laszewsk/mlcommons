@@ -1,6 +1,6 @@
 # Set up python 3.10 on rivanna
 
-Load in Python 3.10
+0. Load in Python 3.10
 
 ```bash
 module purge
@@ -19,16 +19,33 @@ source activate py3.10
 ```bash
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
+which python
+python -V
+mkdir ~/cm
+cd ~/cm
+pip install pip -U
 pip install cloudmesh-installer
 cloudmesh-installer get sbatch
+cms help
+```
+
+The last line can also be with `--ssh` if you sue ssh instead of http for git checkouts
+
+```
+eval `ssh-agent`
+ssh-add
+cloudmesh-installer --ssh get sbatch
 ```
 
 2. Generating experiment configurations
 
 ```bash
+cd ~
 export EQ_VERSION=latest
 git clone https://github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+# Thi next line is only needed for developmen
+git checkout v2.0
 # cd benchmarks/earthquake/${EQ_VERSION}/experiments/summit
 # partition ds6011-sp22-002 
 
