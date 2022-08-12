@@ -25,7 +25,7 @@ NB_OUTPUT="_output"
 
 ## Unique identifier to isolate executions from each other.
 
-RUN_ID="${SLURM_JOB_ID}"
+# RUN_ID="${TODO_SLURM_JOB_ID}"
 RUN_ID="${RUN_ID:-{meta.uuid}}"
 
 ## Set the python version to target
