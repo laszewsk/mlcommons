@@ -5,7 +5,7 @@ dir: dgx
 data:
   git: https://github.com/laszewsk/mlcommons-data-earthquake.git
   destination: "/project/{user}/test3"
-#   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
+  earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
   images: images
 
 benchmark:
