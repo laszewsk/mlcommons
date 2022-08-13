@@ -51,6 +51,7 @@ This is a detailed description of the model timers. Some timers include optimiza
    - Map faults based on data.
    - Set up Transformed data.
    - Summed magnitudes as properties for all times used in model.
+   
    **For optimization** Optimization opportunity during reading of data directories and populating of the CalculatedTimeSeries.
 
 2. EVAL
@@ -94,6 +95,7 @@ This is a detailed description of the model timers. Some timers include optimiza
 
    data head setup test
    - Samples data to create test data
+   
    **For optimization** Data head setup runs for  approximately 1hour. This Individually calls and read in train, validation and test data. Reivew TFTdatasetup class which sets up the data.
 
 ### **Model starts here**
@@ -118,6 +120,7 @@ This is a detailed description of the model timers. Some timers include optimiza
 
 8. RunTFTCustomVersion bestfit finalize TFTTestpredict
    - Computes predictions for TFT dataset and returns formatted dataframes for prediction.
+   
    **For optimization**. Check the function “TFTTestpredict”.
 
 9. RunTFTCustomVersion bestfit finalize VisualizeTFT
@@ -125,6 +128,7 @@ This is a detailed description of the model timers. Some timers include optimiza
 
 10. RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
     - Takes the output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
+    
     **For optimization**. Check the function “setFFFFmapping” under the class “TFTSaveandInterpret”.
 
 11. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
@@ -132,6 +136,7 @@ This is a detailed description of the model timers. Some timers include optimiza
     - Calculates MSE on all values. In total there are 92 million values with about 900k sequences
     - Calculates NNSE.
     - Creates the DLResults_Graphs.
+    
     **For optimization**. Check the “DLprediction” function
 
     **End of model. Data printouts and saving of notebook and various figures occur here.**
