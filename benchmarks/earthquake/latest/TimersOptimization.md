@@ -12,7 +12,7 @@ This is a summary of important timers. A detailed description of all timers are 
   - Picks input and predicted properties.
   - Code calculates futures from properties.
   - Creates and calculates predictions.
-      - This sets up predictions from properties and removes input quantities from the newly created predictions. 
+   - This sets up predictions from properties and removes input quantities from the newly created predictions. 
   - Temporal and Spatial Positional Encoding added to predictions.
 
 * **Data head**:  Loads and splits train, validation and test data.
@@ -38,12 +38,12 @@ This is a detailed description of the model timers. Some timers include optimiza
 1. CELL_READ_DATA
 
    - Read in the following Data directory files.
-      - Magnitude
-      - Depth
-      - Multiplicity
-      - RundleMultiplicity
-      - Top Earthquakes
-      - Fault Label
+    - Magnitude
+    - Depth
+    - Multiplicity
+    - RundleMultiplicity
+    - Top Earthquakes
+    - Fault Label
    - Calculate and plot space filling curve.
    - Set up Location information.
    - Set up Time series.
@@ -51,8 +51,7 @@ This is a detailed description of the model timers. Some timers include optimiza
    - Map faults based on data.
    - Set up Transformed data.
    - Summed magnitudes as properties for all times used in model.
-
-**For optimization** Optimization opportunity during reading of data directories and populating of the CalculatedTimeSeries.
+   **For optimization** Optimization opportunity during reading of data directories and populating of the CalculatedTimeSeries.
 
 2. EVAL
 
@@ -79,10 +78,9 @@ This is a detailed description of the model timers. Some timers include optimiza
    - LSTM Control Parameters, important parameters defining transformer, General Control Parameters are defined.
 
    - Following code is not included in the timers. In total the code runs for about 1 minute.
-   
-     - Convert FFFFWNPF to TFT.
-     - TFT Setup is run. This is initialize parameters.
-     - Setup Classic TFT. This is initialize more parameters.
+    - Convert FFFFWNPF to TFT.
+    - TFT Setup is run. This is initialize parameters.
+    - Setup Classic TFT. This is initialize more parameters.
 
 3. data head setup
    - Holds all timers with the “data head setup” subset in the timer’s name.
@@ -96,12 +94,12 @@ This is a detailed description of the model timers. Some timers include optimiza
 
    data head setup test
    - Samples data to create test data
-
    **For optimization** Data head setup runs for  approximately 1hour. This Individually calls and read in train, validation and test data. Reivew TFTdatasetup class which sets up the data.
 
 ### **Model starts here**
 
-4. **RunTFTCustomVersion A**: Full model is under this timer. Every timer name that includes a subset of “RunTFTCustomVersion” is in this timer.
+4. RunTFTCustomVersion A
+   - The full model is under this timer. Every timer name that includes a subset of “RunTFTCustomVersion” is in this timer.
 
 5. RunTFTCustomVersion init
    - Initialize multiple flags and variables.
@@ -120,7 +118,6 @@ This is a detailed description of the model timers. Some timers include optimiza
 
 8. RunTFTCustomVersion bestfit finalize TFTTestpredict
    - Computes predictions for TFT dataset and returns formatted dataframes for prediction.
-
    **For optimization**. Check the function “TFTTestpredict”.
 
 9. RunTFTCustomVersion bestfit finalize VisualizeTFT
@@ -128,15 +125,13 @@ This is a detailed description of the model timers. Some timers include optimiza
 
 10. RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
     - Takes the output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
-
-   **For optimization**. Check the function “setFFFFmapping” under the class “TFTSaveandInterpret”.
+    **For optimization**. Check the function “setFFFFmapping” under the class “TFTSaveandInterpret”.
 
 11. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
     - Takes the “TFTSaveandInterpret” class
     - Calculates MSE on all values. In total there are 92 million values with about 900k sequences
     - Calculates NNSE.
     - Creates the DLResults_Graphs.
-
     **For optimization**. Check the “DLprediction” function
 
     **End of model. Data printouts and saving of notebook and various figures occur here.**
