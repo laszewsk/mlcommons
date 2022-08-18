@@ -3,12 +3,12 @@
 # Begin LSF Directives
 #BSUB -q debug
 #BSUB -P {user.account}
-#BSUB -J mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
+#BSUB -J mlcommons-eq-{experiment.card_name}-{experiment.gpu_count}
 #BSUB -o out.%J
 #BSUB -e err.%J
 #BSUB -W 0:03
-#BSUB -c {experiments.cpu_num}
-#BSUB -v {experiments.mem}
+#BSUB -c {experiment.cpu_num}
+#BSUB -v {experiment.mem}
 #BSUB -nnodes 1
 #BSUB -N
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-eq-dgx-{experiments.gpu_count}
+#SBATCH --job-name=mlcommons-eq-dgx-{experiment.gpu_count}
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
 #SBATCH --partition={system.partition}
-#SBATCH -c {experiments.cpu_num}
-#SBATCH --mem={experiments.mem}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
-#SBATCH --gres=gpu:{experiments.gpu_count}
+#SBATCH --gres=gpu:{experiment.gpu_count}
 #SBATCH --reservation=bi_fox_dgx
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL

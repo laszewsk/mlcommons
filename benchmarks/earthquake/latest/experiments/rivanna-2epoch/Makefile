@@ -18,7 +18,7 @@ project:
 
 
 generate:
-	cms sbatch generate submit --name=project.json > jobs-project.sh
+	cms sbatch generate submit --name=project > jobs-project.sh
 	cat jobs-project.sh
 
 inspect:
