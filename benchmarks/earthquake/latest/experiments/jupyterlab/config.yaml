@@ -1,6 +1,8 @@
 name: earthquake-shm
-mode: h
-dir: shm
+sbatch:
+  mode: h
+  dir: shm
+
 
 card_name: "rtx3090"
 gpu_count: 1

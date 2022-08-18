@@ -1,6 +1,7 @@
 name: earthquake-dgx-shm
-mode: h
-dir: dgx-shm
+sbatch:
+  mode: h
+  dir: dgx-shm
 
 benchmark:
   name: Earthquake

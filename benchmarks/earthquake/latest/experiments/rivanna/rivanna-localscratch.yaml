@@ -1,6 +1,7 @@
 name: earthquake-localscratch
-mode: h
-dir: localscratch
+sbatch:
+  mode: h
+  dir: localscratch
 
 experiments:
   card_name: v100

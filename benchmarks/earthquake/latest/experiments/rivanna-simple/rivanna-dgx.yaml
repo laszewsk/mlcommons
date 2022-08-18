@@ -1,6 +1,7 @@
 name: earthquake-dgx
-mode: h
-dir: dgx
+sbatch:
+  mode: h
+  dir: dgx
 
 data:
   git: https://github.com/laszewsk/mlcommons-data-earthquake.git

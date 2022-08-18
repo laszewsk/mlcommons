@@ -12,7 +12,10 @@ project:
 	           --config=rivanna-2epoch.yaml \
 	           --name=project \
 	           --noos \
-	           --dir=project
+	           --output_dir=./project \
+               --source_dir=. \
+               --verbose
+
 
 generate:
 	cms sbatch generate submit --name=project.json > jobs-project.sh

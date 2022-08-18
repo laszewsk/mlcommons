@@ -1,6 +1,7 @@
 name: earthquake-shm
-mode: h
-dir: shm
+sbatch:
+  mode: h
+  dir: shm
 
 benchmark:
   name: Earthquake

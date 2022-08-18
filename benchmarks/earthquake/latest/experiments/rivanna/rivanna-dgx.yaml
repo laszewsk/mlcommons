@@ -1,6 +1,7 @@
 name: earthquake-dgx
-mode: h
-dir: dgx
+sbatch:
+  mode: h
+  dir: dgx
 
 benchmark:
   name: Earthquake

@@ -1,6 +1,8 @@
 name: earthquake-dgx
-mode: h
-dir: dgx
+sbatch:
+  mode: h
+  dir: dgx
+
 experiments:
   card_name: 1
   gpu_count: 1

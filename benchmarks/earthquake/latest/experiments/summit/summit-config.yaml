@@ -1,6 +1,7 @@
 name: earthquake-project
-mode: h
-dir: project
+sbatch:
+  mode: h
+  dir: project
 
 benchmark:
   name: Earthquake

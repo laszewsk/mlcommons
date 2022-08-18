@@ -1,6 +1,8 @@
 name: earthquake-project
-mode: h
-dir: dgx
+sbatch:
+  mode: h
+  dir: project
+
 
 experiments:
   card_name: "a100"

@@ -1,6 +1,8 @@
 name: earthquake-project
-mode: h
-dir: project
+
+sbatch:
+  mode: h
+  dir: project
 
 benchmark:
   name: Earthquake
@@ -11,7 +13,7 @@ benchmark:
   status: submission
   platform: rivanna
 
-experiments:
+experiment:
   card_name: "a100"
   gpu_count: 1
   cpu_num: 6
