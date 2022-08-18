@@ -14,7 +14,7 @@
 #  '--nocm': False,
 #  '--noos': False,
 #  '--out': None,
-#  '--setup': None,
+#  '--config': None,
 #  '--verbose': False,
 #  'SOURCE': None,
 #  'account': None,

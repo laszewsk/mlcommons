@@ -35,7 +35,7 @@ git clone https://github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna-2epoch
 
 # build slurm scripts
-# cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos 
+# cms sbatch generate rivanna.in.slurm --config=rivanna-2epoch.yaml --name="project" --noos 
 make project
 
 

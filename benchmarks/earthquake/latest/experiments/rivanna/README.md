@@ -33,20 +33,20 @@ cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
 # partition ds6011-sp22-002 
 
 # running under /project
-cms sbatch generate rivanna.in.slurm --setup=rivanna-project.yaml --name="project" --noos 
+cms sbatch generate rivanna.in.slurm --config=rivanna-project.yaml --name="project" --noos 
 # You can manually inspect the job files in $(pwd)/project/<identifier>
 # To verify the output is correct
 
 
 # partition bii_gpu
 #running under /localscratch
-cms sbatch generate rivanna.in.slurm --setup=rivanna-localscratch.yaml --name="localscratch" --noos
+cms sbatch generate rivanna.in.slurm --config=rivanna-localscratch.yaml --name="localscratch" --noos
 
 #running under /dev/shm
-cms sbatch generate rivanna.in.slurm --setup=rivanna-shm.yaml --name="shm" --noos
+cms sbatch generate rivanna.in.slurm --config=rivanna-shm.yaml --name="shm" --noos
 
 #running dgx
-cms sbatch generate rivanna-dgx.in.slurm --setup=rivanna-dgx.yaml --name="dgx" --noos
+cms sbatch generate rivanna-dgx.in.slurm --config=rivanna-dgx.yaml --name="dgx" --noos
 
 # Generate the submit scripts
 cms sbatch generate submit --name="project.json" > job-project.sh

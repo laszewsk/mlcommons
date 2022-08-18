@@ -28,7 +28,7 @@ git clone ssh://git@github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/dgxstation
 
 # build slurm scripts
-# cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos 
+# cms sbatch generate rivanna.in.slurm --config=rivanna-2epoch.yaml --name="project" --noos 
 make project
 
 
