@@ -14,6 +14,8 @@ experiments:
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
+  repeat: "1"
+  #repeat: "1,2,3,4,5"
 
   ## TFTTransformerepochs = num_epochs
   #
