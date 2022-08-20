@@ -256,11 +256,14 @@ Example Implementation
 The example implementation is primarily to demonstrate feasibility,
 show how the data is represented, help address any interpretation
 considerations, and potentially trigger initial ideas on how the
-benchmark can be improved.  Respondents:
+benchmark can be improved.  
+
+Respondents:
 
 At the present time, we expect respondents to submit the results of
 their run, and should provide justification in the form of
 documentation (e.g., a technical manuscript or source code with run
-instructions). We are exploring setting this up as a "pull request"
-based contribution mechanism.
+instructions). We are exploring setting this up as a framework that interfaces with the MLCommons submission portal. For now 
+you can also submit results to the group by contactingGrgeor von Laszewski <laszewski@gmail.com> amd Juri Papay <juri.papay@stfc.ac.uk>.
 
+![img.png](./img.png)
