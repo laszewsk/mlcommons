@@ -1,82 +1,91 @@
 # Timers
 
-Bullet points under timers are in runtime order. Some timers appear inside of others. These are stated in description if that is the case.
+This is a list of timers that appear in the benchmark code. The timers are in runtime order. Some timers appear inside of others; this is stated in the timer if that is the case.
 
 ## Summary of Model timers
 
-Detailed description of each timer is in next section.
+This is a summary of important timers. A detailed description of all timers are below this section.
 
-* **CELL_READ_DATA**: Reading data directory files and putting those into a space 
-  filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
+* **CELL_READ_DATA**: Reads in data directory files and puts data directory files into a space filling curve and time series. Maps Faults and sets up transformed data. Summed magnitudes in time series.
 
-* **EVAL**: **CELL_READ_DATA** timer inside this timer. There are 2 important lists. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
-Pick input and predicted properties. Calculate futures from properties. Create and calculate predictions, which sets up predictions and removes input quantities. Temporal and Spatial Positional Encoding added to predictions.
+* **EVAL**: **CELL_READ_DATA** timer inside this timer. There are 2 important lists in this timer. **Properties** which include input and predicted time series. **Predictions** which are predictions on the time series. 
+  - Picks input and predicted properties.
+  - Code calculates futures from properties.
+  - Creates and calculates predictions.
+   - This sets up predictions from properties and removes input quantities from the newly created predictions. 
+  - Temporal and Spatial Positional Encoding added to predictions.
 
-* **Data head**: load and split train, validation and test data.
+* **Data head**:  Loads and splits train, validation and test data.
 
-* **RunTFTCustomVersion A**: Full model is under this timer. Every timer name with RunTFTCustomVersion in it is under this timer.
+* **RunTFTCustomVersion A**:  The full model is run under this timer. Every timer name subset with RunTFTCustomVersion is under this timer.
 
-* **RunTFTCustomVersion train**: Trains model. Determines and saves best fit from various epochs.
+* **RunTFTCustomVersion train**: Trains the model. Determines and saves best fit from all run epochs.
 
-* **RunTFTCustomVersion bestfit**: Takes best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
+* **RunTFTCustomVersion bestfit**: Takes the best fit model and runs code based on TFTTestpredict, setFFFFmapping, and DLprediction timers.
 
 * **TFTTestpredict**: Computes predictions for TFT dataset and returns formatted dataframes for prediction.
 
 * **setFFFFmapping**: Takes TFTTestpredict dataframes and maps values and index in TFTSaveandInterpret class.
 
-* **DLprediction**: Calculates MSE and NNSE from TFTSaveandInterpret class
+* **DLprediction**: Calculates MSE and NNSE from TFTSaveandInterpret class.
 
-**End of model. Printouts and saving of notebook and various text and picture outputs.**
+**End of model. Data printouts and saving of notebook and various figures occur here.**
 
 ## Detailed description of Model 
 
-Includes functions to be looked at for optimization at end of each timer section where applicable.
+This is a detailed description of the model timers. Some timers include optimization notes which explain where improvements could be made on the code.
 
 1. CELL_READ_DATA
 
-   - Data directory files (Magnitude, depth, multiplicity, RundleMultiplicity, Top Earthquakes, Fault Label)
-   - Calculate space filling curve and plot it.
-   - Location information
-   - Time series set up
-   - Read in data directory files to appropriate type (time series, static props)
-   - map faults based on data.
-   - set up Transformed data
+   - Read in the following Data directory files.
+    - Magnitude
+    - Depth
+    - Multiplicity
+    - RundleMultiplicity
+    - Top Earthquakes
+    - Fault Label
+   - Calculate and plot space filling curve.
+   - Set up Location information.
+   - Set up Time series.
+   - Read in data directory files to time series or static properties.
+   - Map faults based on data.
+   - Set up Transformed data.
    - Summed magnitudes as properties for all times used in model.
-
-**For optimization** During reading of data and populating CalculatedTimeSeries.
+   
+   **For optimization** Optimization opportunity during reading of data directories and populating of the CalculatedTimeSeries.
 
 2. EVAL
 
-   There are 2 important data structures. **Properties** which include input and predicted 
+   There are two important data structures. **Properties** which include input and predicted 
    time series. **Predictions** which are predictions on the time series. 
 
-   - Everything from CELL_READ_DATA in here.
-   - Reset time
-   - E^0.25 to input properties
-   - Plot earthquake images (fault_discovery graphs)
-   - Normalize all properties
-   - Mapping locations
-   - Set Properties Predictions Encoding
-   - Pick input and predicted properties
-   - Calculate futures
-   - Start predictions
-   - Set up predictions
-   - Clean-up Input quantities
-   - Set up sequences and TFT Model (Various flags and values)
-   - Generate sequences from time labeled data
-   - Define and add Temporal and Spatial Positional Encoding to input and predictions
-   - Initialize NNSE and plot predictions arrays
-   - Location Based Validation
-   - LSTM Control Parameters, important parameters defining transformer, General Control Parameters defined
+   - Everything from CELL_READ_DATA timer is run before this point.
+   - Set timer 1 year back for 1 year buffer calculation.
+   - E^0.25 multipled into input properties.
+   - Plot earthquake images (fault_discovery graphs).
+   - Normalize all properties.
+   - Mapping locations into properties.
+   - Set Properties Predictions Encoding.
+   - Pick input and predicted properties.
+   - Calculate futures.
+   - Start predictions.
+   - Set up predictions.
+   - Clean-up Input quantities from predictions.
+   - Set up sequences and TFT Model. These are various flags and values.
+   - Generate sequences from time labeled data.
+   - Define and add Temporal and Spatial Positional Encoding to input properties and predictions.
+   - Initialize NNSE and plot predictions arrays.
+   - Location Based Validation done.
+   - LSTM Control Parameters, important parameters defining transformer, General Control Parameters are defined.
 
-   - Not included in timers – Lasts about 1 minute.
-   
-     - Convert FFFFWNPF to TFT
-     - TFT Setup (initialize parameters)
-     - Setup Classic TFT (initialize more parameters)
+   - Following code is not included in the timers. In total the code runs for about 1 minute.
+    - Convert FFFFWNPF to TFT.
+    - TFT Setup is run. This is initialize parameters.
+    - Setup Classic TFT. This is initialize more parameters.
 
-3. data head
-   - Loading and splitting data
+3. data head setup
+   - Holds all timers with the “data head setup” subset in the timer’s name.
+   - Load and split train, validation and test data.
 
    data head setup train
    - Samples data to create train data
@@ -86,53 +95,48 @@ Includes functions to be looked at for optimization at end of each timer section
 
    data head setup test
    - Samples data to create test data
-
-   **Data head**: load and split train, validation and test data.
-
-   **For optimization** data head setup (~1hour), Individually call and read in train, 
-   validation and test data. Lots of for loops inside TFTdatasetup class which sets up the data.
+   
+   **For optimization** Data head setup runs for  approximately 1hour. This Individually calls and read in train, validation and test data. Reivew TFTdatasetup class which sets up the data.
 
 ### **Model starts here**
 
-4. **RunTFTCustomVersion A**: Full model is under this timer.
-
-   - Alll RunTFTCustomVersion timers are under this. Full model is under this timer.
+4. RunTFTCustomVersion A
+   - The full model is under this timer. Every timer name that includes a subset of “RunTFTCustomVersion” is in this timer.
 
 5. RunTFTCustomVersion init
-   - Initialize various flags and variables
+   - Initialize multiple flags and variables.
 
-6. RunTFTCustomVersion train
-   - Initialize progress bars
-   - Trains model
-   - Validates if train is best fit and saves otherwise keeps best saved fit
-   - Runs timer RunTFTCustomVersion train Epoch:{e}, RunTFTCustomVersion validation bestfit Epoch:{e}
+6. “RunTFTCustomVersion train” and “RunTFTCustomVersion validation”
+   - Initialize progress bars.
+   - Trains the model.
+   - Validates if most recent trained epoch is best fit. If the most recent trained epoch is the best fit, saves this epoch as the best fit epoch.
 
 7. RunTFTCustomVersion bestfit
-   - Set best possible fit
-   - Prints out best fit networks
-   - Make Output Loss v Epoch graph
-   - Setup TFT
-   - Runs timers RunTFTCustomVersion bestfit finalize TFTTestpredict, RunTFTCustomVersion bestfit finalize VisualizeTFT
+   - Sets the best possible fit model
+   - Prints out best fit networks.
+   - Make Output Loss v Epoch graph.
+   - Setup TFT model.
+   - Runs the following timers: RunTFTCustomVersion bestfit finalize TFTTestpredict, RunTFTCustomVersion bestfit finalize VisualizeTFT.
 
 8. RunTFTCustomVersion bestfit finalize TFTTestpredict
    - Computes predictions for TFT dataset and returns formatted dataframes for prediction.
-
-   **For optimization**. Check function TFTTestpredict
+   
+   **For optimization**. Check the function “TFTTestpredict”.
 
 9. RunTFTCustomVersion bestfit finalize VisualizeTFT
-   - Includes every timer that includes RunTFTCustomVersion bestfit finalize VisualizeTFT in the timer name.
+   - Every timer name that includes a subset of “RunTFTCustomVersion bestfit finalize VisualizeTFT” is in this timer.
 
 10. RunTFTCustomVersion bestfit finalize VisualizeTFT TFTSaveandInterpret setFFFFmapping
-    - Takes output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
-
-   **For optimization**. Check class TFTSaveandInterpret function setFFFFmapping
+    - Takes the output from RunTFTCustomVersion bestfit finalize TFTTestpredict and sets an index and mapping for these values in TFTSaveandInterpret class.
+    
+    **For optimization**. Check the function “setFFFFmapping” under the class “TFTSaveandInterpret”.
 
 11. RunTFTCustomVersion bestfit finalize VisualizeTFT DLprediction
-    - Takes TFTSaveandInterpret class
-    - Calculates MSE on all values (there are 92 million total values with ~900k sequences)
-    - Calculates NNSE
-    - Creates DLResults_Graphs
+    - Takes the “TFTSaveandInterpret” class
+    - Calculates MSE on all values. In total there are 92 million values with about 900k sequences
+    - Calculates NNSE.
+    - Creates the DLResults_Graphs.
+    
+    **For optimization**. Check the “DLprediction” function
 
-    **For optimization**. Check DLprediction function
-
-    **End of model. Printouts and saving of notebook and various text and picture outputs.**
+    **End of model. Data printouts and saving of notebook and various figures occur here.**
