@@ -98,7 +98,7 @@ CloudMask Specific Benchmark Targets
 
 ## STEMDL (Classification)
 
-State of the art scanning transmission electron microscopes (STEM)
+State-of-the-art scanning transmission electron microscopes (STEM)
 produce focused electron beams with atomic dimensions and allow to
 capture diffraction patterns arising from the interaction of incident
 electrons with nanoscale material volumes. Backing out the local
@@ -162,14 +162,14 @@ architectures address problems at three biological scales: cellular
 (Pilot1 P1), molecular (Pilot P2) and population (Pilot3).
 
 Pilot1 (P1) benchmarks are formed out of problems and data at the
-cellular level. The high level goal of the problem behind the P1
+cellular level. The high-level goal of the problem behind the P1
 benchmarks is to predict drug response based on molecular features of
 tumor cells and drug descriptors. Pilot2 (P2) benchmarks are formed
-out of problems and data at the molecular level. The high level goal
+out of problems and data at the molecular level. The high-level goal
 of the problem behind the P2 benchmarks is molecular dynamic
 simulations of proteins involved in cancer, specifically the RAS
 protein. Pilot3 (P3) benchmarks are formed out of problems and data at
-the population level. The high level goal of the problem behind the P3
+the population level. The high-level goal of the problem behind the P3
 benchmarks is to predict cancer recurrence in patients based on
 patient related data.
 
@@ -246,7 +246,7 @@ found here, and here.  TEvolOp Specific Benchmark Targets
   * Training samples: Data is decided spatially in an 80%-20% fashion between training and validation. The full dataset covers 6 degrees of longitude (-114 to -120) and 4 degrees of latitude (32 to 56) In Southern California. This is divided into 2400 spatial bins 0.1 degree (~11km) on a side
   * Validation samples: Most analyses use 500 most active bins of which 400 are training and 100 validation.
 * Example implementation
-  * Model: 3 state of the art geospatial deep learning implementations are provided
+  * Model: 3 state-of-the-art geospatial deep learning implementations are provided
   * Reference Code: <https://github.com/mlcommons/science/tree/main/benchmarks/earthquake> (Second model below)
   * Run Instructions: This is set up currently as a Jupyter notebook to run on Colab/GitHub. A container DGX version is also available
   * Time-to-solution: 1 to 2 days on a single GPU
@@ -260,10 +260,7 @@ benchmark can be improved.
 
 Respondents:
 
-At the present time, we expect respondents to submit the results of
-their run, and should provide justification in the form of
-documentation (e.g., a technical manuscript or source code with run
-instructions). We are exploring setting this up as a framework that interfaces with the MLCommons submission portal. For now 
-you can also submit results to the group by contactingGrgeor von Laszewski <laszewski@gmail.com> amd Juri Papay <juri.papay@stfc.ac.uk>.
+We are exploring setting this up as a framework that interfaces with the MLCommons submission portal for Sep. 30, 2022. Until then,   
+you can also submit results to the group by contacting Gregor von Laszewski <laszewski@gmail.com> and Juri Papay <juri.papay@stfc.ac.uk>.
 
 ![img.png](./img.png)
