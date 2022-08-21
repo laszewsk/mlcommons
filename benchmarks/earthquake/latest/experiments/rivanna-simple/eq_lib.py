@@ -1,10 +1,16 @@
 
 import os
 import glob
+import string
 import sys
 import yaml
 
 import cloudmesh.common as cloudmesh
+
+
+def expand_string(my_str):
+    return string.Template(my_str).substitute(os.environ)
+
 
 def get_config(argv, ext="yaml"):
     configs = glob.glob(f"*.{ext}")

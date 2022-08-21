@@ -5,11 +5,11 @@ sbatch:
 
 data:
   git: https://github.com/laszewsk/mlcommons-data-earthquake.git
-  destination: "/project/{user}/test3"
+  destination: "$HOME/mlcommons-work"
   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
   images: images
 
-experiments:
+experiment:
   card_name: v100
   gpu_count: 1
   cpu_num: 6
@@ -37,8 +37,7 @@ user:
 # user.account: ds6011-sp22-002
 run:
   workdir: /localscratch/mlcommons
-  venvpath: /tmp/mlcommons/python
-  resourcedir: /project/bii_dsc/mlcommons-system
+  venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
 

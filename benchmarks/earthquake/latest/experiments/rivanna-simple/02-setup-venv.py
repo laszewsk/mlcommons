@@ -16,7 +16,10 @@ def main(argv, ext="yaml"):
     config = yaml.safe_load(content)
     run_config = config["run"]
 
-    venv_path = run_config['venvpath']
+    user = cloudmesh.Shell.user()
+    home = os.environ["HOME"]
+
+    venv_path = eq_lib.expand_string(run_config['venvpath'])
 
     if platform.system() == "Windows":
         bin_path = "Scripts"
@@ -33,6 +36,8 @@ def main(argv, ext="yaml"):
         subprocess.check_call([f"{venv_path}/{bin_path}/python", "-m", "pip", "install", "-U", "-r", "../../requirements.txt"])
     else:
         print(f"Reusing venv in {venv_path}")
+        print("Updating requirements...")
+        subprocess.check_call([f"{venv_path}/{bin_path}/python", "-m", "pip", "install", "-U", "-r", "../../requirements.txt"])
 
 
 if __name__ == "__main__":

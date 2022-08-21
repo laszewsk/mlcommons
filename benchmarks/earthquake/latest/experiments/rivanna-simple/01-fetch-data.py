@@ -33,12 +33,9 @@ def main(argv, ext="yaml"):
     # banner("GET DATA")
     pprint (config["data"])
 
-    user = Shell.user()
-    home = os.environ["HOME"]
-
     git = config["data"]["git"]
 
-    destination = config["data"]["destination"].format(user=user, home=home)
+    destination = eq_lib.expand_string(config["data"]["destination"])
     # print(destination)
     Shell.mkdir(destination)
 

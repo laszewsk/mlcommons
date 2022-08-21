@@ -1,6 +1,10 @@
 
 all: project localscratch shm generate
 
+setup-%: rivanna-%.yaml
+	python 01-fetch-data.py $<
+	python 02-setup-venv.py $<
+
 generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
 
 run: submit
@@ -30,11 +34,11 @@ jobs-%.sh: %.json
 
 %.json: rivanna-%.yaml
 	cms sbatch generate \
-	           --source=rivanna.in.slurm \
+	           --source=rivanna-reduced.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --output_dir=$(basename $@) \
+	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
 
@@ -62,3 +66,4 @@ clean:
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -rf dgx dgx.json jobs-dgx.sh
 	@-rm -f rivanna.slurm
+	@-rm -rf '__pycache__'
