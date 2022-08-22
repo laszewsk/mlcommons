@@ -6,9 +6,9 @@ sbatch:
 
 data:
   git: https://github.com/laszewsk/mlcommons-data-earthquake.git
-  destination: "/project/{user}/test3"
+  destination: "/project/bii_dsc/$HOME/mlcommons-work"
   earthquake: "mlcommons-data-earthquake/data/EarthquakeDec2020"
-  images: "{data.destinion/{data.earthquake}}/Output/images"
+  images: "images"
 
 benchmark:
   name: Earthquake
@@ -19,12 +19,15 @@ benchmark:
   status: submission
   platform: rivanna
 
-experiments:
+experiment:
   #card_name: "a100,p100,v100,k80,rtx2080"
   card_name: "a100"
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
+  repeat: "1"
+  #repeat: "1,2,3,4,5"
+
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2"
@@ -36,17 +39,14 @@ code:
   branch: 2.0
 
 system:
-  python: "3.10.5"
-  num_cpus: 1
   partition: "gpu"
   host: rivanna
   user: "{user}"
-  account: ds6011-sp22-002
 
 run:
+  allocation: ds6011-sp22-002
   workdir: /project/bii_dsc/users
-  venvpath: /project/bii_dsc/users
-  resourcedir: /project/bii_dsc/mlcommons-system
+  venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
   colortheme: "False"

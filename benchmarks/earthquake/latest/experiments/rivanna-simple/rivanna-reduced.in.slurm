@@ -9,7 +9,7 @@
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={user.account}
+#SBATCH --account={run.allocation}
 
 set -uxe
 
@@ -31,27 +31,27 @@ if [ ! -e "${RUN_BASE}/data" ]; then
   cp -a $DATA_PATH ${RUN_BASE}
 fi
 
-#if [ ! -e "${RUN_BASE}/{script}" ]; then
-  cp -a ../../../../{script} .
-  cp -a ./{script} ${RUN_BASE}/{script}
+#if [ ! -e "${RUN_BASE}/{code.script}" ]; then
+  cp -a ../../../../{code.script} .
+  cp -a ./{code.script} ${RUN_BASE}/{code.script}
 #fi
 
-OUTPUT_NB_NAME="$(basename {script} .ipynb)_output.ipynb"
+OUTPUT_NB_NAME="$(basename {code.script} .ipynb)_output.ipynb"
 
 
 echo "Working in <$(pwd)>"
 echo "Running Directory in <${RUN_BASE}>"
 echo "Experiment Data Directory: <${DATA_PATH}>"
 echo "Repository Revision: <$(git rev-parse HEAD) >"
-echo "Notebook Script: <{script}>"
+echo "Notebook Script: <{code.script}>"
 echo "Python Version: <$(python -V)>"
 echo "Running on host: <$(hostname -a)>"
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
-papermill "${RUN_BASE}/{script}" \
-          "${RUN_BASE}/$(basename {script} .ipynb)_output.ipynb" \
+papermill "${RUN_BASE}/{code.script}" \
+          "${RUN_BASE}/$(basename '{code.script}' .ipynb)_output.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
 echo "Retrieving outputs to ${NB_OUTPUT}"
@@ -64,7 +64,7 @@ echo "Cleaning up workspace"
 # perform a safe delete; if variables become unset, this will delete ./$USERNAME/./, which should fall
 # through.  This is a safety measure to prevent unbounded deletion errors.
 # Workspace
-#rm -rf --preserve-root ${RUN_DIR:-.}/{script}
+#rm -rf --preserve-root ${RUN_DIR:-.}/{code.script}
 #rm -rf --preserve-root ${RUN_DIR:-.}/data
 #rm -rf --preserve-root ${RUN_DIR:-.}/config.yaml
 
