@@ -6,6 +6,12 @@ setup-%: rivanna-%.yaml
 	python 02-setup-venv.py $<
 
 generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
+#generate-%: jobs-%.sh
+
+generate-dgx: jobs-dgx.sh
+generate-localscratch: jobs-localscratch.sh
+generate-shm: jobs-shm.sh
+generate-dgx: jobs-dgx.sh
 
 run: submit
 
@@ -14,7 +20,6 @@ submit: all
 	sh jobs-localscratch.sh
 	sh jobs-dgx.sh
 
-generate-%: jobs-%.sh
 
 
 .PHONY: project
@@ -51,12 +56,19 @@ dgx.json: rivanna-dgx.yaml
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --output_dir=$(basename $@) \
+	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
 
 dgx-shm.json: rivanna-dgx-shm.yaml
-	cms sbatch generate rivanna-dgx.in.slurm --config=$< --name=$(basename $@) --noos
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
 
 
 .PHONY: stop
