@@ -19,6 +19,9 @@ RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.work
 DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
 VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
 
+module purge
+module load cuda cudnn
+
 source ${VENV_PATH}/bin/activate
 
 mkdir -p ${RUN_BASE}
