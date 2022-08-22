@@ -24,16 +24,20 @@ source ${VENV_PATH}/bin/activate
 mkdir -p ${RUN_BASE}
 
 if [ -e "$(pwd)/config.yaml" ]; then
-	cp $(pwd)/config.yaml ${RUN_BASE}
+  cp $(pwd)/config.yaml ${RUN_BASE}
 fi
 
 if [ ! -e "${RUN_BASE}/data" ]; then
   cp -a $DATA_PATH ${RUN_BASE}
 fi
 
-if [ ! -e "${RUN_BASE}/{script}" ]; then
-  cp -a ../../../../{script} ${RUN_BASE}/{script}
-fi
+#if [ ! -e "${RUN_BASE}/{script}" ]; then
+  cp -a ../../../../{script} .
+  cp -a ./{script} ${RUN_BASE}/{script}
+#fi
+
+OUTPUT_NB_NAME="$(basename {script} .ipynb)_output.ipynb"
+
 
 echo "Working in <$(pwd)>"
 echo "Running Directory in <${RUN_BASE}>"
@@ -41,17 +45,19 @@ echo "Experiment Data Directory: <${DATA_PATH}>"
 echo "Repository Revision: <$(git rev-parse HEAD) >"
 echo "Notebook Script: <{script}>"
 echo "Python Version: <$(python -V)>"
+echo "Running on host: <$(hostname -a)>"
 
-cms gpu watch --gpu=0 --delay=1 --dense > ${RUN_BASE}/data/EarthquakeDec2020/Outputs/gpu0.log &
+cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
 papermill "${RUN_BASE}/{script}" \
-          "$(basename {script}.ipynb)_output.ipynb" \
+          "${RUN_BASE}/$(basename {script} .ipynb)_output.ipynb" \
           --no-progress-bar --log-output --log-level INFO
 
 echo "Retrieving outputs to ${NB_OUTPUT}"
 mkdir -p ${NB_OUTPUT}
 cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
+cp "${RUN_BASE}/${OUTPUT_NB_NAME}" ${OUTPUT_NB_NAME}"
 
 echo "Execution Complete"
 echo "Cleaning up workspace"
