@@ -14,6 +14,9 @@ submit: all
 	sh jobs-localscratch.sh
 	sh jobs-dgx.sh
 
+generate-%: jobs-%.sh
+
+
 .PHONY: project
 project: project.json
 
