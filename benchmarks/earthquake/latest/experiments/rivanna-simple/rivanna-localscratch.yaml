@@ -32,14 +32,13 @@ benchmark:
 
 script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 revision: latest
-user:
-   account: ds6011-sp22-002
-# user.account: ds6011-sp22-002
+
 run:
   workdir: /localscratch/mlcommons
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
+  allocation: ds6011-sp22-002
 
 colortheme: "False"
 
