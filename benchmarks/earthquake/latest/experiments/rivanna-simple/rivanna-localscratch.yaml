@@ -30,8 +30,8 @@ benchmark:
   status: submission
   platform: rivanna
 
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-revision: latest
+code:
+  script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
   workdir: /localscratch/mlcommons
