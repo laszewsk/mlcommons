@@ -16,10 +16,7 @@ def main(argv, ext="yaml"):
     config = yaml.safe_load(content)
     run_config = config["run"]
 
-    user = cloudmesh.Shell.user()
-    home = os.environ["HOME"]
-
-    venv_path = eq_lib.expand_string(run_config['venvpath'])
+    venv_path = eq_lib.expand_string(run_config['venvpath'], config)
 
     if platform.system() == "Windows":
         bin_path = "Scripts"

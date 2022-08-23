@@ -35,7 +35,7 @@ def main(argv, ext="yaml"):
 
     git = config["data"]["git"]
 
-    destination = eq_lib.expand_string(config["data"]["destination"])
+    destination = eq_lib.expand_string(config["data"]["destination"], config)
     # print(destination)
     Shell.mkdir(destination)
 
