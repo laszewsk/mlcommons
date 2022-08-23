@@ -60,7 +60,7 @@ papermill "${RUN_BASE}/{code.script}" \
 echo "Retrieving outputs to ${NB_OUTPUT}"
 mkdir -p ${NB_OUTPUT}
 cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
-cp "${RUN_BASE}/${OUTPUT_NB_NAME}" ${OUTPUT_NB_NAME}"
+cp "${RUN_BASE}/${OUTPUT_NB_NAME}" "${OUTPUT_NB_NAME}"
 
 echo "Execution Complete"
 echo "Cleaning up workspace"
