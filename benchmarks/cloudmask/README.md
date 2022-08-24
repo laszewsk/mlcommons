@@ -1,4 +1,4 @@
-# CloudMask
+# CloudMask benchmark notes
 
 Sea and land surface temperatures (or SST/LST), have a significant
 influence on the Earth’s weather.  For instance, large variations of
@@ -77,7 +77,9 @@ use these sequence of instructions:
    downloaded from here:
 
    ```bash
-   $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh```
+   $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
+   ```
+ 
 
 2. Install Anaconda
 
@@ -90,7 +92,7 @@ use these sequence of instructions:
 
    ```bash
    $ conda create --name bench python=3.8
-   $ conda activate bench
+   $ conda activate bench`
    $ pip install tensorflow
    $ pip install scikit-learn
    $ pip install h5py

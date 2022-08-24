@@ -41,7 +41,7 @@ benchmark
 * Gregor von Laszewski
 * Robert Knuuti
 * Thomas Butler
-* Jake Kolessar
+* Jake Kolesar
 
 A paper about the firs results are published at
 
@@ -87,7 +87,7 @@ create appropriate branches.
 ## Background
 
 The background of the science is explained in [2]. The first
-performance results are published in [1]. The code uses cloudmesh
+performanne results are published in [1]. The code uses cloudmesh
 sbatch and gpu [3][4].
 
 ## System Setup

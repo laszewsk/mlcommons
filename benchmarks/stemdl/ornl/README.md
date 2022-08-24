@@ -16,9 +16,7 @@ This folder contains the original implementation of STEMDL developed at ORNL.
 ## Data  
 
 Download the classificatoin dataset from
-
 [10.13139/OLCF/1510313](https://doi.ccs.ornl.gov/ui/doi/70) via Globus
-
 and pre-process into numpy files via
 
 ```bash
