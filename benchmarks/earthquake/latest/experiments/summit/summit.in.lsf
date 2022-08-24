@@ -3,13 +3,13 @@
 # Begin LSF Directives
 #BSUB -P {user.account}
 #BSUB -q batch-hm
-#BSUB -J mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
+#BSUB -J mlcommons-eq-{experiment.card_name}-{experiment.gpu_count}
 #BSUB -o out.%J
 #BSUB -e err.%J
 #BSUB -W {time}
-#BSUB -c {experiments.cpu_num}
-#BSUB -v {experiments.mem}
-#BSUB -gpu {experiments.card_name}
+#BSUB -c {experiment.cpu_num}
+#BSUB -v {experiment.mem}
+#BSUB -gpu {experiment.card_name}
 #BSUB -nnodes 1
 #BSUB -N
 

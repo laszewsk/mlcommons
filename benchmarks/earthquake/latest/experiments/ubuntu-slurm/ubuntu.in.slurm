@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-eq-{experiments.card_name}-{experiments.gpu_count}
+#SBATCH --job-name=mlcommons-eq-{experiment.card_name}-{experiment.gpu_count}
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
 #SBATCH --partition={system.partition}
-#SBATCH -c {experiments.cpu_num}
-#SBATCH --mem={experiments.mem}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
-## #SBATCH --gres=gpu:{experiments.card_name}:{experiments.gpu_count}
+## #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --mail-user={email}
 #SBATCH --mail-type=ALL
 #SBATCH --account={user.account}

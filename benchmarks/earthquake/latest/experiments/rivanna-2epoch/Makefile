@@ -7,10 +7,18 @@ submit: all
 .PHONY: project generate inspect run stop clean status watch out err status
 
 project:
-	cms sbatch generate rivanna.in.slurm --config=rivanna-2epoch.yaml --name="project" --noos
+	cms sbatch generate \
+	           --source=rivanna.in.slurm \
+	           --config=rivanna-2epoch.yaml \
+	           --name=project \
+	           --noos \
+	           --output_dir=./project \
+               --source_dir=. \
+               --verbose
+
 
 generate:
-	cms sbatch generate submit --name=project.json > jobs-project.sh
+	cms sbatch generate submit --name=project > jobs-project.sh
 	cat jobs-project.sh
 
 inspect:

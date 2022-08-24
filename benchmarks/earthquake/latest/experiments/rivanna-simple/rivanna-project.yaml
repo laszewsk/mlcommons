@@ -1,7 +1,14 @@
 name: earthquake-project
+
 sbatch:
   mode: h
   dir: project
+
+data:
+  git: https://github.com/laszewsk/mlcommons-data-earthquake.git
+  destination: "/project/bii_dsc/$HOME/mlcommons-work"
+  earthquake: "mlcommons-data-earthquake/data/EarthquakeDec2020"
+  images: "images"
 
 benchmark:
   name: Earthquake
@@ -10,36 +17,39 @@ benchmark:
   organisation:  University of Virginia
   division: BII
   status: submission
-  platform: summit
+  platform: rivanna
 
-experiments:
-  card_name: "v100"
+experiment:
+  #card_name: "a100,p100,v100,k80,rtx2080"
+  card_name: "a100"
   gpu_count: 1
-  cpu_num: 1
-  mem: "64GB"
+  cpu_num: 6
+  mem: "32GB"
+  repeat: "1"
+  #repeat: "1,2,3,4,5"
+
+  ## TFTTransformerepochs = num_epochs
+  #
   TFTTransformerepochs: "2"
+  #TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
-email: laszewski@gmail.com
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-revision: latest
-
-user:
-  account: GEN150_bench
-
-run:
-  workdir: output
-  resourcedir: output
-  branch: 'main'
-  datadir: data
+code:
+  script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
+  revision: latest
+  branch: 2.0
 
 system:
-  python: "3.8-anaconda"
-  num_cpus: 1
-  partition: "local"
-  host: summit
+  partition: "gpu"
+  host: rivanna
+  user: "{user}"
 
-colortheme: "False"
-
+run:
+  allocation: ds6011-sp22-002
+  workdir: /project/bii_dsc/users
+  venvpath: "$HOME/mlcommons-work/python"
+  datadir: data
+  branch: 'main'
+  colortheme: "False"
 
 time: "3-0"
 set_soft_device_placement: False
