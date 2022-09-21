@@ -92,8 +92,8 @@ use these sequence of instructions:
 
    ```bash
    $ conda create --name bench python=3.8
-   $ conda activate bench`
-   $ pip install tensorflow
+   $ conda activate bench
+   $ pip install tensorflow-gpu
    $ pip install scikit-learn
    $ pip install h5py
    $ pip install pyyaml
@@ -103,8 +103,8 @@ use these sequence of instructions:
    instructions at <https://github.com/mlcommons/logging>
 
    ```bash
-   $ git clone https://github.com/mlperf/logging.git mlperf-logging`
-   $ pip install -e mlperf-logging`
+   $ git clone https://github.com/mlperf/logging.git mlperf-logging
+   $ pip install -e mlperf-logging
    ```
    
 ## Running the benchmark
