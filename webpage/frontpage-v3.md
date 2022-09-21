@@ -52,7 +52,7 @@ surrogate accuracy, control stability measure, etc.).
 
 ## Meeting Schedule
 
-* Bi-weekly on Wednesay from 8:00-9:00AM PST, 11-12am EST.
+* Bi-weekly on Wednesay from 8:00-9:00AM PST, which is 11-12am EST.
 
 ## Working Group Resources
 
