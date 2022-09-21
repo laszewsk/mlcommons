@@ -86,8 +86,3 @@ Development versions of the codes prior to upload to the mlcommons directory are
 
 * [Science Policy Document](https://github.com/laszewsk/mlcommons/blob/main/www/content/en/docs/policy.adoc)
 * [Benchmarks](https://github.com/laszewsk/mlcommons/tree/main/benchmarks)
-
-## Benchmark Views and Criteria
-
-![img.png](./img.png)
-
