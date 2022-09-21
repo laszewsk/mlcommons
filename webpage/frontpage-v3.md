@@ -46,7 +46,9 @@ surrogate accuracy, control stability measure, etc.).
 
 ## Deliverables
 
-* Develop a nuber of Science Benchmarks
+* Develop a number of science benchmarks.
+* Allow for open category benchmarks.
+* Focus on the scientific improvement.
 
 ## Meeting Schedule
 
