@@ -1,6 +1,14 @@
-# INTRODUCTION
+---
+eleventyNavigation:
+  key: "Research Science Working Group"
+  title: "Science"
+  parent: "Research Working Group"
+  order: 6
+title: Science Working Group
+layout: group.njk
+---
 
-## Overview and objective
+# MISSION
 
 Encourage and support the curation of large-scale experimental and
 scientific datasets and the engineering of ML benchmarks operating on
