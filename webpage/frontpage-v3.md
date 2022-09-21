@@ -75,7 +75,7 @@ science@googlegroups.com
 
 ## Working Group Chairs
 
-  * Geoffrey Fox (gcfexchange@gmail.com) [(CV)](https://luddy.indiana.edu/contact/profile/?profile_id=203) TODO: replace IU page
+  * Geoffrey Fox (gcfexchange@gmail.com) [(CV)](https://engineering.virginia.edu/faculty/geoffrey-c-fox)
   * Tony Hey (tony.hey@stfc.ac.uk) [(CV)](https://www.scd.stfc.ac.uk/Pages/Tony-Hey.aspx)
   * Jeyan Thiyagalingam (t.jeyan@stfc.ac.uk) [(CV)](https://www.scd.stfc.ac.uk/Pages/sciml-profile-jeyan.aspx)
 
