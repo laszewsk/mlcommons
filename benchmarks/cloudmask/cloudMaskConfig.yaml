@@ -32,7 +32,7 @@ output_dir : ~/sciml_bench/outputs/slstr_cloud
 log_file: ./cloudMask_Log
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_stemdl.log
+mlperf_logfile: ./mlperf_cloudmask.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
