@@ -8,7 +8,7 @@ title: Science Working Group
 layout: group.njk
 ---
 
-# MISSION
+# Mission
 
 Encourage and support the curation of large-scale experimental and
 scientific datasets and the engineering of ML benchmarks operating on
@@ -42,9 +42,24 @@ problem at hand. The metric should be well defined on the data but
 could come from a diverse set of measures (one or more of: accuracy
 targets, top-1 or 5% error, time to convergence, cross-validation
 rates, confusion matrices, type-1/type-2 error rates, inference times,
-surrogate accuracy, control stability measure, etc.).  Meeting
-Schedule
+surrogate accuracy, control stability measure, etc.).  
 
+## Deliverables
+
+* Develop a nuber of Science Benchmarks
+
+Current benchmarks include
+
+
+| Benchmark 	| Science 	 | Task              | 	Owner Institute | 	GitHub                                                               |
+| --- |-----------|-------------------| --- |-----------------------------------------------------------------------|
+| CloudMask 	| Climate 	 | Segmentation      | 	RAL 	| [cloudmask](https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/README.md) |
+| STEMDL | 	Material | 	Classification 	 | ORNL 	    | [stemdl](https://github.com/mlcommons/science/tree/main/benchmarks/stemdl)                                            |
+| CANDLE-UNO | 	Medicine | 	Classification   |	ANL | 	[candle-uno](https://github.com/mlcommons/science/tree/main/benchmarks/uno)                                          |
+| TEvolOp Forecasting |	Earthquake | 	Regression 	     | University of Virginia | 	[tevolop](https://github.com/mlcommons/science/tree/main/benchmarks/earthquake)                                      |
+
+
+## Meeting Schedule
 
 * Bi-weekly on Wednesay from 8:00-9:00AM Pacific.
 * Mailing List: science@googlegroups.com
@@ -56,15 +71,7 @@ Schedule
   * Jeyan Thiyagalingam (t.jeyan@stfc.ac.uk)
 
 
-## Benchmarks
 
-
-| Benchmark 	| Science 	 | Task              | 	Owner Institute | 	GitHub                                                               |
-| --- |-----------|-------------------| --- |-----------------------------------------------------------------------|
-| CloudMask 	| Climate 	 | Segmentation      | 	RAL 	| [cloudmask](https://github.com/mlcommons/science/blob/main/benchmarks/cloudmask/README.md) |
-| STEMDL | 	Material | 	Classification 	 | ORNL 	    | [stemdl](https://github.com/mlcommons/science/tree/main/benchmarks/stemdl)                                            |
-| CANDLE-UNO | 	Medicine | 	Classification   |	ANL | 	[candle-uno](https://github.com/mlcommons/science/tree/main/benchmarks/uno)                                          |
-| TEvolOp Forecasting |	Earthquake | 	Regression 	     | University of Virginia | 	[tevolop](https://github.com/mlcommons/science/tree/main/benchmarks/earthquake)                                      |
 
 ## Resources
 
