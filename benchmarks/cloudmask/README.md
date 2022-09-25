@@ -22,20 +22,25 @@ thresholding or Bayesian methods.
 
 ## Scientific Objective
 
-The scientific objective is to develop a segmentation model for the
-classification of pixels in satellite images.  This classification
-allows to determine whether the given pixel belongs to a cloud or to a
-clear sky. Unfortunately in this case the “true ground truth” was not
-available and for training we used the Bayesian masks which were
-supplied by the provider of satellite images. These masks are not
-always accurate, however the model has demonstrated that in some cases
-it can produce better predictions. The model is suitable for this type
-of task since it can achieve above 90% accuracy on the training and
-testing datasets. The next scientific objective is to avoid the use of
-Bayesian masks and make real cloudmask predictions by using
-unsupervised segmentation. The benchmark aims to achieve high accuracy
-on the given training and testing datasets, and to demonstrate the
-scalability of data parallel distributed training on multiple GPUs.
+The scientific objective of CloudMask is to develop a segmentation model 
+for classifying the pixels in satellite images. This classification allows 
+to determine whether the given pixel belongs to a cloud or to a clear sky. 
+The benchmark can be considered as both training and inference focused, 
+where the science metric is same as the classification accuracy — number 
+of pixels classified correctly. The performance metric, can be inference 
+timing and scalability on the training across a number of GPUs.
+
+## Suggestions for improvement
+In its present form, the CloudMask benchmark is set as a supervised learning 
+problem, with cloud images are treated as inputs. However, like all science 
+cases, the “true” ground truth (or labels), are never available for this case. 
+Hence, the benchmark uses the Bayesian masks, supplied by the provider of the 
+satellite images, as the ground truth. While this is arguable, we believe that 
+in the absence of any ground truth this is a valid choice. However, with Bayesian 
+masks not always being accurate or not offering a gold-standard for masks, the 
+resulting model is likely to suffer from learnability issues, which sets the perfect 
+challenge for an ML-driven case. As a further development of the CloudMask benchmark 
+we’d suggest to explore the possibility of using unsupervised segmentation techniques.
 
 ## Benchmark files
 
