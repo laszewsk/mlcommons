@@ -42,6 +42,13 @@ from learnability issues, which sets the perfect challenge for an ML-driven case
 As a further development of the CloudMask benchmark we’d suggest to explore the 
 possibility of using unsupervised segmentation techniques.
 
+The current CloudMask reference implementation is variation of the U-Net deep neural network, 
+implemented using TensorFlow and Keras, with the support for distributed training using 
+TensorFlow’s native library, Distributed Mirrored Strategy. The network consists of 39 
+layers with two million trainable parameters. As a further improvement we'd suggest to 
+experiment with different networks which can improve not only accuracy but also reduce 
+the time required for training and inference.
+
 ## Benchmark files
 
 The CloudMask benchmark consists of the following files:
