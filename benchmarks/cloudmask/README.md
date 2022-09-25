@@ -34,10 +34,10 @@ timing and scalability on the training across a number of GPUs.
 In its present form, the CloudMask benchmark is set as a supervised learning 
 problem, with cloud images are treated as inputs. However, like all science 
 cases, the “true” ground truth (or labels), are never available for this case. 
-Hence, the benchmark uses the Bayesian masks, supplied by the provider of the 
-satellite images, as the ground truth. While this is arguable, we believe that 
-in the absence of any ground truth this is a valid choice. However, with Bayesian 
-masks not always being accurate or not offering a gold-standard for masks, the 
+Hence, the benchmark uses Bayesian masks, supplied by the provider of  
+satellite images, as the ground truth. We believe that in the absence of any 
+ground truth this is a valid choice. However, with Bayesian masks not always 
+being accurate or not offering a gold-standard for masks, the 
 resulting model is likely to suffer from learnability issues, which sets the perfect 
 challenge for an ML-driven case. As a further development of the CloudMask benchmark 
 we’d suggest to explore the possibility of using unsupervised segmentation techniques.
