@@ -1,7 +1,7 @@
 #!/bin/sh
-#SBATCH --job-name=cloudmask.sh
-#SBATCH --output=cloudmask.log
-#SBATCH --error=cloudmask.error
+#SBATCH --job-name=cloudmask-%j
+#SBATCH --output=cloudmask-%j.log
+#SBATCH --error=cloudmask-%j.error
 #SBATCH --partition=gpu
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32GB
