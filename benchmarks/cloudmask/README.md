@@ -62,21 +62,6 @@ The main program is `slstr_cloud.py` which reads
 benchmark also produces a log file with information about the
 parameters and runtime of training and inference.
 
-## Data
-
-The dataset is about 180GB and made up of two parts: reflectance and
-brightness temperature. The reflectance is captured across six
-channels with the resolution of 2400 x 3000 pixels, and the brightness
-temperature is captured across three channels with the resolution of
-1200 x 1500 pixels. The training files are in the "one-day" folder
-(163GB) and the files used for inferencing are in "ssts" folder
-(17GB), see `cloudMaskConfig.yaml`.The datasets can be downloaded from
-the STFC server by using these commands:
-
-```bash
-$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./
-$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./
-```
 
 ## Installation
 
@@ -118,7 +103,32 @@ use these sequence of instructions:
    $ git clone https://github.com/mlperf/logging.git mlperf-logging
    $ pip install -e mlperf-logging
    ```
+
+## Clone the Source
+
+```bash
+git clone https://github.com/mlcommons/science.git
+cd science/benchmarks/cloudmask
+```
    
+## Data
+
+The dataset is about 180GB and made up of two parts: reflectance and
+brightness temperature. The reflectance is captured across six
+channels with the resolution of 2400 x 3000 pixels, and the brightness
+temperature is captured across three channels with the resolution of
+1200 x 1500 pixels. The training files are in the "one-day" folder
+(163GB) and the files used for inferencing are in "ssts" folder
+(17GB), see `cloudMaskConfig.yaml`.The datasets can be downloaded from
+the STFC server by using these commands:
+
+```bash
+mkdir ssts
+$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./one-day
+$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts
+```
+
+
 ## Running the benchmark
 
 TensorFlow automatically detects the available GPUs and runs the
