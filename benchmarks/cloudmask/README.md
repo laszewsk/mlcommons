@@ -123,13 +123,18 @@ temperature is captured across three channels with the resolution of
 the STFC server by using these commands:
 
 ```bash
-mkdir ssts
-$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./one-day
-$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts
+mkdir -p data/ssts
+mkdir -p data/one-day
+$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day
+$ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts
 ```
 
 
 ## Running the benchmark
+
+### General python command 
+
+This will run the code on the current server
 
 TensorFlow automatically detects the available GPUs and runs the
 application in a data parallel mode.  For running the benchmark use
@@ -139,8 +144,85 @@ this command:
 $ python slstr_cloud.py --config ./cloudMaskConfig.yaml
 ```
 
+### Run cloudmask on Rivanna in batch mode
 
+Rivanna is a HPC at University of Virginia. The documentation here serves as an example on how to run it on other machines.
 
+Note: that the program needs more than 150GB data storage, so it is advised to set it up under /projects. 
+
+```bash
+$ sbatch target/rivanna.sh
+```
+
+The system log files will be located in the directory you started the sbatch command. Other log files are specified in the yaml file.
+
+### Rivanna interactive node 
+
+To run it in an interactive node use
+
+```bash
+srun --gres=gpu:1 --pty --mem=64G --time 01:59:00 /bin/bash conda activate BENCH 
+```
+Once you get the interactive node run the following commands
+
+```bash
+module load singularity tensorflow/2.8.0
+module load cudatoolkit/11.0.3-py3.8
+module load cuda/11.4.2
+module load cudnn/8.2.4.15
+module load anaconda/2020.11-py3.8
+
+conda create --name MLBENCH python=3.8
+source activate MLBENCH
+# conda activate MLBENCH
+
+pip install tensorflow-gpu
+pip install scikit-learn
+pip install h5py
+pip install pyyaml
+python slstr_cloud.py --config ./cloudMaskConfig.yaml
+```
+
+or
+
+```bash
+ijob --gres=gpu:1 --pty --mem=64G --time 01:59:00 /bin/bash conda activate BENCH 
+```
+Once you get the interactive node run the following commands
+
+```bash
+module load singularity tensorflow/2.8.0
+module load cudatoolkit/11.0.3-py3.8
+module load cuda/11.4.2
+module load cudnn/8.2.4.15
+module load anaconda/2020.11-py3.8
+
+conda create --name MLBENCH python=3.8
+source activate MLBENCH
+# conda activate MLBENCH
+
+pip install tensorflow-gpu
+pip install scikit-learn
+pip install h5py
+pip install pyyaml
+python slstr_cloud.py --config ./cloudMaskConfig.yaml
+```
+
+### Running the code on Pearl
+
+This machine is located at STFC in the UK. It is a NVIDIA dgx 2 machine with 32 NVIDID v100 GPUS.
+
+```bash
+TBD
+```
+
+### Running the code on Summit
+
+Summit is a machine located at ORNL. The instructions her will document how to run it on SUmmit
+
+```bash
+TBD
+```
 
 
 
