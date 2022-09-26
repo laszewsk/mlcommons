@@ -151,7 +151,7 @@ def cloud_training(args)-> None:
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    #atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(args['model_file'])
