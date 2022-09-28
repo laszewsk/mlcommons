@@ -14,11 +14,11 @@ sys.path.append("..")
 
 import yaml, os, atexit, h5py, sys, time, decimal, argparse
 import tensorflow as tf
-from ..data_loader import load_datasets
-from ..model import unet
+from data_loader import load_datasets
+from model import unet
 from pathlib import Path
 import numpy as np
-from ..data_loader import SLSTRDataLoader
+from data_loader import SLSTRDataLoader
 from cloudmesh.common.StopWatch import StopWatch
 
 # MLCommons logging
