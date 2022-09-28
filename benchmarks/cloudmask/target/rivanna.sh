@@ -25,6 +25,7 @@ module load cudatoolkit/11.0.3-py3.8
 module load cuda/11.4.2
 module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
+module load gcc
 
 cd /scratch/$(echo $USER)/
 git clone https://github.com/laszewsk/mlcommons.git
@@ -35,8 +36,8 @@ python create_python.py
 # source activate MLBENCH
 conda activate MLBENCH
 
-pip install tensorflow
-pip install tensorflow-gpu
+pip install tensorflow==2.8.0
+pip install tensorflow-gpu==2.8.0
 pip install scikit-learn
 pip install h5py
 pip install pyyaml
@@ -45,6 +46,8 @@ mkdir -p ~/cm
 cd ~/cm
 pip install cloudmesh-installer -U
 cloudmesh-installer get cc
+git clone https://github.com/mlperf/logging.git mlperf-logging
+pip install -e mlperf-logging
 
 cms set host=rivanna
 cms set cpu=IntelXeonE5-2630
