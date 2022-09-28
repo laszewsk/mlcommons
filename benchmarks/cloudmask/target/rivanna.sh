@@ -26,7 +26,12 @@ module load cuda/11.4.2
 module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 
-conda create --name MLBENCH python=3.8
+cd /scratch/$(echo $USER)/
+git clone https://github.com/laszewsk/mlcommons.git
+cd mlcommons/benchmarks/cloudmask
+git pull
+
+python create_python.py
 source activate MLBENCH
 # conda activate MLBENCH
 
@@ -47,10 +52,7 @@ echo "# cloudmesh status=running progress=70 pid=$$"
 
 
 #cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
-cd /scratch/$(echo $USER)/
-git clone https://github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/cloudmask
-git pull
+
 
 
 #currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
