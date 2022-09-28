@@ -1,4 +1,7 @@
+SHELL:=/bin/bash
+
 data:
+	module load anaconda
 	source activate MLBENCH
 	cd /scratch/$USER/mlcommons/benchmarks/cloudmask/
 	mkdir -p data/ssts
@@ -9,5 +12,5 @@ data:
 
 run:
 	module load anaconda
-	conda activate MLBENCH
+	source activate MLBENCH
 	python cloudmask_runner.py
