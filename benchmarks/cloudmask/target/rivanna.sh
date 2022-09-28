@@ -32,9 +32,10 @@ cd mlcommons/benchmarks/cloudmask
 git pull
 
 python create_python.py
-source activate MLBENCH
-# conda activate MLBENCH
+# source activate MLBENCH
+conda activate MLBENCH
 
+pip install tensorflow
 pip install tensorflow-gpu
 pip install scikit-learn
 pip install h5py
