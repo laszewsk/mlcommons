@@ -9,6 +9,9 @@
 
 ## to run this say sbatch rivanna.sh
 
+conda deactivate
+source activate MLBENCH
+
 echo "# cloudmesh status=running progress=1 pid=$$"
 
 #cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
@@ -17,7 +20,6 @@ currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgp
 currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(currentepoch=\)*//")
 
 #python run_all_rivanna.py
-source activate MLBENCH
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/target/rivanna
 python slstr_cloud.py --config ./cloudMaskConfig.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 #python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
