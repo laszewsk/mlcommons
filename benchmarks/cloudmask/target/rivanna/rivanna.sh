@@ -9,12 +9,12 @@
 
 ## to run this say sbatch rivanna.sh
 
-cd ~
-whoami
-pwd
-ls
-conda init bash
-conda deactivate
+module load singularity tensorflow/2.8.0
+module load cudatoolkit/11.0.3-py3.8
+module load cuda/11.4.2
+module load cudnn/8.2.4.15
+module load anaconda/2020.11-py3.8
+
 source activate MLBENCH
 
 echo "# cloudmesh status=running progress=1 pid=$$"
