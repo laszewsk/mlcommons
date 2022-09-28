@@ -9,6 +9,11 @@
 
 ## to run this say sbatch rivanna.sh
 
+cd ~
+whoami
+pwd
+ls
+conda init bash
 conda deactivate
 source activate MLBENCH
 
