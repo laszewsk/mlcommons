@@ -5,7 +5,7 @@
 #SBATCH --partition=gpu
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64GB
-#SBATCH --time=59:00
+#SBATCH --time=1:50:00
 
 ## to run this say sbatch rivanna.sh
 
