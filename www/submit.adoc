@@ -7,13 +7,13 @@
 
 :TOC:
 
-## Difference to the General Submission Rules
+## Difference in the General Submission Rules
 
 The general MLCommons® submission rules are summarized in
 
 * https://github.com/mlcommons/policies/edit/master/submission_rules.adoc
 
-This document lists the diffences for the MLCommons Science Group Submissions. The differences are summarized by
+This document lists the differences between the MLCommons Science Group Submissions. The differences are summarized by
 
 * Rolling submission with review
 * The directory structure for the coordinated storing of results as required by MLCommons
@@ -28,12 +28,12 @@ The following goals are to be captured by the submission process
 * Submissions can be made to the MLCommons® Science GitHub at any time for any benchmark that has been released.
 * Submissions will be automatically checked and then reviewed by the working group which has a review committee for each benchmark.
 * Depending on the number of scientific innovations in the submission, the review time will vary.
-* The submitters will get an automatic acknowledgment on submission and a customized response from the committee within a week of the submittal date.
+* The submitters will get an automatic acknowledgment of the submission and a customized response from the committee within a week of the submittal date.
 * This second response will indicate the estimated time for a committee review to be completed.
 * On completion of the committee review, all submissions that are considered in scope will be posted on the working group GitHub which includes a scientific discovery "leaderboard" for each benchmark.
     Updates will be summarized quarterly
 * The innovations will be described and can include aspects other than final accuracy
-    e.g. the submission might need a smaller dataset to achieve an interesting accuracy. It is expected that benchmarks will be posted for at least a year so as to gather a rich set of input.
+    e.g. the submission might need a smaller dataset to achieve an interesting accuracy. It is expected that benchmarks will be posted for at least a year to gather a rich set of input.
 
 ## Timeline of Deployment
 
@@ -60,7 +60,7 @@ table in addition to the MLCommons® log events.
 ## Directory Structure
 
 ---
-> Note: The original directory struture rule Section 13 will be removed from the document
+> Note: The original directory structure rule Section 13 will be removed from the document
 >
 > * https://github.com/mlcommons/science/blob/main/policy.adoc#directory-structure-for-submission
 >
@@ -69,7 +69,7 @@ table in addition to the MLCommons® log events.
 ---
 
 
-In this section we document the directory structure for submissions. We introduce the following variables denoted by `{ }` around the Variable name. The backets `[ ]` are used to donate a list
+In this section, we document the directory structure for submissions. We introduce the following variables denoted by `{ }` around the Variable name. The brackets `[ ]` are used to donate a list
 
 `{organization}` ::= The organization submitting the benchmark
 
@@ -85,7 +85,7 @@ All results are stored in a directory such as
 
 `{organization}/{application}/{system}/{descriptor}/`
 
-Within this directory, all parameters for that experiment are stored, so that all information for the experiment are self-contained within the experiment.
+Within this directory, all parameters for that experiment are stored, so that all information for the experiment is self-contained within the experiment.
 
 This includes
 
@@ -99,11 +99,11 @@ This includes
 3. `config.yaml` ::= A configuration file that contains all hyperparameters and
    other parameters to define a run. This configuration file contains an entry
    that uniquely describes the version of the code that is run. The version
-   must be included in the mlcommons benchmark repository. This also includes all
+   must be included in the MLCommons benchmark repository. This also includes all
    hyperparameters including new ones particular to this approach.
-   The configuration file should include enough deatails to replicate the
-   experiment with locations to the program and the data. If the data does not fit in a GitHub repository it can be placed in a public acessible data store. Its location needs to be specified as endpoint in the yaml file, with a commandline example on how to retrieve it. As multiple files could be needed a list of commands can be specified.
-  Examples of the configuration format in the yaml file are:
+   The configuration file should include enough details to replicate the
+   experiment with the locations of the program and the data. If the data does not fit in a GitHub repository it can be placed in a publicly accessible data store. Its location needs to be specified as an endpoint in the YAML file, with a command line example on how to retrieve it. As multiple files could be needed a list of commands can be specified.
+  Examples of the configuration format in the YAML file are:
 
    github:
      discription: EarthQuake Prediction
@@ -115,8 +115,8 @@ This includes
   - aws s3 rsync ....
 
 
-4. `sientific_contribution.pdf` ::= A detailed description ofthe scientific
-   contribution and the algorithms and associated hyperpaparmeters used in the
+4. `sientific_contribution.pdf` ::= A detailed description of the scientific
+   contribution and the algorithms and associated hyperparameters used in the
    benchmark.
 
 5. A `README.md` file that describes how to run it.
@@ -126,7 +126,7 @@ This includes
    such a directory automatically. Enough information must be included in the
    directory, so such parameterized runs can be conducted, while also
    replicating the appropriate directory structure. The reason we require for
-   each result its own subdir is to allow output notebooks and comments to be
+   each result its own subdirectory is to allow output notebooks and comments to be
    submitted for each of the results if needed. This is especially the case
    when jupyter notebooks are used as the benchmark to be executed, allowing
    the notebook with all its cells to be submitted along the `results.txt`
@@ -134,7 +134,7 @@ This includes
 
 6. Log File requirements.
 
-   1. The log file must have am Oraganization Records in Mllog entry format. This includes mllog entries for `POINT_IN_TIME` with the values
+   1. The log file must have am Organization Records in Mllog entry format. This includes mllog entries for `POINT_IN_TIME` with the values
 
       * submission_benchmark
       * submission_org
