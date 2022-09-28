@@ -5,7 +5,7 @@ from cloudmesh.common.StopWatch import StopWatch
 
 username = Shell.user()
 path_of_mlcommons = Path(Shell.map_filename(
-    f'/scratch/{username}/mlcommons/benchmarks/cloudmask/target/'
+    f'/scratch/{username}/mlcommons/benchmarks/cloudmask/target/rivanna'
 ).path).as_posix()
 
 os.chdir(path_of_mlcommons)
