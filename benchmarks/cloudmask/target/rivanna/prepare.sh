@@ -23,8 +23,8 @@ cd mlcommons/benchmarks/cloudmask/target/rivanna
 git pull
 
 python setup_env_and_yaml.py
-# source activate MLBENCH
-conda activate MLBENCH
+source activate MLBENCH
+# conda activate MLBENCH
 
 pip install tensorflow==2.8.0
 pip install tensorflow-gpu==2.8.0
