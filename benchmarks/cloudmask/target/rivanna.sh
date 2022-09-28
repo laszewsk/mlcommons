@@ -4,8 +4,8 @@
 #SBATCH --error=cloudmask-%j.error
 #SBATCH --partition=gpu
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=32GB
-#SBATCH --time=3:00:00
+#SBATCH --mem=64GB
+#SBATCH --time=2:00:00
 #SBATCH --gres=gpu:a100:1
 
 ## to run this say sbatch rivanna.sh
