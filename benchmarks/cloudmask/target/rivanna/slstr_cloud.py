@@ -9,13 +9,16 @@
 # Science and Technology Facilities Council, UK.
 # All rights reserved.
 
+import sys
+sys.path.append("..")
+
 import yaml, os, atexit, h5py, sys, time, decimal, argparse
 import tensorflow as tf
-from data_loader import ...load_datasets
-from model import ...unet
+from data_loader import load_datasets
+from model import unet
 from pathlib import Path
 import numpy as np
-from data_loader import ..SLSTRDataLoader
+from data_loader import SLSTRDataLoader
 from cloudmesh.common.StopWatch import StopWatch
 
 # MLCommons logging
@@ -163,6 +166,7 @@ def cloud_training(args)-> None:
 ### Main
 # Running the benchmark: python slstr_cloud.py --config ./cloudMaskConfig.yaml
 def main():
+    StopWatch.start("total")
 
     # Read command line arguments
     parser = argparse.ArgumentParser(description='CloudMask command line arguments',\
@@ -226,8 +230,8 @@ def main():
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
     mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
-
-    StopWatch.benchmark()
+    StopWatch.stop("total")
+    StopWatch.benchmark(filename='slstr_stopwatch_benchmark.log')
 
 if __name__ == "__main__":
     main()
