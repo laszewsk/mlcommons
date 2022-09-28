@@ -59,7 +59,7 @@ echo "# cloudmesh status=running progress=70 pid=$$"
 #currentgpu=a100
 
 #python run_all_rivanna.py
-python slstr_cloud.py --config ./cloudMaskConfig.yaml
+python slstr_cloud.py --config ./cloudMaskConfig.yaml > output.log 2>&1
 #python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
 echo "# cloudmesh status=done progress=100 pid=$$"
 # python mlp_mnist.py
