@@ -18,7 +18,7 @@ for card in gpus:
         Shell.run(f'cms set currentgpu={card}')
         Shell.run(f'cms set currentepoch={epoch}')
         Shell.run(
-            f"sed -i '/epochs:/c\epochs: {epoch}/' cloudMaskConfig.yaml")
+            f"sed -i '/epochs:/c\epochs: {epoch}' cloudMaskConfig.yaml")
         Shell.run(f'sbatch --wait --gres=gpu:{card}:2 rivanna.sh')
         progress += 5
         StopWatch.progress(progress)
