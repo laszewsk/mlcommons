@@ -35,12 +35,22 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 
+mkdir -p ~/cm
+cd ~/cm
+pip install cloudmesh-installer -U
+cloudmesh-installer get cc
+
 cms set host=rivanna
 cms set cpu=IntelXeonE5-2630
 cms set device=rivanna
 echo "# cloudmesh status=running progress=70 pid=$$"
 
-cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
+
+#cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
+cd /scratch/$(echo $USER)/
+git clone https://github.com/laszewsk/mlcommons.git
+cd mlcommons/benchmarks/cloudmask
+git pull
 
 
 #currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
