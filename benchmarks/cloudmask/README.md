@@ -177,10 +177,11 @@ conda create --name MLBENCH python=3.8
 source activate MLBENCH
 # conda activate MLBENCH
 
-pip install tensorflow-gpu
-pip install scikit-learn
-pip install h5py
-pip install pyyaml
+pip install -r requirements.txt
+# pip install tensorflow-gpu
+# pip install scikit-learn
+# pip install h5py
+# pip install pyyaml
 python slstr_cloud.py --config ./cloudMaskConfig.yaml
 ```
 

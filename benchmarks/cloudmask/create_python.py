@@ -37,4 +37,4 @@ if env in Shell.run("conda env list"):
 else:
     Shell.run(f"conda create -f -y -n {env} -c conda-forge python={version}")
 
-#nvidia-smi --list-gpus
+# nvidia-smi --list-gpus
