@@ -1,0 +1,57 @@
+
++---------------------------------+---------------------------------------------------------------------+
+| Attribute                       | Value                                                               |
+|---------------------------------+---------------------------------------------------------------------|
+| ANSI_COLOR                      | "0;31"                                                              |
+| BUG_REPORT_URL                  | "https://bugs.centos.org/"                                          |
+| CENTOS_MANTISBT_PROJECT         | "CentOS-7"                                                          |
+| CENTOS_MANTISBT_PROJECT_VERSION | "7"                                                                 |
+| CPE_NAME                        | "cpe:/o:centos:centos:7"                                            |
+| HOME_URL                        | "https://www.centos.org/"                                           |
+| ID                              | "centos"                                                            |
+| ID_LIKE                         | "rhel fedora"                                                       |
+| NAME                            | "CentOS Linux"                                                      |
+| PRETTY_NAME                     | "CentOS Linux 7 (Core)"                                             |
+| REDHAT_SUPPORT_PRODUCT          | "centos"                                                            |
+| REDHAT_SUPPORT_PRODUCT_VERSION  | "7"                                                                 |
+| VERSION                         | "7 (Core)"                                                          |
+| VERSION_ID                      | "7"                                                                 |
+| cpu                             | AMD EPYC 7742 64-Core Processor                                     |
+| cpu_cores                       | 64                                                                  |
+| cpu_count                       | 128                                                                 |
+| cpu_threads                     | 128                                                                 |
+| date                            | 2022-09-29 02:13:27.108478                                          |
+| frequency                       | scpufreq(current=2250.0, min=1500.0, max=2250.0)                    |
+| mem.active                      | 42.0 GiB                                                            |
+| mem.available                   | 947.7 GiB                                                           |
+| mem.free                        | 838.3 GiB                                                           |
+| mem.inactive                    | 104.6 GiB                                                           |
+| mem.percent                     | 6.0 %                                                               |
+| mem.total                       | 1007.8 GiB                                                          |
+| mem.used                        | 53.6 GiB                                                            |
+| platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
+| python                          | 3.8.8 | packaged by conda-forge | (default, Feb 20 2021, 16:22:27)  |
+|                                 | [GCC 9.3.0]                                                         |
+| python.pip                      | 22.2.2                                                              |
+| python.version                  | 3.8.8                                                               |
+| sys.platform                    | linux                                                               |
+| uname.machine                   | x86_64                                                              |
+| uname.node                      | udc-an28-1                                                          |
+| uname.processor                 | x86_64                                                              |
+| uname.release                   | 3.10.0-1160.59.1.el7.x86_64                                         |
+| uname.system                    | Linux                                                               |
+| uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
+| user                            | XXXXXX                                                              |
++---------------------------------+---------------------------------------------------------------------+
+
++-----------+----------+----------+----------+---------------------+-------+-------+------------+--------+-------+-------------------------------------+
+| Name      | Status   |     Time |      Sum | Start               | tag   | msg   | Node       | User   | OS    | Version                             |
+|-----------+----------+----------+----------+---------------------+-------+-------+------------+--------+-------+-------------------------------------|
+| total     | ok       | 2182.14  | 2182.14  | 2022-09-29 01:37:04 |       |       | udc-an28-1 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training  | ok       | 2093.63  | 2093.63  | 2022-09-29 01:37:05 |       |       | udc-an28-1 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| inference | ok       |   87.859 |   87.859 | 2022-09-29 02:11:59 |       |       | udc-an28-1 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
++-----------+----------+----------+----------+---------------------+-------+-------+------------+--------+-------+-------------------------------------+
+# csv,timer,status,time,sum,start,tag,msg,uname.node,user,uname.system,platform.version
+# csv,total,ok,2182.138,2182.138,2022-09-29 01:37:04,,None,udc-an28-1,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,training,ok,2093.626,2093.626,2022-09-29 01:37:05,,None,udc-an28-1,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,inference,ok,87.859,87.859,2022-09-29 02:11:59,,None,udc-an28-1,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
