@@ -84,7 +84,7 @@ def create_workflow(filename='cloudmask.yaml'):
     print(g)
     return w
 
-@pytest.mark.incremental
+
 class TestCloudmask:
 
     def test_cloudmask(self):
