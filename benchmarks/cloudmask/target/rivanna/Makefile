@@ -1,5 +1,14 @@
 SHELL:=/bin/bash
 
+venv:
+	cd /scratch/$USER
+	git clone https://github.com/laszewsk/mlcommons.git
+	cd mlcommons
+	git pull
+	cd benchmarks/cloudmask/
+	module load anaconda
+	python create_python.py
+
 data:
 	module load anaconda
 	source activate MLBENCH
@@ -14,3 +23,5 @@ run:
 	module load anaconda
 	source activate MLBENCH
 	python cloudmask_runner.py
+
+all: venv data run
