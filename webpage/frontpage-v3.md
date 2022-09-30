@@ -13,7 +13,7 @@ layout: group.njk
 Encourage and support the curation of large-scale experimental and
 scientific datasets and the engineering of ML benchmarks operating on
 those datasets. The WG will engage with scientists, academics,
-national laboratories, such as synchrotrons, in securing, engineering,
+and national laboratories, such as synchrotrons, in securing, engineering,
 curating, and publishing datasets and machine learning benchmarks that
 operate on experimental scientific datasets. This will entail working
 across different domains of sciences, including material, life,
@@ -52,7 +52,7 @@ surrogate accuracy, control stability measure, etc.).
 
 ## Meeting Schedule
 
-* Bi-weekly on Wednesay from 8:00-9:00AM PST, which is 11-12am EST.
+* Bi-weekly on Wednesday from 8:00-9:00 AM PST, which is 11-12 AM EST.
 
 ## Working Group Resources
 
@@ -60,7 +60,7 @@ The main working group Web page is at:
 
 * <https://mlcommons.org/en/groups/research-science/>
 
-The working group github is located at 
+The working group GitHub is located at 
 
 * <https://github.com/mlcommons/science>
 
@@ -68,6 +68,11 @@ The Policy document is located at
 
 * <https://github.com/mlcommons/science/blob/main/policy.adoc>
 
+The Submission Rules document is located at
+
+* The Policy document is located at 
+
+* <https://github.com/mlcommons/science/blob/main/policy.adoc>
 
 ## Mailing List
 
@@ -78,5 +83,4 @@ science@googlegroups.com
   * Geoffrey Fox (gcfexchange@gmail.com) [(CV)](https://engineering.virginia.edu/faculty/geoffrey-c-fox)
   * Tony Hey (tony.hey@stfc.ac.uk) [(CV)](https://www.scd.stfc.ac.uk/Pages/Tony-Hey.aspx)
   * Jeyan Thiyagalingam (t.jeyan@stfc.ac.uk) [(CV)](https://www.scd.stfc.ac.uk/Pages/sciml-profile-jeyan.aspx)
-
 
