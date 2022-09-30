@@ -8,18 +8,16 @@ module load anaconda && python create_python.py
 	source activate MLBENCH
 
 data:
-	module load anaconda
-	source activate MLBENCH
-	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/
-	mkdir -p data/ssts
-	mkdir -p data/one-day
-	pip install awscli
-	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day
-	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts
+	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+mkdir -p data/ssts && mkdir -p data/one-day
+	module load anaconda && source activate MLBENCH && pip install awscli
+	module load anaconda && source activate MLBENCH && \
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day
+	module load anaconda && source activate MLBENCH && \
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts
 
 run:
-	module load anaconda
-	source activate MLBENCH
-	python cloudmask_runner.py
+	module load anaconda && source activate MLBENCH && \
+python cloudmask_runner.py
 
 all: venv data run
