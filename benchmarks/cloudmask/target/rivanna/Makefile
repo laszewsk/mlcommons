@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 venv:
-	cd /scratch/$(USER) && git clone https://github.com/laszewsk/mlcommons.git
+	-cd /scratch/$(USER) && git clone https://github.com/laszewsk/mlcommons.git
 	cd /scratch/$(USER)/mlcommons && git pull
 	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
 module load anaconda && python create_python.py
