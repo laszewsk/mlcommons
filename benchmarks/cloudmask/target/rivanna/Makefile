@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 venv:
-	cd /scratch/$USER
+	cd /scratch/$(USER)
 	git clone https://github.com/laszewsk/mlcommons.git
 	cd mlcommons
 	git pull
@@ -13,7 +13,7 @@ venv:
 data:
 	module load anaconda
 	source activate MLBENCH
-	cd /scratch/$USER/mlcommons/benchmarks/cloudmask/
+	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/
 	mkdir -p data/ssts
 	mkdir -p data/one-day
 	pip install awscli
