@@ -8,6 +8,7 @@ venv:
 	cd benchmarks/cloudmask/
 	module load anaconda
 	python create_python.py
+	source activate MLBENCH
 
 data:
 	module load anaconda
