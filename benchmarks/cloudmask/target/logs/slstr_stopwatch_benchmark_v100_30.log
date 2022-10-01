@@ -16,19 +16,19 @@
 | REDHAT_SUPPORT_PRODUCT_VERSION  | "7"                                                                 |
 | VERSION                         | "7 (Core)"                                                          |
 | VERSION_ID                      | "7"                                                                 |
-| cpu                             | Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz                            |
-| cpu_cores                       | 18                                                                  |
-| cpu_count                       | 36                                                                  |
-| cpu_threads                     | 36                                                                  |
-| date                            | 2022-09-29 15:13:16.942184                                          |
+| cpu                             | Intel(R) Xeon(R) Gold 6132 CPU @ 2.60GHz                            |
+| cpu_cores                       | 14                                                                  |
+| cpu_count                       | 28                                                                  |
+| cpu_threads                     | 28                                                                  |
+| date                            | 2022-10-01 04:27:55.042377                                          |
 | frequency                       | scpufreq(current=2600.0, min=0.0, max=0.0)                          |
-| mem.active                      | 103.5 GiB                                                           |
-| mem.available                   | 258.0 GiB                                                           |
-| mem.free                        | 230.9 GiB                                                           |
-| mem.inactive                    | 18.9 GiB                                                            |
-| mem.percent                     | 31.5 %                                                              |
-| mem.total                       | 376.5 GiB                                                           |
-| mem.used                        | 113.2 GiB                                                           |
+| mem.active                      | 38.2 GiB                                                            |
+| mem.available                   | 158.6 GiB                                                           |
+| mem.free                        | 98.4 GiB                                                            |
+| mem.inactive                    | 31.4 GiB                                                            |
+| mem.percent                     | 15.4 %                                                              |
+| mem.total                       | 187.6 GiB                                                           |
+| mem.used                        | 24.0 GiB                                                            |
 | platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
 | python                          | 3.8.8 | packaged by conda-forge | (default, Feb 20 2021, 16:22:27)  |
 |                                 | [GCC 9.3.0]                                                         |
@@ -36,22 +36,22 @@
 | python.version                  | 3.8.8                                                               |
 | sys.platform                    | linux                                                               |
 | uname.machine                   | x86_64                                                              |
-| uname.node                      | udc-an33-37                                                         |
+| uname.node                      | udc-ba27-26                                                         |
 | uname.processor                 | x86_64                                                              |
 | uname.release                   | 3.10.0-1160.59.1.el7.x86_64                                         |
 | uname.system                    | Linux                                                               |
 | uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
-| user                            | XXXXXX                                                              |
+| user                            | dje5dj                                                              |
 +---------------------------------+---------------------------------------------------------------------+
 
-+-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
-| Name      | Status   |     Time |      Sum | Start               | tag   | msg   | Node        | User   | OS    | Version                             |
-|-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------|
-| total     | ok       | 1992.52  | 1992.52  | 2022-09-29 14:40:04 |       |       | udc-an33-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-| training  | ok       | 1927.48  | 1927.48  | 2022-09-29 14:40:04 |       |       | udc-an33-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-| inference | ok       |   64.481 |   64.481 | 2022-09-29 15:12:12 |       |       | udc-an33-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-+-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
++-----------+----------+----------+----------+---------------------+---------+-------+-------------+--------+-------+-------------------------------------+
+| Name      | Status   |     Time |      Sum | Start               | tag     | msg   | Node        | User   | OS    | Version                             |
+|-----------+----------+----------+----------+---------------------+---------+-------+-------------+--------+-------+-------------------------------------|
+| total     | ok       | 2066     | 2066     | 2022-10-01 03:53:29 | v100_30 |       | udc-ba27-26 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training  | ok       | 2002.98  | 2002.98  | 2022-10-01 03:53:29 | v100_30 |       | udc-ba27-26 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| inference | ok       |   61.535 |   61.535 | 2022-10-01 04:26:53 | v100_30 |       | udc-ba27-26 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
++-----------+----------+----------+----------+---------------------+---------+-------+-------------+--------+-------+-------------------------------------+
 # csv,timer,status,time,sum,start,tag,msg,uname.node,user,uname.system,platform.version
-# csv,total,ok,1992.524,1992.524,2022-09-29 14:40:04,,None,udc-an33-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
-# csv,training,ok,1927.476,1927.476,2022-09-29 14:40:04,,None,udc-an33-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
-# csv,inference,ok,64.481,64.481,2022-09-29 15:12:12,,None,udc-an33-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,total,ok,2066.002,2066.002,2022-10-01 03:53:29,v100_30,None,udc-ba27-26,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,training,ok,2002.976,2002.976,2022-10-01 03:53:29,v100_30,None,udc-ba27-26,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,inference,ok,61.535,61.535,2022-10-01 04:26:53,v100_30,None,udc-ba27-26,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022

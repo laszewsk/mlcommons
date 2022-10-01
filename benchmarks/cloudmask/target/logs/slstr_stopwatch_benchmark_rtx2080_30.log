@@ -20,15 +20,15 @@
 | cpu_cores                       | 20                                                                  |
 | cpu_count                       | 40                                                                  |
 | cpu_threads                     | 40                                                                  |
-| date                            | 2022-09-29 21:08:50.686823                                          |
+| date                            | 2022-10-01 09:23:06.819438                                          |
 | frequency                       | scpufreq(current=2401.0, min=1000.0, max=2401.0)                    |
-| mem.active                      | 37.7 GiB                                                            |
-| mem.available                   | 320.7 GiB                                                           |
-| mem.free                        | 305.8 GiB                                                           |
-| mem.inactive                    | 9.5 GiB                                                             |
-| mem.percent                     | 14.8 %                                                              |
+| mem.active                      | 5.9 GiB                                                             |
+| mem.available                   | 350.6 GiB                                                           |
+| mem.free                        | 343.5 GiB                                                           |
+| mem.inactive                    | 6.3 GiB                                                             |
+| mem.percent                     | 6.9 %                                                               |
 | mem.total                       | 376.6 GiB                                                           |
-| mem.used                        | 54.1 GiB                                                            |
+| mem.used                        | 24.7 GiB                                                            |
 | platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
 | python                          | 3.8.8 | packaged by conda-forge | (default, Feb 20 2021, 16:22:27)  |
 |                                 | [GCC 9.3.0]                                                         |
@@ -36,22 +36,22 @@
 | python.version                  | 3.8.8                                                               |
 | sys.platform                    | linux                                                               |
 | uname.machine                   | x86_64                                                              |
-| uname.node                      | udc-aw37-37                                                         |
+| uname.node                      | udc-aw37-33                                                         |
 | uname.processor                 | x86_64                                                              |
 | uname.release                   | 3.10.0-1160.59.1.el7.x86_64                                         |
 | uname.system                    | Linux                                                               |
 | uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
-| user                            | XXXXXX                                                              |
+| user                            | dje5dj                                                              |
 +---------------------------------+---------------------------------------------------------------------+
 
-+-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
-| Name      | Status   |     Time |      Sum | Start               | tag   | msg   | Node        | User   | OS    | Version                             |
-|-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------|
-| total     | ok       | 2617.9   | 2617.9   | 2022-09-29 20:25:12 |       |       | udc-aw37-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-| training  | ok       | 2545.23  | 2545.23  | 2022-09-29 20:25:13 |       |       | udc-aw37-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-| inference | ok       |   71.807 |   71.807 | 2022-09-29 21:07:38 |       |       | udc-aw37-37 | XXXXXX | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
-+-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
++-----------+----------+----------+----------+---------------------+------------+-------+-------------+--------+-------+-------------------------------------+
+| Name      | Status   |     Time |      Sum | Start               | tag        | msg   | Node        | User   | OS    | Version                             |
+|-----------+----------+----------+----------+---------------------+------------+-------+-------------+--------+-------+-------------------------------------|
+| total     | ok       | 2700.29  | 2700.29  | 2022-10-01 08:38:06 | rtx2080_30 |       | udc-aw37-33 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training  | ok       | 2632.46  | 2632.46  | 2022-10-01 08:38:06 | rtx2080_30 |       | udc-aw37-33 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| inference | ok       |   67.267 |   67.267 | 2022-10-01 09:21:59 | rtx2080_30 |       | udc-aw37-33 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
++-----------+----------+----------+----------+---------------------+------------+-------+-------------+--------+-------+-------------------------------------+
 # csv,timer,status,time,sum,start,tag,msg,uname.node,user,uname.system,platform.version
-# csv,total,ok,2617.898,2617.898,2022-09-29 20:25:12,,None,udc-aw37-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
-# csv,training,ok,2545.234,2545.234,2022-09-29 20:25:13,,None,udc-aw37-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
-# csv,inference,ok,71.807,71.807,2022-09-29 21:07:38,,None,udc-aw37-37,XXXXXX,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,total,ok,2700.287,2700.287,2022-10-01 08:38:06,rtx2080_30,None,udc-aw37-33,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,training,ok,2632.456,2632.456,2022-10-01 08:38:06,rtx2080_30,None,udc-aw37-33,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,inference,ok,67.267,67.267,2022-10-01 09:21:59,rtx2080_30,None,udc-aw37-33,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
