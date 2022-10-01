@@ -236,7 +236,7 @@ def main():
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
     mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
     StopWatch.stop("total")
-    StopWatch.benchmark(filename=f'slstr_stopwatch_benchmark_{currentgpu}_{currentepoch}.log')
+    StopWatch.benchmark(filename=f'slstr_stopwatch_benchmark_{currentgpu}_{currentepoch}.log', tag=f'{currentgpu}_{currentepoch}')
 
 if __name__ == "__main__":
     main()

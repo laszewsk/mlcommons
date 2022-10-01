@@ -11,7 +11,7 @@ path_of_mlcommons = Path(Shell.map_filename(
 os.chdir(path_of_mlcommons)
 progress = 1
 StopWatch.progress(progress)
-gpus = ['a100', 'v100', 'p100']
+gpus = ['a100', 'v100', 'p100', 'rtx2080', 'k80']
 epochs = [10, 30, 50]
 for card in gpus:
     for epoch in epochs:
