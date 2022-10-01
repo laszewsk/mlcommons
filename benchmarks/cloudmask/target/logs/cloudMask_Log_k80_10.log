@@ -1,0 +1,4 @@
+CloudMask training, samples = 966, epochs=10, bs=32, nodes=1, gpus=2, time_per_epoch=332.49
+CloudMask inference, inferences=100, bs=32, nodes=1, gpus=2, time_per_inference=1.42
+CloudMask training, samples = 966, epochs=10, bs=32, nodes=1, gpus=2, time_per_epoch=329.26
+CloudMask inference, inferences=100, bs=32, nodes=1, gpus=2, time_per_inference=1.40

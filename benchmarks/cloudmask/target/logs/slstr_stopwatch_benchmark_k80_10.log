@@ -1,0 +1,57 @@
+
++---------------------------------+---------------------------------------------------------------------+
+| Attribute                       | Value                                                               |
+|---------------------------------+---------------------------------------------------------------------|
+| ANSI_COLOR                      | "0;31"                                                              |
+| BUG_REPORT_URL                  | "https://bugs.centos.org/"                                          |
+| CENTOS_MANTISBT_PROJECT         | "CentOS-7"                                                          |
+| CENTOS_MANTISBT_PROJECT_VERSION | "7"                                                                 |
+| CPE_NAME                        | "cpe:/o:centos:centos:7"                                            |
+| HOME_URL                        | "https://www.centos.org/"                                           |
+| ID                              | "centos"                                                            |
+| ID_LIKE                         | "rhel fedora"                                                       |
+| NAME                            | "CentOS Linux"                                                      |
+| PRETTY_NAME                     | "CentOS Linux 7 (Core)"                                             |
+| REDHAT_SUPPORT_PRODUCT          | "centos"                                                            |
+| REDHAT_SUPPORT_PRODUCT_VERSION  | "7"                                                                 |
+| VERSION                         | "7 (Core)"                                                          |
+| VERSION_ID                      | "7"                                                                 |
+| cpu                             | Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz                           |
+| cpu_cores                       | 14                                                                  |
+| cpu_count                       | 28                                                                  |
+| cpu_threads                     | 28                                                                  |
+| date                            | 2022-09-30 18:27:31.955370                                          |
+| frequency                       | scpufreq(current=2400.150000000001, min=0.0, max=0.0)               |
+| mem.active                      | 19.7 GiB                                                            |
+| mem.available                   | 220.7 GiB                                                           |
+| mem.free                        | 196.1 GiB                                                           |
+| mem.inactive                    | 16.5 GiB                                                            |
+| mem.percent                     | 12.4 %                                                              |
+| mem.total                       | 251.8 GiB                                                           |
+| mem.used                        | 28.0 GiB                                                            |
+| platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
+| python                          | 3.8.8 | packaged by conda-forge | (default, Feb 20 2021, 16:22:27)  |
+|                                 | [GCC 9.3.0]                                                         |
+| python.pip                      | 22.2.2                                                              |
+| python.version                  | 3.8.8                                                               |
+| sys.platform                    | linux                                                               |
+| uname.machine                   | x86_64                                                              |
+| uname.node                      | udc-ba26-25                                                         |
+| uname.processor                 | x86_64                                                              |
+| uname.release                   | 3.10.0-1160.59.1.el7.x86_64                                         |
+| uname.system                    | Linux                                                               |
+| uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022                                 |
+| user                            | dje5dj                                                              |
++---------------------------------+---------------------------------------------------------------------+
+
++-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
+| Name      | Status   |     Time |      Sum | Start               | tag   | msg   | Node        | User   | OS    | Version                             |
+|-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------|
+| total     | ok       | 3433.69  | 3433.69  | 2022-09-30 17:30:18 |       |       | udc-ba26-25 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training  | ok       | 3292.56  | 3292.56  | 2022-09-30 17:30:19 |       |       | udc-ba26-25 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| inference | ok       |  140.206 |  140.206 | 2022-09-30 18:25:11 |       |       | udc-ba26-25 | dje5dj | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
++-----------+----------+----------+----------+---------------------+-------+-------+-------------+--------+-------+-------------------------------------+
+# csv,timer,status,time,sum,start,tag,msg,uname.node,user,uname.system,platform.version
+# csv,total,ok,3433.688,3433.688,2022-09-30 17:30:18,,None,udc-ba26-25,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,training,ok,3292.559,3292.559,2022-09-30 17:30:19,,None,udc-ba26-25,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
+# csv,inference,ok,140.206,140.206,2022-09-30 18:25:11,,None,udc-ba26-25,dje5dj,Linux,#1 SMP Wed Feb 23 16:47:03 UTC 2022
