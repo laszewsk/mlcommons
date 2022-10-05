@@ -220,8 +220,7 @@ TBD
 
 ### Running the code on Summit
 
-Summit is located at ORNL. For running CloudMask we need to write a job-file, for example "cloudMask.job" and submit it 
-by using the: bsubmit cloudmask.job command. In the jobfile the "ProjectCode" should be replaced with a valid code which is accepted by the system.
+The Summit machine at ORNL operates in a batch-mode. For each task we need to write a job-file, for example "cloudMask.job" and submit it by using the: "bsubmit cloudmask.job" command. In the jobfile the "ProjectCode" should be replaced with a valid code which is accepted by the system. The nodes and GPUs are allocated by the -n and -g flags of the jsrun command. For example -g1 allocates 1 GPU and -n 1 node. It is importangt to notice that the number of GPUs and nodes in the "cloudMaskConfig.yaml" file must match the flags in the jsrun command. For example if we requested 24 GPUs in the jsrun we use -n4 -g6 i.e. 4 nodes and 6 GPUs per node.
 
 ```bash
 #!/bin/bash
