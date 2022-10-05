@@ -220,10 +220,30 @@ TBD
 
 ### Running the code on Summit
 
-Summit is a machine located at ORNL. The instructions her will document how to run it on SUmmit
+Summit is located at ORNL. For running CloudMask we need to write a job-file, for example "cloudMask.job" and submit it 
+by using the: bsubmit cloudmask.job command. In the jobfile the "ProjectCode" should be replaced with a valid code which is accepted by the system.
 
 ```bash
-TBD
+#!/bin/bash
+#BSUB -W 1:59
+#BSUB -nnodes 1
+#BSUB -P ProjecCode
+#BSUB -o cloud.o%J
+#BSUB -J cloudJobx
+
+# Load modules
+module load open-ce
+
+# Install libraries
+pip install scikit-learn
+pip install h5py
+pip install pyyaml
+
+#This runs on many nodes
+echo "Hostname: "
+jsrun -n1 -r1 -c1 hostname
+echo "Running slsts on GPU=1"
+jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig.yaml
 ```
 
 
