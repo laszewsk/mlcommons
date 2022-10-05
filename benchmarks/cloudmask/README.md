@@ -228,7 +228,7 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 
-Install ML Commons logging
+Install MLCommons logging
 git clone https://github.com/mlperf/logging.git mlperf-logging
 pip install -e mlperf-logging
 
@@ -259,6 +259,10 @@ module load open-ce
 pip install scikit-learn
 pip install h5py
 pip install pyyaml
+
+# Install MLCommons logging
+git clone https://github.com/mlperf/logging.git mlperf-logging
+pip install -e mlperf-logging
 
 #This runs on many nodes
 echo "Hostname: "
