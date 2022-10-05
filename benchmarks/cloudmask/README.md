@@ -215,7 +215,27 @@ python slstr_cloud.py --config ./cloudMaskConfig.yaml
 This machine is located at STFC in the UK. It is a NVIDIA DGX-2 machine with 32 NVIDIA V100 GPUS.
 
 ```bash
-TBD
+git clone https://github.com/mlcommons/science/
+cd ./science/benchmarks/cloudmask
+
+Create conda environment:
+conda create --name mlcommons python=3.8
+conda activate mlcommons
+pip install tensorflow-gpu
+pip install scikit-learn
+pip install h5py
+pip install pyyaml
+
+Install logging
+git clone https://github.com/mlperf/logging.git mlperf-logging
+pip install -e mlperf-logging
+
+Allocate GPU
+srun --gres=gpu:1 --pty --mem=64G --time 01:59:00 /bin/bash
+conda activate mlcommons
+
+Run the code
+python slstr_cloud.py --config ./cloudMaskConfig.yaml
 ```
 
 ### Running the code on Summit
