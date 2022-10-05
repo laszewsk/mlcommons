@@ -212,9 +212,11 @@ python slstr_cloud.py --config ./cloudMaskConfig.yaml
 
 ### Running the code on Pearl
 
-This machine is located at STFC in the UK. It is a NVIDIA DGX-2 machine with 32 NVIDIA V100 GPUS.
+Pearl (at STFC UK) is an NVIDIA DGX-2 machine with 32 NVIDIA V100 GPUS. For running CloudMask in an interactive mode
+the following sequence of commands need to be executed:
 
 ```bash
+Clone github repository
 git clone https://github.com/mlcommons/science/
 cd ./science/benchmarks/cloudmask
 
@@ -226,11 +228,11 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 
-Install logging
+Install ML Commons logging
 git clone https://github.com/mlperf/logging.git mlperf-logging
 pip install -e mlperf-logging
 
-Allocate GPU
+Allocate GPU and time
 srun --gres=gpu:1 --pty --mem=64G --time 01:59:00 /bin/bash
 conda activate mlcommons
 
