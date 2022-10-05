@@ -212,7 +212,7 @@ python slstr_cloud.py --config ./cloudMaskConfig.yaml
 
 ### Running the code on Pearl
 
-This machine is located at STFC in the UK. It is a NVIDIA dgx 2 machine with 32 NVIDID v100 GPUS.
+This machine is located at STFC in the UK. It is a NVIDIA DGX-2 machine with 32 NVIDIA V100 GPUS.
 
 ```bash
 TBD
