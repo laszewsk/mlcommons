@@ -10,6 +10,14 @@ layout: group.njk
 
 ## Mission
 
+Evaluate, Organize, Curate, and Integrate artifacts around Applications, M
+odels(algorithms), Infrastructure, and the 3 MLCommons Pillars Benchmarks, 
+Datasets, and Best Practices. These artifacts are open source and accessible 
+through the MLCommons GitHub. Our input comes from independently funded a
+ctivities and experts in Industry, Government, and Research.
+
+This includes the folowing activities.
+
 Encourage and support the curation of large-scale experimental and
 scientific datasets and the engineering of ML benchmarks operating on
 those datasets. The WG will engage with scientists, academics,
