@@ -31,16 +31,16 @@ experiment:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-revision: latest
-user:
-   account: bii_dsc
+code:
+  script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
   workdir: /localscratch/mlcommons
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
+  allocation: 'bii_dsc'
+  reservation: 'bi_fox_dgx'
 
 colortheme: "False"
 

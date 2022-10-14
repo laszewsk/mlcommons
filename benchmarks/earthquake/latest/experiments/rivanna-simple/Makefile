@@ -42,7 +42,7 @@ jobs-%.sh: %.json
 
 %.json: rivanna-%.yaml
 	cms sbatch generate \
-	           --source=rivanna-reduced.in.slurm \
+	           --source=rivanna.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
