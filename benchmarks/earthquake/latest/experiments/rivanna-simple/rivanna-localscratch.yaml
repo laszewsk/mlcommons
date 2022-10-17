@@ -34,7 +34,7 @@ code:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
-  workdir: /localscratch/mlcommons
+  workdir: /localscratch/{os.USER}/mlcommons
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'

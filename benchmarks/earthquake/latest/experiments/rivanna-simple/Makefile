@@ -46,6 +46,7 @@ jobs-%.sh: %.json
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
+	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
@@ -56,6 +57,7 @@ dgx.json: rivanna-dgx.yaml
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
+	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
@@ -66,6 +68,7 @@ dgx-shm.json: rivanna-dgx-shm.yaml
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
+	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
