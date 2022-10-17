@@ -107,6 +107,36 @@ Most jobs take several hours, so correcting errors by inspecting the output will
 On Rivanna, when using the `/project`or `/scratch` filesystems, there is a file limit quota that will terminate your job immediately if you exceed it.
 Make sure that you do not run more than 5 jobs concurrently in the `project` configuration.
 
+You will be able to see the generated scripts with the coommand
+
+```bash
+ls -1 $EQ_CONFIGURATION
+```
+
+```
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70
+```
+
+To modify them, pleas make changes to the experiments that you run, please edit the file 
+rivanna-EQ_CONFIGURATION.yaml
+
+```bash
+emacs rivanna-EQ_CONFIGURATION.yaml
+```
+
+Before running the experiments check if they are ok, as it can take a very long time 
+to run them on rivanna dependent on the GPU used 
+(2epoch run on A100 ~4 hours and for K80 it runs 24 hours).
+
+
 ### Running the Experiments
 
 If the output from the cloudmesh sbatch command matches your experiment's configuration, then the experiment is ready to be executed on rivanna using
