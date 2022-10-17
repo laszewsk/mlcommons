@@ -14,9 +14,10 @@
    2. Option 2 - Using Native Python
       ```bash
       module purge
-      modue use /project/bii_dsc/mlcommons-system/modulefiles
+      module use /project/bii_dsc/mlcommons-system/modulefiles
       module load python-rivanna
       ```
+      Note: This module uses a custom version of python as configured in [Building Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/buildscripts/python-rivanna) and loading the lua modules in a preconfigured directory setup at [Configuring Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/modulefiles/python-rivanna)
 
 2. Setup Cloudmesh and the cloudmesh sbatch utility.
    ```bash
