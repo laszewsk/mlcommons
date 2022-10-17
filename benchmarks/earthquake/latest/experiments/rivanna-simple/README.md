@@ -60,22 +60,22 @@ cms help
 2. Set your desired configuration you wish to run:
    ```bash
    # One of - localscratch, project, shm, dgx, or dgx-shm
-   export CONFIGURATION="localscratch"
+   export EQ_CONFIGURATION="localscratch"
    ```
 
 3. Perform a 1 time bootstrap of your environment.
    ```bash
-   make setup-$CONFIGURATION
+   make setup-$EQ_CONFIGURATION
    ## or run the following
-   # python 01-fetch-data.py rivanna-$CONFIGURATION.yaml
-   # python 02-setup-venv.py rivanna-$CONFIGURATION.yaml 
+   # python 01-fetch-data.py rivanna-$EQ_CONFIGURATION.yaml
+   # python 02-setup-venv.py rivanna-$EQ_CONFIGURATION.yaml 
    ```
 
 ## Generating Experiment Permutations
 
 1. Generate your configuration's scripts
    ```bash
-   make generate-$CONFIGURATION
+   make generate-$EQ_CONFIGURATION
    ```
 
 It's strongly advised that you inspect the output of the above to validate that all generated scripts and files are correct.
@@ -90,7 +90,7 @@ Make sure that you do not run more than 5 jobs concurrently in the `project` con
 If the output from the cloudmesh sbatch command matches your experiment's configuration, then the experiment is ready to be executed on rivanna using
 
 ```bash
-sh job-$CONFIGURATION.sh
+sh job-$EQ_CONFIGURATION.sh
 ```
 
 This will request all jobs to be run immediately by slurm, and the notebook file will be outputted in:
