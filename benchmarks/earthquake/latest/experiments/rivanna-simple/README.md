@@ -226,3 +226,9 @@ squeue -u $USER
 localscratch/*_2/*.err
 localscratch/*_2/*.out
 ```
+
+## Rerun after changes
+
+```
+make clean
+```
