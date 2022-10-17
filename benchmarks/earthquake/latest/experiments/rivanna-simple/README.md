@@ -213,4 +213,16 @@ To only run a single experiment to see if things work, we recommand you run the 
 fgrep "_2 "  *sh > test_2.sh
 sh test_2.sh 
 ```
+
+## Monitor the job
+
+use the slurm commands
+
+```
+squeue -u $USER
+```
+
+```
+localscratch/*_2/*.err
+localscratch/*_2/*.out
 ```
