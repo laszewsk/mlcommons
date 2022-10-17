@@ -235,4 +235,5 @@ make clean
 make generate-$EQ_CONFIGURATION
 fgrep "_2 "  *sh | sed 's/jobs-localscratch.sh://g' > test_run.sh
 sh test_run.sh 
+squeue -u $USER
 ```
