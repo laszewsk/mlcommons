@@ -40,6 +40,7 @@ Note that if you elect to use the ssh configuration, you may be frequently promp
 eval `ssh-agent -s`
 ssh-add
 cloudmesh-installer --ssh get sbatch
+cms help
 ```
 
 ## Preparing Earthquake Environment
