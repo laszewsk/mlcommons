@@ -17,7 +17,7 @@
       module use /project/bii_dsc/mlcommons-system/modulefiles
       module load python-rivanna
       ```
-      Note: This module uses a custom version of python as configured in [Building Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/buildscripts/python-rivanna) and loading the lua modules in a preconfigured directory setup at [Configuring Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/modulefiles/python-rivanna)
+      Note: This module uses a custom version of python as configured in [Building Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/buildscripts/python-rivanna) and loading the lua modules in a preconfigured directory setup at [Configuring Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/modulefiles/python-rivanna).  Details on how to add to these files can be found in the [systems](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna) folder.
 
 2. Setup Cloudmesh and the cloudmesh sbatch utility.
    ```bash
