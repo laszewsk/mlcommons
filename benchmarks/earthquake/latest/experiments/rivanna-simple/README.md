@@ -230,5 +230,9 @@ localscratch/*_2/*.out
 ## Rerun after changes
 
 ```
+emacs rivanna-EQ_CONFIGURATION.yaml
 make clean
+make generate-$EQ_CONFIGURATION
+fgrep "_2 "  *sh > test_run.sh
+sh test_run.sh 
 ```
