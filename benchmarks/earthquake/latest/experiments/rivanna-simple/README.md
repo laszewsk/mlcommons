@@ -43,6 +43,8 @@ cloudmesh-installer --ssh get sbatch
 cms help
 ```
 
+
+
 ## Preparing Earthquake Environment
 
 1. Generating experiment configurations
@@ -71,6 +73,7 @@ cms help
    # python 02-setup-venv.py rivanna-$EQ_CONFIGURATION.yaml 
    ```
 
+
 ## Generating Experiment Permutations
 
 ### Selecting a Configurations
@@ -91,6 +94,50 @@ To change your configuration, run the following:
 ```bash
 # One of - localscratch, project, shm, dgx, or dgx-shm
 export EQ_CONFIGURATION="localscratch"
+```
+
+
+### Finding your Allocation
+
+To find out which allocations are avalable to you use the command
+
+```bash
+allocations
+```
+it will show the allocations table which looks similar to 
+
+```
+Account                      Balance        Reserved       Available                
+-----------------          ---------       ---------       ---------                
+bii_dsc                       100000               0         98565.3                
+bii_dsc_community             100000               0         99998.8                
+bii_nssac                     500000               0        352387                
+biocomplexity                 100000               0         30773.4                
+ds6011-sp22-002               100000               0         59156.2   
+```
+
+Chose the allocation which is most appropriate for you, and change it in the yaml file 
+Locate the following line and change accordingly.
+
+```
+run:
+  allocation: bii_dsc_community 
+
+system:
+  partition: gpu
+```
+
+Please note that only bii_dsc_community, bii_dsc are able to use a new version of 
+the A100 if the following are included in the yaml file.
+
+
+```
+system:
+  partition: bii-gpu
+
+run:
+  allocation: bii_dsc
+  reservation: bi_fox_dgx
 ```
 
 ### Generating Active Configuration
