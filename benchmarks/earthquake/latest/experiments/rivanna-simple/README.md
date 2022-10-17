@@ -233,7 +233,7 @@ localscratch/*_2/*.out
 emacs rivanna-EQ_CONFIGURATION.yaml
 make clean
 make generate-$EQ_CONFIGURATION
-fgrep "_2 "  *sh | sed 's/jobs-localscratch.sh://g' > test_run.sh
+head -n 1 jobs-$EQ_CONFIGURATION.sh > test_run.sh
 sh test_run.sh 
 squeue -u $USER
 ```
