@@ -60,7 +60,7 @@ cms help
 2. Set your desired configuration you wish to run:
    ```bash
    # One of - localscratch, project, shm, dgx, or dgx-shm
-   CONFIGURATION="localscratch"
+   export CONFIGURATION="localscratch"
    ```
 
 3. Perform a 1 time bootstrap of your environment.
