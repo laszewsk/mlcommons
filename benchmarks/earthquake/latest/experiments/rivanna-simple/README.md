@@ -73,6 +73,28 @@ cms help
 
 ## Generating Experiment Permutations
 
+### Selecting a Configurations
+
+This procedure is preconfigured for running the benchmark on Rivanna using the
+`/localscratch` filesystem, however there are alternate configurations that may
+be targeted after the above bootstrapping has been performed.
+These include:
+
+* `localscratch` - uses rivanna's local NVMe filesystem
+* `project` - uses Rivanna's special `/project` network file system
+* `shm` - uses the `/dev/shm` device for in-memory filesystem processing.
+* `dgx` - uses Rivanna's DGX workstation.
+* `dgx-shm` - uses Rivanna's DGX workstation leveraging the `/dev/shm` directory for in-memory filesystem processing.
+
+To change your configuration, run the following:
+
+```bash
+# One of - localscratch, project, shm, dgx, or dgx-shm
+export EQ_CONFIGURATION="localscratch"
+```
+
+### Generating Active Configuration
+
 1. Generate your configuration's scripts
    ```bash
    make generate-$EQ_CONFIGURATION
