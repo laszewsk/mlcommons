@@ -136,6 +136,7 @@ Before running the experiments check if they are ok, as it can take a very long 
 to run them on rivanna dependent on the GPU used 
 (2epoch run on A100 ~4 hours and for K80 it runs 24 hours).
 
+(Right now v100 is the default)
 
 ### Running the Experiments
 
