@@ -204,3 +204,13 @@ You can see the progress of each job by inspecting the `*.out` and `*.err` files
 A useful command is to run `tail -f $USER-*.err $USER-*.out`, which will watch the progress of both logs.  You can exit this command by pressing `ctrl+c`.
 
 A copy of the final notebook is placed in the slurm experiments folder with the suffix `*_output.ipynb`, that can be inspected for further details.
+
+### Single test experiment
+
+To only run a single experiment to see if things work, we recommand you run the commands
+
+```
+fgrep "_2 "  *sh > test_2.sh
+sh test_2.sh 
+```
+```
