@@ -43,6 +43,8 @@ cloudmesh-installer --ssh get sbatch
 cms help
 ```
 
+
+
 ## Preparing Earthquake Environment
 
 1. Generating experiment configurations
@@ -60,22 +62,89 @@ cms help
 2. Set your desired configuration you wish to run:
    ```bash
    # One of - localscratch, project, shm, dgx, or dgx-shm
-   CONFIGURATION="localscratch"
+   export EQ_CONFIGURATION="localscratch"
    ```
 
 3. Perform a 1 time bootstrap of your environment.
    ```bash
-   make setup-$CONFIGURATION
+   make setup-$EQ_CONFIGURATION
    ## or run the following
-   # python 01-fetch-data.py rivanna-$CONFIGURATION.yaml
-   # python 02-setup-venv.py rivanna-$CONFIGURATION.yaml 
+   # python 01-fetch-data.py rivanna-$EQ_CONFIGURATION.yaml
+   # python 02-setup-venv.py rivanna-$EQ_CONFIGURATION.yaml 
    ```
+
 
 ## Generating Experiment Permutations
 
+### Selecting a Configurations
+
+This procedure is preconfigured for running the benchmark on Rivanna using the
+`/localscratch` filesystem, however there are alternate configurations that may
+be targeted after the above bootstrapping has been performed.
+These include:
+
+* `localscratch` - uses rivanna's local NVMe filesystem
+* `project` - uses Rivanna's special `/project` network file system
+* `shm` - uses the `/dev/shm` device for in-memory filesystem processing.
+* `dgx` - uses Rivanna's DGX workstation.
+* `dgx-shm` - uses Rivanna's DGX workstation leveraging the `/dev/shm` directory for in-memory filesystem processing.
+
+To change your configuration, run the following:
+
+```bash
+# One of - localscratch, project, shm, dgx, or dgx-shm
+export EQ_CONFIGURATION="localscratch"
+```
+
+
+### Finding your Allocation
+
+To find out which allocations are avalable to you use the command
+
+```bash
+allocations
+```
+it will show the allocations table which looks similar to 
+
+```
+Account                      Balance        Reserved       Available                
+-----------------          ---------       ---------       ---------                
+bii_dsc                       100000               0         98565.3                
+bii_dsc_community             100000               0         99998.8                
+bii_nssac                     500000               0        352387                
+biocomplexity                 100000               0         30773.4                
+ds6011-sp22-002               100000               0         59156.2   
+```
+
+Chose the allocation which is most appropriate for you, and change it in the yaml file 
+Locate the following line and change accordingly.
+
+```
+run:
+  allocation: bii_dsc_community 
+
+system:
+  partition: gpu
+```
+
+Please note that only bii_dsc_community, bii_dsc are able to use a new version of 
+the A100 if the following are included in the yaml file.
+
+
+```
+system:
+  partition: bii-gpu
+
+run:
+  allocation: bii_dsc
+  reservation: bi_fox_dgx
+```
+
+### Generating Active Configuration
+
 1. Generate your configuration's scripts
    ```bash
-   make generate-$CONFIGURATION
+   make generate-$EQ_CONFIGURATION
    ```
 
 It's strongly advised that you inspect the output of the above to validate that all generated scripts and files are correct.
@@ -85,12 +154,43 @@ Most jobs take several hours, so correcting errors by inspecting the output will
 On Rivanna, when using the `/project`or `/scratch` filesystems, there is a file limit quota that will terminate your job immediately if you exceed it.
 Make sure that you do not run more than 5 jobs concurrently in the `project` configuration.
 
+You will be able to see the generated scripts with the coommand
+
+```bash
+ls -1 $EQ_CONFIGURATION
+```
+
+```
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60
+card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70
+```
+
+To modify them, pleas make changes to the experiments that you run, please edit the file 
+rivanna-EQ_CONFIGURATION.yaml
+
+```bash
+emacs rivanna-EQ_CONFIGURATION.yaml
+```
+
+Before running the experiments check if they are ok, as it can take a very long time 
+to run them on rivanna dependent on the GPU used 
+(2epoch run on A100 ~4 hours and for K80 it runs 24 hours).
+
+(Right now v100 is the default)
+
 ### Running the Experiments
 
 If the output from the cloudmesh sbatch command matches your experiment's configuration, then the experiment is ready to be executed on rivanna using
 
 ```bash
-sh job-$CONFIGURATION.sh
+sh job-$EQ_CONFIGURATION.sh
 ```
 
 This will request all jobs to be run immediately by slurm, and the notebook file will be outputted in:
@@ -104,3 +204,36 @@ You can see the progress of each job by inspecting the `*.out` and `*.err` files
 A useful command is to run `tail -f $USER-*.err $USER-*.out`, which will watch the progress of both logs.  You can exit this command by pressing `ctrl+c`.
 
 A copy of the final notebook is placed in the slurm experiments folder with the suffix `*_output.ipynb`, that can be inspected for further details.
+
+### Single test experiment
+
+To only run a single experiment to see if things work, we recommand you run the commands
+
+```
+fgrep "_2 "  *sh > test_run.sh
+sh test_run.sh 
+```
+
+## Monitor the job
+
+use the slurm commands
+
+```
+squeue -u $USER
+```
+
+```
+localscratch/*_2/*.err
+localscratch/*_2/*.out
+```
+
+## Rerun after changes
+
+```
+emacs rivanna-EQ_CONFIGURATION.yaml
+make clean
+make generate-$EQ_CONFIGURATION
+head -n 1 jobs-$EQ_CONFIGURATION.sh > test_run.sh
+sh test_run.sh 
+squeue -u $USER
+```
