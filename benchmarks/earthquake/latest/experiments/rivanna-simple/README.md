@@ -234,6 +234,7 @@ emacs rivanna-$EQ_CONFIGURATION.yaml
 make clean
 make generate-$EQ_CONFIGURATION
 head -n 1 jobs-$EQ_CONFIGURATION.sh > test_run.sh
+cat test_run.sh
 sh test_run.sh 
 squeue -u $USER
 ```
