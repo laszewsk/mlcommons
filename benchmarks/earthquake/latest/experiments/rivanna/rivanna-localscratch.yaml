@@ -3,7 +3,7 @@ sbatch:
   mode: h
   dir: localscratch
 
-experiments:
+experiment:
   card_name: v100
   gpu_count: 1
   cpu_num: 6
@@ -28,7 +28,7 @@ user:
    account: ds6011-sp22-002
 # user.account: ds6011-sp22-002
 run:
-  workdir: /localscratch/mlcommons
+  workdir: /localscratch/{os.USER}/mlcommons
   venvpath: /tmp/mlcommons/python
   resourcedir: /project/bii_dsc/mlcommons-system
   datadir: data

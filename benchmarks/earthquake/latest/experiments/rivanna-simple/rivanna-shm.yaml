@@ -35,7 +35,7 @@ code:
 
 run:
   allocation: ds6011-sp22-002
-  workdir: /dev/shm/mlcommons-tmp
+  workdir: /dev/shm/{os.USER}/mlcommons-tmp
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'

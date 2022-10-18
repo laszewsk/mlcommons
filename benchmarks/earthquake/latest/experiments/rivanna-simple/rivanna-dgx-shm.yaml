@@ -37,7 +37,7 @@ user:
    account: bii_dsc
 
 run:
-  workdir: /dev/shm/mlcommons-tmp
+  workdir: /dev/shm/{os.USER}/mlcommons-tmp
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'

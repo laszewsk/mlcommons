@@ -296,8 +296,8 @@ fi
 # Checkout git repo for mlcommons earthquake data, locking the repo
 # to prevent concurrent git operations
 waitmake_lock mlcommons-data-earthquake.git
-    git_checkout https://github.com/laszewsk/mlcommons-data-earthquake.git \
-                 "${GIT_BASEPATH}/mlcommons-data-earthquake" \
+    git_checkout {data.git} \
+                 "{data.destination}/mlcommons-data-earthquake" \
                  main
 release_lock mlcommons-data-earthquake.git
 

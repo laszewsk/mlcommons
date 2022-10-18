@@ -45,7 +45,7 @@ system:
 
 run:
   allocation: ds6011-sp22-002
-  workdir: /project/bii_dsc/users
+  workdir: /project/bii_dsc/users/{os.USER}/mlcommons
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
