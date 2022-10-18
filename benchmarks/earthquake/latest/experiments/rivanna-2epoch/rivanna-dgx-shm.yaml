@@ -1,7 +1,7 @@
-name: earthquake-dgx
+name: earthquake-dgx-shm
 sbatch:
   mode: h
-  dir: dgx
+  dir: dgx-shm
 
 data:
   git: https://github.com/laszewsk/mlcommons-data-earthquake.git
@@ -28,19 +28,19 @@ experiment:
 
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+  TFTTransformerepochs: "2"
 
 
-code:
-  script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
+script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
+revision: latest
+user:
+   account: bii_dsc
 
 run:
-  workdir: /localscratch/{os.USER}/mlcommons
+  workdir: /dev/shm/{os.USER}/mlcommons-tmp
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
-  allocation: 'bii_dsc'
-  reservation: 'bi_fox_dgx'
 
 colortheme: "False"
 

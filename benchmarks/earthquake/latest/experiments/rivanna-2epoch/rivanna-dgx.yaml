@@ -28,7 +28,7 @@ experiment:
 
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+  TFTTransformerepochs: "2"
 
 
 code:

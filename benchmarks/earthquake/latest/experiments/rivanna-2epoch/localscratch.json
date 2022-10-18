@@ -1,0 +1,722 @@
+{
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=2",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_2",
+        "uuid": "4befc44a-beea-438e-bd35-b10da4c42437"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "2"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=10",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_10",
+        "uuid": "ae66d8b4-d0b4-4825-beed-ca5ec8054e5d"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "10"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=20",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_20",
+        "uuid": "c07ba5e3-dd5a-43ea-aab0-8dab2b0600db"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "20"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=30",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_30",
+        "uuid": "07f03b63-40db-4fee-a08d-c259d74f8f56"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "30"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=34",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_34",
+        "uuid": "2f921c81-dcf5-49ea-bb71-76761f07984d"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "34"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=40",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_40",
+        "uuid": "bf11cac0-da04-4f37-a19d-1c81c3f2cd4f"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "40"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=50",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_50",
+        "uuid": "38617c36-f6b3-48a7-ac27-f6bcf6912f30"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "50"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=60",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60",
+        "uuid": "69b47fda-2a15-474c-ad27-1b9b8039a26c"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "60"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  },
+  "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70": {
+    "id": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70",
+    "directory": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70",
+    "experiment": "card_name=v100 gpu_count=1 cpu_num=6 mem=32GB repeat=1 TFTTransformerepochs=70",
+    "script": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70/rivanna.slurm",
+    "config": "/sfs/qumulo/qhome/uqq5zz/ds6011/mlcommons/benchmarks/earthquake/latest/experiments/rivanna-simple/localscratch/card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70/config.yaml",
+    "variables": {
+      "name": "earthquake-localscratch",
+      "sbatch": {
+        "mode": "h",
+        "dir": "localscratch",
+        "identifier": "card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70",
+        "uuid": "ef53ce36-7c5b-4094-8246-0af8c1efd3b1"
+      },
+      "data": {
+        "git": "https://github.com/laszewsk/mlcommons-data-earthquake.git",
+        "destination": "$HOME/mlcommons-work",
+        "earthquake": "mlcommons-data-earthquake/data/EarthquakeDec2020",
+        "images": "images"
+      },
+      "experiment": {
+        "card_name": "v100",
+        "gpu_count": 1,
+        "cpu_num": 6,
+        "mem": "32GB",
+        "repeat": "1",
+        "TFTTransformerepochs": "70"
+      },
+      "benchmark": {
+        "name": "Earthquake",
+        "user": "Gregor von Laszewski",
+        "e-mail": "laszewski@gmail.com",
+        "organisation": "University of Virginia",
+        "division": "BII",
+        "status": "submission",
+        "platform": "rivanna"
+      },
+      "code": {
+        "script": "FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb"
+      },
+      "run": {
+        "workdir": "/localscratch/uqq5zz/mlcommons",
+        "venvpath": "$HOME/mlcommons-work/python",
+        "datadir": "data",
+        "branch": "main",
+        "allocation": "ds6011-sp22-002"
+      },
+      "colortheme": "False",
+      "system": {
+        "python": "3.10.5",
+        "num_cpus": 6,
+        "partition": "bii-gpu",
+        "host": "rivanna"
+      },
+      "time": "3-0",
+      "set_soft_device_placement": false,
+      "debugging_set_log_device_placement": false,
+      "DLAnalysisOnly": false,
+      "DLRestorefromcheckpoint": false,
+      "DLinputCheckpointpostfix": "",
+      "TFTTransformerbatch_size": 64,
+      "TFTd_model": 160,
+      "Tseq": 26,
+      "TFTdropout_rate": 0.1,
+      "learning_rate": 5e-07,
+      "max_gradient_norm": 0.01,
+      "early_stopping_patience": 60,
+      "TFTnum_AttentionLayers": 2,
+      "TFTnum_heads": 4,
+      "os": {
+        "USER": "uqq5zz"
+      },
+      "cloudmesh": {
+        "timer": "False",
+        "debug": "False",
+        "trace": "False",
+        "verbose": "0"
+      }
+    }
+  }
+}

@@ -1,17 +1,12 @@
 
 all: project localscratch shm generate
 
-setup-%: rivanna-%.yaml
-	python 01-fetch-data.py $<
-	python 02-setup-venv.py $<
-
 generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
-#generate-%: jobs-%.sh
 
 generate-dgx: jobs-dgx.sh
 generate-localscratch: jobs-localscratch.sh
 generate-shm: jobs-shm.sh
-generate-dgx: jobs-dgx.sh
+generate-project: jobs-project.sh
 
 run: submit
 
@@ -19,8 +14,6 @@ submit: all
 	sh jobs-project.sh
 	sh jobs-localscratch.sh
 	sh jobs-dgx.sh
-
-
 
 .PHONY: project
 project: project.json
@@ -36,6 +29,17 @@ dgx-shm: dgx-shm.json
 
 .PHONY: shm
 shm: shm.json
+
+.PHONY: cli
+cli:
+	cms sbatch generate \
+	           --source=rivanna-project.in.slurm \
+	           --config=sbatch-rivanna.yaml \
+	           --name=earthquake \
+	           --noos \
+	           --experiment=\"card_name=a100 gpu_count=1 cpu_num=6 mem=32GB\" \
+	           --attribute=\"time=12:00:00\" \
+	           --dir=project
 
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
@@ -73,7 +77,6 @@ dgx-shm.json: rivanna-dgx-shm.yaml
                --source_dir=. \
                --verbose
 
-
 .PHONY: stop
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
@@ -83,6 +86,4 @@ clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -rf dgx dgx.json jobs-dgx.sh
-	@-rm -rf shm shm.json jobs-shm.sh
 	@-rm -f rivanna.slurm
-	@-rm -rf '__pycache__'

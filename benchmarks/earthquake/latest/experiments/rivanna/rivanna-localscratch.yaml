@@ -4,16 +4,18 @@ sbatch:
   dir: localscratch
 
 data:
-   git: https://github.com/laszewsk/mlcommons-data-earthquake.git
-   destination: "$HOME/mlcommons-work"
-   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
-   images: images
+  git: https://github.com/laszewsk/mlcommons-data-earthquake.git
+  destination: "$HOME/mlcommons-work"
+  earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
+  images: images
 
 experiment:
   card_name: v100
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
+  repeat: "1"
+  #repeat: "1,2,3,4,5"
 
   ## TFTTransformerepochs = num_epochs
   #
@@ -28,17 +30,15 @@ benchmark:
   status: submission
   platform: rivanna
 
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-revision: latest
-user:
-   account: ds6011-sp22-002
-# user.account: ds6011-sp22-002
+code:
+  script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
+
 run:
-  workdir: /localscratch/{os.USER}/mlcommons-nonsimple
-  venvpath: /tmp/mlcommons/python
-  resourcedir: /project/bii_dsc/mlcommons-system
+  workdir: /localscratch/{os.USER}/mlcommons
+  venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
+  allocation: ds6011-sp22-002
 
 colortheme: "False"
 
