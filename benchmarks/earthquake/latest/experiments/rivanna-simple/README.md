@@ -210,7 +210,7 @@ A copy of the final notebook is placed in the slurm experiments folder with the 
 To only run a single experiment to see if things work, we recommand you run the commands
 
 ```
-fgrep "_2 "  *sh > test_run.sh
+head -n 1 jobs-$EQ_CONFIGURATION.sh > test_run.sh
 sh test_run.sh 
 ```
 
