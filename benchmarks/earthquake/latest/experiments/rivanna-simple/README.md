@@ -230,7 +230,7 @@ localscratch/*_2/*.out
 ## Rerun after changes
 
 ```
-emacs rivanna-EQ_CONFIGURATION.yaml
+emacs rivanna-$EQ_CONFIGURATION.yaml
 make clean
 make generate-$EQ_CONFIGURATION
 head -n 1 jobs-$EQ_CONFIGURATION.sh > test_run.sh
