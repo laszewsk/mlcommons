@@ -10,8 +10,8 @@ layout: group.njk
 
 ## Mission
 
-Evaluate, Organize, Curate, and Integrate artifacts around Applications, M
-odels(algorithms), Infrastructure, and the 3 MLCommons Pillars Benchmarks, 
+Evaluate, Organize, Curate, and Integrate artifacts around Applications, 
+Models(algorithms), Infrastructure, and the 3 MLCommons Pillars Benchmarks, 
 Datasets, and Best Practices. These artifacts are open source and accessible 
 through the MLCommons GitHub. Our input comes from independently funded a
 ctivities and experts in Industry, Government, and Research.
