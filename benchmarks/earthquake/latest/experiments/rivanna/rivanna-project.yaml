@@ -10,13 +10,24 @@ data:
   earthquake: "mlcommons-data-earthquake/data/EarthquakeDec2020"
   images: "images"
 
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski
   e-mail: laszewski@gmail.com
-  organisation:  University of Virginia
-  division: BII
-  status: submission
+  organisation: University of Virginia
+  division: closed
+  status: completed
   platform: rivanna
 
 experiment:

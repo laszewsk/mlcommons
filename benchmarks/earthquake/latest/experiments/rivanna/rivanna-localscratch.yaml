@@ -21,13 +21,24 @@ experiment:
   #
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski
   e-mail: laszewski@gmail.com
   organisation: University of Virginia
-  division: BII
-  status: submission
+  division: closed
+  status: completed
   platform: rivanna
 
 code:
