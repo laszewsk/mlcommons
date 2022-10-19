@@ -34,7 +34,8 @@ code:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
-  workdir: /localscratch/{os.USER}/mlcommons
+  filesystem: "/localscratch/{os.USER}"
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'

@@ -15,7 +15,9 @@ set -uxe
 
 NB_OUTPUT="_output"
 
-RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+# RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+
+RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
 DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
 VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
 
