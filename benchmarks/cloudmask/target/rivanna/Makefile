@@ -12,8 +12,10 @@ data:
 mkdir -p data/ssts && mkdir -p data/one-day
 	module load anaconda && source activate MLBENCH && pip install awscli
 	module load anaconda && source activate MLBENCH && \
+cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
 aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day
 	module load anaconda && source activate MLBENCH && \
+cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
 aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts
 
 run:
