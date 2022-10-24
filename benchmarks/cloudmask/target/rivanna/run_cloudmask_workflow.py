@@ -63,7 +63,7 @@ def create_workflow(filename='cloudmask.yaml'):
     shell_files = Path(f'{__file__}').as_posix()
     shell_files_dir = Path(os.path.dirname(shell_files)).as_posix()
 
-    for script in ["prepare.sh", "cloudmask_runner.py"]:
+    for script in ["vpn-activate.sh", "prepare.sh", "cloudmask_runner.py"]:
         Shell.copy(f"{shell_files_dir}/{script}", ".")
         assert os.path.isfile(f"./{script}")
 
@@ -71,13 +71,15 @@ def create_workflow(filename='cloudmask.yaml'):
 
     label = "{name}\\nprogress={progress}"
 
+    w.add_job(name=f"vpn-activate.sh", label=label, kind='local',
+              user=username, host=host)
     w.add_job(name=f"prepare.sh", label=label,  kind='ssh', user=username,
               host=host)
     w.add_job(name=f"cloudmask_runner.py", label=label, kind='ssh',
               user=username,
               host=host, script="cloudmask_runner.py", venv='MLBENCH')
 
-    w.add_dependencies(f"prepare.sh,cloudmask_runner.py")
+    w.add_dependencies(f"vpn-activate.sh,prepare.sh,cloudmask_runner.py")
     w.graph.save_to_yaml("./cloudmask.yaml")
     Shell.copy("./cloudmask.yaml", "./runtime/cloudmask.yaml")
     g = str(w.graph)

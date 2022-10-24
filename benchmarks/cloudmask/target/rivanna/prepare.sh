@@ -22,6 +22,10 @@ git clone https://github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/cloudmask/target/rivanna
 git pull
 
+if [ ! -d "/scratch/$USER/mlcommons/benchmarks/cloudmask/data" ]; then
+  make data
+fi
+
 python setup_env_and_yaml.py
 source activate MLBENCH
 # conda activate MLBENCH

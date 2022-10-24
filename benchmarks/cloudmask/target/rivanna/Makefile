@@ -11,12 +11,12 @@ data:
 	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
 mkdir -p data/ssts && mkdir -p data/one-day
 	module load anaconda && source activate MLBENCH && pip install awscli
-	module load anaconda && source activate MLBENCH && \
+	echo -n "Downloading first portion of data..." ; module load anaconda && source activate MLBENCH && \
 cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day
-	module load anaconda && source activate MLBENCH && \
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day > /dev/null ; echo "done." ;
+	echo -n "Downloading second portion of data..." ; module load anaconda && source activate MLBENCH && \
 cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts > /dev/null ; echo "done." ;
 
 run:
 	module load anaconda && source activate MLBENCH && \
