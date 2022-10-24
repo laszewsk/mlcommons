@@ -22,12 +22,24 @@ git clone https://github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/cloudmask/target/rivanna
 git pull
 
+python setup_env_and_yaml.py
+module load anaconda
+source activate MLBENCH
+
 if [ ! -d "/scratch/$USER/mlcommons/benchmarks/cloudmask/data" ]; then
-  make data
+  cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+mkdir -p data/ssts && mkdir -p data/one-day
+  pip install awscli
+	echo -n "Downloading first portion of data..." && \
+cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --no-progress & process_id = $!
+	wait $process_id
+	echo -n "Downloading second portion of data..." && \
+cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --no-progress & process_id_2 = $!
+	wait $process_id_2
 fi
 
-python setup_env_and_yaml.py
-source activate MLBENCH
 # conda activate MLBENCH
 
 pip install tensorflow==2.8.0
