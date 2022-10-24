@@ -27,7 +27,6 @@ $ conda env list
 
 # username = Shell.user()
 username = os.popen('whoami').read().strip()
-print('this is it')
 print(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
 os.system(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
 
