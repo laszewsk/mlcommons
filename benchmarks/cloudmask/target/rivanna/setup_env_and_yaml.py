@@ -27,6 +27,9 @@ $ conda env list
 
 # username = Shell.user()
 username = os.popen('whoami').read()
+print('this is it')
+print(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
+print('yaeh')
 os.system(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
 
 if "command not found" in os.popen("conda env list").read():
