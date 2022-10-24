@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from cloudmesh.common.Shell import Shell
-from cloudmesh.common.Shell import Console
+# from cloudmesh.common.Shell import Shell
+# from cloudmesh.common.Shell import Console
 import sys
 import os
 
@@ -25,19 +25,20 @@ $ conda env list
 -bash: conda: command not found
 """
 
-username = Shell.user()
-Shell.run(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
+# username = Shell.user()
+username = os.popen('whoami').read()
+os.system(f"sed -i 's/USERTOREPLACE/{username}/g' cloudMaskConfig.yaml")
 
-if "command not found" in Shell.run("conda env list"):
+if "command not found" in os.popen("conda env list").read():
     try:
-        Console.error("conda module not yet loaded")
-        Shell.run("module load anaconda")
+        print("conda module not yet loaded")
+        os.system("module load anaconda")
     except Exception as e:
         print(e.output)
 
-if env in Shell.run("conda env list"):
-    Console.ok(f"environment {env} already installed in conda")
+if env in os.popen("conda env list").read():
+    print(f"environment {env} already installed in conda")
 else:
-    Shell.run(f"conda create -f -y -n {env} -c conda-forge python={version}")
+    os.system(f"conda create -f -y -n {env} -c conda-forge python={version}")
 
 # nvidia-smi --list-gpus
