@@ -9,7 +9,9 @@
 
 ## to run this say sbatch rivanna.sh
 
-source activate MLBENCH
+cd ~
+
+conda activate MLBENCH
 
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
