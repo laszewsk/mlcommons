@@ -33,8 +33,10 @@
    cms help
    ```
 
-The last line can also be with `--ssh` if you sue ssh instead of http for git checkouts.
-Note that if you elect to use the ssh configuration, you may be frequently prompted for your password.  You can cache your password by establishing an ssh-agent prior to running the command by running:
+The last line can also be with `--ssh` if you use ssh instead of http for 
+git checkouts. Note that if you elect to use the ssh configuration, you 
+may be frequently prompted for your password. You can cache your password 
+by establishing an ssh-agent prior to running the command by running:
 
 ```bash
 eval `ssh-agent -s`
@@ -42,8 +44,6 @@ ssh-add
 cloudmesh-installer --ssh get sbatch
 cms help
 ```
-
-
 
 ## Preparing Earthquake Environment
 
@@ -56,7 +56,7 @@ cms help
    git clone https://github.com/laszewsk/mlcommons.git
    # Or for developers
    # git clone git@github.com:laszewsk/mlcommons.git
-   cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna-simple
+   cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
    ```
    
 2. Set your desired configuration you wish to run:
@@ -190,7 +190,7 @@ to run them on rivanna dependent on the GPU used
 If the output from the cloudmesh sbatch command matches your experiment's configuration, then the experiment is ready to be executed on rivanna using
 
 ```bash
-sh job-$EQ_CONFIGURATION.sh
+sh jobs-$EQ_CONFIGURATION.sh
 ```
 
 This will request all jobs to be run immediately by slurm, and the notebook file will be outputted in:
