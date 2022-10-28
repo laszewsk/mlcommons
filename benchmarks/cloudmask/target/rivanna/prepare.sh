@@ -15,6 +15,8 @@ module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 module load gcc
 
+# conda update -n base conda
+
 echo "# cloudmesh status=running progress=60 pid=$$"
 
 cd /scratch/$USER/
