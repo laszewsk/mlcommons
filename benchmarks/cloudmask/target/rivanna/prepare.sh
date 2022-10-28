@@ -48,6 +48,8 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 
+# conda install cudatoolkit -y
+
 echo "# cloudmesh status=running progress=80 pid=$$"
 
 mkdir -p ~/cm
