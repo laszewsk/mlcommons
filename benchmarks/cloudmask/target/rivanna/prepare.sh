@@ -50,6 +50,9 @@ pip install pyyaml
 
 # conda install cudatoolkit -y
 
+pip uninstall protobuf
+pip install protobuf==3.19.4
+
 echo "# cloudmesh status=running progress=80 pid=$$"
 
 mkdir -p ~/cm
