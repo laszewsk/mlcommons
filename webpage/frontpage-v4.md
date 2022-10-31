@@ -50,7 +50,7 @@ problem at hand. The metric should be well defined on the data but
 could come from a diverse set of measures (one or more of: accuracy
 targets, top-1 or 5% error, time to convergence, cross-validation
 rates, confusion matrices, type-1/type-2 error rates, inference times,
-surrogate accuracy, control stability measure, etc.).  
+surrogate accuracy, control stability measure, etc.).  Although we compile system performance numbers across a variety of architectures, our goal is not performance measurements but rather improving scientific discovery performance.
 
 ## Deliverables
 
