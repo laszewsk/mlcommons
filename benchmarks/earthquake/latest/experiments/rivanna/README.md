@@ -116,8 +116,9 @@ biocomplexity                 100000               0         30773.4
 ds6011-sp22-002               100000               0         59156.2   
 ```
 
-Chose the allocation which is most appropriate for you, and change it in the yaml file 
-Locate the following line and change accordingly.
+Choose the allocation which is most appropriate for you and change it 
+in its corresponding yaml file (e.g. for localscratch, the yaml is called
+`rivanna-localscratch.yaml`). Locate the following line and change accordingly.
 
 ```
 run:
@@ -127,8 +128,8 @@ system:
   partition: gpu
 ```
 
-Please note that only bii_dsc_community, bii_dsc are able to use a new version of 
-the A100 if the following are included in the yaml file.
+Please note that only bii_dsc_community, bii_dsc are able to use a new 
+version of the A100 if the following are included in the yaml file.
 
 
 ```
@@ -147,12 +148,16 @@ run:
    make generate-$EQ_CONFIGURATION
    ```
 
-It's strongly advised that you inspect the output of the above to validate that all generated scripts and files are correct.
-Most jobs take several hours, so correcting errors by inspecting the output will save time when troubleshooting.
+It is strongly advised that you inspect the output of the above to validate 
+that all generated scripts and files are correct. Most jobs take several 
+hours, so correcting errors by inspecting the output will save time when 
+troubleshooting.
 
 **IMPORTANT**
-On Rivanna, when using the `/project`or `/scratch` filesystems, there is a file limit quota that will terminate your job immediately if you exceed it.
-Make sure that you do not run more than 5 jobs concurrently in the `project` configuration.
+On Rivanna, when using the `/project`or `/scratch` filesystems, there is a 
+file limit quota that will terminate your job immediately if you exceed it.
+Make sure that you do not run more than 5 jobs concurrently in the `project` 
+configuration.
 
 You will be able to see the generated scripts with the coommand
 
@@ -172,22 +177,23 @@ card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_60
 card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70
 ```
 
-To modify them, pleas make changes to the experiments that you run, please edit the file 
-rivanna-EQ_CONFIGURATION.yaml
+To modify them, please make changes to the experiments that you run, 
+please edit the file rivanna-EQ_CONFIGURATION.yaml
 
 ```bash
 emacs rivanna-EQ_CONFIGURATION.yaml
 ```
 
-Before running the experiments check if they are ok, as it can take a very long time 
-to run them on rivanna dependent on the GPU used 
+Before running the experiments check if they are ok, as it can take a very 
+long time to run them on Rivanna dependent on the GPU used 
 (2epoch run on A100 ~4 hours and for K80 it runs 24 hours).
 
 (Right now v100 is the default)
 
 ### Running the Experiments
 
-If the output from the cloudmesh sbatch command matches your experiment's configuration, then the experiment is ready to be executed on rivanna using
+If the output from the cloudmesh sbatch command matches your experiment's 
+configuration, then the experiment is ready to be executed on Rivanna using
 
 ```bash
 sh jobs-$EQ_CONFIGURATION.sh
