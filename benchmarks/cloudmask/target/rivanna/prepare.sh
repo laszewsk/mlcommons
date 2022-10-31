@@ -68,4 +68,4 @@ pip install -e mlperf-logging
 cms set host=rivanna
 cms set cpu=IntelXeonE5-2630
 cms set device=rivanna
-echo "# cloudmesh status=running progress=100 pid=$$"
+echo "# cloudmesh status=done progress=100 pid=$$"
