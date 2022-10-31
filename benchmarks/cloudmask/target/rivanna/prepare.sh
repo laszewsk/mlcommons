@@ -26,6 +26,7 @@ git pull
 
 python setup_env_and_yaml.py
 module load anaconda
+conda init bash
 source activate MLBENCH
 
 if [ ! -d "/scratch/$USER/mlcommons/benchmarks/cloudmask/data" ]; then
