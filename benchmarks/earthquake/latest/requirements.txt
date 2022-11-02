@@ -1,5 +1,5 @@
 #-e .
-cloudmesh-common
+git+https://github.com/cloudmesh/cloudmesh-common.git
 cloudmesh-gpu
 #horovod
 jupyter
