@@ -31,12 +31,20 @@ def main(argv, ext="yaml"):
 
         print("Installing requirements...")
         subprocess.check_call([f"{venv_path}/{bin_path}/python", "-m", "pip", "install", "-U", "-r", "../../requirements.txt"])
-        subprocess.check_call(
-            [f"{venv_path}/{bin_path}/python", "-m", "pip", "install",
-             "cloudmesh-installer", "-U"])
-        subprocess.check_call(
-            [f"cd", "~/cm", ";", f"{venv_path}/{bin_path}/python", "cloudmesh-installer", "get", "sbatch"]
-        )
+        # subprocess.check_call(
+        #     [f"{venv_path}/{bin_path}/python", "-m", "pip", "install",
+        #      "cloudmesh-installer", "-U"])
+        try:
+            os.system(f'{venv_path}/{bin_path}/python -m pip install cloudmesh-installer -U')
+        except Exception as e:
+            print(e)
+        # subprocess.check_call(
+        #     [f"cd", "~/cm", ";", f"{venv_path}/{bin_path}/python", "cloudmesh-installer", "get", "sbatch"]
+        # )
+        try:
+            os.system(f"cd ~/cm ; {venv_path}/{bin_path}/python cloudmesh-installer get sbatch")
+        except Exception as e:
+            print(e)
 
     else:
         print(f"Reusing venv in {venv_path}")
