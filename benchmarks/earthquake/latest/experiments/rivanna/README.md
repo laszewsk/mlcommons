@@ -178,10 +178,10 @@ card_name_v100_gpu_count_1_cpu_num_6_mem_32GB_repeat_1_TFTTransformerepochs_70
 ```
 
 To modify them, please make changes to the experiments that you run, 
-please edit the file rivanna-EQ_CONFIGURATION.yaml
+please edit the file rivanna-$EQ_CONFIGURATION.yaml
 
 ```bash
-emacs rivanna-EQ_CONFIGURATION.yaml
+emacs rivanna-$EQ_CONFIGURATION.yaml
 ```
 
 Before running the experiments check if they are ok, as it can take a very 
