@@ -21,10 +21,12 @@ experiment:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 system:
+  host: "rivanna"
   python: "3.10.6"
   num_cpus: 6
   partition: "bii-gpu"
-  host: "rivanna"
+  allocation: bii_dsc_community
+  reservation: bi_fox_dgx
 
 submission:
   benchmark: earthquake
@@ -57,9 +59,7 @@ run:
   branch: 'main'
   # allocation: ds6011-sp22-002
   # allocation: bii_dsc
-  allocation: bii_dsc_community
-  reservation: bi_fox_dgx
-  
+
 colortheme: "False"
 
 
