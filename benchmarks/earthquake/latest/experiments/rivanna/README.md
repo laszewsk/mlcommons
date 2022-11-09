@@ -23,6 +23,7 @@ Tip: use option 1
       Note: This module uses a custom version of python as configured in [Building Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/buildscripts/python-rivanna) and loading the lua modules in a preconfigured directory setup at [Configuring Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/modulefiles/python-rivanna).  Details on how to add to these files can be found in the [systems](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna) folder.
 
 2. Setup Cloudmesh and the cloudmesh sbatch utility.
+
    ```bash
    python3.10 -m venv ~/ENV3
    source ~/ENV3/bin/activate
@@ -50,6 +51,7 @@ cms help
 ## Preparing Earthquake Environment from the Production Code
 
 1. Generating experiment configurations
+
    ```bash
    cd ~
    export EQ_VERSION=latest
