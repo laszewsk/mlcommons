@@ -21,7 +21,7 @@ experiment:
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 system:
-  python: "3.10.5"
+  python: "3.10.6"
   num_cpus: 6
   partition: "bii-gpu"
   host: "rivanna"
