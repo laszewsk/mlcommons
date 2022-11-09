@@ -143,13 +143,25 @@ Choose the allocation which is most appropriate for you and change it
 in its corresponding yaml file (e.g. for localscratch, the yaml is called
 `rivanna-localscratch.yaml`). Locate the following line and change accordingly.
 
+### Using a V100 on rivanna 
+
+To use a v100 you have to set the following.
+
 ```
+experiment:
+  card_name: a100
+
 run:
   allocation: bii_dsc_community 
 
 system:
   partition: gpu
 ```
+
+
+### Using a a100 (new) on rivanna 
+
+To use a a100 you have to set the following.
 
 Please note that only bii_dsc_community, bii_dsc are able to use a new 
 version of the A100 if the following are included in the yaml file.
