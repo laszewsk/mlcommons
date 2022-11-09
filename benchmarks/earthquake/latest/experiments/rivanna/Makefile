@@ -1,4 +1,3 @@
-
 all: project localscratch shm generate
 
 setup-%: rivanna-%.yaml
@@ -12,6 +11,13 @@ generate-dgx: jobs-dgx.sh
 generate-localscratch: jobs-localscratch.sh
 generate-shm: jobs-shm.sh
 generate-dgx: jobs-dgx.sh
+
+python:
+	module purge
+	module load anaconda
+	conda env remove -n py3.10
+	conda create -y -n py3.10 python=3.10
+	source activate py3.10
 
 run: submit
 
