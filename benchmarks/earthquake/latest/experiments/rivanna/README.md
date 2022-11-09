@@ -90,7 +90,7 @@ Skip this step if you run the production version
    ```
 3. Opttionally remove previous generated setup
 
-   ```bash
+  ```bash
   rm -rf $EQ_CONFIGURATION
   rm $EQ_CONFIGURATION.json
   rm jobs-$EQ_CONFIGURATION.sh
