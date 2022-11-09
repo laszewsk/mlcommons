@@ -86,8 +86,15 @@ Skip this step if you run the production version
    # One of - localscratch, project, shm, dgx, or dgx-shm
    export EQ_CONFIGURATION="localscratch"
    ```
+3. Opttionally remove previous generated setup
 
-3. Perform a 1 time bootstrap of your environment.
+   ```bash
+  rm -rf $EQ_CONFIGURATION
+  rm $EQ_CONFIGURATION.json
+  rm jobs-$EQ_CONFIGURATION.sh
+  ```
+
+5. Perform a 1 time bootstrap of your environment.
 
    ```bash
    make setup-$EQ_CONFIGURATION
