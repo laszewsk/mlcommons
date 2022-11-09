@@ -19,10 +19,10 @@ experiment:
   ## TFTTransformerepochs = num_epochs
   #
   # TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
-  TFTTransformerepochs: "2
+  TFTTransformerepochs: "2"
 
 system:
-  python: "3.10.6"
+  python: "3.10.5"
   num_cpus: 6
   partition: "bii-gpu"
   host: "rivanna"
