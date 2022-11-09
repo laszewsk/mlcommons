@@ -9,7 +9,7 @@
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={run.allocation}
+#SBATCH --account={system.allocation}
 
 set -uxe
 

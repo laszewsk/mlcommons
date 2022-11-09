@@ -16,10 +16,16 @@ experiment:
   mem: "32GB"
   repeat: "1"
   #repeat: "1,2,3,4,5"
-
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
+user:
+   account: bii_dsc
+
+system:
+  partition: "bii-gpu"
+  host: "rivanna"
 
 submission:
   benchmark: earthquake
@@ -44,8 +50,7 @@ benchmark:
 
 script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 revision: latest
-user:
-   account: bii_dsc
+
 
 run:
   filesystem: "/dev/shm/{os.USER}"
@@ -55,11 +60,6 @@ run:
   branch: 'main'
 
 colortheme: "False"
-
-system:
-  partition: "bii-gpu"
-  host: "rivanna"
-
 
 time: "3-0"
 set_soft_device_placement: False

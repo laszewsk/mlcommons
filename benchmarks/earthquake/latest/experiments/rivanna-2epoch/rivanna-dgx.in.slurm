@@ -7,16 +7,17 @@
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
 #SBATCH --gres=gpu:{experiment.gpu_count}
-#SBATCH --reservation={run.reservation}
+#SBATCH --reservation={system.reservation}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={run.allocation}
+#SBATCH --account={system.allocation}
 
 set -uxe
 
 NB_OUTPUT="_output"
 
-RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+# RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
 DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
 VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
 

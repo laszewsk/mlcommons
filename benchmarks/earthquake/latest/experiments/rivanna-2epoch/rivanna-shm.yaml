@@ -9,15 +9,6 @@ data:
   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
   images: images
 
-benchmark:
-  name: Earthquake
-  user: Gregor von Laszewski
-  e-mail: laszewski@gmail.com
-  organisation:  University of Virginia
-  division: BII
-  status: submission
-  platform: rivanna
-
 experiment:
   card_name: "a100,v100,p100,k80,rtx2080"
   gpu_count: 1
@@ -25,27 +16,48 @@ experiment:
   mem: "64GB"
   repeat: "1"
   #repeat: "1,2,3,4,5"
-
   ## TFTTransformerepochs = num_epochs
   #
-  TFTTransformerepochs: "2"
+  TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
+system:
+  partition: "gpu"
+  host: "rivanna"
+
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+
+benchmark:
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation: University of Virginia
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  division: closed
+  status: completed
+  platform: rivanna
 
 code:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
   allocation: ds6011-sp22-002
-  workdir: /dev/shm/{os.USER}/mlcommons-tmp
+  filesystem: "/dev/shm/{os.USER}"
+  # workdir: /dev/shm/{os.USER}/mlcommons-tmp
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
 
-system:
-  partition: "gpu"
-  host: "rivanna"
-
 colortheme: "False"
-
 
 time: "3-0"
 set_soft_device_placement: False

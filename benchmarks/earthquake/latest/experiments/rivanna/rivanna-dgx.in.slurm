@@ -7,10 +7,10 @@
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
 #SBATCH --gres=gpu:{experiment.gpu_count}
-#SBATCH --reservation={run.reservation}
+#SBATCH --reservation={system.reservation}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={run.allocation}
+#SBATCH --account={system.allocation}
 
 set -uxe
 
