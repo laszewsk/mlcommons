@@ -2,6 +2,8 @@
 
 ## Set up experiment utilities
 
+Tip: use option 1
+
 1. Load in Python 3.10
    1. Option 1 - Using Anaconda
       ```bash
@@ -11,7 +13,8 @@
       conda create -y -n py3.10 python=3.10
       source activate py3.10
       ```
-   2. Option 2 - Using Native Python
+   
+   2. Option 2 - Using Native Python with custom build python.
       ```bash
       module purge
       module use /project/bii_dsc/mlcommons-system/modulefiles
