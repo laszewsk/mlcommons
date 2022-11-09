@@ -47,10 +47,26 @@ ssh-add
 cloudmesh-installer --ssh get sbatch
 cms help
 ```
-
-## Preparing Earthquake Environment
+## Preparing Earthquake Environment from the Production Code
 
 1. Generating experiment configurations
+   ```bash
+   cd ~
+   export EQ_VERSION=latest
+
+   # FOR USERS
+   git clone https://github.com/mlcommons/science.git
+   # Or for developers
+   # git clone git@github.com:laszewsk/mlcommons.git
+   cd ~/science/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
+   ```
+
+## Preparing Earthquake Environment from the Development Code
+
+Skip this step if you run the production version
+
+1. Generating experiment configurations
+
    ```bash
    cd ~
    export EQ_VERSION=latest
@@ -61,14 +77,18 @@ cms help
    # git clone git@github.com:laszewsk/mlcommons.git
    cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
    ```
-   
+
+## Run a particular configuration
+
 2. Set your desired configuration you wish to run:
+
    ```bash
    # One of - localscratch, project, shm, dgx, or dgx-shm
    export EQ_CONFIGURATION="localscratch"
    ```
 
 3. Perform a 1 time bootstrap of your environment.
+
    ```bash
    make setup-$EQ_CONFIGURATION
    ## or run the following
