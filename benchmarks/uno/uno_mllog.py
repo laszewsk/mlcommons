@@ -558,6 +558,8 @@ def run(params):
 
     mllogger.end(key=mllog.constants.RUN_STOP, metadata={'status': 'success'})
 
+
+
     if K.backend() == 'tensorflow':
         K.clear_session()
 
@@ -588,7 +590,16 @@ def main():
     params = initialize_parameters()
     mllogger.start(key=mllog.constants.RUN_START)
 
-    run(params)
+    history = run(params)
+
+    d = {
+        "name": "uno",
+        "inference": "TBD",
+        "testing": "TBD",
+        "training": "TBD",
+        "history": history
+    }
+    mllogger.event(key="result", value=d)
 
 
 if __name__ == '__main__':
