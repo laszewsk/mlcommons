@@ -16,10 +16,16 @@ experiment:
   mem: "32GB"
   repeat: "1"
   #repeat: "1,2,3,4,5"
-
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
+system:
+  partition: "bii-gpu"
+  host: "rivanna"
+  allocation: "bii_dsc"
+  reservation: "bi_fox_dgx"
+  constraint: "a100_80gb"
 
 submission:
   benchmark: earthquake
@@ -50,15 +56,8 @@ run:
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
-  allocation: 'bii_dsc'
-  reservation: 'bi_fox_dgx'
 
 colortheme: "False"
-
-system:
-  partition: "bii-gpu"
-  host: "rivanna"
-
 
 time: "3-0"
 set_soft_device_placement: False

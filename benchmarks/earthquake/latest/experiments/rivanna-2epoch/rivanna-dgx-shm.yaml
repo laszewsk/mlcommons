@@ -9,15 +9,6 @@ data:
   earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
   images: images
 
-benchmark:
-  name: Earthquake
-  user: Gregor von Laszewski
-  e-mail: laszewski@gmail.com
-  organisation:  University of Virginia
-  division: BII
-  status: submission
-  platform: rivanna
-
 experiment:
   card_name: 1
   gpu_count: 1
@@ -25,29 +16,50 @@ experiment:
   mem: "32GB"
   repeat: "1"
   #repeat: "1,2,3,4,5"
-
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2"
 
-
-script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
-revision: latest
 user:
    account: bii_dsc
-
-run:
-  workdir: /dev/shm/{os.USER}/mlcommons-tmp
-  venvpath: "$HOME/mlcommons-work/python"
-  datadir: data
-  branch: 'main'
-
-colortheme: "False"
 
 system:
   partition: "bii-gpu"
   host: "rivanna"
 
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+
+benchmark:
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation: University of Virginia
+  division: closed
+  status: completed
+  platform: rivanna
+
+
+script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
+revision: latest
+
+
+run:
+  filesystem: "/dev/shm/{os.USER}"
+  # workdir: /dev/shm/{os.USER}/mlcommons-tmp
+  venvpath: "$HOME/mlcommons-work/python"
+  datadir: data
+  branch: 'main'
+
+colortheme: "False"
 
 time: "3-0"
 set_soft_device_placement: False

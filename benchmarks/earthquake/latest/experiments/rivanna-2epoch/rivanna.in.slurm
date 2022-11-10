@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-eq-{experiment.card_name}-{experiment.gpu_count}
+#SBATCH --job-name=mlcommons-eq-dgx-{experiment.gpu_count}
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
 #SBATCH --partition={system.partition}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
-#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --gres=gpu:{experiment.gpu_count}
+#SBATCH --reservation={system.reservation}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={run.allocation}
+#SBATCH --account={system.allocation}
 
 set -uxe
 
 NB_OUTPUT="_output"
 
-RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+# RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
+RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
 DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
 VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
 

@@ -10,43 +10,57 @@ data:
   images: images
 
 experiment:
-  card_name: v100
+  card_name: a100
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
   repeat: "1"
-  #repeat: "1,2,3,4,5"
-
+  # repeat: "1,2,3,4,5"
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2"
+
+system:
+  host: "rivanna"
+  python: "3.10.6"
+  num_cpus: 6
+  partition: "bii-gpu"
+  allocation: bii_dsc_community
+  reservation: bi_fox_dgx
+
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
 
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski
   e-mail: laszewski@gmail.com
   organisation: University of Virginia
-  division: BII
-  status: submission
+  division: closed
+  status: completed
   platform: rivanna
 
 code:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
 
 run:
-  workdir: /localscratch/{os.USER}/mlcommons
+  filesystem: "/localscratch/{os.USER}"
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
   venvpath: "$HOME/mlcommons-work/python"
   datadir: data
   branch: 'main'
-  allocation: ds6011-sp22-002
+  # allocation: ds6011-sp22-002
+  # allocation: bii_dsc
 
 colortheme: "False"
-
-system:
-  python: "3.10.5"
-  num_cpus: 6
-  partition: "bii-gpu"
-  host: "rivanna"
 
 
 time: "3-0"

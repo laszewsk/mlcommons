@@ -17,12 +17,20 @@ experiment:
   cpu_num: 6
   mem: "32GB"
   repeat: "1"
-  #repeat: "1,2,3,4,5"
-
+  #repeat: "1,2,3,4,5
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2"
   #TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
+system:
+  allocation: "bii_dsc"
+  partition: "gpu"
+  host: rivanna
+  user: "{user}"
+  reservation: ""
+  constraint: ""
+
 
 submission:
   benchmark: earthquake
@@ -48,11 +56,6 @@ code:
   script: FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig.ipynb
   revision: latest
   branch: 2.0
-
-system:
-  partition: "gpu"
-  host: rivanna
-  user: "{user}"
 
 run:
   allocation: ds6011-sp22-002

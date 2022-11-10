@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 
 all: project localscratch shm generate
 

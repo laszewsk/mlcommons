@@ -3,13 +3,16 @@
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
 #SBATCH --partition={system.partition}
+#SBATCH --account={system.allocation}
+#SBATCH --reservation={system.reservation}
+#SBATCH --constraint={system.constraint}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-#SBATCH --account={run.allocation}
+
 
 set -uxe
 

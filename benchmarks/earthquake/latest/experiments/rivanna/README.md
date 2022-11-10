@@ -2,6 +2,8 @@
 
 ## Set up experiment utilities
 
+Tip: use option 1
+
 1. Load in Python 3.10
    1. Option 1 - Using Anaconda
       ```bash
@@ -11,7 +13,8 @@
       conda create -y -n py3.10 python=3.10
       source activate py3.10
       ```
-   2. Option 2 - Using Native Python
+   
+   2. Option 2 - Using Native Python with custom build python.
       ```bash
       module purge
       module use /project/bii_dsc/mlcommons-system/modulefiles
@@ -20,6 +23,7 @@
       Note: This module uses a custom version of python as configured in [Building Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/buildscripts/python-rivanna) and loading the lua modules in a preconfigured directory setup at [Configuring Python](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna/modulefiles/python-rivanna).  Details on how to add to these files can be found in the [systems](https://github.com/laszewsk/mlcommons/tree/main/systems/rivanna) folder.
 
 2. Setup Cloudmesh and the cloudmesh sbatch utility.
+
    ```bash
    python3.10 -m venv ~/ENV3
    source ~/ENV3/bin/activate
@@ -44,10 +48,27 @@ ssh-add
 cloudmesh-installer --ssh get sbatch
 cms help
 ```
-
-## Preparing Earthquake Environment
+## Preparing Earthquake Environment from the Production Code
 
 1. Generating experiment configurations
+
+   ```bash
+   cd ~
+   export EQ_VERSION=latest
+
+   # FOR USERS
+   git clone https://github.com/mlcommons/science.git
+   # Or for developers
+   # git clone git@github.com:laszewsk/mlcommons.git
+   cd ~/science/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
+   ```
+
+## Preparing Earthquake Environment from the Development Code
+
+Skip this step if you run the production version
+
+1. Generating experiment configurations
+
    ```bash
    cd ~
    export EQ_VERSION=latest
@@ -58,14 +79,25 @@ cms help
    # git clone git@github.com:laszewsk/mlcommons.git
    cd ~/mlcommons/benchmarks/earthquake/$EQ_VERSION/experiments/rivanna
    ```
-   
+
+## Run a particular configuration
+
 2. Set your desired configuration you wish to run:
+
    ```bash
    # One of - localscratch, project, shm, dgx, or dgx-shm
    export EQ_CONFIGURATION="localscratch"
    ```
+3. Opttionally remove previous generated setup
 
-3. Perform a 1 time bootstrap of your environment.
+   ```bash
+   rm -rf $EQ_CONFIGURATION
+   rm $EQ_CONFIGURATION.json
+   rm jobs-$EQ_CONFIGURATION.sh
+   ```
+
+5. Perform a 1 time bootstrap of your environment.
+
    ```bash
    make setup-$EQ_CONFIGURATION
    ## or run the following
@@ -120,13 +152,25 @@ Choose the allocation which is most appropriate for you and change it
 in its corresponding yaml file (e.g. for localscratch, the yaml is called
 `rivanna-localscratch.yaml`). Locate the following line and change accordingly.
 
+### Using a V100 on rivanna 
+
+To use a v100 you have to set the following.
+
 ```
+experiment:
+  card_name: a100
+
 run:
   allocation: bii_dsc_community 
 
 system:
   partition: gpu
 ```
+
+
+### Using a a100 (new) on rivanna 
+
+To use a a100 you have to set the following.
 
 Please note that only bii_dsc_community, bii_dsc are able to use a new 
 version of the A100 if the following are included in the yaml file.

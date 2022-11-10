@@ -122,7 +122,10 @@ def cloud_inference(args)-> None:
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
     # Return the number of inferences
-    return len(file_paths)
+    d = {
+        "TBD": "TBD"
+    }
+    return len(file_paths), d
 
 #####################################################################
 # Training mode                                                     #
@@ -157,7 +160,12 @@ def cloud_training(args)-> None:
     modelPath = os.path.expanduser(args['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
-    return num_samples
+
+    d = {
+        "TBD": "TBD"
+    }
+
+    return num_samples, d
 
 ### Main
 # Running the benchmark: python slstr_cloud.py --config ./cloudMaskConfig.yaml
@@ -187,7 +195,7 @@ def main():
     mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=args['benchmark'])
     mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=args['organisation'])
     mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=args['division'])
-    mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value=args['status'])
+
     mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=args['platform']) 
     mllogger.start(key=mllog.constants.INIT_START)
 
@@ -199,19 +207,24 @@ def main():
     # Training
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Taining")
-    samples = cloud_training(args)
+    samples, training_d = cloud_training(args)
     mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Training")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_epoch = elapsedTime/int(args['epochs'])
     time_per_epoch_str = f"{time_per_epoch:.2f}"
     with open(log_file, "a") as logfile:
-        logfile.write(f"CloudMask training, samples = {samples}, epochs={args['epochs']}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_epoch={time_per_epoch_str}\n")
+        logfile.write(f"CloudMask training, samples = {samples}, "
+                      f"epochs={args['epochs']}, "
+                      f"bs={args['batch_size']}, "
+                      f"nodes={args['nodes']}, "
+                      f"gpus={args['gpu']}, "
+                      f"time_per_epoch={time_per_epoch_str}\n")
 
     # Inference
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Inference")
-    number_inferences = cloud_inference(args)
+    number_inferences,inference_d = cloud_inference(args)
     mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Inference")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
@@ -219,9 +232,33 @@ def main():
     time_per_inference_str = f"{time_per_inference:.2f}"
     print("number_inferences: ", number_inferences)
     with open(log_file, "a") as logfile:
-        logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
-    
+        logfile.write(f"CloudMask inference, inferences={number_inferences}, "
+                      f"bs={args['batch_size']}, "
+                      f"nodes={args['nodes']}, "
+                      f"gpus={args['gpu']}, "
+                      f"time_per_inference={time_per_inference_str}\n")
+
+
+    d = {
+        "name": "cloudmask",
+        "training": training_d,
+        "inference": inference_d,
+
+        "inference_analyze": {
+            "number": number_inferences,
+            "bs" : args['batch_size'],
+            "nodes": args['nodes'],
+            "gpus": args['gpu'],
+            "time_per_inference": time_per_inference_str
+        },
+
+
+    }
+    mllogger.event(key="result", value=d)
     mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
+    mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
+
+
 if __name__ == "__main__":
     main()
 

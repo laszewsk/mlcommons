@@ -143,7 +143,6 @@ def main():
         mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['benchmark'])
         mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['organisation'])
         mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['division'])
-        mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value=config['status'])
         mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['platform'])
         mllogger.start(key=mllog.constants.INIT_START)
 
@@ -226,12 +225,21 @@ def main():
     time_per_inference_str = f"{time_per_inference:.6f}"
 
     if (trainer.global_rank == 0):
+
+        d = {
+            "name": "stemdl",
+            "inference": "TBD",
+            "testing": "TBD",
+            "training": "TBD"
+        }
+        mllogger.event(key="result", value=d)
+
         with open(log_file, "a") as logfile:
             logfile.write(
                 f"Stemdl inference, inferences_per_gpu={number_inferences_per_gpu}, bs={config['batchsize']}, nodes={config['nodes']}, gpu={config['gpu']}, time_per_inference={time_per_inference_str}\n")
 
         mllogger.end(key=mllog.constants.RUN_STOP, value="STEMLD benchmark run finished", metadata={'status': 'success'})
-
+        mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value="success")
 
 if __name__ == "__main__":
     main()

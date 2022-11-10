@@ -16,10 +16,17 @@ experiment:
   mem: "64GB"
   repeat: "1"
   #repeat: "1,2,3,4,5"
-
   ## TFTTransformerepochs = num_epochs
   #
   TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
+
+system:
+  allocation: "bii_dsc"
+  partition: "gpu"
+  host: rivanna
+  user: "{user}"
+  reservation: ""
+  constraint: ""
 
 submission:
   benchmark: earthquake
@@ -54,12 +61,7 @@ run:
   datadir: data
   branch: 'main'
 
-system:
-  partition: "gpu"
-  host: "rivanna"
-
 colortheme: "False"
-
 
 time: "3-0"
 set_soft_device_placement: False
