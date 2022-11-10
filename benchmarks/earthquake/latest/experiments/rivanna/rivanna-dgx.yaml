@@ -23,8 +23,9 @@ experiment:
 system:
   partition: "bii-gpu"
   host: "rivanna"
-  allocation: 'bii_dsc'
-  reservation: 'bi_fox_dgx'
+  allocation: "bii_dsc"
+  reservation: "bi_fox_dgx"
+  constraint: "a100_80gb"
 
 submission:
   benchmark: earthquake

@@ -24,9 +24,13 @@ experiment:
   #TFTTransformerepochs: "2,10,20,30,34,40,50,60,70"
 
 system:
+  allocation: "bii_dsc"
   partition: "gpu"
   host: rivanna
   user: "{user}"
+  reservation: ""
+  constraint: ""
+
 
 submission:
   benchmark: earthquake
