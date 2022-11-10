@@ -5,7 +5,7 @@
 #SBATCH --partition={system.partition}
 #SBATCH --account={system.allocation}
 #SBATCH --reservation={system.reservation}
-#SBATCH --constrained={system.constraint}
+#SBATCH --constraint={system.constraint}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
