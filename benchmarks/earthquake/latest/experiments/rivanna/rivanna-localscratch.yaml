@@ -27,7 +27,7 @@ system:
   partition: "bii-gpu"
   allocation: bii_dsc_community
   reservation: bi_fox_dgx
-  constrained: ""
+  constraint: ""
 
 submission:
   benchmark: earthquake
