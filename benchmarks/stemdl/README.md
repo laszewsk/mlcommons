@@ -46,12 +46,12 @@ Benchmark Targets
 * Scientific objective(s):
   * Objective: Classification for crystal space groups
   * Formula: F1 score on validation data
-  * Score: 0.9 considered converged
+  * Score: 0.43 for the original train-test-dev split in the dataset (same materials don’t appear in both training and validation datasets), 0.9 for randomly re-shuffled train-val split
 * Data
   * Download: https://doi.ccs.ornl.gov/ui/doi/70
   * Data Size: 548.7 GiB
-  * Training samples: 138.7K
-  * Validation samples: 48.4
+  * Training samples: 148K
+  * Validation samples: 18.7K
 
 ## Versions
 
