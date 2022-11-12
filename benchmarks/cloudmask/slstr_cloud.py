@@ -154,7 +154,7 @@ def cloud_training(args)-> None:
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
     # Close file descriptors
-    #atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(args['model_file'])
@@ -162,7 +162,10 @@ def cloud_training(args)-> None:
     print('END slstr_cloud in training mode.')
 
     d = {
-        "TBD": "TBD"
+        "accuracy": history.history['accuracy'][0],
+        "loss": history.history['loss'][0],
+        "val_loss": history.history['val_loss'][0],
+        "val_accuracy": history.history['val_accuracy'][0]
     }
 
     return num_samples, d
