@@ -54,7 +54,7 @@ def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_s
     :param patch_size: the size of th patches
     :return: the reconstructed image with shape (1, height, weight, 1)
     """
-    # Read arguments 
+    # Read arguments
     IMAGE_H = args['IMAGE_H']
     IMAGE_W = args['IMAGE_W']
 
@@ -78,13 +78,13 @@ def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_s
 # Inference
 def cloud_inference(args)-> None:
     print('Running benchmark slstr_cloud in inference mode.')
-    # Read arguments 
+    # Read arguments
     CROP_SIZE = args['CROP_SIZE']
     PATCH_SIZE = args['PATCH_SIZE']
     N_CHANNELS = args['N_CHANNELS']
 
     # Load model
-    modelPath = os.path.expanduser(args['model_file'])    
+    modelPath = os.path.expanduser(args['model_file'])
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
@@ -96,7 +96,8 @@ def cloud_inference(args)-> None:
     # reconstructed.
     data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+
+    acc = []
     # Inference Loop
     for patches, file_name in dataset:
         file_name = Path(file_name.numpy().decode('utf-8'))
@@ -109,6 +110,9 @@ def cloud_inference(args)-> None:
         # perform inference on patches
         mask_patches = model.predict_on_batch(patches)
 
+        print("metric names",model.metrics_names)
+        print("mask_patches",mask_patches)
+        print("mask_patches[1]",mask_patches[1])
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(mask_patches, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE)
 
@@ -131,14 +135,14 @@ def cloud_inference(args)-> None:
 # Training mode                                                     #
 #####################################################################
 
-def cloud_training(args)-> None:  
-    print('Running benchmark slstr_cloud in training mode.')   
+def cloud_training(args)-> None:
+    print('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(args['seed'])
     data_dir = os.path.expanduser(args['train_dir'])
 
     # load the datasets
     train_dataset, test_dataset  = load_datasets(dataset_dir=data_dir, args=args)
-    
+
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
     print("num_samples: ", num_samples)
@@ -146,7 +150,7 @@ def cloud_training(args)-> None:
     # Running training on multiple GPUs
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(args['learning_rate'])
-    
+
     with mirrored_strategy.scope():
         # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
@@ -154,7 +158,7 @@ def cloud_training(args)-> None:
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
     # Close file descriptors
-    #atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(args['model_file'])
@@ -162,7 +166,8 @@ def cloud_training(args)-> None:
     print('END slstr_cloud in training mode.')
 
     d = {
-        "TBD": "TBD"
+        "training_accuracy": history.history['accuracy'],
+        "validation_accuracy": history.history['val_accuracy']
     }
 
     return num_samples, d
@@ -196,14 +201,14 @@ def main():
     mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=args['organisation'])
     mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=args['division'])
 
-    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=args['platform']) 
+    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=args['platform'])
     mllogger.start(key=mllog.constants.INIT_START)
 
-    mllogger.event(key='number_of_ranks', value=args['gpu']) 
+    mllogger.event(key='number_of_ranks', value=args['gpu'])
     mllogger.event(key='number_of_nodes', value=args['nodes'])
-    mllogger.event(key='accelerators_per_node', value=args['accelerators_per_node']) 
+    mllogger.event(key='accelerators_per_node', value=args['accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
-    
+
     # Training
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Taining")
@@ -261,4 +266,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
