@@ -175,10 +175,10 @@ def cloud_training(args) -> None:
     print('END slstr_cloud in training mode.')
 
     d = {
-        "accuracy": history.history['accuracy'][0],
-        "loss": history.history['loss'][0],
-        "val_loss": history.history['val_loss'][0],
-        "val_accuracy": history.history['val_accuracy'][0]
+        "accuracy": history.history['accuracy'][-1],
+        "loss": history.history['loss'][-1],
+        "val_loss": history.history['val_loss'][-1],
+        "val_accuracy": history.history['val_accuracy'][-1]
     }
 
     return num_samples, d
