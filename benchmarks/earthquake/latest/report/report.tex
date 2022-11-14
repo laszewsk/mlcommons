@@ -1,0 +1,67 @@
+%! Author = Swagmaster
+%! Date = 11/14/2022
+
+% Preamble
+\documentclass[11pt,twocolumn]{article}
+
+
+% Packages
+\usepackage{graphicx}
+\title{Report}
+\author{Gregor von Laszewski, Jacques Fleischer, Geoffrey C. Fox}
+
+% Document
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+My abstract
+
+\end{abstract}
+
+Hello. testing~\cite{las21openapi}.
+
+\section{figure}
+
+\begin{figure}[htb]
+%\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
+\centering\includegraphics[width=1.0\columnwidth]{images/2-weeks-now.pdf}
+\caption{To be determined}
+\label{fig:tbd}
+\end{figure}
+
+\begin{table}[htb]
+%\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
+
+\caption{To be determined}
+\label{tab:tbd}
+\bigskip
+%\resizebox{1.0\columnwidth}{!}{%
+\centering\input{tables/abc.tex}%
+%}
+\end{table}
+
+\begin{table}[htb]
+%\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
+
+\caption{To be determined}
+\label{tab:tbdetermined}
+\bigskip
+%\resizebox{1.0\columnwidth}{!}{%
+\centering\input{tables/def.tex}%
+%}
+\end{table}
+
+\section*{Acknowledgements}
+
+Continued work was in part funded by the NSF CyberTrain-
+ing: CIC: CyberTraining for Students and Technologies from
+Generation Z with the award numbers 1829704 and 2200409
+and NIST 60NANB21D151T.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{report.bib}
+
+\end{document}
