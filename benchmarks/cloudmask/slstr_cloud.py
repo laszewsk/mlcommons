@@ -178,7 +178,14 @@ def cloud_training(args) -> None:
         "accuracy": history.history['accuracy'][-1],
         "loss": history.history['loss'][-1],
         "val_loss": history.history['val_loss'][-1],
-        "val_accuracy": history.history['val_accuracy'][-1]
+        "val_accuracy": history.history['val_accuracy'][-1],
+        "history": {
+            "accuracy": history.history['accuracy'],
+            "loss": history.history['loss'],
+            "val_loss": history.history['val_loss'],
+            "val_accuracy": history.history['val_accuracy']
+        }
+
     }
 
     return num_samples, d
