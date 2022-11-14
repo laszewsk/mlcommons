@@ -174,7 +174,8 @@ def cloud_training(args) -> None:
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
 
-    d = {
+    result = {
+        "samples": num_samples
         "accuracy": history.history['accuracy'][-1],
         "loss": history.history['loss'][-1],
         "val_loss": history.history['val_loss'][-1],
@@ -185,10 +186,9 @@ def cloud_training(args) -> None:
             "val_loss": history.history['val_loss'],
             "val_accuracy": history.history['val_accuracy']
         }
-
     }
 
-    return num_samples, d
+    return num_samples, result
 
 
 # #################################
@@ -266,7 +266,7 @@ def main():
                       f"gpus={args['gpu']}, "
                       f"time_per_inference={time_per_inference_str}\n")
 
-    d = {
+    result = {
         "name": "cloudmask",
         "training": training_d,
         "inference": inference_d,
@@ -280,7 +280,7 @@ def main():
         },
 
     }
-    mllogger.event(key="result", value=d)
+    mllogger.event(key="result", value=result)
     mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
     mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
