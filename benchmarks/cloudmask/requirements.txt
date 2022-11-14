@@ -1,0 +1,5 @@
+tensorflow-gpu
+scikit-learn
+h5py
+pyyaml
+cloudmesh-common
