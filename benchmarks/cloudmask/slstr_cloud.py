@@ -106,6 +106,7 @@ def cloud_inference(args) -> None:
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
     data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
+    #data_loader = SLSTRDataLoader(args, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
 
     # Inference Loop
@@ -119,6 +120,7 @@ def cloud_inference(args) -> None:
 
         # perform inference on patches
         mask_patches = model.predict_on_batch(patches)
+        #mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(mask_patches, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE,
