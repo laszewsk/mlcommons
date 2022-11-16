@@ -128,7 +128,14 @@ def cloud_inference(args) -> None:
 
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
+        # Mask produced by inference
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
+        # Compare mask with ground_truth_mask
+        # Accuracy is the number of hist 
+        # accuracy = 0
+        # for i in range(len(mask_pathches):
+        # accuracy += (mask[i] == ground_truth_mask[i]).sum()/siozeof(mask[i]))
+        
         output_dir = os.path.expanduser(args['output_dir'])
         mask_name = output_dir + file_name.name + '.h5'
         # print('mask_name: ', mask_name)
@@ -137,7 +144,7 @@ def cloud_inference(args) -> None:
             handle.create_dataset('mask', data=mask)
     # Return the number of inferences
     d = {
-        "TBD": "TBD"
+        "accuracy": "accuracy_array"
     }
     return len(file_paths), d
 
