@@ -69,7 +69,7 @@ changelog:
 	cat changelog-donotchange.tex
 
 images:
-	echo hello
+	papermill --inject-output-path=./out --progress-bar ../mllog-parser.ipynb
 
 fetch:
 	mkdir -p ../experiments/rivanna/localscratch
