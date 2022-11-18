@@ -2,7 +2,7 @@ import re
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.util import readfile
 
-notebook = Shell.map_filename("~/cm/FFFFWNPFEARTHQ_newTFTv29-gregor-parameters-fig-2_output.ipynb").path
+notebook = Shell.map_filename("~/cm/cloudmesh_mllog.log").path
 
 mynotebook = readfile(notebook)
 list_of_mllogs = []
@@ -83,5 +83,6 @@ for mllog in list_of_mllogs:
 from pprint import pprint
 for fixed_dict in fixed_dicts:
     pprint(fixed_dict)
+print(len(fixed_dicts))
     # print(working_line)
 

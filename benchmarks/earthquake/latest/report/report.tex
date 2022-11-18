@@ -1,13 +1,11 @@
 \documentclass[11pt,twocolumn]{article}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{todonotes}
 \usepackage{listings}
 \lstset{language=Python}
 
 \newcommand{\TODO}[1]{\todo[inline]{#1}}
-
-
-
 
 \newcommand{\TITLE}{MLCommons Earthquake Benchmark}
 \newcommand{\AUTHOR}{Gregor von Laszewski, Jacques Fleischer, Geoffrey C. Fox}
@@ -36,7 +34,6 @@
 
 \end{abstract}
 
-
 \section{Setup}
 
 The code is relatively easy to setup for use on various computers
@@ -46,7 +43,7 @@ a fair amount of memory. Therfor it may not be able to be run on
 NVIDIA Cards with less the 24GB of memory.
 
 The documentation on ho to set up the code is available as part of a
-\href{README.md}{???} file \cite{???}. 
+\href{README.md}{???} file \cite{???}.
 
 
 \section{Cloudmesh}
@@ -60,7 +57,101 @@ compute cluster workflow management tool that allows us to submit the
 codes in parallel to multiple supercomputers as well as parallel batch
 jobs \cite{las-cc,las21openapi}
 
+
 \TODO{2 Week Intervals is the wrong label, label must be unique}  
+
+
+\section{Benchmark Terminology}
+
+\begin{tabular}{rl}
+NNSE & 2 Week Intervals \\
+\hline
+Year Back & \\ % describe each one of these values
+2wk+7AVG & \\ % what does 2 wk 7 avg mean?
+2wk+13AVG & \\
+6 Months Back & \\
+2wk+13AVG & \\
+3 Months Back & \\
+2wk+7AVG & \\
+2wk+7AVG & \\
+2wk+26AVG & \\
+2wk+26AVG & \\
+2wk+13AVG & \\
+2wk+26AVG & \\
+2wk+7AVG & \\
+2wk+13AVG & \\
+2 weeks Now & \\
+2wk+26AVG & \\
+\hline
+\end{tabular}
+
+\section{Results from Rivanna V100}
+
+Rivanna is a supercomputer located at the University
+of Virginia. It has a variety of CUDA cards, including
+an A100, V100, K80. In this benchmark we use its V100.
+
+\subsection{Best Accuracy}
+
+Just one entry for best accuracy.
+
+\subsection{Accuracy Comparison}
+
+We compare accuracy.
+
+\subsection{Time Comparison}
+
+We compare time.
+
+\subsection{Power Consumption}
+
+We compare power.
+
+
+\begin{figure*}[p]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_training-NNSE.pdf}
+        \caption{NNSE - 2 epochs}
+        \label{fig:tbd1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_training-MSE.pdf}
+        \caption{MSE - 2 epochs}
+        \label{fig:tbd2}
+     \end{subfigure}
+     \hfill
+     \newline
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_training-NNSE.pdf}
+        \caption{NNSE - 30 epochs}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_training-MSE.pdf}
+        \caption{MSE - 30 epochs}
+        \label{fig:tbd4}
+     \end{subfigure}
+     \hfill
+          \newline
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_training-NNSE.pdf}
+        \caption{NNSE - 70 epochs}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_training-MSE.pdf}
+        \caption{MSE - 70 epochs}
+        \label{fig:tbd4}
+     \end{subfigure}
+        \caption{NNSE and MSE values for epochs 2, 30, 70 (training).}
+        \label{fig:six graphs}
+\end{figure*}
+>>>>>>> bb9a311b992390f88b8bdcbf2d3d65fdda367eca
 
 \begin{figure}[htb]
 %\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
