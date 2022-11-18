@@ -73,5 +73,5 @@ images:
 
 fetch:
 	mkdir -p ../experiments/rivanna/localscratch
-	rsync -avH --progress rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna/localscratch/
+	rsync -avH --progress rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna
 
