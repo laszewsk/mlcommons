@@ -69,8 +69,8 @@ changelog:
 	cat changelog-donotchange.tex
 
 images:
-	papermill --inject-output-path=./out --progress-bar ../mllog-parser.ipynb
+	papermill --inject-output-path=./out --progress-bar ../experiments/rivanna/mllog-parser.ipynb
 
 fetch:
 	mkdir -p ../experiments/rivanna/localscratch
-	rsync -ahV rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna/localscratch/
+	rsync -avH rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna/localscratch/
