@@ -69,4 +69,8 @@ changelog:
 	cat changelog-donotchange.tex
 
 images:
+	echo hello
 
+fetch:
+	mkdir -p ../experiments/rivanna/localscratch
+	rsync -ahV rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna/localscratch/
