@@ -1,28 +1,59 @@
-%! Author = Swagmaster
-%! Date = 11/14/2022
-
-% Preamble
 \documentclass[11pt,twocolumn]{article}
-
-
-% Packages
 \usepackage{graphicx}
-\title{Report}
-\author{Gregor von Laszewski, Jacques Fleischer, Geoffrey C. Fox}
 
-% Document
+
+
+
+\newcommand{\TITLE}{MLCommons Earthquake Benchmark}
+\newcommand{\AUTHOR}{Gregor von Laszewski, Jacques Fleischer, Geoffrey C. Fox}
+
+\title{\TITLE}
+\author{\AUTHOR}
+
+
 \begin{document}
+\onecolumn
+\begin{center}
+{\huge \TITLE}
+
+{\AUTHOR}
+\end{center}
+
+\tableofcontents
+\twocolumn
+
+
 \maketitle
 
 \begin{abstract}
 
-My abstract
+  We report hee the results of the MLCommonse Science Workinggroup benchmark of the Eearthquake code.
 
 \end{abstract}
 
-Hello. testing~\cite{las21openapi}.
 
-\section{figure}
+\section{Setup}
+
+The code is relatively easy to setup for use on various computers
+using NVIDIA Cards.  The code has been run on A100, V100, K100, P100,
+and RTX3090. Other cards may be also supported, but the code requires
+a fair amount of memory. Therfor it may not be able to be run on
+NVIDIA Cards with less the 24GB of memory.
+
+The documentation on ho to set up the code is available as part of a
+\href{README.md}{???} file \cite{???}. 
+
+
+\section{Cloudmesh}
+
+The code has been enhanced with benchmark fuctions from Cloudmesh
+\cite{}. It also uses a convenient extension to batch scripts called
+cloudmesh-sbatch allowing more easily to place additional templated
+parameters into the SBATCH or LSF shell script parameters when
+supmitting to bath systems. In addition we have developed a cloudmesn
+compute cluster workflow management tool that allows us to submit the
+codes in parallel to multiple supercomputers as well as parallel batch
+jobs \cite{las-cc,las21openapi}
 
 \begin{figure}[htb]
 %\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
