@@ -67,3 +67,6 @@ changelog:
 	git log --pretty=format:'\item  \href{http://github.com/cyberaide/NIST-analytics/commit/%H}{%s}' >> changelog-donotchange.tex
 	@echo "\n\\\\end{enumerate}" >> changelog-donotchange.tex
 	cat changelog-donotchange.tex
+
+images:
+

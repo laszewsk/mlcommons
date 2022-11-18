@@ -7,6 +7,7 @@
 
 % Packages
 \usepackage{graphicx}
+\usepackage{subcaption}
 \title{Report}
 \author{Gregor von Laszewski, Jacques Fleischer, Geoffrey C. Fox}
 
@@ -20,9 +21,101 @@ My abstract
 
 \end{abstract}
 
+\tableofcontents
+
+\section{Benchmark Terminology}
+
+\begin{tabular}{rl}
+NNSE & 2 Week Intervals \\
+\hline
+Year Back & \\ % describe each one of these values
+2wk+7AVG & \\ % what does 2 wk 7 avg mean?
+2wk+13AVG & \\
+6 Months Back & \\
+2wk+13AVG & \\
+3 Months Back & \\
+2wk+7AVG & \\
+2wk+7AVG & \\
+2wk+26AVG & \\
+2wk+26AVG & \\
+2wk+13AVG & \\
+2wk+26AVG & \\
+2wk+7AVG & \\
+2wk+13AVG & \\
+2 weeks Now & \\
+2wk+26AVG & \\
+\hline
+\end{tabular}
+
+\section{Results from Rivanna V100}
+
+Rivanna is a supercomputer located at the University
+of Virginia. It has a variety of CUDA cards, including
+an A100, V100, K80. In this benchmark we use its V100.
+
+\subsection{Best Accuracy}
+
+Just one entry for best accuracy.
+
+\subsection{Accuracy Comparison}
+
+We compare accuracy.
+
+\subsection{Time Comparison}
+
+We compare time.
+
+\subsection{Power Consumption}
+
+We compare power.
+
 Hello. testing~\cite{las21openapi}.
 
 \section{figure}
+
+\begin{figure*}[p]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_training-NNSE.pdf}
+        \caption{NNSE - 2 epochs}
+        \label{fig:tbd1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_training-MSE.pdf}
+        \caption{MSE - 2 epochs}
+        \label{fig:tbd2}
+     \end{subfigure}
+     \hfill
+     \newline
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_training-NNSE.pdf}
+        \caption{NNSE - 30 epochs}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_training-MSE.pdf}
+        \caption{MSE - 30 epochs}
+        \label{fig:tbd4}
+     \end{subfigure}
+     \hfill
+          \newline
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_training-NNSE.pdf}
+        \caption{NNSE - 70 epochs}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_training-MSE.pdf}
+        \caption{MSE - 70 epochs}
+        \label{fig:tbd4}
+     \end{subfigure}
+        \caption{NNSE and MSE values for epochs 2, 30, 70 (training).}
+        \label{fig:six graphs}
+\end{figure*}
 
 \begin{figure}[htb]
 %\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
