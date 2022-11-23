@@ -31,7 +31,7 @@
 
 \begin{abstract}
 
-  We report hee the results of the MLCommonse Science Workinggroup benchmark of the Eearthquake code.
+  We report here the results of the MLCommons Science Working group benchmark of the Earthquake code.
 
 \end{abstract}
 
@@ -40,23 +40,23 @@
 The code is relatively easy to setup for use on various computers
 using NVIDIA Cards.  The code has been run on A100, V100, K100, P100,
 and RTX3090. Other cards may be also supported, but the code requires
-a fair amount of memory. Therfor it may not be able to be run on
+a fair amount of memory. Therfore it may not be able to be run on
 NVIDIA Cards with less the 24GB of memory.
 
-The documentation on ho to set up the code is available as part of a
+The documentation on how to set up the code is available as part of a
 \href{README.md}{???} file \cite{???}.
 
 
 \section{Cloudmesh}
 
-The code has been enhanced with benchmark fuctions from Cloudmesh
+The code has been enhanced with benchmark functions from Cloudmesh
 \cite{}. It also uses a convenient extension to batch scripts called
 cloudmesh-sbatch allowing more easily to place additional templated
 parameters into the SBATCH or LSF shell script parameters when
-supmitting to bath systems. In addition we have developed a cloudmesn
+supmitting to bath systems. In addition we have developed a cloudmesh
 compute cluster workflow management tool that allows us to submit the
 codes in parallel to multiple supercomputers as well as parallel batch
-jobs \cite{las-cc,las21openapi}
+jobs~\cite{las-cc,las21openapi}
 
 
 \TODO{2 Week Intervals is the wrong label, label must be unique}  
@@ -67,9 +67,9 @@ jobs \cite{las-cc,las21openapi}
 \begin{tabular}{rl}
 NNSE & 2 Week Intervals \\
 \hline
-Year Back & \\ % describe each one of these values
-2wk+7AVG & \\ % what does 2 wk 7 avg mean?
-2wk+13AVG & \\
+Year Back & % describe each one of these values \\
+2wk+7AVG & The average of 7 two-week intervals \\
+2wk+13AVG & The average of 13 two-week intervals \\
 6 Months Back & \\
 2wk+13AVG & \\
 3 Months Back & \\
@@ -152,7 +152,50 @@ We compare power.
         \caption{NNSE and MSE values for epochs 2, 30, 70 (training).}
         \label{fig:six graphs}
 \end{figure*}
->>>>>>> bb9a311b992390f88b8bdcbf2d3d65fdda367eca
+
+\begin{figure*}[p]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_training-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 2 epochs training}
+        \label{fig:tbd1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/2_validation-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 2 epochs validation}
+        \label{fig:tbd2}
+     \end{subfigure}
+     \hfill
+     \newline
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_training-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 30 epochs training}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/30_validation-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 30 epochs validation}
+        \label{fig:tbd4}
+     \end{subfigure}
+     \hfill
+          \newline
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_training-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 70 epochs training}
+        \label{fig:tbd3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering\includegraphics[width=1.0\linewidth]{images/70_validation-MSE-and-NNSE.pdf}
+        \caption{MSE and NNSE - 70 epochs validation}
+        \label{fig:tbd4}
+     \end{subfigure}
+        \caption{NNSE and MSE values for epochs 2, 30, 70 (training and validation).}
+        \label{fig:six graphs}
+\end{figure*}
 
 \begin{figure}[htb]
 %\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
