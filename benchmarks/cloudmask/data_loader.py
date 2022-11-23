@@ -82,7 +82,7 @@ class SLSTRDataLoader:
         msk = self._transform_image(msk)
 
         if self.single_image:
-            return img, path
+            return img, msk, path
         else:
             return img, msk
 
