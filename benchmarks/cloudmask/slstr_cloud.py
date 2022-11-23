@@ -85,7 +85,6 @@ def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_s
     reconstructed = tf.image.crop_to_bounding_box(reconstructed, offset_y, offset_x, IMAGE_H, IMAGE_W)
     return reconstructed
 
-
 # Inference
 def cloud_inference(args) -> None:
     print('Running benchmark slstr_cloud in inference mode.')
@@ -101,19 +100,19 @@ def cloud_inference(args) -> None:
     # Read inference files
     inference_dir = os.path.expanduser(args['inference_dir'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
-
+    
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
     data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
-    #data_loader = SLSTRDataLoader(args, file_paths, single_image=False, crop_size=CROP_SIZE)
+    # data_loader = SLSTRDataLoader(args, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-
+    
     # Inference Loop
+    accuracyList = []
     for patches, file_name in dataset:
         file_name = Path(file_name.numpy().decode('utf-8'))
-        # print(f"Processing file {file_name}")
-
+        
         # convert patches to a batch of patches
         n, ny, nx, _ = patches.shape
         patches = tf.reshape(patches, (n * nx * ny, PATCH_SIZE, PATCH_SIZE, N_CHANNELS))
@@ -125,27 +124,40 @@ def cloud_inference(args) -> None:
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(mask_patches, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE,
                                                      PATCH_SIZE - CROP_SIZE)
-
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
-        # Compare mask with ground_truth_mask
-        # Accuracy is the number of hist 
-        # accuracy = 0
-        # for i in range(len(mask_pathches):
-        # accuracy += (mask[i] == ground_truth_mask[i]).sum()/siozeof(mask[i]))
         
+        # Save reconstructed image (mask)
         output_dir = os.path.expanduser(args['output_dir'])
         mask_name = output_dir + file_name.name + '.h5'
-        # print('mask_name: ', mask_name)
-
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
-    # Return the number of inferences
+        
+        # Change mask values from float to integer
+        mask_np = mask.numpy()
+        mask_np[mask_np > 0] = 1
+        mask_np[mask_np == 0 ] = 0
+        mask_flat = mask_np.reshape(-1)
+        
+        # Extract groundTruth from file, this is the Bayesian mask
+        with h5py.File(file_name, 'r') as handle:           
+            groundTruth = handle['bayes'][:]
+            groundTruth[groundTruth > 0] = 1
+            groundTruth[groundTruth == 0] = 0
+        
+        # Make 1D array
+        groundTruth_flat = groundTruth.reshape(-1)
+       
+        # Calculate hits between ground truth mask and the reconstructed mask
+        accuracy = np.mean( groundTruth_flat == mask_flat)
+        accuracyList.append(accuracy)
+       
     d = {
-        "accuracy": "accuracy_array"
+        "accuracy": accuracyList
     }
+    # Return number of files used for inference and disctionary d with accuracy
     return len(file_paths), d
 
 
