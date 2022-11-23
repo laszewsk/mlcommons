@@ -144,7 +144,7 @@ def cloud_inference(args) -> None:
         ground_truth_mask_np[ground_truth_mask_np == 0 ] = 0
         
         # Updating accuracy
-        acc.update_state(ground_truth_mask,mask)
+        acc.update_state(ground_truth_mask_np,mask_np)
         
         output_dir = os.path.expanduser(args['output_dir'])
         mask_name = output_dir + file_name.name + '.h5'
