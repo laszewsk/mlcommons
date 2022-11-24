@@ -124,6 +124,7 @@ def cloud_inference(args) -> None:
         ground_truth_masks = tf.reshape(ground_truth_masks, np.array(mask_patches).shape)
         ground_truth_masks = tf.image.crop_to_bounding_box(ground_truth_masks, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE,
                                                      PATCH_SIZE - CROP_SIZE)
+        ground_truth_masks = tf.reshape(ground_truth_masks, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         ground_truth_mask = reconstruct_from_patches(args, ground_truth_masks, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
 
         # crop edge artifacts
