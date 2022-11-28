@@ -156,9 +156,9 @@ in its corresponding yaml file (e.g. for localscratch, the yaml is called
 
 To use a v100 you have to set the following.
 
-```
+```yaml
 experiment:
-  card_name: a100
+  card_name: v100
 
 run:
   allocation: bii_dsc_community 
@@ -176,7 +176,7 @@ Please note that only bii_dsc_community, bii_dsc are able to use a new
 version of the A100 if the following are included in the yaml file.
 
 
-```
+```yaml
 system:
   partition: bii-gpu
 
