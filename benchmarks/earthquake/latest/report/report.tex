@@ -4,8 +4,14 @@
 \usepackage{subcaption}
 \usepackage{todonotes}
 \usepackage{listings}
-\usepackage{hyperref}
-\lstset{language=Python}
+\usepackage[hidelinks]{hyperref}
+\usepackage{adjustbox}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue},
+  literate={~} {{\raisebox{0.5ex}{\texttildelow}}}{1}
+}
 
 \newcommand{\TODO}[1]{\todo[inline]{#1}}
 
@@ -36,7 +42,12 @@
 
 \end{abstract}
 
+\TODO{Describe in detail how to create the report from an existing cloudmesh sbatch run.}
+\TODO{Make sure that the README is sufficient for running this example, and that it is properly referred to in this report.}
+\TODO{Programming bug is in cloudmesh sbatch. Figure out how to run the dummy and document how to run the dummy sbatch.}
+
 \section{Setup}
+\TODO{Identify, for each experiment, if the YAML file is written into the experiment directory. If this is not the case, we need to fix this. We need to have an output directory for each experiment. Must have the ipynb, the output files, and the YAML file that creates the sbatch submission, and the individual SBATCH run file for that particular experiment. The YAML file takes the original in.yaml file and replaces, in that, all the variables that are being defined by the experiment, and then writes a YAML file. That is the yaml file that we need in that directory.}
 
 The code is relatively easy to set up for use on various computers
 using NVIDIA Cards. The code has been run on A100, V100, K100, P100,
@@ -46,8 +57,9 @@ NVIDIA Cards with less than 24GB of memory.
 
 The documentation on how to set up the code is available as part of a
 \href{https://github.com/laszewsk/mlcommons/tree/main/benchmarks/earthquake#readme}{README.md}
-file~\cite{www-earthquake-setup}.
-
+file under the System Setup section~\cite{www-earthquake-setup}. Instructions
+to run the code on the University of Virginia's Rivanna Supercomputer can be
+found on GitHub~\cite{www-earthquake-rivanna-readme}.
 
 \section{Cloudmesh}
 
@@ -58,35 +70,54 @@ parameters into the SBATCH or LSF shell script parameters when
 submitting to batch systems. In addition, we have developed a cloudmesh
 compute cluster workflow management tool that allows us to submit the
 codes in parallel to multiple supercomputers as well as parallel batch
-jobs~\cite{las-cc,las21openapi}
+jobs~\cite{las-cc,las21openapi}.
 
 
 \TODO{2 Week Intervals is the wrong label, label must be unique}  
 
+\section{Report Generation}
+
+To create the report figures, we assume you have fully run the Earthquake
+code on Rivanna. Execute the following commands:
+
+\smallskip
+\begin{adjustbox}{max width=\columnwidth}
+\begin{lstlisting}[language=bash]
+mkdir ~/cm
+cd ~/cm
+git clone https://github.com/laszewsk/mlcommons.git
+cd mlcommons/benchmarks/earthquake/latest/report
+
+# make fetch only works on linux,
+# so run in WSL on windows
+make fetch
+
+make images
+make
+\end{lstlisting}
+\end{adjustbox}
 
 \section{Benchmark Terminology}
 
-\begin{tabular}{rl}
-NNSE & 2 Week Intervals \\
+\begin{table}[htb]
+\caption{Terminology of benchmark labels}
+\label{tab:terminology}
+\resizebox{1.0\columnwidth}{!}{
+% \begin{tabular}{p{0.4\columnwidth}p{0.6\columnwidth}}
+\begin{tabular}{ll}
+Label & Definition \\
 \hline
-Year Back & % describe each one of these values \\
+Year Back & Analysis of the previous year \\
+6 Months Back & Analysis of previous 6 months \\
+3 Months Back & Analysis of the previous 3 months \\
+2 weeks Now & Analysis of 2 weeks \\
 2wk+7AVG & The average of 7 two-week intervals \\
 2wk+13AVG & The average of 13 two-week intervals \\
-6 Months Back & \\
-2wk+13AVG & \\
-3 Months Back & \\
-2wk+7AVG & \\
-2wk+7AVG & \\
-2wk+26AVG & \\
-2wk+26AVG & \\
-2wk+13AVG & \\
-2wk+26AVG & \\
-2wk+7AVG & \\
-2wk+13AVG & \\
-2 weeks Now & \\
-2wk+26AVG & \\
+2wk+26AVG & The average of 26 two-week intervals \\
 \hline
 \end{tabular}
+}
+\end{table}
 
 \section{Results from Rivanna V100}
 
@@ -199,12 +230,12 @@ We compare power.
         \label{fig:six graphs}
 \end{figure*}
 
-\begin{figure}[htb]
-%\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
-\centering\includegraphics[width=1.0\columnwidth]{images/2-weeks-now.pdf}
-\caption{To be determined}
-\label{fig:tbd}
-\end{figure}
+%\begin{figure}[htb]
+%%\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
+%\centering\includegraphics[width=1.0\columnwidth]{images/2-weeks-now.pdf}
+%\caption{To be determined}
+%\label{fig:tbd}
+%\end{figure}
 
 \begin{table}[htb]
 %\centering\includegraphics[width=1.0\columnwidth]{usecase/images/hvac-new-arch.png}
@@ -235,6 +266,7 @@ ing: CIC: CyberTraining for Students and Technologies from
 Generation Z with the award numbers 1829704 and 2200409
 and NIST 60NANB21D151T.
 
+\clearpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{report}
