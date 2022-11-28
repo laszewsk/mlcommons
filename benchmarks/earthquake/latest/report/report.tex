@@ -10,7 +10,9 @@
   showstringspaces=false,
   commentstyle=\color{red},
   keywordstyle=\color{blue},
-  literate={~} {{\raisebox{0.5ex}{\texttildelow}}}{1}
+  literate={~} {{\raisebox{0.5ex}{\texttildelow}}}{1},
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
 }
 
 \newcommand{\TODO}[1]{\todo[inline]{#1}}
@@ -60,6 +62,25 @@ The documentation on how to set up the code is available as part of a
 file under the System Setup section~\cite{www-earthquake-setup}. Instructions
 to run the code on the University of Virginia's Rivanna Supercomputer can be
 found on GitHub~\cite{www-earthquake-rivanna-readme}.
+
+\subsection{Rivanna}
+
+Running the earthquake code on Rivanna can be done on different filesystems
+available on the HPC center. This includes localscratch, a local filesystem.
+The localscratch configuration is best as it uses local memory, leading to
+faster runtimes, and it does not require special permissions like access to
+the /project network file system.
+
+After running the code on Rivanna using the localscratch configuration,
+the output files can be found under the mlcommons dir in the home directory:
+
+\smallskip
+%\begin{adjustbox}{max width=\columnwidth}
+\begin{lstlisting}[language=bash]
+cd ~/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch
+ls
+\end{lstlisting}
+%\end{adjustbox}
 
 \section{Cloudmesh}
 
