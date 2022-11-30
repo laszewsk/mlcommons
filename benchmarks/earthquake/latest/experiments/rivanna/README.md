@@ -155,6 +155,8 @@ in its corresponding yaml file (e.g. for localscratch, the yaml is called
 ### Using a V100 on rivanna 
 
 To use a v100 you have to set the following.
+The bi_fox_dgx reservation does not have a v100 
+and will fail if one is requested on that reservation.
 
 ```yaml
 experiment:
@@ -168,9 +170,9 @@ system:
 ```
 
 
-### Using a a100 (new) on rivanna 
+### Using an a100 (new) on rivanna 
 
-To use a a100 you have to set the following.
+To use an a100 you have to set the following.
 
 Please note that only bii_dsc_community, bii_dsc are able to use a new 
 version of the A100 if the following are included in the yaml file.
