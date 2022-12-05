@@ -16,10 +16,10 @@ generate-dgx: jobs-dgx.sh
 
 run: submit
 
-submit: all
-	sh jobs-project.sh
-	sh jobs-localscratch.sh
-	sh jobs-dgx.sh
+submit:
+	-sh jobs-project.sh
+	-sh jobs-localscratch.sh
+	-sh jobs-dgx.sh
 
 
 
