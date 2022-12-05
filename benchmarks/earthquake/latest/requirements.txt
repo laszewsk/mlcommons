@@ -10,7 +10,9 @@ pandas
 psutil
 scipy
 tabulate
-tensorflow
+tensorflow==2.8.0
+tensorflow-gpu==2.8.0
+protobuf==3.19.4
 tensorflow_datasets
 tqdm
 wheel
