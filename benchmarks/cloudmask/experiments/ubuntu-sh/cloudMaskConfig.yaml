@@ -9,6 +9,11 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
+name: cloudmask-ubuntu
+sbatch:
+  mode: h
+  dir: localscratch
+
 # General info
 benchmark: CloudMask
 organisation: STFC
@@ -17,7 +22,7 @@ status: research
 platform: nvidia gtx-2
 accelerators_per_node: 16
 
-# Submission INformation
+# Submission Information
 submission:
   benchmark: earthquake
   submitter: Gregor von Laszewski

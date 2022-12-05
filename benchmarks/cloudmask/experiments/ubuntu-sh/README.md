@@ -39,12 +39,12 @@ mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 export EQ_VERSION=latest
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu
+cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu-sh
 
 # TODO: THIS HAS TO BE CHNAGED
 
 # build slurm scripts
-# cms sbatch generate --source=rivanna.in.slurm --config=rivanna-2epoch.yaml --name="project" --noos 
+cms sbatch generate --source=ubuntu.in.slurm --config=cloudMaskConfig.yaml --name="project" --noos 
 make project
 
 
