@@ -7,6 +7,7 @@
 # Copyright © 2022 Scientific Machine Learning Research Group
 # Scientific Computing Department, Rutherford Appleton Laboratory
 # Science and Technology Facilities Council, UK.
+# with modifications from Gregor von Laszewski, Juri Papay
 # All rights reserved.
 
 import yaml
@@ -172,7 +173,7 @@ def cloud_training(args) -> None:
     with mirrored_strategy.scope():
         # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
-        model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer=optimizer, loss=args['training_loss'], metrics=[args['training_metrics']])
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
     # Close file descriptors
