@@ -26,7 +26,7 @@ setup-%: rivanna-%.yaml
 run: submit
 
 submit: all
-	sh jobs-localscratch.sh
+	sh cloudmask.sh
 
 
 .PHONY: stop
@@ -35,9 +35,6 @@ stop:
 
 .PHONY: clean
 clean:
-	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
-	@-rm -rf project project.json jobs-project.sh
-	@-rm -rf dgx dgx.json jobs-dgx.sh
-	@-rm -rf shm shm.json jobs-shm.sh
+	@-rm -rf cloudmask cloudmask.json cloudmask.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'
