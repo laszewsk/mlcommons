@@ -86,8 +86,9 @@ echo herescondainfo
 conda info
 echo i finished
 
+source ~/ENV3/bin/activate
 
-python3.10 -m pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
+pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
 
 # ####################################################################################################
 # CLOUDMASK
