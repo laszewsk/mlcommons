@@ -22,6 +22,15 @@ status: research
 platform: nvidia gtx-2
 accelerators_per_node: 16
 
+run:
+  filesystem: "/localscratch/{os.USER}"
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
+  venvpath: "$HOME/mlcommons-work/python"
+  datadir: data
+  branch: 'main'
+  # allocation: ds6011-sp22-002
+  # allocation: bii_dsc
+
 # Submission Information
 submission:
   benchmark: earthquake

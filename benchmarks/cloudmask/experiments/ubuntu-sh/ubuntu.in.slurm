@@ -20,6 +20,7 @@
 
 set -uxe
 
+RUN_BASE="{run.filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}"
 
 ## to run this say sbatch rivanna.sh
 
@@ -38,12 +39,17 @@ echo "# cloudmesh status=running progress=1 pid=$$"
 
 # cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
 
-currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
-currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(currentepoch=\)*//")
+#currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
+#currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(currentepoch=\)*//")
 
 # python run_all_rivanna.py
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/target/
 # python -m rivanna.slstr_cloud --config ./rivanna/cloudMaskConfig.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
+
+
+
+cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+
 conda run --no-capture-output \
       -n MLBENCH python \
       -m rivanna.slstr_cloud \
@@ -67,11 +73,11 @@ NB_OUTPUT="_output"
 
 # RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
 
-RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
-DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
-VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
-
-source ${VENV_PATH}/bin/activate
+#RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
+#DATA_PATH="$(echo {data.destination}/mlcommons-data-earthquake/data)" # $(python eq_lib.py config.yaml data.destination)
+#VENV_PATH="$(echo {run.venvpath})"     # $(python eq_lib.py config.yaml run.venvpath)
+#
+#source ${VENV_PATH}/bin/activate
 
 mkdir -p ${RUN_BASE}
 
