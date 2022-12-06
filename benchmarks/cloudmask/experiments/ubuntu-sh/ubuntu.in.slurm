@@ -59,6 +59,10 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
+echo watch this
+echo $THEPATH
+echo wasnt that cool
+
 conda run --no-capture-output \
       -n MLBENCH python \
       -m ubuntu-sh.slstr_cloud \
