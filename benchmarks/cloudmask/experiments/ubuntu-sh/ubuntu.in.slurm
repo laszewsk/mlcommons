@@ -8,7 +8,6 @@
 #SBATCH --constraint={system.constraint}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
-#SBATCH --time={time}
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --cpus-per-task=1
 #SBATCH --mail-user=%u@virginia.edu
