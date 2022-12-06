@@ -17,7 +17,7 @@ status: research
 platform: nvidia gtx-2
 accelerators_per_node: 16
 
-# Submission INformation
+# Submission Information
 submission:
   benchmark: earthquake
   submitter: Gregor von Laszewski

@@ -42,7 +42,7 @@ jobs-%.sh: %.json
 
 %.json: cloudMaskConfig.yaml
 	cms sbatch generate \
-	           --source=ubuntu.in.slurm \
+	           --source=job.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
