@@ -62,6 +62,10 @@ inspect:
 	echo ${D}
 	$(shell emacs project/${D}/config.yaml project/${D}/job.slurm)
 
+
+status:
+	watch squeue -u $USER
+
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
