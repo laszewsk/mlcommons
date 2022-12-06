@@ -18,13 +18,7 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-<<<<<<< HEAD
-fake:
-=======
-
 project: setup project.json generate-project
-
->>>>>>> e3904ff3ae8fcd13eea4178673ffb2c26659c2f9
 
 localscratch: localscratch.json
 
