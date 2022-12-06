@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-%j
+#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}%j
 #SBATCH --output=cloudmask-%j.log
 #SBATCH --error=cloudmask-%j.error
 #SBATCH --partition={system.partition}
