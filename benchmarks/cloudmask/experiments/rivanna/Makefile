@@ -3,26 +3,21 @@ SHELL=/bin/bash
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=py3.10
 
-.PHONY: project
+all: project 
 
-all: project localscratch shm generate
-
+project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
 
 generate: jobs-project.sh 
 
-generate-project: jobs-project.sh
-
 run: submit
 
 submit:
 	-sh jobs-project.sh
 
-
-project: project.json generate-project
-
+fake:
 
 localscratch: localscratch.json
 
