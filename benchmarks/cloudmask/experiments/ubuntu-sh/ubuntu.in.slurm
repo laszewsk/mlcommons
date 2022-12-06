@@ -31,6 +31,7 @@ fi
 
 cd ~
 
+conda init bash
 conda activate MLBENCH
 
 module load singularity tensorflow/2.8.0
