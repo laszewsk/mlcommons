@@ -56,6 +56,8 @@ module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 module load gcc
 
+pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
+
 # ####################################################################################################
 # CLOUDMASK
 # ####################################################################################################
