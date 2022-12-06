@@ -42,10 +42,10 @@ cd ~
 echo "# cloudmesh status=running progress=2 pid=$$"
 
 module load anaconda
-conda init bash
+# conda init bash
 
 set +eu
-source activate ENV3
+conda activate cloudenv
 set -eu
 set -uxe
 
@@ -55,6 +55,8 @@ module load cuda/11.4.2
 module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 module load gcc
+
+source ~/ENV3/bin/activate
 
 # ####################################################################################################
 # CLOUDMASK
@@ -76,27 +78,14 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
 
-#currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
-#currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(currentepoch=\)*//")
-
-# python run_all_rivanna.py
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
-# python -m rivanna.slstr_cloud --config ./rivanna/config.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
-conda run --no-capture-output \
-      -n ENV3 python \
-      -m ubuntu-sh.slstr_cloud \
-      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
-
-# python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
+python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 echo "# cloudmesh status=done progress=100 pid=$$"
 
-
-#
-#
 echo "Execution Complete"
 
 #

@@ -8,8 +8,8 @@ try:
     env = sys.argv[1]
     version = sys.argv[2]
 except:
-    env = "MLBENCH"
-    version = "3.10.5"
+    env = "cloudenv"
+    version = "3.10.8"
 
 """
 conda env list
@@ -37,9 +37,9 @@ if "command not found" in os.popen("conda env list").read():
     except Exception as e:
         print(e.output)
 
-if env in os.popen("conda env list").read():
-    print(f"environment {env} already installed in conda")
-else:
-    os.system(f"conda create -f -y -n {env} -c conda-forge python={version}")
+#if env in os.popen("conda env list").read():
+#    print(f"environment {env} already installed in conda")
+#else:
+#    os.system(f"conda create -f -y -n {env} -c conda-forge python={version}")
 
 # nvidia-smi --list-gpus
