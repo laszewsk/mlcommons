@@ -94,8 +94,8 @@ TODO: This need to be changed as we do not use slurm for now
 
 
 ```bash
-# sh jobs-project.sh
-make run
+sh jobs-project.sh
+# make run
 # Submitted batch job 12345678
 ```
 
