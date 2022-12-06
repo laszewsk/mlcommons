@@ -45,7 +45,7 @@ module load anaconda
 conda init bash
 
 set +eu
-source activate ENV3
+conda activate python310
 set -eu
 set -uxe
 
@@ -102,7 +102,7 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 conda run --no-capture-output \
-      -n ENV3 python \
+      python \
       -m rivanna.slstr_cloud \
       --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
