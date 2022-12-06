@@ -33,7 +33,11 @@ cd ~
 
 module load anaconda
 conda init bash
+
+set +eu
 source activate MLBENCH
+set -eu
+set -uxe
 
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
