@@ -9,6 +9,7 @@ project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
+	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/requirements.txt
 
 generate: jobs-project.sh 
 

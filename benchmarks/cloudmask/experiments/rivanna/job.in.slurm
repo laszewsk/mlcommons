@@ -42,12 +42,28 @@ cd ~
 echo "# cloudmesh status=running progress=2 pid=$$"
 
 module load anaconda
-conda init bash
+which python
+python -V
+# conda init bash
 
 set +eu
-source activate ENV3
+conda activate cloudenv
 set -eu
 set -uxe
+
+echo im testing
+python -V
+echo im testing
+
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+which python
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+
+echo herescondainfo
+conda info
+echo i finished
 
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
@@ -55,6 +71,22 @@ module load cuda/11.4.2
 module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 module load gcc
+
+echo im testing
+python -V
+echo im testing
+
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+which python
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+
+echo herescondainfo
+conda info
+echo i finished
+
+source ~/ENV3/bin/activate
 
 # ####################################################################################################
 # CLOUDMASK
@@ -81,14 +113,15 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # python run_all_rivanna.py
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
-# python -m rivanna.slstr_cloud --config ./rivanna/config.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
-conda run --no-capture-output \
-      -n ENV3 python \
-      -m rivanna.slstr_cloud \
-      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+#conda run --no-capture-output \
+#      -n cloudenv python \
+#      -m rivanna.slstr_cloud \
+#      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+
+python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 # python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
 

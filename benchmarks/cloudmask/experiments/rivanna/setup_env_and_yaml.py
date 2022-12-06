@@ -8,7 +8,7 @@ try:
     env = sys.argv[1]
     version = sys.argv[2]
 except:
-    env = "ENV3"
+    env = "cloudenv"
     version = "3.10.8"
 
 """
