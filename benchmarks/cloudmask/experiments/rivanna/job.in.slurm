@@ -88,8 +88,6 @@ echo i finished
 
 source ~/ENV3/bin/activate
 
-pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
-
 # ####################################################################################################
 # CLOUDMASK
 # ####################################################################################################
