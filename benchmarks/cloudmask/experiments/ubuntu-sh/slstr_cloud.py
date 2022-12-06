@@ -188,7 +188,7 @@ def cloud_training(args) -> None:
         # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
         model.compile(optimizer=optimizer, loss=args['training_loss'], metrics=[args['training_metrics']])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['experiment']['epoch'], verbose=1)
+        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(args['experiment']['epoch']), verbose=1)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
@@ -267,7 +267,7 @@ def main():
     time_per_epoch_str = f"{time_per_epoch:.2f}"
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask training, samples = {samples}, "
-                      f"epochs={args['experiment']['epoch']}, "
+                      f"epochs={int(args['experiment']['epoch'])}, "
                       f"bs={args['batch_size']}, "
                       f"nodes={args['nodes']}, "
                       f"gpus={args['gpu']}, "
