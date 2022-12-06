@@ -41,8 +41,12 @@ cd ~
 
 echo "# cloudmesh status=running progress=2 pid=$$"
 
+echo herescondainfo
+conda info
+echo i finished
+
 module load anaconda
-conda init bash
+# conda init bash
 
 echo herescondainfo
 conda info
