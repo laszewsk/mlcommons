@@ -22,7 +22,7 @@ submit:
 	-sh jobs-project.sh
 
 
-project: project.json generate-project
+project: setup project.json generate-project
 
 
 localscratch: localscratch.json
