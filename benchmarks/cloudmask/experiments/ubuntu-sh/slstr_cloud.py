@@ -10,11 +10,13 @@
 # with modifications from Gregor von Laszewski, Juri Papay
 # All rights reserved.
 
+import sys
+sys.path.append("..")
+
 import yaml
 import os
 import atexit
 import h5py
-import sys
 import time
 import decimal
 import argparse
