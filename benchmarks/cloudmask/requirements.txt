@@ -3,3 +3,4 @@ scikit-learn
 h5py
 pyyaml
 cloudmesh-common
+git+https://github.com/mlperf/logging.git@1.0.0
