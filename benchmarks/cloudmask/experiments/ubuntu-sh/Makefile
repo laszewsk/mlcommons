@@ -10,7 +10,7 @@ generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
 #generate-%: jobs-%.sh
 
 generate-dgx: jobs-dgx.sh
-generate-localscratch: jobs-localscratch.sh
+generate-project: jobs-project.sh
 generate-shm: jobs-shm.sh
 generate-dgx: jobs-dgx.sh
 
@@ -41,7 +41,7 @@ shm: shm.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
-%.json: rivanna-%.yaml
+%.json: cloudMaskConfig.yaml
 	cms sbatch generate \
 	           --source=rivanna.in.slurm \
 	           --config=$< \
