@@ -43,6 +43,9 @@ cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu-sh
 
 # TODO: THIS HAS TO BE CHNAGED
 
+# setup venv
+make setup
+
 # build slurm scripts
 #cms sbatch generate \ 
 #  --source=ubuntu.in.slurm \
