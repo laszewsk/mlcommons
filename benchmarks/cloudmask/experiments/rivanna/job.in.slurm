@@ -41,16 +41,11 @@ cd ~
 
 echo "# cloudmesh status=running progress=2 pid=$$"
 
-echo herescondainfo
-conda info
-echo i finished
-
 module load anaconda
+which python
+python -V
+exit 0
 # conda init bash
-
-echo herescondainfo
-conda info
-echo i finished
 
 set +eu
 conda activate python310
