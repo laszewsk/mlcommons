@@ -1,67 +1,104 @@
-File Edit Options Buffers Tools Makefile Help
-SHELL := /bin/bash
+#!/usr/bin/env bash
+#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-%j
+#SBATCH --output=cloudmask-%j.log
+#SBATCH --error=cloudmask-%j.error
+#SBATCH --partition={system.partition}
+#SBATCH --account={system.allocation}
+#SBATCH --reservation={system.reservation}
+#SBATCH --constraint={system.constraint}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
 
-LOCAL_BIN=/home/${USER}/.local/bin
-PYTHON=py3.10
+# #SBATCH --partition=gpu
+# #SBATCH --mem=64GB
+# #SBATCH --time=6:00:00
 
-.PHONY: project
+echo "# cloudmesh status=running progress=1 pid=$$"
 
-all: project localscratch shm generate
+set -uxe
 
+RUN_BASE="{run.filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}"
+DATA_PATH="/scratch/${USER}/mlcommons/benchmarks/cloudmask/data"
 
-setup:
-        python setup_env_and_yaml.py
+if [ -n $SLURM_JOB_ID ] ; then
+THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
+else
+THEPATH=$(realpath $0)
+fi
 
-generate: jobs-project.sh
+## to run this say sbatch rivanna.sh
 
-generate-project: jobs-project.sh
-
-run: submit
-
-submit:
-        -sh jobs-project.sh
-
-
-project: cloudMaskConfig.yaml project.json
+cd ~
 
 
-localscratch: localscratch.json
+# ####################################################################################################
+# MODULE LOAD
+# ####################################################################################################
+
+echo "# cloudmesh status=running progress=2 pid=$$"
+
+module load anaconda
+conda init bash
+
+set +eu
+source activate ENV3
+set -eu
+set -uxe
+
+module load singularity tensorflow/2.8.0
+module load cudatoolkit/11.0.3-py3.8
+module load cuda/11.4.2
+module load cudnn/8.2.4.15
+module load anaconda/2020.11-py3.8
+module load gcc
+
+# ####################################################################################################
+# CLOUDMASK
+# ####################################################################################################
+
+echo "# cloudmesh status=running progress=5 pid=$$"
+
+echo "Working in Directory:      $(pwd)"
+echo "Running in Directory:      ${RUN_BASE}"
+echo "Experiment Data Directory: ${DATA_PATH}"
+echo "Repository Revision:       $(git rev-parse HEAD)"
+echo "Notebook Script:           {code.script}"
+echo "Python Version:            $(python -V)"
+echo "Running on host:           $(hostname -a)"
+
+cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+
+echo "# cloudmesh status=running progress=6 pid=$$"
+
+# cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
+
+#currentgpu=$(echo $(cms set currentgpu) | sed -e "s/['\"]//g" -e "s/^\(currentgpu=\)*//")
+#currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(currentepoch=\)*//")
+
+# python run_all_rivanna.py
+cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
+# python -m rivanna.slstr_cloud --config ./rivanna/cloudMaskConfig.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
+
+cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+
+conda run --no-capture-output \
+      -n ENV3 python \
+      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+      -m rivanna.slstr_cloud \
+
+# python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
+
+echo "# cloudmesh status=done progress=100 pid=$$"
 
 
-jobs-%.sh: %.json
-        cms sbatch generate submit --name=$<  > $@
+#
+#
+echo "Execution Complete"
 
-%.json: cloudMaskConfig.yaml
-        cms sbatch generate \
-                   --source=job.in.slurm \
-                   --config=$< \
-                   --name=$(basename $@) \
-                   --noos \
-                   --nocm \
-                   --os=USER \
-                   --output_dir=./$(basename $@) \
-               --source_dir=. \
-               --verbose
-
-data:
-        echo $(LOCAL_BIN)
-        cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-           mkdir -p data/ssts && mkdir -p data/one-day
-        module load anaconda && source activate $(PYTHON) && pip install awscli
-        echo -n "Downloading first portion of data..." ; module load anaconda && source activate $(PYTHON) && \
-           cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-           $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout \
-0
-        echo -n "Downloading second portion of data..." ; module load anaconda && source activate $(PYTHON) && \
-            cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-            $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
-
-stop:
-        for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
-
-clean:
-        @-rm -rf localscratch localscratch.json jobs-localscratch.sh
-        @-rm -rf project project.json jobs-project.sh
-        @-rm -f rivanna.slurm
-        @-rm -rf '__pycache__'
+#
+exit 0
 
