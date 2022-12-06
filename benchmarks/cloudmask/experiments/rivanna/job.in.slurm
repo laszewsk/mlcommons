@@ -44,11 +44,10 @@ echo "# cloudmesh status=running progress=2 pid=$$"
 module load anaconda
 which python
 python -V
-exit 0
 # conda init bash
 
 set +eu
-conda activate python310
+conda activate cloudenv
 set -eu
 set -uxe
 
@@ -121,7 +120,7 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 conda run --no-capture-output \
-      python \
+      -n cloudenv python \
       -m rivanna.slstr_cloud \
       --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
