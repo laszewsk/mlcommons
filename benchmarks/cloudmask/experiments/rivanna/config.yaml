@@ -68,7 +68,7 @@ system:
   partition: "bii-gpu"
   allocation: bii_dsc_community
   constraint: ""
-
+  reservation: ""
 
 # Training data
 train_dir: /scratch/thf2bn/mlcommons/benchmarks/cloudmask/data/one-day

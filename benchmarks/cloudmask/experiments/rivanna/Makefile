@@ -62,6 +62,7 @@ inspect:
 	echo ${D}
 	$(shell emacs project/${D}/config.yaml project/${D}/job.slurm)
 
+watch: status
 
 status:
 	watch squeue -u $(USER)
