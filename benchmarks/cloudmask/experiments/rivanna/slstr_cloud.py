@@ -26,7 +26,7 @@ from model import unet
 from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
-from cloudmesh.common import StopWatch
+from cloudmesh.common.StopWatch import StopWatch
 
 from mlperf_logging import mllog
 import logging
