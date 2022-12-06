@@ -44,6 +44,10 @@ echo "# cloudmesh status=running progress=2 pid=$$"
 module load anaconda
 conda init bash
 
+echo herescondainfo
+conda info
+echo i finished
+
 set +eu
 conda activate python310
 set -eu
@@ -58,6 +62,10 @@ echo --------------------------------------------------------------------
 which python
 echo --------------------------------------------------------------------
 echo --------------------------------------------------------------------
+
+echo herescondainfo
+conda info
+echo i finished
 
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
@@ -75,6 +83,11 @@ echo --------------------------------------------------------------------
 which python
 echo --------------------------------------------------------------------
 echo --------------------------------------------------------------------
+
+echo herescondainfo
+conda info
+echo i finished
+
 
 pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
 pip install pyyaml
