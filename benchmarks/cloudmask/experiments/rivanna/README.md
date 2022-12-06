@@ -1,80 +1,124 @@
 # sbatch for ubuntu
 
+This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
+to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
+different experiments as it stores the output in a directory format that 
+simplifies analysis.
 
-1. We assume if you like to use the automated report generated (under
-   development) you have full latex installed
+## 1. Programming Environment Prerequisits
 
-   ```bash
-   sudo apt install texlive-latex-extra
-   ```
+### 1.1 LaTeX (optional)
 
-   If you do not want to create the reports, please skip this step.
-
-2. We assume you have at least python version 3.10.4 installed. The
-   latest version we tried is Python 3.11.0. We recommend using that
-   version. We install it in a python venv and install in it the
-   required packages
-  
-   ```bash
-   python3.10 -m venv ~/ENV3
-   source ~/ENV3/bin/activate
-   mkdir ~/cm
-   cd ~/cm
-   pip install cloudmesh-installer
-   cloudmesh-installer get sbatch
-   cms help
-   ```
-
-3. Generating experiment configurations
-
-TODO: THis need sto be changed so we only run in sh and not slurm for now
-
-Chose a PROJECT_DIR where you like to install the code
-
-Pick a project directory and generate make file.
+We assume if you like to use the automated report generated (under
+development) you have full version of latex installed
 
 ```bash
-export PROJECT_DIR=/project/mlcommons
+module load texlive
+```
+
+If you do not want to create the reports, please skip this step.
+
+### 1.2 Python 3
+
+We assume you have a fairly new version of Python installed susch as 
+Python 3.11.0. However, a version greater than 3.10.4 will also do.
+We install the version of python to be used in a python venv and 
+install in it the required packages
+
+```bash
+python3.10 -m venv ~/ENV3
+source ~/ENV3/bin/activate
+mkdir ~/cm
+cd ~/cm
+pip install cloudmesh-installer
+cloudmesh-installer get sbatch
+cms help
+```
+## 2. Generating experiment configurations
+
+Choose a PROJECT_DIR where you like to install the code. Rivanna offers some temporary
+space in the /scratch directory. 
+
+```bash
+export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 export EQ_VERSION=latest
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu-sh
-
-# TODO: THIS HAS TO BE CHNAGED
-
-# setup venv
-make setup
-
-# build slurm scripts
-#cms sbatch generate \ 
-#  --source=ubuntu.in.slurm \
-#  --config=cloudMaskConfig.yaml \
-#  --name="project" \
-#  --noos \
-#  --os=USER \
-#  --output_dir="project" \
-#  --source_dir=. \
-#  --verbose
- 
-make project
-
-
-# Generate the submit scripts
-#cms sbatch generate submit --name="project.json" > jobs-project.sh
-make generate
+cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
 ```
+## 3. Obtaining the data
 
-It is advised that you inspect the output of the above to validate
-that all generated scripts and files are correct.  Most jobs take
-several hours, so correcting errors by inspecting the output will save
-time when troubleshooting.
+Next we obtain the data. The command uses an aws call to download both
+daytime and nighttime images of the sky. The total space the data dir
+will take up is 180GB. It will take around 1 hour to finish downloading
+the data.
 
 ```bash
-emacs project/card_name_rtx3090_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/ubuntu.slurm
+time make data
 ```
 
-or simply call (Not implemented)
+## 4. Generate parameterized jobs
+
+Next we generate some parameterized jobs. These runs are controlled with two files.
+
+* `cloudMaskConfig.yaml` -- Specifies the parameters for cloudmask and the 
+  SLURM scripts.
+
+* `ubuntu.in.slurm` -- Specifies the slurm script in which the parameters 
+  defined by `cloudMaskConfig.yaml` will be substituted.
+
+  This is simply done via the following make commands after you have selected 
+  appropriate values in the yaml file. 
+
+  ```bash
+  # setup venv
+  make setup
+  make project
+  make generate
+  ```
+
+  The makefile targets will generate two files and a subdirectory with individual 
+  experiments:
+
+* `cloudmask.sh` -- Is a file that contains each individual job submission 
+  based on the parameter sweep that is defined by the YAML file.
+* `cloudmask.json` -- Is a file that contains the metadata associated with the 
+  individual job submissions generated from the experiment permutations
+* `cloudmask` -- Is a directory that includes for each individual experiment a 
+  slurm script and a yaml file.
+
+## 5. Running the parameterized jobs
+
+Before executing the `cloudmask.sh` script, it is advised that you inspect the 
+output of the files and directories. 
+
+Be aware that many jobs may take hours to complete.  We provide here a simple 
+estimate while using some predefined model as specified in our yaml file.
+
+| Epochs | Time in s |
+|-------:|----------:|
+|      1 |       ??? |
+|     10 |       ??? |
+|     30 |       ??? |
+|     50 |       ??? |
+|    100 |       ??? |
+
+An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
+
+```bash
+less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/rivanna.slurm
+```
+
+To look at the yaml file for this experiment, use 
+
+```bash
+less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/cloudMaskConfig.yaml
+```
+
+TODO: 
+
+or simply call (Not implemented) wch uses emacs to open both files.
 
 ```bash
 make inspect
@@ -82,20 +126,14 @@ make inspect
 
 Note: to exit emacs, press `Ctrl+x` and then `Ctrl+c` to return to your normal prompt.
 
-4. Running the experiments
+## 6. Running the experiments
 
 If all the output from above looks correct, you can execute the jobs
 by running the last two scripts that are generated by cms sbatch
 generate submit.
 
-
-TODO: This need to be changed as we do not use slurm for now
-
-
-
 ```bash
-sh jobs-project.sh
-# make run
+make run
 # Submitted batch job 12345678
 ```
 
@@ -107,18 +145,16 @@ submitted. if you just have one job it will return just that one
 job. `make status` is a shortcut to see all jobs of a user
 
 ```bash
-squeue --job 12345678
-squeue | fgrep $USER
 make status
 ```
 
 
 The `make run` will submit the job to slurm, and the
 notebook file will be outputted in the
-`$(pwd)/project/<experiment_id>` directory.
+`$(pwd)/cloudmask/<experiment_id>` directory.
 
 You can see the progress of each job by inspecting the `*.out` and
-`*.err` files located in the `$(pwd)/project/<experiment_id>`).
+`*.err` files located in the `$(pwd)/cloudmask/<experiment_id>`).
 
 A copy of the final notebook is placed in the slurm expeeriments
 folder with the suffix `*_output.ipynb`, that can be inspected for
@@ -127,14 +163,14 @@ further details.
 To watch the output dynamically
 
 ```bash
-tail -f  project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/*12345678.out
+tail -f  project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/*.out
 ```
 
 
 
-### Generate Report
+## 7. Generate Report
 
-TODO: not implemented
+**TODO:** not implemented
 
 ```bash
 pdflatex report.tex
@@ -145,4 +181,4 @@ pdflatex report.tex
 
 This will create a pdf named `report.pdf`.  You can download this to
 your local to view the output to view the report generated as a result
-of the exectuion.
+of the execution.
