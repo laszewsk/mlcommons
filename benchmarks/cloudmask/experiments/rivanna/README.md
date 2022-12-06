@@ -88,8 +88,8 @@ Next we generate some parameterized jobs. These runs are controlled with two fil
 
   ```bash
   # setup venv
-  make setup
-  make project
+  make setup  # this takes minutes
+  make project # this takes less then 15 seconds
   ```
 
   The makefile targets will generate two files and a subdirectory with individual 
