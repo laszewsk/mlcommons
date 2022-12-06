@@ -47,6 +47,7 @@ jobs-%.sh: %.json
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
+	           --nocm \
 	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \

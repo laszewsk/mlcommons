@@ -44,22 +44,22 @@ cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu-sh
 # TODO: THIS HAS TO BE CHNAGED
 
 # build slurm scripts
-cms sbatch generate \ 
-  --source=ubuntu.in.slurm \
-  --config=cloudMaskConfig.yaml \
-  --name="project" \
-  --noos \
-  --os=USER \
-  --output_dir="project" \
-  --source_dir=. \
-  --verbose
+#cms sbatch generate \ 
+#  --source=ubuntu.in.slurm \
+#  --config=cloudMaskConfig.yaml \
+#  --name="project" \
+#  --noos \
+#  --os=USER \
+#  --output_dir="project" \
+#  --source_dir=. \
+#  --verbose
  
-# make project
+make project
 
 
 # Generate the submit scripts
-cms sbatch generate submit --name="project.json" > jobs-project.sh
-# make generate
+#cms sbatch generate submit --name="project.json" > jobs-project.sh
+make generate
 ```
 
 It is advised that you inspect the output of the above to validate
