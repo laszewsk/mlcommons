@@ -49,12 +49,26 @@ source activate ENV3
 set -eu
 set -uxe
 
+echo im testing
+python -V
+echo im testing
+
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
 module load cuda/11.4.2
 module load cudnn/8.2.4.15
 module load anaconda/2020.11-py3.8
 module load gcc
+
+echo im testing
+python -V
+echo im testing
+
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+which python
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
 
 pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
 
