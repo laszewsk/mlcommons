@@ -35,7 +35,7 @@ module load anaconda
 conda init bash
 
 set +eu
-source activate MLBENCH
+source activate ENV3
 set -eu
 set -uxe
 
@@ -60,7 +60,7 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 conda run --no-capture-output \
-      -n MLBENCH python \
+      -n ENV3 python \
       -m ubuntu-sh.slstr_cloud \
       --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 

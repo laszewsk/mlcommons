@@ -8,8 +8,8 @@ try:
     env = sys.argv[1]
     version = sys.argv[2]
 except:
-    env = "MLBENCH"
-    version = "3.10.5"
+    env = "ENV3"
+    version = "3.10.8"
 
 """
 conda env list
