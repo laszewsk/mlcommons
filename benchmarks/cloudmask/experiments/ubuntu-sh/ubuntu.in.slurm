@@ -29,9 +29,6 @@ fi
 
 ## to run this say sbatch rivanna.sh
 
-cd $THEPATH
-
-python setup_env_and_yaml.py
 cd ~
 
 module load anaconda

@@ -2,9 +2,8 @@ SHELL := /bin/bash
 
 all: project localscratch shm generate
 
-setup-%: rivanna-%.yaml
-	python 01-fetch-data.py $<
-	python 02-setup-venv.py $<
+setup:
+	python setup_env_and_yaml.py
 
 generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
 #generate-%: jobs-%.sh
