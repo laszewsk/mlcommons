@@ -87,8 +87,8 @@ cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 conda run --no-capture-output \
       -n ENV3 python \
-      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
       -m rivanna.slstr_cloud \
+      --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 # python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
 

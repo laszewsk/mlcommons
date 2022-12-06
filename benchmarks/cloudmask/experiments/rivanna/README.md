@@ -155,7 +155,7 @@ The number will be different for you.
 To find out the status you can do the following commands. The first
 looks up the job by the id, the second will list all jobs you
 submitted. if you just have one job it will return just that one
-job. `make status` is a shortcut to see all jobs of a user
+job. `make status` is a shortcut to see all jobs of a user.
 
 ```bash
 make status
