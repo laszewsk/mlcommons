@@ -39,7 +39,7 @@ class SLSTRDataLoader:
         self.single_image = single_image
         self.patch_padding = 'valid' if not single_image else 'same'
 
-        # Parameters from cloudMaskConfig.yaml
+        # Parameters from config.yaml
         self.patch_size = args['PATCH_SIZE']
         self.n_channels = args['N_CHANNELS']
         self.image_h = args['IMAGE_H']

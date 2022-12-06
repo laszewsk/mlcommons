@@ -77,11 +77,11 @@ $(PROJECT_DIR)/mlcommons/benchmarks/cloudmask/data
 
 Next we generate some parameterized jobs. These runs are controlled with two files.
 
-* `cloudMaskConfig.yaml` -- Specifies the parameters for cloudmask and the 
+* `config.yaml` -- Specifies the parameters for cloudmask and the 
   SLURM scripts.
 
 * `ubuntu.in.slurm` -- Specifies the slurm script in which the parameters 
-  defined by `cloudMaskConfig.yaml` will be substituted.
+  defined by `config.yaml` will be substituted.
 
   This is simply done via the following make commands after you have selected 
   appropriate values in the yaml file. 
@@ -96,16 +96,16 @@ Next we generate some parameterized jobs. These runs are controlled with two fil
   The makefile targets will generate two files and a subdirectory with individual 
   experiments:
 
-* `cloudmask.sh` -- Is a file that contains each individual job submission 
+* `project.sh` -- Is a file that contains each individual job submission 
   based on the parameter sweep that is defined by the YAML file.
-* `cloudmask.json` -- Is a file that contains the metadata associated with the 
+* `project.json` -- Is a file that contains the metadata associated with the 
   individual job submissions generated from the experiment permutations
-* `cloudmask` -- Is a directory that includes for each individual experiment a 
+* `project` -- Is a directory that includes for each individual experiment a 
   slurm script and a yaml file.
 
 ## 5. Running the parameterized jobs
 
-Before executing the `cloudmask.sh` script, it is advised that you inspect the 
+Before executing the `jobs-project.sh` script, it is advised that you inspect the 
 output of the files and directories. 
 
 Be aware that many jobs may take hours to complete.  We provide here a simple 
@@ -122,18 +122,16 @@ estimate while using some predefined model as specified in our yaml file.
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
 ```bash
-less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/rivanna.slurm
+less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/rivanna.slurm
 ```
 
 To look at the yaml file for this experiment, use 
 
 ```bash
-less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/cloudMaskConfig.yaml
+less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
 ```
 
-TODO: 
-
-or simply call (Not implemented) wch uses emacs to open both files.
+or simply call  which uses emacs to open both files from the firts parameterized job.
 
 ```bash
 make inspect

@@ -62,11 +62,11 @@ time make data
 
 Next we generate some parameterized jobs. These runs are controlled with two files.
 
-* `cloudMaskConfig.yaml` -- Specifies the parameters for cloudmask and the 
+* `config.yaml` -- Specifies the parameters for cloudmask and the 
   SLURM scripts.
 
 * `ubuntu.in.slurm` -- Specifies the slurm script in which the parameters 
-  defined by `cloudMaskConfig.yaml` will be substituted.
+  defined by `config.yaml` will be substituted.
 
   This is simply done via the following make commands after you have selected 
   appropriate values in the yaml file. 
@@ -113,7 +113,7 @@ less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/r
 To look at the yaml file for this experiment, use 
 
 ```bash
-less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/cloudMaskConfig.yaml
+less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
 ```
 
 TODO: 

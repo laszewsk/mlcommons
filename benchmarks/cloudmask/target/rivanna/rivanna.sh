@@ -29,9 +29,9 @@ currentepoch=$(echo $(cms set currentepoch) | sed -e "s/['\"]//g" -e "s/^\(curre
 
 # python run_all_rivanna.py
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/target/
-# python -m rivanna.slstr_cloud --config ./rivanna/cloudMaskConfig.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
+# python -m rivanna.slstr_cloud --config ./rivanna/config.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 conda run --no-capture-output -n MLBENCH python -m rivanna.slstr_cloud \
-  --config ./rivanna/cloudMaskConfig.yaml \
+  --config ./rivanna/config.yaml \
   > /scratch/$USER/mlcommons/benchmarks/cloudmask/target/output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 # python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
 echo "# cloudmesh status=done progress=100 pid=$$"

@@ -18,11 +18,11 @@ for card in gpus:
         Shell.run(f'cms set currentgpu={card}')
         Shell.run(f'cms set currentepoch={epoch}')
         Shell.run(
-            f"sed -i '/epochs:/c\epochs: {epoch}' cloudMaskConfig.yaml")
+            f"sed -i '/epochs:/c\epochs: {epoch}' config.yaml")
         Shell.run(
-            f"sed -i '/mlperf_logfile:/c\mlperf_logfile: ./mlperf_cloudmask_{card}_{epoch}.log' cloudMaskConfig.yaml")
+            f"sed -i '/mlperf_logfile:/c\mlperf_logfile: ./mlperf_cloudmask_{card}_{epoch}.log' config.yaml")
         Shell.run(
-            f"sed -i '/log_file:/c\log_file: ./cloudMask_Log_{card}_{epoch}.log' cloudMaskConfig.yaml")
+            f"sed -i '/log_file:/c\log_file: ./cloudMask_Log_{card}_{epoch}.log' config.yaml")
         Shell.run(f'sbatch --wait --gres=gpu:{card}:2 rivanna.sh')
         progress_amount += 6
         progress(progress=progress_amount)

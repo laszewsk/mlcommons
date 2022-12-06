@@ -81,7 +81,7 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # python run_all_rivanna.py
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
-# python -m rivanna.slstr_cloud --config ./rivanna/cloudMaskConfig.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
+# python -m rivanna.slstr_cloud --config ./rivanna/config.yaml > output_$(echo $currentgpu)_$(echo $currentepoch).log 2>&1
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 

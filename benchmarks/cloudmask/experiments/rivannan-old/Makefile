@@ -6,7 +6,7 @@ all: cloudmask
 
 .PHONY: cloudmask
 
-cloudmask: cloudMaskConfig.yaml
+cloudmask: config.yaml
 	cms sbatch generate \
 	           --source=rivanna.in.slurm \
 	           --config=$< \

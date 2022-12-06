@@ -216,7 +216,7 @@ def cloud_training(args) -> None:
 # #################################
 # Main
 # #################################
-# Running the benchmark: python slstr_cloud.py --config ./cloudMaskConfig.yaml
+# Running the benchmark: python slstr_cloud.py --config ./config.yaml
 
 def main():
     # Read command line arguments
@@ -225,7 +225,7 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    parser.add_argument('--config', default=os.path.expanduser('./cloudMaskConfig.yaml'), help='path to config file')
+    parser.add_argument('--config', default=os.path.expanduser('./config.yaml'), help='path to config file')
     command_line_args = parser.parse_args()
 
     configFile = os.path.expanduser(command_line_args.config)
@@ -241,7 +241,7 @@ def main():
     mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
-    # Values extracted from cloudMaskConfig.yaml
+    # Values extracted from config.yaml
     mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=args['benchmark'])
     mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=args['organisation'])
     mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=args['division'])

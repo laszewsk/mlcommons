@@ -21,7 +21,7 @@ submit:
 	-sh jobs-project.sh
 
 
-project: cloudMaskConfig.yaml project.json
+project: config.yaml project.json
 
 
 localscratch: localscratch.json
@@ -30,7 +30,7 @@ localscratch: localscratch.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
-%.json: cloudMaskConfig.yaml
+%.json: config.yaml
 	cms sbatch generate \
 	           --source=job.in.slurm \
 	           --config=$< \

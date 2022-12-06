@@ -49,7 +49,7 @@ make setup
 # build slurm scripts
 #cms sbatch generate \ 
 #  --source=ubuntu.in.slurm \
-#  --config=cloudMaskConfig.yaml \
+#  --config=config.yaml \
 #  --name="project" \
 #  --noos \
 #  --os=USER \

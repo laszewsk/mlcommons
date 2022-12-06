@@ -55,10 +55,10 @@ The CloudMask benchmark consists of the following files:
 `slstr_cloud.py`,
 `data_loader.py`,
 `model.py`,
-`cloudMaskConfig.yaml`.
+`config.yaml`.
 
 The main program is `slstr_cloud.py` which reads
-`cloudMaskConfig.yaml` containing configuration details.  The
+`config.yaml` containing configuration details.  The
 benchmark also produces a log file with information about the
 parameters and runtime of training and inference.
 
@@ -119,7 +119,7 @@ channels with the resolution of 2400 x 3000 pixels, and the brightness
 temperature is captured across three channels with the resolution of
 1200 x 1500 pixels. The training files are in the "one-day" folder
 (163GB) and the files used for inferencing are in "ssts" folder
-(17GB), see `cloudMaskConfig.yaml`.The datasets can be downloaded from
+(17GB), see `config.yaml`.The datasets can be downloaded from
 the STFC server by using these commands:
 
 ```bash
@@ -142,7 +142,7 @@ application in a data parallel mode.  For running the benchmark use
 this command:
 
 ```bash
-$ python slstr_cloud.py --config ./cloudMaskConfig.yaml
+$ python slstr_cloud.py --config ./config.yaml
 ```
 
 ### Run cloudmask on Rivanna in batch mode
@@ -182,7 +182,7 @@ pip install -r requirements.txt
 # pip install scikit-learn
 # pip install h5py
 # pip install pyyaml
-python slstr_cloud.py --config ./cloudMaskConfig.yaml
+python slstr_cloud.py --config ./config.yaml
 ```
 
 or
@@ -207,7 +207,7 @@ pip install tensorflow-gpu
 pip install scikit-learn
 pip install h5py
 pip install pyyaml
-python slstr_cloud.py --config ./cloudMaskConfig.yaml
+python slstr_cloud.py --config ./config.yaml
 ```
 
 ### Running the code on Pearl
@@ -237,12 +237,12 @@ srun --gres=gpu:1 --pty --mem=64G --time 01:59:00 /bin/bash
 conda activate mlcommons
 
 Run the code
-python slstr_cloud.py --config ./cloudMaskConfig.yaml
+python slstr_cloud.py --config ./config.yaml
 ```
 
 ### Running the code on Summit
 
-The Summit machine at ORNL operates in a batch-mode. For each task we need to write a job-file, for example "cloudMask.job" and submit it by using the: "bsubmit cloudmask.job" command. In the jobfile the "ProjectCode" should be replaced with a valid code which is accepted by the system. The nodes and GPUs are allocated by the -n and -g flags of the jsrun command. For example -g1 allocates 1 GPU and -n 1 node. It is importangt to notice that the number of GPUs and nodes in the "cloudMaskConfig.yaml" file must match the flags in the jsrun command. For example if we requested 24 GPUs in the jsrun we use -n4 -g6 i.e. 4 nodes and 6 GPUs per node.
+The Summit machine at ORNL operates in a batch-mode. For each task we need to write a job-file, for example "cloudMask.job" and submit it by using the: "bsubmit cloudmask.job" command. In the jobfile the "ProjectCode" should be replaced with a valid code which is accepted by the system. The nodes and GPUs are allocated by the -n and -g flags of the jsrun command. For example -g1 allocates 1 GPU and -n 1 node. It is importangt to notice that the number of GPUs and nodes in the "config.yaml" file must match the flags in the jsrun command. For example if we requested 24 GPUs in the jsrun we use -n4 -g6 i.e. 4 nodes and 6 GPUs per node.
 
 ```bash
 #!/bin/bash
@@ -268,7 +268,7 @@ pip install -e mlperf-logging
 echo "Hostname: "
 jsrun -n1 -r1 -c1 hostname
 echo "Running slsts on GPU=1"
-jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig.yaml
+jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./config.yaml
 ```
 
 

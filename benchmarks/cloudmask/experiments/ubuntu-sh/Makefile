@@ -40,7 +40,7 @@ shm: shm.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
-%.json: cloudMaskConfig.yaml
+%.json: config.yaml
 	cms sbatch generate \
 	           --source=ubuntu.in.slurm \
 	           --config=$< \
