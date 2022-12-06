@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 
 LOCAL_BIN=/home/${USER}/.local/bin
+PYTHON=py3.10
 
 all: project localscratch shm generate
 
@@ -80,12 +81,12 @@ data:
 	echo $(LOCAL_BIN)
 	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
        mkdir -p data/ssts && mkdir -p data/one-day
-	module load anaconda && source activate ENV3 && pip install awscli
-	echo -n "Downloading first portion of data..." ; module load anaconda && source activate ENV3 && \
+	module load anaconda && source activate $(PYTHON) && pip install awscli
+	echo -n "Downloading first portion of data..." ; module load anaconda && source activate $(PYTHON) && \
       cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
       $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --no-progress --cli-read-timeout 0 & process_id = $!
 	wait $process_id
-	echo -n "Downloading second portion of data..." ; module load anaconda && source activate ENV3 && \
+	echo -n "Downloading second portion of data..." ; module load anaconda && source activate $(PYTHON) && \
        cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
        $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --no-progress --cli-read-timeout 0 & process_id_2 = $!
 	wait $process_id_2
