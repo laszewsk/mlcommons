@@ -87,8 +87,7 @@ conda info
 echo i finished
 
 
-pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
-pip install pyyaml
+python3.10 -m pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/requirements.txt
 
 # ####################################################################################################
 # CLOUDMASK
