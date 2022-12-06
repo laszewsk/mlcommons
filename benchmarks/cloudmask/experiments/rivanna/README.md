@@ -90,7 +90,6 @@ Next we generate some parameterized jobs. These runs are controlled with two fil
   # setup venv
   make setup
   make project
-  make generate
   ```
 
   The makefile targets will generate two files and a subdirectory with individual 

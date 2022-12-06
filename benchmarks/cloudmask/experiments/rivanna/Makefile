@@ -21,7 +21,7 @@ submit:
 	-sh jobs-project.sh
 
 
-project: project.json
+project: project.json generate-project
 
 
 localscratch: localscratch.json
@@ -64,7 +64,7 @@ inspect:
 
 
 status:
-	watch squeue -u $USER
+	watch squeue -u $(USER)
 
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
