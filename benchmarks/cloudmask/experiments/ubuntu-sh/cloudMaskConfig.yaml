@@ -61,10 +61,10 @@ system:
   constraint: ""
 
 # Training data
-train_dir: ~/sciml_bench/datasets/cloud_slstr_ds1/one-day
+train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
 
 # Inference data
-inference_dir: ~/sciml_bench/datasets/cloud_slstr_ds1/ssts
+inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
 model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
