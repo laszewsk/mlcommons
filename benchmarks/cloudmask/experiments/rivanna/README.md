@@ -1,4 +1,4 @@
-# sbatch for ubuntu
+# Parameterized jobs for rivanna with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
 to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
@@ -21,11 +21,20 @@ If you do not want to create the reports, please skip this step.
 ### 1.2 Python 3
 
 We assume you have a fairly new version of Python installed susch as 
-Python 3.11.0. However, a version greater than 3.10.4 will also do.
+Python 3.10.8. However, a version greater than 3.10.4 will also do.
 We install the version of python to be used in a python venv and 
-install in it the required packages
+install in it the required packages. Please note that as of
+Dec 2022, python 3.11 is not supported by anaconda which we 
+use for this project as it is the recommended version by the 
+rivanna support staff.
 
 ```bash
+module purge
+module load anaconda
+
+conda create -y -n py3.10 python=3.10
+source activate py3.10
+
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
 mkdir ~/cm
@@ -43,9 +52,8 @@ space in the /scratch directory.
 export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
-export EQ_VERSION=latest
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 ```
 ## 3. Obtaining the data
 
