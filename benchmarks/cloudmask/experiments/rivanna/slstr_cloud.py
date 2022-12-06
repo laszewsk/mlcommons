@@ -200,7 +200,7 @@ def cloud_training(args) -> None:
     modelPath = os.path.expanduser(args['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
-    StopWatch.start("training_on_mutiple_GPU")
+    StopWatch.stop("training_on_mutiple_GPU")
 
 
     result = {
@@ -226,6 +226,8 @@ def cloud_training(args) -> None:
 # Running the benchmark: python slstr_cloud.py --config ./config.yaml
 
 def main():
+
+
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
@@ -242,6 +244,9 @@ def main():
     with open(configFile, 'r') as stream:
         args = yaml.safe_load(stream)
     log_file = os.path.expanduser(args['log_file'])
+
+    user_name = args["submission"]["submitter"]
+
 
     # MLCommons logging
     mlperf_logfile = os.path.expanduser(args['mlperf_logfile'])
@@ -324,7 +329,7 @@ def main():
 
     StopWatch.stop("total")
 
-    StopWatch.benchmark()
+    StopWatch.benchmark(user=user_name)
 
 if __name__ == "__main__":
     main()
