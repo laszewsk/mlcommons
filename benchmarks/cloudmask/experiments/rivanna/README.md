@@ -59,12 +59,19 @@ cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 
 Next we obtain the data. The command uses an aws call to download both
 daytime and nighttime images of the sky. The total space the data dir
-will take up is 180GB. It will take around 1 hour to finish downloading
+will take up is 180GB. It will take around 20 minutes to finish downloading
 the data.
 
 ```bash
 time make data
 ```
+
+The data is downloaded to 
+
+```
+$(PROJECT_DIR)/mlcommons/benchmarks/cloudmask/data
+```
+
 
 ## 4. Generate parameterized jobs
 

@@ -38,13 +38,13 @@ submission:
   email: laszewski@gmail.com
   org: University of Virginia
   division: closed
-  version: mlcommons-earthquake-v1.0
+  version: mlcommons-cloudmask-v1.1
   github_commit_version: TBD
   status: completed
-  platform: ubuntu-sh
+  platform: rivanna
 
 experiment:
-  card_name: rtx3090
+  card_name: a100
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
@@ -53,8 +53,8 @@ experiment:
 
 system:
   host: "rivanna"
-  python: "3.10.6"
-  num_cpus: 6
+  python: "3.10.8"
+  num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
   reservation: bi_fox_dgx
