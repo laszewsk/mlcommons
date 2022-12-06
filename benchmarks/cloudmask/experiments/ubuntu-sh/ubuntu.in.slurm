@@ -29,10 +29,14 @@ fi
 
 ## to run this say sbatch rivanna.sh
 
+cd $THEPATH
+
+python setup_env_and_yaml.py
 cd ~
 
+module load anaconda
 conda init bash
-conda activate MLBENCH
+source activate MLBENCH
 
 module load singularity tensorflow/2.8.0
 module load cudatoolkit/11.0.3-py3.8
