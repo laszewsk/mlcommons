@@ -59,15 +59,10 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
-echo watch this
-echo $THEPATH
-echo wasnt that cool
-
 conda run --no-capture-output \
       -n MLBENCH python \
       -m ubuntu-sh.slstr_cloud \
-      --config ./ubuntu-sh/cloudMaskConfig.yaml \
-      > $THEPATH/output.log 2>&1
+      --config ./ubuntu-sh/cloudMaskConfig.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 # python mnist_with_pytorch.py > mnist_with_pytorch_py_$(echo $currentgpu).log 2>&1
 
