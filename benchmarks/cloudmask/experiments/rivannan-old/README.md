@@ -1,4 +1,4 @@
-# sbatch for ubuntu
+# sbatch for rivanna
 
 
 1. We assume if you like to use the automated report generated (under development) you have  

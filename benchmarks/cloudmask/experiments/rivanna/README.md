@@ -1,8 +1,8 @@
 # sbatch for ubuntu
 
 
-1. We assume if you like to use the automated report generated (under development) you have  
-   full latex installed
+1. We assume if you like to use the automated report generated (under
+   development) you have full latex installed
 
    ```bash
    sudo apt install texlive-latex-extra
@@ -12,8 +12,8 @@
 
 2. We assume you have at least python version 3.10.4 installed. The
    latest version we tried is Python 3.11.0. We recommend using that
-   version. We install it in a python venv and install in it the required
-   packages
+   version. We install it in a python venv and install in it the
+   required packages
   
    ```bash
    python3.10 -m venv ~/ENV3
@@ -101,8 +101,10 @@ sh jobs-project.sh
 
 The number will be different for you.
 
-To find out the status you can
-do the following commands. The first looks up the job by the id, the second will list all jobs you submitted. if you just have one job it will return just that one job. `make status` is a shortcut to see all jobs of a user
+To find out the status you can do the following commands. The first
+looks up the job by the id, the second will list all jobs you
+submitted. if you just have one job it will return just that one
+job. `make status` is a shortcut to see all jobs of a user
 
 ```bash
 squeue --job 12345678
