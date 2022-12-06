@@ -21,7 +21,7 @@ submit:
 	-sh jobs-project.sh
 
 
-project: config.yaml project.json
+project: project.json
 
 
 localscratch: localscratch.json
