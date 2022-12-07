@@ -88,7 +88,7 @@ training_metrics: accuracy
 output_dir: ~/sciml_bench/outputs/slstr_cloud
 
 # Log file for recording runtimes
-log_file: ./cloudMask_Log
+log_file: ./cloudmask_run.log
 
 # Log file for MLCommons logging
 mlperf_logfile: ./mlperf_cloudmask.log
