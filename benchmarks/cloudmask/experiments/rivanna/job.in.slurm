@@ -72,9 +72,9 @@ echo "Notebook Script:           {code.script}"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
-sed -i '/log_file:/c\log_file: \$(dirname $THEPATH)/cloudMask_Log' $(dirname $THEPATH)/config.yaml
+sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudMask_Log" $(dirname $THEPATH)/config.yaml
 
-sed -i '/mlperf_logfile:/c\mlperf_logfile: \$(dirname $THEPATH)/cloudMask_Log' $(dirname $THEPATH)/config.yaml
+sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/cloudMask_Log" $(dirname $THEPATH)/config.yaml
 
 cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
