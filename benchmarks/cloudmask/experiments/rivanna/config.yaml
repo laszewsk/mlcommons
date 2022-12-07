@@ -15,7 +15,7 @@ sbatch:
   dir: localscratch
 
 # General info
-benchmark: CloudMask
+benchmark: cloudmask
 organisation: STFC
 division: SciML
 status: research
