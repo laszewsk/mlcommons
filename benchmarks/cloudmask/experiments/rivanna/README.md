@@ -129,7 +129,7 @@ estimate while using some predefined model as specified in our yaml file.
 
 | Epochs | Time in s |
 |-------:|----------:|
-|      1 |       ??? |
+|      1 |       900 |
 |     10 |       ??? |
 |     30 |       ??? |
 |     50 |       ??? |
@@ -203,6 +203,67 @@ tail -f  project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepo
 
 you will have to change the second parameter in the path according to your 
 hyperparameters and what you like to watch 
+
+The file `output.log` contains a convenient human readable summary of the various portions of the program execution generated with cloudmesh StopWatch. It includes details of the compute node, as well as runtimes.
+
+
+```
++---------------------------------+---------------------------------------------------+
+| Attribute                       | Value                                             |
+|---------------------------------+---------------------------------------------------|
+| ANSI_COLOR                      | "0;31"                                            |
+| BUG_REPORT_URL                  | "https://bugs.centos.org/"                        |
+| CENTOS_MANTISBT_PROJECT         | "CentOS-7"                                        |
+| CENTOS_MANTISBT_PROJECT_VERSION | "7"                                               |
+| CPE_NAME                        | "cpe:/o:centos:centos:7"                          |
+| HOME_URL                        | "https://www.centos.org/"                         |
+| ID                              | "centos"                                          |
+| ID_LIKE                         | "rhel fedora"                                     |
+| NAME                            | "CentOS Linux"                                    |
+| PRETTY_NAME                     | "CentOS Linux 7 (Core)"                           |
+| REDHAT_SUPPORT_PRODUCT          | "centos"                                          |
+| REDHAT_SUPPORT_PRODUCT_VERSION  | "7"                                               |
+| VERSION                         | "7 (Core)"                                        |
+| VERSION_ID                      | "7"                                               |
+| cpu                             | Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz          |
+| cpu_cores                       | 40                                                |
+| cpu_count                       | 40                                                |
+| cpu_threads                     | 40                                                |
+| date                            | 2022-12-07 15:42:28.276533                        |
+| frequency                       | scpufreq(current=2100.0, min=0.0, max=0.0)        |
+| mem.active                      | 59.0 GiB                                          |
+| mem.available                   | 308.5 GiB                                         |
+| mem.free                        | 297.8 GiB                                         |
+| mem.inactive                    | 9.2 GiB                                           |
+| mem.percent                     | 18.1 %                                            |
+| mem.total                       | 376.5 GiB                                         |
+| mem.used                        | 61.4 GiB                                          |
+| platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022               |
+| python                          | 3.10.8 (main, Nov 24 2022, 14:13:03) [GCC 11.2.0] |
+| python.pip                      | 22.2.2                                            |
+| python.version                  | 3.10.8                                            |
+| sys.platform                    | linux                                             |
+| uname.machine                   | x86_64                                            |
+| uname.node                      | udc-aj36-36                                       |
+| uname.processor                 | x86_64                                            |
+| uname.release                   | 3.10.0-1160.59.1.el7.x86_64                       |
+| uname.system                    | Linux                                             |
+| uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022               |
+| user                            | Gregor von Laszewski                              |
++---------------------------------+---------------------------------------------------+
+```
+
+```
++-------------------------+----------+---------+---------+---------------------+-------+-------+-------------+----------------------+-------+-------------------------------------+
+| Name                    | Status   |    Time |     Sum | Start               | tag   | msg   | Node        | User                 | OS    | Version                             |
+|-------------------------+----------+---------+---------+---------------------+-------+-------+-------------+----------------------+-------+-------------------------------------|
+| total                   | ok       | 900.437 | 900.437 | 2022-12-07 15:27:27 |       |       | udc-aj36-36 | Gregor von Laszewski | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training                | ok       | 751.567 | 751.567 | 2022-12-07 15:27:28 |       |       | udc-aj36-36 | Gregor von Laszewski | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| loaddata                | ok       |   2.313 |   2.313 | 2022-12-07 15:27:28 |       |       | udc-aj36-36 | Gregor von Laszewski | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| training_on_mutiple_GPU | ok       | 744.44  | 744.44  | 2022-12-07 15:27:30 |       |       | udc-aj36-36 | Gregor von Laszewski | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
+| inference               | ok       | 148.178 | 148.178 | 2022-12-07 15:40:00 |       |       | udc-aj36-36 | Gregor von Laszewski | Linux | #1 SMP Wed Feb 23 16:47:03 UTC 2022 |
++-------------------------+----------+---------+---------+---------------------+-------+-------+-------------+----------------------+-------+-------------------------------------+
+```
 
 
 
