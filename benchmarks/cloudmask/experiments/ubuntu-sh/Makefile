@@ -9,7 +9,7 @@ project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /project1/$(USER)/mlcommons/benchmarks/cloudmask/requirements.txt
 
 generate: jobs-project.sh 
 
@@ -18,7 +18,7 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-project: project.json generate-project
+project: project.json
 
 localscratch: localscratch.json
 
@@ -71,3 +71,4 @@ clean:
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'
+	@-rm -rf *~

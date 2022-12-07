@@ -25,7 +25,7 @@ echo "# cloudmesh status=running progress=1 pid=$$"
 set -uxe
 
 RUN_BASE="{run.filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}"
-DATA_PATH="/scratch/${USER}/mlcommons/benchmarks/cloudmask/data"
+DATA_PATH="/project1/${USER}/mlcommons/benchmarks/cloudmask/data"
 
 if [ -n $SLURM_JOB_ID ] ; then
 THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
@@ -86,9 +86,7 @@ sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 
-# cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
-
-cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
+cd /project1/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
