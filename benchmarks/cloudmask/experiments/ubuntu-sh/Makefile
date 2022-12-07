@@ -1,48 +1,34 @@
-SHELL := /bin/bash
+SHELL=/bin/bash
 
-all: project localscratch shm generate
+LOCAL_BIN=/home/${USER}/.local/bin
+PYTHON=py3.10
+
+all: project 
+
+project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
+	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/requirements.txt
 
-generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
-#generate-%: jobs-%.sh
-
-generate-dgx: jobs-dgx.sh
-generate-project: jobs-project.sh
-generate-shm: jobs-shm.sh
-generate-dgx: jobs-dgx.sh
+generate: jobs-project.sh 
 
 run: submit
 
 submit:
 	-sh jobs-project.sh
-	-sh jobs-localscratch.sh
-	-sh jobs-dgx.sh
 
+project: project.json generate-project
 
-
-.PHONY: project
-project: project.json
-
-.PHONY: localscratch
 localscratch: localscratch.json
 
-.PHONY: dgx
-dgx: dgx.json
-
-.PHONY: dgx-shm
-dgx-shm: dgx-shm.json
-
-.PHONY: shm
-shm: shm.json
 
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
 %.json: config.yaml
 	cms sbatch generate \
-	           --source=ubuntu.in.slurm \
+	           --source=job.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
@@ -52,38 +38,36 @@ jobs-%.sh: %.json
                --source_dir=. \
                --verbose
 
-dgx.json: rivanna-dgx.yaml
-		cms sbatch generate \
-	           --source=rivanna-dgx.in.slurm \
-	           --config=$< \
-	           --name=$(basename $@) \
-	           --noos \
-	           --os=USER \
-	           --output_dir=./$(basename $@) \
-               --source_dir=. \
-               --verbose
+data:
+	echo $(LOCAL_BIN)
+	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+	   mkdir -p data/ssts && mkdir -p data/one-day
+	module load anaconda && source activate $(PYTHON) && pip install awscli
+	echo -n "Downloading first portion of data..." ; module load anaconda && source activate $(PYTHON) && \
+           cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+           $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
+	echo -n "Downloading second portion of data..." ; module load anaconda && source activate $(PYTHON) && \
+            cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+            $(LOCAL_BIN)/aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
-dgx-shm.json: rivanna-dgx-shm.yaml
-		cms sbatch generate \
-	           --source=rivanna-dgx.in.slurm \
-	           --config=$< \
-	           --name=$(basename $@) \
-	           --noos \
-	           --os=USER \
-	           --output_dir=./$(basename $@) \
-               --source_dir=. \
-               --verbose
+kill: stop
 
-
-.PHONY: stop
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
-.PHONY: clean
+inspect:
+	$(eval D=$(shell ls project/$(ls -1) | head -n 1))
+	echo ${D}
+	$(shell emacs project/${D}/config.yaml project/${D}/job.slurm)
+
+watch: status
+
+status:
+	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
+
+
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
-	@-rm -rf dgx dgx.json jobs-dgx.sh
-	@-rm -rf shm shm.json jobs-shm.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'

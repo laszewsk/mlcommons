@@ -26,8 +26,8 @@ from model import unet
 from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
+from cloudmesh.common.StopWatch import StopWatch
 
-# MLCommons logging
 from mlperf_logging import mllog
 import logging
 
@@ -174,13 +174,16 @@ def cloud_training(args) -> None:
     data_dir = os.path.expanduser(args['train_dir'])
 
     # load the datasets
+    StopWatch.start("loaddata")
     train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, args=args)
+    StopWatch.stop("loaddata")
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
     print("num_samples: ", num_samples)
 
     # Running training on multiple GPUs
+    StopWatch.start("training_on_mutiple_GPU")
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(args['learning_rate'])
 
@@ -197,6 +200,8 @@ def cloud_training(args) -> None:
     modelPath = os.path.expanduser(args['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
+    StopWatch.stop("training_on_mutiple_GPU")
+
 
     result = {
         "samples": num_samples,
@@ -221,6 +226,9 @@ def cloud_training(args) -> None:
 # Running the benchmark: python slstr_cloud.py --config ./config.yaml
 
 def main():
+
+
+    StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
         description='CloudMask command line arguments',
@@ -236,6 +244,9 @@ def main():
     with open(configFile, 'r') as stream:
         args = yaml.safe_load(stream)
     log_file = os.path.expanduser(args['log_file'])
+
+    user_name = args["submission"]["submitter"]
+
 
     # MLCommons logging
     mlperf_logfile = os.path.expanduser(args['mlperf_logfile'])
@@ -257,6 +268,7 @@ def main():
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training
+    StopWatch.start("training")
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Training")
     samples, training_d = cloud_training(args)
@@ -265,6 +277,8 @@ def main():
     elapsedTime = decimal.Decimal(diff)
     time_per_epoch = elapsedTime / int(args['experiment']['epoch'])
     time_per_epoch_str = f"{time_per_epoch:.2f}"
+    StopWatch.stop("training")
+
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask training, samples = {samples}, "
                       f"epochs={int(args['experiment']['epoch'])}, "
@@ -274,6 +288,8 @@ def main():
                       f"time_per_epoch={time_per_epoch_str}\n")
 
     # Inference
+    StopWatch.start("inference")
+
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Inference")
     number_inferences, inference_d = cloud_inference(args)
@@ -282,7 +298,10 @@ def main():
     elapsedTime = decimal.Decimal(diff)
     time_per_inference = elapsedTime / number_inferences
     time_per_inference_str = f"{time_per_inference:.2f}"
+    StopWatch.stop("inference")
+
     print("number_inferences: ", number_inferences)
+
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, "
                       f"bs={args['batch_size']}, "
@@ -308,6 +327,9 @@ def main():
     mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
     mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
+    StopWatch.stop("total")
+
+    StopWatch.benchmark(user=user_name)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-# sbatch for ubuntu
+# Parameterized jobs for rivanna with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
 to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
@@ -21,11 +21,20 @@ If you do not want to create the reports, please skip this step.
 ### 1.2 Python 3
 
 We assume you have a fairly new version of Python installed susch as 
-Python 3.11.0. However, a version greater than 3.10.4 will also do.
+Python 3.10.8. However, a version greater than 3.10.4 will also do.
 We install the version of python to be used in a python venv and 
-install in it the required packages
+install in it the required packages. Please note that as of
+Dec 2022, python 3.11 is not supported by anaconda which we 
+use for this project as it is the recommended version by the 
+rivanna support staff.
 
 ```bash
+module purge
+module load anaconda
+
+conda create -y -n py3.10 python=3.10
+source activate py3.10
+
 python3.10 -m venv ~/ENV3
 source ~/ENV3/bin/activate
 mkdir ~/cm
@@ -43,20 +52,26 @@ space in the /scratch directory.
 export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
-export EQ_VERSION=latest
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/rivanna
+cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 ```
 ## 3. Obtaining the data
 
 Next we obtain the data. The command uses an aws call to download both
 daytime and nighttime images of the sky. The total space the data dir
-will take up is 180GB. It will take around 1 hour to finish downloading
+will take up is 180GB. It will take around 20 minutes to finish downloading
 the data.
 
 ```bash
 time make data
 ```
+
+The data is downloaded to 
+
+```
+$(PROJECT_DIR)/mlcommons/benchmarks/cloudmask/data
+```
+
 
 ## 4. Generate parameterized jobs
 
@@ -73,24 +88,23 @@ Next we generate some parameterized jobs. These runs are controlled with two fil
 
   ```bash
   # setup venv
-  make setup
-  make project
-  make generate
+  make setup  # this takes minutes
+  make project # this takes less then 15 seconds
   ```
 
   The makefile targets will generate two files and a subdirectory with individual 
   experiments:
 
-* `cloudmask.sh` -- Is a file that contains each individual job submission 
+* `project.sh` -- Is a file that contains each individual job submission 
   based on the parameter sweep that is defined by the YAML file.
-* `cloudmask.json` -- Is a file that contains the metadata associated with the 
+* `project.json` -- Is a file that contains the metadata associated with the 
   individual job submissions generated from the experiment permutations
-* `cloudmask` -- Is a directory that includes for each individual experiment a 
+* `project` -- Is a directory that includes for each individual experiment a 
   slurm script and a yaml file.
 
 ## 5. Running the parameterized jobs
 
-Before executing the `cloudmask.sh` script, it is advised that you inspect the 
+Before executing the `jobs-project.sh` script, it is advised that you inspect the 
 output of the files and directories. 
 
 Be aware that many jobs may take hours to complete.  We provide here a simple 
@@ -107,18 +121,16 @@ estimate while using some predefined model as specified in our yaml file.
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
 ```bash
-less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/rivanna.slurm
+less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/rivanna.slurm
 ```
 
 To look at the yaml file for this experiment, use 
 
 ```bash
-less cloudmask/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
+less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
 ```
 
-TODO: 
-
-or simply call (Not implemented) wch uses emacs to open both files.
+or simply call  which uses emacs to open both files from the firts parameterized job.
 
 ```bash
 make inspect
@@ -142,7 +154,7 @@ The number will be different for you.
 To find out the status you can do the following commands. The first
 looks up the job by the id, the second will list all jobs you
 submitted. if you just have one job it will return just that one
-job. `make status` is a shortcut to see all jobs of a user
+job. `make status` is a shortcut to see all jobs of a user.
 
 ```bash
 make status
