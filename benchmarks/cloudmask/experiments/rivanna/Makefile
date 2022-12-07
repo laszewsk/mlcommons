@@ -71,3 +71,4 @@ clean:
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'
+	@-rm -rf *~
