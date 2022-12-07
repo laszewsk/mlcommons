@@ -28,6 +28,14 @@ Dec 2022, python 3.11 is not supported by anaconda which we
 use for this project as it is the recommended version by the 
 rivanna support staff.
 
+If you have executed this step previously, you only have to say 
+
+```bash
+source ~/ENV3/bin/activate
+```
+
+Otherwise, do the following:
+
 ```bash
 module purge
 module load anaconda
@@ -43,6 +51,14 @@ pip install cloudmesh-installer
 cloudmesh-installer get sbatch
 cms help
 ```
+
+In either case your command promt will have the prefix `(ENV3)`.
+
+Note that we use two different python environment. 
+One for running sbatch, the other in whcih we run tensorflow, which will be 
+setup automatically in a later step.
+
+
 ## 2. Generating experiment configurations
 
 Choose a PROJECT_DIR where you like to install the code. Rivanna offers some temporary
@@ -60,7 +76,9 @@ cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 Next we obtain the data. The command uses an aws call to download both
 daytime and nighttime images of the sky. The total space the data dir
 will take up is 180GB. It will take around 20 minutes to finish downloading
-the data.
+the data. In case the data was previously downloaded, this stepp will take 15 
+seconds.
+
 
 ```bash
 time make data
@@ -71,7 +89,6 @@ The data is downloaded to
 ```
 $(PROJECT_DIR)/mlcommons/benchmarks/cloudmask/data
 ```
-
 
 ## 4. Generate parameterized jobs
 
@@ -88,7 +105,7 @@ Next we generate some parameterized jobs. These runs are controlled with two fil
 
   ```bash
   # setup venv
-  make setup  # this takes minutes
+  make setup  # this takes minutes 
   make project # this takes less then 15 seconds
   ```
 
