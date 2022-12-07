@@ -183,17 +183,26 @@ notebook file will be outputted in the
 `$(pwd)/cloudmask/<experiment_id>` directory.
 
 You can see the progress of each job by inspecting the `*.out` and
-`*.err` files located in the `$(pwd)/cloudmask/<experiment_id>`).
+`*.error` files located in the `$(pwd)/cloudmask/<experiment_id>`). 
+The following log files will be created:
 
-A copy of the final notebook is placed in the slurm expeeriments
-folder with the suffix `*_output.ipynb`, that can be inspected for
-further details.
+* `cloudmask-%j.log` -- Output created by SLURM from whole job.in.slurm script.
+* `cloudmask-%j.error` -- Error messages caught by SLURM when either the job 
+   writes to stderr, or an error is caught by SLURM.
+* `gpu0.log` -- Logfile with Temperatures and energy values for the GPU0. This 
+   assumes you run the code on the GPU with number 0.
+* `mlperf_cloudmask.log` -- Logfile that records all MLCommons logging events.
+* `cloudmask_run.log` --  Logfile for recording runtimes.
+* `output.log` -- Logfile that covers all the output of the `slstr_cloud.py` file.
 
-To watch the output dynamically
+To watch the output dynamically for an example run you can use the command 
 
 ```bash
 tail -f  project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepochs_2/*.out
 ```
+
+you will have to change the second parameter in the path according to your 
+hyperparameters and what you like to watch 
 
 
 
