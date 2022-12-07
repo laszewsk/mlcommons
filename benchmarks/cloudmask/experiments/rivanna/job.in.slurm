@@ -75,7 +75,14 @@ echo "Notebook Script:           {code.script}"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
+
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
+
+
+sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudMask_Log" $(dirname $THEPATH)/config.yaml
+
+sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudMask.log" $(dirname $THEPATH)/config.yaml
+
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 
@@ -84,8 +91,6 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
-
-# CD DIR
 
 python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 

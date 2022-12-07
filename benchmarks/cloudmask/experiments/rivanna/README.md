@@ -5,7 +5,7 @@ to coordinate a parameter sweep over hyperparameters. It significantly simplifie
 different experiments as it stores the output in a directory format that 
 simplifies analysis.
 
-## 1. Programming Environment Prerequisits
+## 1. Programming Environment Prerequisites
 
 ### 1.1 LaTeX (optional)
 
@@ -32,10 +32,10 @@ rivanna support staff.
 module purge
 module load anaconda
 
-conda create -y -n py3.10 python=3.10
-source activate py3.10
+conda create -y -n python310 python=3.10
+source activate python310
 
-python3.10 -m venv ~/ENV3
+python -m venv ~/ENV3
 source ~/ENV3/bin/activate
 mkdir ~/cm
 cd ~/cm
