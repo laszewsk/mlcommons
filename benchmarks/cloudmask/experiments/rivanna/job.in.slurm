@@ -90,13 +90,11 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
 
-cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
+cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments/rivanna
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
 # python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
-
-cd $(dirname $THEPATH)
 
 python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
