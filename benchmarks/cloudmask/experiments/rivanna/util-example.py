@@ -1,6 +1,4 @@
 import yaml
-from cloudmesh.common.util import readfile
-from cloudmesh.common.FlatDict import flatten
 from util import read_config_parameters
 
 s = """
@@ -11,10 +9,8 @@ experiment:
 """
 
 
-config  = yaml.load(s)
-print (config)
 
-config = read_config_parameters(d=config)
+config = read_config_parameters(d=s)
 
 print (config)
 
