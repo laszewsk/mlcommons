@@ -90,7 +90,7 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
 
-cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments/rivanna
+cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
