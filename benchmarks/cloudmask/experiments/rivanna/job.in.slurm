@@ -94,9 +94,9 @@ cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments/rivanna
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
-# python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
-python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+# python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 echo "# cloudmesh status=done progress=100 pid=$$"
 
