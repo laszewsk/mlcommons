@@ -44,8 +44,8 @@ class SLSTRDataLoader:
         self.n_channels = args['N_CHANNELS']
         self.image_h = args['IMAGE_H']
         self.image_w = args['IMAGE_W']
-        self.batch_size = args['batch_size']
-        self.no_cache = args['no_cache']
+        self.batch_size = args['experiment.batch_size']
+        self.no_cache = args['experiment.no_cache']
         self.crop_size = args['CROP_SIZE']
 
         assert len(self._image_paths) > 0, 'No image data found in path!'
@@ -161,12 +161,12 @@ class SLSTRDataLoader:
 def load_datasets(dataset_dir: Path, args: dict):
     data_paths = list(Path(dataset_dir).glob('**/S3A*.hdf'))
 
-    train_paths, test_paths = train_test_split(data_paths, train_size=args['train_split'], random_state=42)
+    train_paths, test_paths = train_test_split(data_paths, train_size=args['experiment.train_split'], random_state=42)
 
-    train_data_loader = SLSTRDataLoader(args, train_paths, batch_size=args['batch_size'], no_cache=args['no_cache'])
+    train_data_loader = SLSTRDataLoader(args, train_paths, batch_size=args['experiment.batch_size'], no_cache=args['no_cache'])
     train_dataset = train_data_loader.to_dataset()
 
-    test_data_loader = SLSTRDataLoader(args, test_paths, batch_size=args['batch_size'], no_cache=args['no_cache'])
+    test_data_loader = SLSTRDataLoader(args, test_paths, batch_size=args['experiment.batch_size'], no_cache=args['no_cache'])
     test_dataset = test_data_loader.to_dataset()
 
     return train_dataset, test_dataset
