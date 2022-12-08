@@ -33,9 +33,9 @@ import logging
 
 from cloudmesh.common.FlatDict import read_config_parameters
 
-config = read_config_parameters(filename='config.yaml')
+# config = read_config_parameters(filename='config.yaml')
 
-print(config)
+# print(config)
 
 # Loss function
 def weighted_cross_entropy(beta):
