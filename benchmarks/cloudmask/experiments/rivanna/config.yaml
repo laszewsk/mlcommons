@@ -49,6 +49,15 @@ experiment:
   mem: "64GB"
   repeat: "1"
   epoch: "1,10,30,50,100"
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
 
 #system:
 #  host: "rivanna"
@@ -110,25 +119,4 @@ MIN_SST: 273.15
 
 # Amount to crop the edges of the images by
 CROP_SIZE: 80
-
-# Hyperparameters
-seed: 1234
-
-learning_rate: 0.001
-
-# epochs: "10,30,50,100"
-
-batch_size: 32
-
-train_split: 0.8
-
-clip_offset: 15
-
-no_cache: False
-
-nodes: 1
-
-gpu: 1
-
-
 
