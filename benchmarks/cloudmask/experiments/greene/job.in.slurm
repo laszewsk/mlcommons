@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}%j
+#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
 #SBATCH --output=cloudmask-%j.log
 #SBATCH --error=cloudmask-%j.error
 #SBATCH --partition={system.partition}
@@ -18,6 +18,9 @@
 # #SBATCH --time=6:00:00
 
 echo "# cloudmesh status=running progress=1 pid=$$"
+
+# SAVE DIR
+
 
 set -uxe
 
@@ -72,7 +75,16 @@ echo "Notebook Script:           {code.script}"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
-cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+
+cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
+
+
+sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudmask_run.log" $(dirname $THEPATH)/config.yaml
+
+sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.log" $(dirname $THEPATH)/config.yaml
+
+sed -i "/model_file:/c\model_file: $(dirname $THEPATH)/cloudModel.h5" $(dirname $THEPATH)/config.yaml
+
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 
@@ -80,9 +92,11 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
-cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
 python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+
+# python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 echo "# cloudmesh status=done progress=100 pid=$$"
 
