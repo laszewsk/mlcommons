@@ -10,8 +10,8 @@
 # with modifications from Gregor von Laszewski, Juri Papay
 # All rights reserved.
 
-import sys
-sys.path.append("..")
+# import sys
+# sys.path.append("..")
 
 import yaml
 import os
@@ -21,16 +21,21 @@ import time
 import decimal
 import argparse
 import tensorflow as tf
-from data_loader import load_datasets
-from model import unet
+from .data_loader import load_datasets
+from .model import unet
 from pathlib import Path
 import numpy as np
-from data_loader import SLSTRDataLoader
+from .data_loader import SLSTRDataLoader
 from cloudmesh.common.StopWatch import StopWatch
 
 from mlperf_logging import mllog
 import logging
 
+from cloudmesh.common.FlatDict import read_config_parameters
+
+# config = read_config_parameters(filename='config.yaml')
+
+# print(config)
 
 # Loss function
 def weighted_cross_entropy(beta):
@@ -170,7 +175,7 @@ def cloud_inference(args) -> None:
 
 def cloud_training(args) -> None:
     print('Running benchmark slstr_cloud in training mode.')
-    tf.random.set_seed(args['seed'])
+    tf.random.set_seed(args['experiment.seed'])
     data_dir = os.path.expanduser(args['train_dir'])
 
     # load the datasets
@@ -185,13 +190,13 @@ def cloud_training(args) -> None:
     # Running training on multiple GPUs
     StopWatch.start("training_on_mutiple_GPU")
     mirrored_strategy = tf.distribute.MirroredStrategy()
-    optimizer = tf.keras.optimizers.Adam(args['learning_rate'])
+    optimizer = tf.keras.optimizers.Adam(args['experiment.learning_rate'])
 
     with mirrored_strategy.scope():
         # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
         model.compile(optimizer=optimizer, loss=args['training_loss'], metrics=[args['training_metrics']])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(args['experiment']['epoch']), verbose=1)
+        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(args['experiment.epoch']), verbose=1)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
@@ -239,52 +244,53 @@ def main():
     command_line_args = parser.parse_args()
 
     configFile = os.path.expanduser(command_line_args.config)
-
+    config = read_config_parameters(filename=configFile)
+    # args = config
     # Read YAML file
-    with open(configFile, 'r') as stream:
-        args = yaml.safe_load(stream)
-    log_file = os.path.expanduser(args['log_file'])
+    # with open(configFile, 'r') as stream:
+    #     args = yaml.safe_load(stream)
+    log_file = os.path.expanduser(config['log_file'])
 
-    user_name = args["submission"]["submitter"]
+    user_name = config["submission.submitter"]
 
 
     # MLCommons logging
-    mlperf_logfile = os.path.expanduser(args['mlperf_logfile'])
+    mlperf_logfile = os.path.expanduser(config['mlperf_logfile'])
     mllog.config(filename=mlperf_logfile)
     mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
     # Values extracted from config.yaml
-    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=args['benchmark'])
-    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=args['organisation'])
-    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=args['division'])
+    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['benchmark'])
+    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['organisation'])
+    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['division'])
 
-    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=args['platform'])
+    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['platform'])
     mllogger.start(key=mllog.constants.INIT_START)
 
-    mllogger.event(key='number_of_ranks', value=args['gpu'])
-    mllogger.event(key='number_of_nodes', value=args['nodes'])
-    mllogger.event(key='accelerators_per_node', value=args['accelerators_per_node'])
+    mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
+    mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
+    mllogger.event(key='accelerators_per_node', value=config['accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training
     StopWatch.start("training")
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Training")
-    samples, training_d = cloud_training(args)
+    samples, training_d = cloud_training(config)
     mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Training")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
-    time_per_epoch = elapsedTime / int(args['experiment']['epoch'])
+    time_per_epoch = elapsedTime / int(config['experiment.epoch'])
     time_per_epoch_str = f"{time_per_epoch:.2f}"
     StopWatch.stop("training")
 
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask training, samples = {samples}, "
-                      f"epochs={int(args['experiment']['epoch'])}, "
-                      f"bs={args['batch_size']}, "
-                      f"nodes={args['nodes']}, "
-                      f"gpus={args['gpu']}, "
+                      f"epochs={int(config['experiment.epoch'])}, "
+                      f"bs={config['experiment.batch_size']}, "
+                      f"nodes={config['experiment.nodes']}, "
+                      f"gpus={config['experiment.gpu']}, "
                       f"time_per_epoch={time_per_epoch_str}\n")
 
     # Inference
@@ -292,7 +298,7 @@ def main():
 
     start = time.time()
     mllogger.event(key=mllog.constants.EVAL_START, value="Start: Inference")
-    number_inferences, inference_d = cloud_inference(args)
+    number_inferences, inference_d = cloud_inference(config)
     mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Inference")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
@@ -304,9 +310,9 @@ def main():
 
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, "
-                      f"bs={args['batch_size']}, "
-                      f"nodes={args['nodes']}, "
-                      f"gpus={args['gpu']}, "
+                      f"bs={config['experiment.batch_size']}, "
+                      f"nodes={config['experiment.nodes']}, "
+                      f"gpus={config['experiment.gpu']}, "
                       f"time_per_inference={time_per_inference_str}\n")
 
     result = {
@@ -316,9 +322,9 @@ def main():
 
         "inference_analyze": {
             "number": number_inferences,
-            "bs": args['batch_size'],
-            "nodes": args['nodes'],
-            "gpus": args['gpu'],
+            "bs": config['experiment.batch_size'],
+            "nodes": config['experiment.nodes'],
+            "gpus": config['experiment.gpu'],
             "time_per_inference": time_per_inference_str
         },
 

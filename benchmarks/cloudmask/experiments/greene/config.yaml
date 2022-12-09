@@ -15,7 +15,7 @@ sbatch:
   dir: localscratch
 
 # General info
-benchmark: CloudMask
+benchmark: cloudmask
 organisation: STFC
 division: SciML
 status: research
@@ -49,6 +49,15 @@ experiment:
   mem: "64GB"
   repeat: "1"
   epoch: "1,10,30,50,100"
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
 
 #system:
 #  host: "rivanna"
@@ -71,10 +80,10 @@ system:
   reservation: ""
 
 # Training data
-train_dir: /scratch/thf2bn/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
 
 # Inference data
-inference_dir: /scratch/thf2bn/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
 model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
@@ -88,7 +97,7 @@ training_metrics: accuracy
 output_dir: ~/sciml_bench/outputs/slstr_cloud
 
 # Log file for recording runtimes
-log_file: ./cloudMask_Log
+log_file: ./cloudmask_run.log
 
 # Log file for MLCommons logging
 mlperf_logfile: ./mlperf_cloudmask.log
@@ -110,25 +119,4 @@ MIN_SST: 273.15
 
 # Amount to crop the edges of the images by
 CROP_SIZE: 80
-
-# Hyperparameters
-seed: 1234
-
-learning_rate: 0.001
-
-# epochs: "10,30,50,100"
-
-batch_size: 32
-
-train_split: 0.8
-
-clip_offset: 15
-
-no_cache: False
-
-nodes: 1
-
-gpu: 1
-
-
 

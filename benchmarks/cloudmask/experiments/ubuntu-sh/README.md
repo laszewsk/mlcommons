@@ -18,7 +18,14 @@ module load texlive
 
 If you do not want to create the reports, please skip this step.
 
-### 1.2 Python 3
+### 1.2 Install HDF5
+
+```bash
+sudo apt-get install libhdf5-dev
+sudo apt-get install hdf5-tools
+```
+
+### 1.3 Python 3
 
 We assume you have a fairly new version of Python installed susch as 
 Python 3.10.8. However, a version greater than 3.10.4 will also do.
@@ -29,14 +36,15 @@ use for this project as it is the recommended version by the
 rivanna support staff.
 
 ```bash
-module purge
-module load anaconda
-
-conda create -y -n py3.10 python=3.10
-source activate py3.10
-
+PV=3.10.8
+sudo wget https://www.python.org/ftp/python/$PV/Python-$PV.tgz
+tar -xf Python-$PV.tgz
+cd Python-$PV
+./configure --enable-optimizations
+make
+sudo make altinstall
+# MAKE sure to install python version 3.10.8
 python3.10 -m venv ~/ENV3
-source ~/ENV3/bin/activate
 mkdir ~/cm
 cd ~/cm
 pip install cloudmesh-installer
@@ -49,7 +57,7 @@ Choose a PROJECT_DIR where you like to install the code. Rivanna offers some tem
 space in the /scratch directory. 
 
 ```bash
-export PROJECT_DIR=/scratch/$USER
+export PROJECT_DIR=/project1/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
