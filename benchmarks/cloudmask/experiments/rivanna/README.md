@@ -31,6 +31,9 @@ rivanna support staff.
 If you have executed this step previously, you only have to say 
 
 ```bash
+module purge
+module load anaconda
+source activate python310
 source ~/ENV3/bin/activate
 ```
 
@@ -69,8 +72,14 @@ export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
+git checkout main
 cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 ```
+
+In case you would like to have a different branch other than
+main, please use the name of the branch in the `git checkout`
+command.
+
 ## 3. Obtaining the data
 
 Next we obtain the data. The command uses an aws call to download both
@@ -147,7 +156,7 @@ To look at the yaml file for this experiment, use
 less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
 ```
 
-or simply call  which uses emacs to open both files from the firts parameterized job.
+or simply call  which uses emacs to open both files from the first parameterized job.
 
 ```bash
 make inspect
