@@ -136,23 +136,25 @@ output of the files and directories.
 Be aware that many jobs may take hours to complete.  We provide here a simple 
 estimate while using some predefined model as specified in our yaml file.
 
-| Epochs | Time in s |    Time |
-|-------:|----------:|--------:|
-|      1 |       900 | 15m 00s |
-|     10 |      2667 | 44m 27s |
-|     30 |       ??? |     ??? |
-|     50 |       ??? |     ??? |
-|    100 |       ??? |     ??? |
+A100
+
+| Epochs | Time in s |        Time |
+|-------:|----------:|------------:|
+|      1 |      2578 |     42m 58s |
+|     10 |      3186 |      53m 6s |
+|     30 |      4757 | 1hr 19m 17s |
+|     50 |      6434 | 1hr 47m 14s |
+|    100 |       ??? |         ??? |
 
 V100
 
 | Epochs | Time in s |        Time |
 |-------:|----------:|------------:|
-|      1 |      2600 |   43m 20s   |
+|      1 |      2600 |     43m 20s |
 |     10 |      4330 | 1hr 12m 10s |
 |     30 |      8240 | 2hr 17m 20s |
-|     50 |       ??? |     ???     |
-|    100 |       ??? |     ???     |
+|     50 |     11340 |      3hr 9m |
+|    100 |       ??? |         ??? |
 
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
