@@ -144,6 +144,16 @@ estimate while using some predefined model as specified in our yaml file.
 |     50 |       ??? |     ??? |
 |    100 |       ??? |     ??? |
 
+V100
+
+| Epochs | Time in s |        Time |
+|-------:|----------:|------------:|
+|      1 |      2600 |   43m 20s   |
+|     10 |      4330 | 1hr 12m 10s |
+|     30 |      8240 | 2hr 17m 20s |
+|     50 |       ??? |     ???     |
+|    100 |       ??? |     ???     |
+
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
 ```bash
