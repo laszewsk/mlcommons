@@ -22,11 +22,11 @@ project: project.json
 
 
 jobs-%.sh: %.json
-	cms sbatch generate submit --name=$<  > $@
+	cms sbatch generate submit --job_type=sh --name=$<  > $@
 
 %.json: config.yaml
 	cms sbatch generate \
-	           --source=job.in.slurm \
+	           --source=job.in.sh \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
@@ -56,7 +56,7 @@ stop:
 inspect:
 	$(eval D=$(shell ls project/$(ls -1) | head -n 1))
 	echo ${D}
-	$(shell emacs project/${D}/config.yaml project/${D}/job.slurm)
+	$(shell emacs project/${D}/config.yaml project/${D}/job.sh)
 
 watch: status
 
@@ -66,6 +66,6 @@ status:
 
 clean:
 	@-rm -rf project project.json jobs-project.sh
-	@-rm -f rivanna.slurm
+	@-rm -f job.sh
 	@-rm -rf '__pycache__'
 	@-rm -rf *~

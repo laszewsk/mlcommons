@@ -98,6 +98,9 @@ The data is downloaded to
 $(PROJECT_DIR)/mlcommons/benchmarks/cloudmask/data
 ```
 
+unbuntu-sh Gregors machine 117m23.104s
+
+
 ## 4. Generate parameterized jobs
 
 Next we generate some parameterized jobs. These runs are controlled with two files.
@@ -154,6 +157,9 @@ V100
 |     30 |      8240 | 2hr 17m 20s |
 |     50 |     11340 |      3hr 9m |
 |    100 |       ??? |         ??? |
+
+
+
 
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
