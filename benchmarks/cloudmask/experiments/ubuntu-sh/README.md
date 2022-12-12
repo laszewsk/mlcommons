@@ -62,10 +62,10 @@ setup automatically in a later step.
 ## 2. Generating experiment configurations
 
 Choose a PROJECT_DIR where you like to install the code. Rivanna offers some temporary
-space in the /scratch directory. 
+space in the /project1 directory. Please replace this directory accordingly.
 
 ```bash
-export PROJECT_DIR=/scratch/$USER
+export PROJECT_DIR=/project1/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
