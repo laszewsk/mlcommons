@@ -74,7 +74,7 @@ train_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day
 inference_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
-model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: ./sciml_bench/outputs/slstr_cloud/cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -82,7 +82,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: ~/sciml_bench/outputs/slstr_cloud
+output_dir: ./sciml_bench/outputs/slstr_cloud
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log

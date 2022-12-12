@@ -3,15 +3,14 @@ WORKDIR=/project1
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project 
+all: project
 
 project: project.json generate
 
 setup:
-	python setup_env_and_yaml.py
 	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
 
-generate: jobs-project.sh 
+generate: jobs-project.sh
 
 run: submit
 
