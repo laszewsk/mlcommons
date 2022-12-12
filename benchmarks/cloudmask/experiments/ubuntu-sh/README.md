@@ -44,6 +44,7 @@ Otherwise, do the following:
 ```bash
 python -m venv ~/ENV3
 source ~/ENV3/bin/activate
+pip install pip -U
 mkdir ~/cm
 cd ~/cm
 pip install cloudmesh-installer

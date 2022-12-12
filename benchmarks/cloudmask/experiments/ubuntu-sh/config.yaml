@@ -23,9 +23,9 @@ platform: nvidia gtx-2
 accelerators_per_node: 16
 
 run:
-  filesystem: "/localscratch/{os.USER}"
+  filesystem: "/project1/{os.USER}"
   # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
-  venvpath: "$HOME/mlcommons-work/python"
+  venvpath: "$HOME/ENV3"
   datadir: data
   branch: 'main'
 
@@ -42,11 +42,10 @@ submission:
   platform: rivanna
 
 experiment:
-#  card_name: a100
-  card_name: v100
+  card_name: rtx3090
   gpu_count: 1
   cpu_num: 1
-  mem: "64GB"
+  mem: "24GB"
   repeat: "1"
   epoch: "1,10,30,50,100"
   seed: 1234
@@ -59,31 +58,20 @@ experiment:
   gpu: 1
 
 
-#system:
-#  host: "rivanna"
-#  python: "3.10.8"
-#  num_cpus: 1
-#  partition: "bii-gpu"
-#  # allocation: ds6011-sp22-002
-#  # allocation: bii_dsc
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
-#  constraint: ""
-
 system:
-  host: "rivanna"
+  host: "rtx3090"
   python: "3.10.8"
   num_cpus: 1
-  partition: "bii-gpu"
-  allocation: bii_dsc_community
+  partition: ""
+  allocation: ""
   constraint: ""
   reservation: ""
 
 # Training data
-train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day
 
 # Inference data
-inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
 model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
