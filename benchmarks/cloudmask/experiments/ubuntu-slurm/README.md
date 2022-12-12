@@ -31,6 +31,9 @@ rivanna support staff.
 If you have executed this step previously, you only have to say 
 
 ```bash
+module purge
+module load anaconda
+source activate python310
 source ~/ENV3/bin/activate
 ```
 
@@ -69,8 +72,14 @@ export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
+git checkout main
 cd mlcommons/benchmarks/cloudmask/experiments/rivanna
 ```
+
+In case you would like to have a different branch other than
+main, please use the name of the branch in the `git checkout`
+command.
+
 ## 3. Obtaining the data
 
 Next we obtain the data. The command uses an aws call to download both
@@ -127,13 +136,25 @@ output of the files and directories.
 Be aware that many jobs may take hours to complete.  We provide here a simple 
 estimate while using some predefined model as specified in our yaml file.
 
-| Epochs | Time in s |
-|-------:|----------:|
-|      1 |       ??? |
-|     10 |       ??? |
-|     30 |       ??? |
-|     50 |       ??? |
-|    100 |       ??? |
+A100
+
+| Epochs | Time in s |        Time |
+|-------:|----------:|------------:|
+|      1 |      2578 |     42m 58s |
+|     10 |      3186 |      53m 6s |
+|     30 |      4757 | 1hr 19m 17s |
+|     50 |      6434 | 1hr 47m 14s |
+|    100 |     11098 |  3hr 4m 58s |
+
+V100
+
+| Epochs | Time in s |        Time |
+|-------:|----------:|------------:|
+|      1 |      2600 |     43m 20s |
+|     10 |      4330 | 1hr 12m 10s |
+|     30 |      8240 | 2hr 17m 20s |
+|     50 |     11340 |      3hr 9m |
+|    100 |       ??? |         ??? |
 
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
@@ -147,7 +168,7 @@ To look at the yaml file for this experiment, use
 less project/card_name_a100_gpu_count_1_cpu_num_1_mem_64GB_repeat_1_epoch_10/config.yaml
 ```
 
-or simply call  which uses emacs to open both files from the firts parameterized job.
+or simply call  which uses emacs to open both files from the first parameterized job.
 
 ```bash
 make inspect
@@ -204,6 +225,74 @@ tail -f  project/card_name_a100_gpu_count_1_cpu_num_6_mem_64GB_TFTTransformerepo
 you will have to change the second parameter in the path according to your 
 hyperparameters and what you like to watch 
 
+The file `output.log` contains a convenient human readable summary of the various portions of the program execution generated with cloudmesh StopWatch. It includes details of the compute node, as well as runtimes.
+
+
+```
++---------------------------------+---------------------------------------------------+
+| Attribute                       | Value                                             |
+|---------------------------------+---------------------------------------------------|
+| ANSI_COLOR                      | "0;31"                                            |
+| BUG_REPORT_URL                  | "https://bugs.centos.org/"                        |
+| CENTOS_MANTISBT_PROJECT         | "CentOS-7"                                        |
+| CENTOS_MANTISBT_PROJECT_VERSION | "7"                                               |
+| CPE_NAME                        | "cpe:/o:centos:centos:7"                          |
+| HOME_URL                        | "https://www.centos.org/"                         |
+| ID                              | "centos"                                          |
+| ID_LIKE                         | "rhel fedora"                                     |
+| NAME                            | "CentOS Linux"                                    |
+| PRETTY_NAME                     | "CentOS Linux 7 (Core)"                           |
+| REDHAT_SUPPORT_PRODUCT          | "centos"                                          |
+| REDHAT_SUPPORT_PRODUCT_VERSION  | "7"                                               |
+| VERSION                         | "7 (Core)"                                        |
+| VERSION_ID                      | "7"                                               |
+| cpu                             | Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz          |
+| cpu_cores                       | 40                                                |
+| cpu_count                       | 40                                                |
+| cpu_threads                     | 40                                                |
+| date                            | 2022-12-07 15:42:28.276533                        |
+| frequency                       | scpufreq(current=2100.0, min=0.0, max=0.0)        |
+| mem.active                      | 59.0 GiB                                          |
+| mem.available                   | 308.5 GiB                                         |
+| mem.free                        | 297.8 GiB                                         |
+| mem.inactive                    | 9.2 GiB                                           |
+| mem.percent                     | 18.1 %                                            |
+| mem.total                       | 376.5 GiB                                         |
+| mem.used                        | 61.4 GiB                                          |
+| platform.version                | #1 SMP Wed Feb 23 16:47:03 UTC 2022               |
+| python                          | 3.10.8 (main, Nov 24 2022, 14:13:03) [GCC 11.2.0] |
+| python.pip                      | 22.2.2                                            |
+| python.version                  | 3.10.8                                            |
+| sys.platform                    | linux                                             |
+| uname.machine                   | x86_64                                            |
+| uname.node                      | udc-aj36-36                                       |
+| uname.processor                 | x86_64                                            |
+| uname.release                   | 3.10.0-1160.59.1.el7.x86_64                       |
+| uname.system                    | Linux                                             |
+| uname.version                   | #1 SMP Wed Feb 23 16:47:03 UTC 2022               |
+| user                            | Gregor von Laszewski                              |
++---------------------------------+---------------------------------------------------+
+```
+
+```
++-------------------------+----------+---------+ ...
+| Name                    | Status   |    Time | ...
+|-------------------------+----------+---------+ ...
+| total                   | ok       | 900.437 | ...
+| training                | ok       | 751.567 | ...
+| loaddata                | ok       |   2.313 | ...
+| training_on_mutiple_GPU | ok       | 744.44  | ...
+| inference               | ok       | 148.178 | ...
++-------------------------+----------+---------+ ...
+```
+
+This data is also available as CSV entries and can conveniently be grepped with 
+
+```bash
+$ grep "# csv" output.log
+```
+
+for further automated processing.
 
 
 ## 7. Generate Report

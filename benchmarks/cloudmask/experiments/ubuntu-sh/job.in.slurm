@@ -25,7 +25,7 @@ echo "# cloudmesh status=running progress=1 pid=$$"
 set -uxe
 
 RUN_BASE="{run.filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}"
-DATA_PATH="/project1/${USER}/mlcommons/benchmarks/cloudmask/data"
+DATA_PATH="/scratch/${USER}/mlcommons/benchmarks/cloudmask/data"
 
 if [ -n $SLURM_JOB_ID ] ; then
 THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
@@ -83,14 +83,20 @@ sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudmask_run.log" $(dirname 
 
 sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.log" $(dirname $THEPATH)/config.yaml
 
+sed -i "/model_file:/c\model_file: $(dirname $THEPATH)/cloudModel.h5" $(dirname $THEPATH)/config.yaml
+
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 
-cd /project1/$USER/mlcommons/benchmarks/cloudmask/experiments
+# cd /project/bii_dsc/cloudmask/science/benchmarks/cloudmask
+
+cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 
 python -m rivanna.slstr_cloud --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+
+# python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 echo "# cloudmesh status=done progress=100 pid=$$"
 
