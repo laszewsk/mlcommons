@@ -13,7 +13,7 @@
 # import sys
 # sys.path.append("..")
 
-import yaml
+import keras
 import os
 import atexit
 import h5py
@@ -173,7 +173,34 @@ def cloud_inference(args) -> None:
 # Training mode                                                     #
 #####################################################################
 
+class CloudmeshCallback(keras.callbacks.Callback):
+
+    def on_epoch_begin(self, epoch, logs=None):
+        keys = list(logs.keys())
+        StopWatch.start(f'epoch-{epoch}')
+        print("Cloudmesh start epoch {} of training; got log keys: {}".format(epoch, keys))
+
+    def on_epoch_end(self, epoch, logs=None):
+        keys = list(logs.keys())
+        StopWatch.stop(f'epoch-{epoch}')
+        print("Cloudmesh stop epoch {} of training; got log keys: {}".format(epoch, keys))
+
+
+class MllogCallback(keras.callbacks.Callback):
+
+    def on_epoch_begin(self, epoch, logs=None):
+        keys = list(logs.keys())
+        print(
+            "Mllog start epoch {} of training; got log keys: {}".format(epoch, keys))
+
+    def on_epoch_end(self, epoch, logs=None):
+        mllogger = mllog.get_mllogger()
+        keys = list(logs.keys())
+        print("Mllog stop epoch {} of training; got log keys: {}".format(epoch, keys))
+        mllogger.event(key=f"mllog-epoch-{epoch}", value=keys)
+
 def cloud_training(args) -> None:
+    with_callback = True
     print('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(args['experiment.seed'])
     data_dir = os.path.expanduser(args['train_dir'])
@@ -196,7 +223,15 @@ def cloud_training(args) -> None:
         # create U-Net model
         model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
         model.compile(optimizer=optimizer, loss=args['training_loss'], metrics=[args['training_metrics']])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(args['experiment.epoch']), verbose=1)
+        if with_callback:
+            callbacks = [CloudmeshCallback, MllogCallback]
+        else:
+            callbacks = None
+        history = model.fit(train_dataset,
+                            validation_data=test_dataset,
+                            epochs=int(args['experiment.epoch']),
+                            verbose=1,
+                            callbacks=callbacks)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)

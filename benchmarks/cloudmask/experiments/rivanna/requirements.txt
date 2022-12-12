@@ -7,3 +7,4 @@ pyyaml
 cloudmesh-common
 git+https://github.com/mlperf/logging.git@1.0.0
 protobuf==3.19.4
+keras
