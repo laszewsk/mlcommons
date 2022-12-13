@@ -32,10 +32,6 @@ If you have executed this step previously, you only have to say
 
 
 ```
-```
-
-
-```
 source ~/ENV3/bin/activate
 ```
 
