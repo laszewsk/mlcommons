@@ -1,4 +1,4 @@
-# Parameterized jobs for rivanna with cloudmesh-sbatch
+# Parameterized jobs for Ubuntu with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
 to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
