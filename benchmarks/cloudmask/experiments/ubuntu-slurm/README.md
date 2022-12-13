@@ -66,7 +66,7 @@ which squeue
 which scontrol
 ```
 
-Instalation instruction are provided her ???. TOTO: Locate the slurm instalation instruction, it may be in the cloudmesh-mpi repo???
+Instalation instruction are provided her ???. TODO: Locate the slurm instalation instruction, it may be in the cloudmesh-mpi repo???
 
 
 ## 2. Generating experiment configurations
