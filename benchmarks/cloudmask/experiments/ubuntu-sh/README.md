@@ -13,7 +13,7 @@ We assume if you like to use the automated report generated (under
 development) you have full version of latex installed
 
 ```bash
-module load texlive
+which pdflatex
 ```
 
 If you do not want to create the reports, please skip this step.
