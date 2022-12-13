@@ -1,4 +1,4 @@
-# Parameterized jobs for rivanna with cloudmesh-sbatch
+# Parameterized jobs for Ubuntu slurm with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
 to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
@@ -54,6 +54,19 @@ In either case your command promt will have the prefix `(ENV3)`.
 Note that we use two different python environment. 
 One for running sbatch, the other in whcih we run tensorflow, which will be 
 setup automatically in a later step.
+
+## 1.3 SLURM
+
+We assume you have SLURM installed
+
+```bash
+which sbatch
+whcih srun
+which squeue
+which scontrol
+```
+
+Instalation instruction are provided her ???. TOTO: Locate the slurm instalation instruction, it may be in the cloudmesh-mpi repo???
 
 
 ## 2. Generating experiment configurations
