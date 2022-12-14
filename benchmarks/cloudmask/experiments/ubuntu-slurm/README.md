@@ -78,8 +78,10 @@ sudo apt-get remove munge
 
 ### Setup
 
+```bash
 sudo slurmctld -c -D -f /etc/slurm-llnl/slurm.conf -i
 sudo slurmd -f /etc/slurm-llnl/slurm.conf
+```
 
 https://github.com/cloudmesh/cloudmesh-sbatch#slurm-on-a-single-computer-ubuntu-2004
 
