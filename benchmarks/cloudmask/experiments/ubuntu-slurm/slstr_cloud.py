@@ -142,25 +142,26 @@ def cloud_inference(config) -> None:
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
-        
-        # Change mask values from float to integer
-        mask_np = mask.numpy()
-        mask_np[mask_np > 0] = 1
-        mask_np[mask_np == 0 ] = 0
-        mask_flat = mask_np.reshape(-1)
-        
-        # Extract groundTruth from file, this is the Bayesian mask
-        with h5py.File(file_name, 'r') as handle:           
-            groundTruth = handle['bayes'][:]
-            groundTruth[groundTruth > 0] = 1
-            groundTruth[groundTruth == 0] = 0
-        
-        # Make 1D array
-        groundTruth_flat = groundTruth.reshape(-1)
-       
-        # Calculate hits between ground truth mask and the reconstructed mask
-        accuracy = np.mean( groundTruth_flat == mask_flat)
-        accuracyList.append(accuracy)
+
+        if config["mask"] == "integer":
+            # Change mask values from float to integer
+            mask_np = mask.numpy()
+            mask_np[mask_np > 0] = 1
+            mask_np[mask_np == 0] = 0
+            mask_flat = mask_np.reshape(-1)
+
+            # Extract groundTruth from file, this is the Bayesian mask
+            with h5py.File(file_name, 'r') as handle:
+                groundTruth = handle['bayes'][:]
+                groundTruth[groundTruth > 0] = 1
+                groundTruth[groundTruth == 0] = 0
+
+            # Make 1D array
+            groundTruth_flat = groundTruth.reshape(-1)
+
+            # Calculate hits between ground truth mask and the reconstructed mask
+            accuracy = np.mean(groundTruth_flat == mask_flat)
+            accuracyList.append(accuracy)
        
     d = {
         "accuracy": accuracyList
