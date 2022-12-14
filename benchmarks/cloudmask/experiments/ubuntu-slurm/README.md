@@ -57,6 +57,25 @@ setup automatically in a later step.
 
 ## 1.3 SLURM
 
+### jp's installation
+
+```bash
+sudo apt install libevent-dev autoconf git libtool flex libmunge-dev munge -y
+git clone https://github.com/SchedMD/slurm 
+cd slurm/
+./configure --enable-debug --enable-deprecated --with-munge
+sudo make -j install
+sudo mkdir -p /etc/slurm-llnl/
+sudo cp ./etc/slurm.conf.example /etc/slurm-llnl/slurm.conf
+# edit the config file to use your computers hostname and specifications.
+# make sure in the config file to make the slurmuser=root
+# and make the slurmctldhost=YourHostnameGoesHere
+# and make the NodeName=YourHostNameGoesHere
+sudo nano /etc/slurm-llnl/slurm.conf
+```
+
+
+
 ### Install
 
 ```bash
@@ -81,6 +100,7 @@ sudo apt-get remove munge
 
 ```bash
 sudo slurmctld -c -D -f /etc/slurm-llnl/slurm.conf -i
+# open another terminal and execute the following command
 sudo slurmd -f /etc/slurm-llnl/slurm.conf
 ```
 
