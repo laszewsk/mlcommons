@@ -59,19 +59,24 @@ setup automatically in a later step.
 
 ### Install
 
+```bash
 sudo apt-get -y install munge
 git clone https://github.com/SchedMD/slurm 
 cd slurm/
 ./configure --enable-debug --enable-deprecated --with-munge
 sudo make -j install
+```
 
 ### Uninstall
 
-?
+```bash
+sudo apt-get remove slurm
 
 sudo apt-get -y purge munge
 sudo apt-get remove munge
+```
 
+### Setup
 
 sudo slurmctld -c -D -f /etc/slurm-llnl/slurm.conf -i
 sudo slurmd -f /etc/slurm-llnl/slurm.conf
