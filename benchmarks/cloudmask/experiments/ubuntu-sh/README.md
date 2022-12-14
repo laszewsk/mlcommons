@@ -69,7 +69,7 @@ git clone ssh://git@github.com/laszewsk/mlcommons.git
 cd mlcommons
 git checkout main
 cd benchmarks/cloudmask/experiments/ubuntu-sh
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 In case you would like to have a different branch other than
