@@ -17,9 +17,6 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-project: project.json
-
-
 jobs-%.sh: %.json
 	cms sbatch generate submit --job_type=sh --name=$<  > $@
 

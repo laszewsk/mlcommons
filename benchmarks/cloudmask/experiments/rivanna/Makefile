@@ -18,8 +18,6 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-project: project.json
-
 localscratch: localscratch.json
 
 

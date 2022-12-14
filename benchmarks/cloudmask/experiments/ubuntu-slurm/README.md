@@ -57,6 +57,34 @@ setup automatically in a later step.
 
 ## 1.3 SLURM
 
+### Install
+
+sudo apt-get -y install munge
+git clone https://github.com/SchedMD/slurm 
+cd slurm/
+./configure --enable-debug --enable-deprecated --with-munge
+sudo make -j install
+
+### Uninstall
+
+?
+
+sudo apt-get -y purge munge
+sudo apt-get remove munge
+
+
+sudo slurmctld -c -D -f /etc/slurm-llnl/slurm.conf -i
+sudo slurmd -f /etc/slurm-llnl/slurm.conf
+
+https://github.com/cloudmesh/cloudmesh-sbatch#slurm-on-a-single-computer-ubuntu-2004
+
+https://gist.github.com/ckandoth/2acef6310041244a690e4c08d2610423
+
+```bash
+$ sudo systemctl start slurmctld
+$ sudo systemctl start slurmd
+```
+
 We assume you have SLURM installed
 
 ```bash

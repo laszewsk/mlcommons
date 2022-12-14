@@ -3,7 +3,7 @@ WORKDIR=/project1
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project
+all: setup project
 
 project: project.json generate
 
@@ -16,8 +16,6 @@ run: submit
 
 submit:
 	-sh jobs-project.sh
-
-project: project.json
 
 
 jobs-%.sh: %.json
@@ -55,7 +53,7 @@ stop:
 inspect:
 	$(eval D=$(shell ls project/$(ls -1) | head -n 1))
 	echo ${D}
-	$(shell emacs project/${D}/config.yaml project/${D}/job.sh)
+	$(shell emacs project/${D}/config.yaml project/${D}/job.slurm)
 
 watch: status
 
