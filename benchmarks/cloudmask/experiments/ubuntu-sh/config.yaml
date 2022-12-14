@@ -9,18 +9,11 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
-name: cloudmask-ubuntu
+name: cloudmask-ubuntu-sh
+
 sbatch:
   mode: h
   dir: localscratch
-
-# General info
-benchmark: cloudmask
-organisation: STFC
-division: SciML
-status: research
-platform: nvidia gtx-2
-accelerators_per_node: 16
 
 run:
   filesystem: "/project1/{os.USER}"
@@ -66,6 +59,8 @@ system:
   allocation: ""
   constraint: ""
   reservation: ""
+  platform: "ubuntu"
+  accelerators_per_node: 1
 
 # Training data
 train_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day

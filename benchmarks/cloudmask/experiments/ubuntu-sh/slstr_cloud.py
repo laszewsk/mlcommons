@@ -254,16 +254,16 @@ def main():
     logger = logging.getLogger(__name__)
 
     # Values extracted from config.yaml
-    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['benchmark'])
-    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['organisation'])
-    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['division'])
+    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['submission.benchmark'])
+    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['submission.org'])
+    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['submission.division'])
 
-    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['platform'])
+    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['system.platform'])
     mllogger.start(key=mllog.constants.INIT_START)
 
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
-    mllogger.event(key='accelerators_per_node', value=config['accelerators_per_node'])
+    mllogger.event(key='accelerators_per_node', value=config['system.accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training
