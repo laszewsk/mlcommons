@@ -60,7 +60,7 @@ setup automatically in a later step.
 ### Install
 
 ```bash
-sudo apt-get -y install munge
+sudo apt install libevent-dev autoconf git libtool flex libmunge-dev munge -y
 git clone https://github.com/SchedMD/slurm 
 cd slurm/
 ./configure --enable-debug --enable-deprecated --with-munge
