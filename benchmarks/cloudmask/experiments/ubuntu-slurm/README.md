@@ -64,6 +64,7 @@ sudo apt-get -y install munge
 git clone https://github.com/SchedMD/slurm 
 cd slurm/
 ./configure --enable-debug --enable-deprecated --with-munge
+make -j
 sudo make -j install
 ```
 
@@ -88,8 +89,8 @@ https://github.com/cloudmesh/cloudmesh-sbatch#slurm-on-a-single-computer-ubuntu-
 https://gist.github.com/ckandoth/2acef6310041244a690e4c08d2610423
 
 ```bash
-$ sudo systemctl start slurmctld
-$ sudo systemctl start slurmd
+$ sudo systemctl start slurmctld -f /etc/slurm-llnl/slurm.conf
+$ sudo systemctl start slurmd -f /etc/slurm-llnl/slurm.conf
 ```
 
 We assume you have SLURM installed
