@@ -3,7 +3,7 @@ WORKDIR=/project1
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project
+all: setup project
 
 project: project.json generate
 
