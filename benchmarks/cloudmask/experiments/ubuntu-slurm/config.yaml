@@ -78,10 +78,10 @@ system:
   accelerators_per_node: 1
 
 # Training data
-train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /scratch/green/mlcommons/benchmarks/cloudmask/data/one-day
 
 # Inference data
-inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /scratch/green/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
 model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5

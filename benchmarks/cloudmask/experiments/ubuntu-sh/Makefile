@@ -8,7 +8,7 @@ all: project
 project: project.json generate
 
 setup:
-	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh/requirements.txt
 
 generate: jobs-project.sh
 
