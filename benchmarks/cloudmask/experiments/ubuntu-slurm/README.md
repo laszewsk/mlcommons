@@ -60,7 +60,8 @@ setup automatically in a later step.
 ### jp's installation
 
 ```bash
-sudo apt install libevent-dev autoconf git libtool flex libmunge-dev munge -y
+# sudo apt install libevent-dev autoconf git libtool flex libmunge-dev 
+sudo get install munge -y
 git clone https://github.com/SchedMD/slurm 
 cd slurm/
 ./configure --enable-debug --enable-deprecated --with-munge
@@ -73,7 +74,7 @@ sudo cp ./etc/slurm.conf.example /etc/slurm-llnl/slurm.conf
 # and make the NodeName=YourHostNameGoesHere
 sudo nano /etc/slurm-llnl/slurm.conf
 ```
-
+sudo cp  etc/slurmctld.service /lib/systemd/system
 
 
 ### Install
