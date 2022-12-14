@@ -3,13 +3,13 @@ SHELL=/bin/bash
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project 
+all: setup project
 
 project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/experiments/greene/requirements.txt
 
 generate: jobs-project.sh 
 
@@ -69,6 +69,6 @@ status:
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
-	@-rm -f rivanna.slurm
+	@-rm -f greene.slurm
 	@-rm -rf '__pycache__'
 	@-rm -rf *~

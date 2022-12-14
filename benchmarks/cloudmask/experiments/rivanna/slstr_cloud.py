@@ -63,10 +63,10 @@ def weighted_cross_entropy(beta):
     return loss
 
 
-def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_size: int) -> tf.Tensor:
+def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch_size: int) -> tf.Tensor:
     """Reconstruct a full image from a series of patches
 
-    :param args: image height and image width defined in IMAGE_H and IMAGE_W
+    :param config: image height and image width defined in IMAGE_H and IMAGE_W
     :param patches: array with shape (num patches, height, width)
     :param nx: the number of patches in the x direction
     :param ny: the number of patches in the y direction
@@ -74,8 +74,8 @@ def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_s
     :return: the reconstructed image with shape (1, height, weight, 1)
     """
     # Read arguments 
-    IMAGE_H = args['IMAGE_H']
-    IMAGE_W = args['IMAGE_W']
+    IMAGE_H = config['IMAGE_H']
+    IMAGE_W = config['IMAGE_W']
 
     h = ny * patch_size
     w = nx * patch_size
@@ -94,26 +94,26 @@ def reconstruct_from_patches(args, patches: tf.Tensor, nx: int, ny: int, patch_s
     return reconstructed
 
 # Inference
-def cloud_inference(args) -> None:
+def cloud_inference(config) -> None:
     print('Running benchmark slstr_cloud in inference mode.')
     # Read arguments 
-    CROP_SIZE = args['CROP_SIZE']
-    PATCH_SIZE = args['PATCH_SIZE']
-    N_CHANNELS = args['N_CHANNELS']
+    CROP_SIZE = config['CROP_SIZE']
+    PATCH_SIZE = config['PATCH_SIZE']
+    N_CHANNELS = config['N_CHANNELS']
 
     # Load model
-    modelPath = os.path.expanduser(args['model_file'])
+    modelPath = os.path.expanduser(config['model_file'])
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
-    inference_dir = os.path.expanduser(args['inference_dir'])
+    inference_dir = os.path.expanduser(config['inference_dir'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
     
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
-    data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
-    # data_loader = SLSTRDataLoader(args, file_paths, single_image=False, crop_size=CROP_SIZE)
+    data_loader = SLSTRDataLoader(config, file_paths, single_image=True, crop_size=CROP_SIZE)
+    # data_loader = SLSTRDataLoader(config, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
     
     # Inference Loop
@@ -135,32 +135,33 @@ def cloud_inference(args) -> None:
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
-        mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
+        mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         
         # Save reconstructed image (mask)
-        output_dir = os.path.expanduser(args['output_dir'])
+        output_dir = os.path.expanduser(config['output_dir'])
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
-        
-        # Change mask values from float to integer
-        mask_np = mask.numpy()
-        mask_np[mask_np > 0] = 1
-        mask_np[mask_np == 0 ] = 0
-        mask_flat = mask_np.reshape(-1)
-        
-        # Extract groundTruth from file, this is the Bayesian mask
-        with h5py.File(file_name, 'r') as handle:           
-            groundTruth = handle['bayes'][:]
-            groundTruth[groundTruth > 0] = 1
-            groundTruth[groundTruth == 0] = 0
-        
-        # Make 1D array
-        groundTruth_flat = groundTruth.reshape(-1)
-       
-        # Calculate hits between ground truth mask and the reconstructed mask
-        accuracy = np.mean( groundTruth_flat == mask_flat)
-        accuracyList.append(accuracy)
+
+        if config["mask"] == "integer":
+            # Change mask values from float to integer
+            mask_np = mask.numpy()
+            mask_np[mask_np > 0] = 1
+            mask_np[mask_np == 0] = 0
+            mask_flat = mask_np.reshape(-1)
+
+            # Extract groundTruth from file, this is the Bayesian mask
+            with h5py.File(file_name, 'r') as handle:
+                groundTruth = handle['bayes'][:]
+                groundTruth[groundTruth > 0] = 1
+                groundTruth[groundTruth == 0] = 0
+
+            # Make 1D array
+            groundTruth_flat = groundTruth.reshape(-1)
+
+            # Calculate hits between ground truth mask and the reconstructed mask
+            accuracy = np.mean(groundTruth_flat == mask_flat)
+            accuracyList.append(accuracy)
        
     d = {
         "accuracy": accuracyList
@@ -173,14 +174,14 @@ def cloud_inference(args) -> None:
 # Training mode                                                     #
 #####################################################################
 
-def cloud_training(args) -> None:
+def cloud_training(config) -> None:
     print('Running benchmark slstr_cloud in training mode.')
-    tf.random.set_seed(args['experiment.seed'])
-    data_dir = os.path.expanduser(args['train_dir'])
+    tf.random.set_seed(config['experiment.seed'])
+    data_dir = os.path.expanduser(config['train_dir'])
 
     # load the datasets
     StopWatch.start("loaddata")
-    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, args=args)
+    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, config=config)
     StopWatch.stop("loaddata")
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
@@ -190,19 +191,19 @@ def cloud_training(args) -> None:
     # Running training on multiple GPUs
     StopWatch.start("training_on_mutiple_GPU")
     mirrored_strategy = tf.distribute.MirroredStrategy()
-    optimizer = tf.keras.optimizers.Adam(args['experiment.learning_rate'])
+    optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
 
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
-        model.compile(optimizer=optimizer, loss=args['training_loss'], metrics=[args['training_metrics']])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(args['experiment.epoch']), verbose=1)
+        model = unet(input_shape=(config['PATCH_SIZE'], config['PATCH_SIZE'], config['N_CHANNELS']))
+        model.compile(optimizer=optimizer, loss=config['training_loss'], metrics=[config['training_metrics']])
+        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(config['experiment.epoch']), verbose=1)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    modelPath = os.path.expanduser(args['model_file'])
+    modelPath = os.path.expanduser(config['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
@@ -243,12 +244,9 @@ def main():
     parser.add_argument('--config', default=os.path.expanduser('./config.yaml'), help='path to config file')
     command_line_args = parser.parse_args()
 
-    configFile = os.path.expanduser(command_line_args.config)
-    config = read_config_parameters(filename=configFile)
-    # args = config
-    # Read YAML file
-    # with open(configFile, 'r') as stream:
-    #     args = yaml.safe_load(stream)
+    configYamlFile = os.path.expanduser(command_line_args.config)
+    config = read_config_parameters(filename=configYamlFile)
+
     log_file = os.path.expanduser(config['log_file'])
 
     user_name = config["submission.submitter"]
@@ -261,16 +259,16 @@ def main():
     logger = logging.getLogger(__name__)
 
     # Values extracted from config.yaml
-    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['benchmark'])
-    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['organisation'])
-    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['division'])
+    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['submission.benchmark'])
+    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['submission.org'])
+    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['submission.division'])
 
-    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['platform'])
+    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['system.platform'])
     mllogger.start(key=mllog.constants.INIT_START)
 
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
-    mllogger.event(key='accelerators_per_node', value=config['accelerators_per_node'])
+    mllogger.event(key='accelerators_per_node', value=config['system.accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training

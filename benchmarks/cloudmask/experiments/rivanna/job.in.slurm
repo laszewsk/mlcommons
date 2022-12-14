@@ -82,6 +82,9 @@ sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.
 
 sed -i "/model_file:/c\model_file: $(dirname $THEPATH)/cloudModel.h5" $(dirname $THEPATH)/config.yaml
 
+mkdir -p $(dirname $THEPATH)/output_masks
+sed -i "/output_dir:/c\output_dir: $(dirname $THEPATH)/output_masks/slstr_cloud" $(dirname $THEPATH)/config.yaml
+
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 

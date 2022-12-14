@@ -9,18 +9,11 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
-name: cloudmask-ubuntu
+name: cloudmask-rivanna
+
 sbatch:
   mode: h
   dir: localscratch
-
-# General info
-benchmark: cloudmask
-organisation: STFC
-division: SciML
-status: research
-platform: nvidia gtx-2
-accelerators_per_node: 16
 
 run:
   filesystem: "/localscratch/{os.USER}"
@@ -40,6 +33,7 @@ submission:
   github_commit_version: TBD
   status: completed
   platform: rivanna
+  accelerators_per_node: 1
 
 experiment:
 #  card_name: a100
@@ -78,6 +72,9 @@ system:
   allocation: bii_dsc_community
   constraint: ""
   reservation: ""
+  platform: rivanna
+
+mask: "float"
 
 # Training data
 train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day

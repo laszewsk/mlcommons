@@ -143,7 +143,7 @@ def cloud_training(args)-> None:
     data_dir = os.path.expanduser(args['train_dir'])
 
     # load the datasets
-    train_dataset, test_dataset  = load_datasets(dataset_dir=data_dir, args=args)
+    train_dataset, test_dataset  = load_datasets(dataset_dir=data_dir, config=args)
     
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
