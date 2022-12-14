@@ -74,6 +74,8 @@ system:
   reservation: ""
   platform: rivanna
 
+mask: "float"
+
 # Training data
 train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
 

@@ -77,6 +77,8 @@ system:
   platform: "ubuntu"
   accelerators_per_node: 1
 
+mask: "float"
+
 # Training data
 train_dir: /scratch/green/mlcommons/benchmarks/cloudmask/data/one-day
 
