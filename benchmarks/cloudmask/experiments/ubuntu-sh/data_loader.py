@@ -130,7 +130,7 @@ class SLSTRDataLoader:
         dataset = tf.data.Dataset.from_generator(self._load_data,
                                                  output_types=types,
                                                  output_shapes=shapes,
-                                                 config=(path,))
+                                                 args=(path,))
         return dataset
 
     def to_dataset(self):
