@@ -76,9 +76,6 @@ echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
 
-cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
-
-
 sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudmask_run.log" $(dirname $THEPATH)/config.yaml
 
 sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.log" $(dirname $THEPATH)/config.yaml
