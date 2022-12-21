@@ -1,0 +1,84 @@
+atomicwrites==1.4.1
+attrs==22.2.0
+beautifulsoup4==4.11.1
+bleach==5.0.1
+build==0.9.0
+bump2version==1.0.0
+certifi==2022.12.7
+charset-normalizer==2.1.1
+click==8.1.3
+-e git+https://github.com/cloudmesh/cloudmesh-abstract.git@2ebc2aaec78d92d6cb6b9ed0cf97f3c7f2c294b9#egg=cloudmesh_abstract
+-e git+https://github.com/cloudmesh/cloudmesh-cmd5.git@e123797a1db19e58ccef9c401f611818dc236254#egg=cloudmesh_cmd5
+-e git+https://github.com/cloudmesh/cloudmesh-common.git@cb2d24e0d39a69997dd27fab7612c67347f38085#egg=cloudmesh_common
+-e git+https://github.com/cloudmesh/cloudmesh-configuration.git@388fdaa0f5b23e9aac04ed27454475b4464c06ca#egg=cloudmesh_configuration
+-e git+https://github.com/cloudmesh/cloudmesh-gui.git@6799d77b2ef47d6dd3be8ece496a2417ab3e0726#egg=cloudmesh_gui
+cloudmesh-installer==4.4.52
+cloudmesh-inventory==4.3.9
+-e git+https://github.com/cloudmesh/cloudmesh-progress.git@90b155217802d06e0e86765177dc0e8dd4ceeb6f#egg=cloudmesh_progress
+-e git+https://github.com/cloudmesh/cloudmesh-sbatch.git@f0a57563d25cebf314cc142aac82c9f67ff737ef#egg=cloudmesh_sbatch
+-e git+https://github.com/cloudmesh/cloudmesh-sys.git@6a194d50bdb214996e0e3585528e23413a545a22#egg=cloudmesh_sys
+-e git+https://github.com/cloudmesh/cloudmesh-test.git@da91024be06a864eeaac143255d8f8a978558c00#egg=cloudmesh_test
+colorama==0.4.6
+coverage==7.0.0
+defusedxml==0.7.1
+docopt==0.6.2
+entrypoints==0.4
+exceptiongroup==1.0.4
+fastjsonschema==2.16.2
+flake8==6.0.0
+fpyutils==2.2.1
+humanize==4.4.0
+idna==3.4
+iniconfig==1.1.1
+Jinja2==3.1.2
+jsonschema==4.17.3
+jupyter_client==7.4.8
+jupyter_core==5.1.0
+jupyterlab-pygments==0.2.2
+MarkupSafe==2.1.1
+mccabe==0.7.0
+md-toc==8.1.6
+mistune==2.0.4
+munch==2.5.0
+nbclient==0.7.2
+nbconvert==7.2.7
+nbformat==5.7.1
+nest-asyncio==1.5.6
+ordered-set==4.1.0
+oyaml==1.0
+packaging==22.0
+pandocfilters==1.5.0
+pathspec==0.10.3
+pep517==0.13.0
+pip-tools==6.12.1
+pipdeptree==2.3.3
+platformdirs==2.6.0
+pluggy==1.0.0
+psutil==5.9.4
+pycodestyle==2.10.0
+pyfiglet==0.8.post1
+pyflakes==3.0.1
+Pygments==2.13.0
+pyrsistent==0.19.2
+PySimpleGUI==4.60.4
+pytest==7.2.0
+pytest-cov==4.0.0
+python-dateutil==2.8.2
+python-hostlist==1.22
+pytimeparse==1.1.8
+pytz==2022.7
+PyYAML==6.0
+pyzmq==24.0.1
+requests==2.28.1
+simplejson==3.18.0
+six==1.16.0
+soupsieve==2.3.2.post1
+tabulate==0.9.0
+tinycss2==1.2.1
+tomli==2.0.1
+tornado==6.2
+tqdm==4.64.1
+traitlets==5.8.0
+urllib3==1.26.13
+webencodings==0.5.1
+yamllint==1.28.0
