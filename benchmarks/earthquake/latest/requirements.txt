@@ -5,7 +5,7 @@ cloudmesh-gpu
 jupyter
 keras
 matplotlib
-numpy
+numpy==1.23.3
 pandas
 psutil
 scipy
