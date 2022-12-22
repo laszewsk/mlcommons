@@ -9,18 +9,14 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
-name: cloudmask-ubuntu
+name: cloudmask-ubuntu-slurm
+
 sbatch:
   mode: h
   dir: localscratch
 
 # General info
-benchmark: cloudmask
-organisation: STFC
-division: SciML
-status: research
-platform: nvidia gtx-2
-accelerators_per_node: 16
+
 
 run:
   filesystem: "/localscratch/{os.USER}"
@@ -31,7 +27,7 @@ run:
 
 # Submission Information
 submission:
-  benchmark: earthquake
+  benchmark: cloudmask
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
   org: University of Virginia
@@ -78,12 +74,16 @@ system:
   allocation: bii_dsc_community
   constraint: ""
   reservation: ""
+  platform: "ubuntu"
+  accelerators_per_node: 1
+
+mask: "float"
 
 # Training data
-train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /scratch/green/mlcommons/benchmarks/cloudmask/data/one-day
 
 # Inference data
-inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /scratch/green/mlcommons/benchmarks/cloudmask/data/ssts
 
 # Model file
 model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5

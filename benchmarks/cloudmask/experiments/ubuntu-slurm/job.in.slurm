@@ -2,16 +2,16 @@
 #SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
 #SBATCH --output=cloudmask-%j.log
 #SBATCH --error=cloudmask-%j.error
-#SBATCH --partition={system.partition}
-#SBATCH --account={system.allocation}
-#SBATCH --reservation={system.reservation}
-#SBATCH --constraint={system.constraint}
-#SBATCH -c {experiment.cpu_num}
-#SBATCH --mem={experiment.mem}
-#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
-#SBATCH --cpus-per-task=1
-#SBATCH --mail-user=%u@virginia.edu
-#SBATCH --mail-type=ALL
+# #SBATCH --partition={system.partition}
+# #SBATCH --account={system.allocation}
+# #SBATCH --reservation={system.reservation}
+# #SBATCH --constraint={system.constraint}
+# #SBATCH -c {experiment.cpu_num}
+# #SBATCH --mem={experiment.mem}
+# #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+# #SBATCH --cpus-per-task=1
+# #SBATCH --mail-user=%u@virginia.edu
+# #SBATCH --mail-type=ALL
 
 # #SBATCH --partition=gpu
 # #SBATCH --mem=64GB

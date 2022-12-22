@@ -21,7 +21,7 @@ from typing import Union, List
 class SLSTRDataLoader:
 
     def __init__(self,
-                 args: dict,
+                 config: dict,
                  paths: Union[Path, List[Path]],
                  shuffle: bool = True,
                  batch_size: int = 32,
@@ -40,13 +40,13 @@ class SLSTRDataLoader:
         self.patch_padding = 'valid' if not single_image else 'same'
 
         # Parameters from config.yaml
-        self.patch_size = args['PATCH_SIZE']
-        self.n_channels = args['N_CHANNELS']
-        self.image_h = args['IMAGE_H']
-        self.image_w = args['IMAGE_W']
-        self.batch_size = args['experiment.batch_size']
-        self.no_cache = args['experiment.no_cache']
-        self.crop_size = args['CROP_SIZE']
+        self.patch_size = config['PATCH_SIZE']
+        self.n_channels = config['N_CHANNELS']
+        self.image_h = config['IMAGE_H']
+        self.image_w = config['IMAGE_W']
+        self.batch_size = config['experiment.batch_size']
+        self.no_cache = config['experiment.no_cache']
+        self.crop_size = config['CROP_SIZE']
 
         assert len(self._image_paths) > 0, 'No image data found in path!'
 
@@ -158,15 +158,15 @@ class SLSTRDataLoader:
 
 
 # Dataloader specific to this benchmark
-def load_datasets(dataset_dir: Path, args: dict):
+def load_datasets(dataset_dir: Path, config: dict):
     data_paths = list(Path(dataset_dir).glob('**/S3A*.hdf'))
 
-    train_paths, test_paths = train_test_split(data_paths, train_size=args['experiment.train_split'], random_state=42)
+    train_paths, test_paths = train_test_split(data_paths, train_size=config['experiment.train_split'], random_state=42)
 
-    train_data_loader = SLSTRDataLoader(args, train_paths, batch_size=args['experiment.batch_size'], no_cache=args['experiment.no_cache'])
+    train_data_loader = SLSTRDataLoader(config, train_paths, batch_size=config['experiment.batch_size'], no_cache=config['experiment.no_cache'])
     train_dataset = train_data_loader.to_dataset()
 
-    test_data_loader = SLSTRDataLoader(args, test_paths, batch_size=args['experiment.batch_size'], no_cache=args['experiment.no_cache'])
+    test_data_loader = SLSTRDataLoader(config, test_paths, batch_size=config['experiment.batch_size'], no_cache=config['experiment.no_cache'])
     test_dataset = test_data_loader.to_dataset()
 
     return train_dataset, test_dataset

@@ -18,6 +18,13 @@ set -uxe
 
 NB_OUTPUT="_output"
 
+# the path gives you the original path of the slurm job
+if [ -n $SLURM_JOB_ID ] ; then
+THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
+else
+THEPATH=$(realpath $0)
+fi
+
 # RUN_BASE="$(echo {run.workdir})"       # $(python eq_lib.py config.yaml run.workdir)
 
 RUN_BASE="{run.filesystem}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
@@ -66,6 +73,9 @@ echo "Retrieving outputs to ${NB_OUTPUT}"
 mkdir -p ${NB_OUTPUT}
 cp -R "${RUN_BASE}/data/EarthquakeDec2020/Outputs" ${NB_OUTPUT}
 cp "${RUN_BASE}/${OUTPUT_NB_NAME}" "${OUTPUT_NB_NAME}"
+
+# putting output notebook in job dir
+cp "${RUN_BASE}/${OUTPUT_NB_NAME}" "$(dirname $THEPATH)/${OUTPUT_NB_NAME}"
 
 echo "Execution Complete"
 echo "Cleaning up workspace"

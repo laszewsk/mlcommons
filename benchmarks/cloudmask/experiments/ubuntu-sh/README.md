@@ -66,9 +66,10 @@ export PROJECT_DIR=/project1/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
+cd mlcommons
 git checkout main
-cd mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh
-pip install -r requirements
+cd benchmarks/cloudmask/experiments/ubuntu-sh
+pip install -r requirements.txt
 ```
 
 In case you would like to have a different branch other than

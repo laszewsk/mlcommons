@@ -57,6 +57,63 @@ setup automatically in a later step.
 
 ## 1.3 SLURM
 
+### jp's installation
+
+```bash
+# sudo apt install libevent-dev autoconf git libtool flex libmunge-dev 
+sudo get install munge -y
+git clone https://github.com/SchedMD/slurm 
+cd slurm/
+./configure --enable-debug --enable-deprecated --with-munge
+sudo make -j install
+sudo mkdir -p /etc/slurm-llnl/
+sudo cp ./etc/slurm.conf.example /etc/slurm-llnl/slurm.conf
+# edit the config file to use your computers hostname and specifications.
+# make sure in the config file to make the slurmuser=root
+# and make the slurmctldhost=YourHostnameGoesHere
+# and make the NodeName=YourHostNameGoesHere
+sudo nano /etc/slurm-llnl/slurm.conf
+```
+sudo cp  etc/slurmctld.service /lib/systemd/system
+
+
+### Install
+
+```bash
+sudo apt install libevent-dev autoconf git libtool flex libmunge-dev munge -y
+git clone https://github.com/SchedMD/slurm 
+cd slurm/
+./configure --enable-debug --enable-deprecated --with-munge
+make -j
+sudo make -j install
+```
+
+### Uninstall
+
+```bash
+sudo apt-get remove slurm
+
+sudo apt-get -y purge munge
+sudo apt-get remove munge
+```
+
+### Setup
+
+```bash
+sudo slurmctld -c -D -f /etc/slurm-llnl/slurm.conf -i
+# open another terminal and execute the following command
+sudo slurmd -f /etc/slurm-llnl/slurm.conf
+```
+
+https://github.com/cloudmesh/cloudmesh-sbatch#slurm-on-a-single-computer-ubuntu-2004
+
+https://gist.github.com/ckandoth/2acef6310041244a690e4c08d2610423
+
+```bash
+$ sudo systemctl start slurmctld -f /etc/slurm-llnl/slurm.conf
+$ sudo systemctl start slurmd -f /etc/slurm-llnl/slurm.conf
+```
+
 We assume you have SLURM installed
 
 ```bash
@@ -166,7 +223,7 @@ V100
 |     10 |      4330 | 1hr 12m 10s |
 |     30 |      8240 | 2hr 17m 20s |
 |     50 |     11340 |      3hr 9m |
-|    100 |       ??? |         ??? |
+|    100 |     22274 | 6hr 11m 14s |
 
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 

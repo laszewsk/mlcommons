@@ -3,7 +3,7 @@ SHELL=/bin/bash
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project 
+all: setup project
 
 project: project.json generate
 
@@ -17,8 +17,6 @@ run: submit
 
 submit:
 	-sh jobs-project.sh
-
-project: project.json
 
 localscratch: localscratch.json
 

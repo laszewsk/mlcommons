@@ -3,12 +3,12 @@ WORKDIR=/project1
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
-all: project
+all: setup project
 
 project: project.json generate
 
 setup:
-	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh/requirements.txt
 
 generate: jobs-project.sh
 
@@ -16,9 +16,6 @@ run: submit
 
 submit:
 	-sh jobs-project.sh
-
-project: project.json
-
 
 jobs-%.sh: %.json
 	cms sbatch generate submit --job_type=sh --name=$<  > $@
