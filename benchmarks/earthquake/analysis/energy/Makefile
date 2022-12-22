@@ -4,5 +4,5 @@
 
 fetch:
 	mkdir -p ./data
-	rsync -avH --progress rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch/* ./data
+	rsync -ravH --progress rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch/* ./data
 
