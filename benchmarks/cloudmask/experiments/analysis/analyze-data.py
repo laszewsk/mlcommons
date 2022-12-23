@@ -101,11 +101,9 @@ def make_hist(file_name, title, log=False):
             save_figure(base + "-dim-" + str(i) + "-ln", os.path.join(hist_dir, base), dpi=300)
         else:
             save_figure(base + "-dim-" + str(i), os.path.join(hist_dir, base), dpi=300)
-            print(os.path.join(hist_dir, file_name[23:-4], title + "_dim_" + str(i) + "_.pdf"))
-
+            
         plt.close()
 
 
 if __name__ == "__main__":
     main()
-
