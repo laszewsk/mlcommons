@@ -15,6 +15,11 @@ cloudmesh-installer get sbatch
 cms help
 ```
 
+A cloudmesh docker repository is available at
+<https://github.com/cloudmesh/slurm-in-docker>
+and instructions on how to use it are available
+at <https://github.com/cloudmesh/cloudmesh-mpi/blob/main/doc/chapters/report-mpi.md#docker-virtualization>
+
 2. Generating experiment configurations
 
 # chose a PROJECT_DIR where you like to install the code
