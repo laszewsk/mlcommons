@@ -2,19 +2,29 @@ import h5py
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-file_name = "S3A_SL_1_RBT____20190612T004900_20190612T005200_20190612T030639_0179_045_359_1080_LN2_O_NR_003.hdf"
+# file_name = "S3A_SL_1_RBT____20190612T004900_20190612T005200_20190612T030639_0179_045_359_1080_LN2_O_NR_003.hdf"
 
 if not os.path.isdir("histograms"):
     os.makedirs("histograms")
 hist_dir = os.path.join(os.path.curdir, "histograms")
+data_dir = "../../data/one-day"
 
 all_datasets = ["bayes", "bts", "rads", "refs", "summary"]
 
 def main():
-    # Have the option to have natural log of frequency taken
-    make_hist(file_name, "bayes", log=True)
-    for elem in all_datasets:
-        make_hist(file_name, elem)
+    for file in os.listdir(os.path.join(data_dir, "day")):
+        file_name = os.path.join(data_dir, "day/", file)
+        # Have the option to take natural log of frequency
+        make_hist(file_name, "bayes", log=True)
+        for elem in all_datasets:
+            make_hist(file_name, elem)
+
+    for file in os.listdir(os.path.join(data_dir, "night")):
+        file_name = os.path.join(data_dir, "night/", file)
+        # Have the option to take natural log of frequency
+        make_hist(file_name, "bayes", log=True)
+        for elem in all_datasets:
+            make_hist(file_name, elem)
 
 def make_hist(file_name, title, log=False):
     with h5py.File(file_name, "r") as hdf:
