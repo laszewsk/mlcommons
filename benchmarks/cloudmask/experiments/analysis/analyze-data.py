@@ -53,13 +53,13 @@ def make_hist(file_name, title, log=False):
             plt.title(title+"_dim_"+str(i))
         
 
-        if not os.path.isdir(os.path.join(hist_dir, file_name[0:-4])):
-            os.makedirs(os.path.join(hist_dir, file_name[0:-4]))
+        if not os.path.isdir(os.path.join(hist_dir, file_name[23:-4])):
+            os.makedirs(os.path.join(hist_dir, file_name[23:-4]))
         
         if log:
-            plt.savefig(os.path.join(hist_dir, file_name[0:-4], title+"_dim_"+str(i)+"_ln.pdf"))
+            plt.savefig(os.path.join(hist_dir, file_name[23:-4], title+"_dim_"+str(i)+"_ln.pdf"))
         else: 
-            plt.savefig(os.path.join(hist_dir, file_name[0:-4], title+"_dim_"+str(i)+"_.pdf"))
+            plt.savefig(os.path.join(hist_dir, file_name[23:-4], title+"_dim_"+str(i)+"_.pdf"))
 
         plt.close()
 
