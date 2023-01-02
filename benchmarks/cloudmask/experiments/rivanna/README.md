@@ -154,7 +154,7 @@ V100
 |     10 |      4330 | 1hr 12m 10s |
 |     30 |      8240 | 2hr 17m 20s |
 |     50 |     11340 |      3hr 9m |
-|    100 |       ??? |         ??? |
+|    100 |     22274 | 6hr 11m 15s |
 
 An example on how to look at a slurm script (assuming we use an a100 in the YAML file) is 
 
