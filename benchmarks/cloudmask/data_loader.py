@@ -66,8 +66,8 @@ class SLSTRDataLoader:
             bts = handle['bts'][:]
             msk = handle['bayes'][:]
 
-        bts = (bts - 270.0) / 22.0
-        refs = refs - 0.5
+        bts = (bts - bts.mean()) / bts.std()
+        refs = (refs - refs.mean()) / refs.std()
         img = np.concatenate([refs, bts], axis=-1)
 
         msk[msk > 0] = 1

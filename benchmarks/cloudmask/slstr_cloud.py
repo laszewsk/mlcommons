@@ -24,6 +24,7 @@ from model import unet
 from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
+from sklearn import metrics
 
 # MLCommons logging
 from mlperf_logging import mllog
@@ -135,11 +136,12 @@ def cloud_inference(args) -> None:
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
+            handle.create_dataset('mask_patches', data=mask_patches)
+            handle.create_dataset('patches', data=patches)
         
         # Change mask values from float to integer
         mask_np = mask.numpy()
-        mask_np[mask_np > 0] = 1
-        mask_np[mask_np == 0 ] = 0
+        mask_np =  (mask_np > .5).astype(int)
         mask_flat = mask_np.reshape(-1)
         
         # Extract groundTruth from file, this is the Bayesian mask
@@ -152,10 +154,11 @@ def cloud_inference(args) -> None:
         groundTruth_flat = groundTruth.reshape(-1)
        
         # Calculate hits between ground truth mask and the reconstructed mask
-        accuracy = np.mean( groundTruth_flat == mask_flat)
+        accuracy = metrics.accuracy_score(groundTruth_flat, mask_flat)
         accuracyList.append(accuracy)
        
     d = {
+        "avg_accuracy": np.array(accuracyList).mean(),
         "accuracy": accuracyList
     }
     # Return number of files used for inference and disctionary d with accuracy
@@ -172,7 +175,7 @@ def cloud_training(args) -> None:
     data_dir = os.path.expanduser(args['train_dir'])
 
     # load the datasets
-    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, config=args)
+    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, args=args)
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
