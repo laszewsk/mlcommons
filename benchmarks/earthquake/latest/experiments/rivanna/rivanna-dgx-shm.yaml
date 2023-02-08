@@ -10,7 +10,7 @@ data:
   images: images
 
 experiment:
-  card_name: 1
+  card_name: "a100"
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
