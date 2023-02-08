@@ -8,7 +8,7 @@
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --time={time}
-#SBATCH --gres=gpu:{experiment.gpu_count}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
 
