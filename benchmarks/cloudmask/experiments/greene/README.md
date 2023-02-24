@@ -8,6 +8,7 @@
 git config pull.rebase false
 git config --global user.name "FIRST_NAME LAST_NAME"
 git config --global user.email "MY_NAME@example.com"
+git config --global core.editor "nano"
 ```
 
 
@@ -34,10 +35,14 @@ cd $PROJECT_DIR
 ```bash
 module purge
 module load anaconda3/2020.07
+module load cudnn/8.6.0.163-cuda11
 
-conda create -p /scratch/$USER/python310 python=3.10
-conda activate /scratch/$USER/python310
+conda create -p $USER_SCRATCH/python310 python=3.10
+conda activate $USER_SCRATCH/python310
 
+# module load python/intel/3.8.6
+python3 -m venv $USER_SCRATCH/ENV3
+source $USER_SCRATCH/ENV3/bin/activate
 
 
 
