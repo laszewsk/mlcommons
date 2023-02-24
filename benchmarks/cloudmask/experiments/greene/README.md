@@ -1,9 +1,80 @@
+# New Documentation
+
+
+## Set-up Git
+
+
+```bash
+git config pull.rebase false
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "MY_NAME@example.com"
+```
+
+
+## Generating Experiment Configurations
+
+
+
+```bash
+export USER_SCRATCH=/scratch/$USER/github-fork
+export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+export PROJECT_DATA=$USER_SCRATCH/data
+
+mkdir -p $USER_SCRATCH
+mkdir -p $PROJECT_DATA
+cd $USER_SCRATCH
+
+git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+
+cd $PROJECT_DIR
+```
+
+## Set-up Python
+
+```bash
+module purge
+module load anaconda3/2020.07
+
+conda create -p /scratch/$USER/python310 python=3.10
+conda activate /scratch/$USER/python310
+
+
+
+
+```
+
+```bash
+cd $PROJECT_DIR/experiments/greene/
+time make requirements
+```
+This command takes about 5 minutes to execute.
+
+## Obtain the data
+
+```bash
+time make data
+```
+
+This command takes about 1hr to execute.
+
+## Run the code
+
+```bash
+sbatch $PROJECT_DIR/experiments/greene/simple.slurm
+squeue -u $USER
+```
+
+
+
 # Parameterized jobs for rivanna with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
 to coordinate a parameter sweep over hyperparameters. It significantly simplifies managing
 different experiments as it stores the output in a directory format that 
 simplifies analysis.
+
+
+
 
 ## 1. Programming Environment Prerequisites
 

@@ -268,7 +268,6 @@ def main():
 
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
-    mllogger.event(key='accelerators_per_node', value=config['system.accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training

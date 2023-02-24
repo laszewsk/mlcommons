@@ -30,13 +30,15 @@ username = os.popen('whoami').read().strip()
 print(f"sed -i 's/USERTOREPLACE/{username}/g' config.yaml")
 os.system(f"sed -i 's/USERTOREPLACE/{username}/g' config.yaml")
 
+"""
+
 if "command not found" in os.popen("conda env list").read():
     try:
         print("conda module not yet loaded")
         os.system("module load anaconda")
     except Exception as e:
         print(e.output)
-
+"""
 #if env in os.popen("conda env list").read():
 #    print(f"environment {env} already installed in conda")
 #else:
