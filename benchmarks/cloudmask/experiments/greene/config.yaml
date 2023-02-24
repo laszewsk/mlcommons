@@ -73,13 +73,13 @@ system:
 mask: "float"
 
 # Training data
-train_dir: /scratch/vc2209/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /scratch/vc2209/github-fork/data/one-day
 
 # Inference data
-inference_dir: /scratch/vc2209/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /scratch/vc2209/github-fork/data/ssts
 
 # Model file
-model_file: /scratch/vc2209/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -87,7 +87,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: /scratch/vc2209/sciml_bench/outputs/slstr_cloud
+output_dir: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log
