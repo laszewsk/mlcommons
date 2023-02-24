@@ -6,19 +6,18 @@ requirements:
 	pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
 
 yaml:
-
-        sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
+	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
 
 
 data: yaml
-        mkdir -p $(PROJECT_DATA)/ssts
-        mkdir -p $(PROJECT_DATA)/one-day
-        echo -n "Downloading first portion of data..."
-        cd $(PROJECT_DIR); \
-        aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
-        echo -n "Downloading second portion of data..."
-        cd $(PROJECT_DIR); \
-        aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
+	mkdir -p $(PROJECT_DATA)/ssts
+	mkdir -p $(PROJECT_DATA)/one-day
+	echo -n "Downloading first portion of data..."
+	cd $(PROJECT_DIR); \
+	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
+	echo -n "Downloading second portion of data..."
+	cd $(PROJECT_DIR); \
+	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 project: project.json generate
 
@@ -28,6 +27,7 @@ run: submit
 
 submit:
 	-sh jobs-project.sh
+
 
 
 

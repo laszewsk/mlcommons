@@ -5,16 +5,22 @@
 
 
 ```bash
-git config pull.rebase false
-git config --global user.name "FIRST_NAME LAST_NAME"
-git config --global user.email "MY_NAME@example.com"
-git config --global core.editor "nano"
+greene> git config pull.rebase false
+greene> git config --global user.name "FIRST_NAME LAST_NAME"
+greene> git config --global user.email "MY_NAME@example.com"
+greene> git config --global core.editor "nano"
 ```
 
+## Get Interactive node and login
+
+```bash
+srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+```
 
 ## Generating Experiment Configurations
 
-
+To-do: Modify all bash terminal lines that are to be executed on the interactive node with 
+node>
 
 ```bash
 export USER_SCRATCH=/scratch/$USER/github-fork
@@ -42,11 +48,16 @@ conda activate $USER_SCRATCH/python310
 
 # module load python/intel/3.8.6
 python3 -m venv $USER_SCRATCH/ENV3
+
+conda deactivate
+
 source $USER_SCRATCH/ENV3/bin/activate
 
-
+which python
 
 ```
+This should return $USER_SCRATCH/ENV3/bin/python
+
 
 ```bash
 cd $PROJECT_DIR/experiments/greene/
