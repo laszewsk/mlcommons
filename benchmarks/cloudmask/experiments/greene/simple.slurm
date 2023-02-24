@@ -28,6 +28,8 @@ nvidia-smi
 
 cd $PROJECT_DIR/experiments/greene
 
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+
 python slstr_cloud.py --config config.yaml
 
 seff $SLURM_JOB_ID
