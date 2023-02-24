@@ -53,6 +53,7 @@ conda deactivate
 
 source $USER_SCRATCH/ENV3/bin/activate
 
+pip install pip -U
 which python
 
 ```
@@ -63,7 +64,7 @@ This should return $USER_SCRATCH/ENV3/bin/python
 cd $PROJECT_DIR/experiments/greene/
 time make requirements
 ```
-This command takes about 5 minutes to execute.
+This command takes about 1 minute to execute.
 
 ## Obtain the data
 
@@ -75,9 +76,12 @@ This command takes about 1hr to execute.
 
 ## Run the code
 
+
 ```bash
-sbatch $PROJECT_DIR/experiments/greene/simple.slurm
-squeue -u $USER
+greene> cd $PROJECT_DIR/experiments/greene/
+greene> mkdir -p outputs
+greene> sbatch simple.slurm
+greene> squeue -u $USER
 ```
 
 

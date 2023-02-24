@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-#SBATCH --job-name=Cloudmask-GPU-Greene
+#SBATCH --job-name=cloudmask-gpu-greene
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:a100:1
+#SBATCH --gres=gpu:v100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/%j.out
@@ -22,7 +22,10 @@ module load cudnn/8.6.0.163-cuda11
 source $PYTHON_DIR/bin/activate
 # export PATH=/scratch/vc2209/TestEnv/bin:$PATH
 
+nvidia-smi
+
 cd $PROJECT_DIR/experiments/greene
 
 python slstr_cloud.py --config config.yaml
 
+seff $SLURM_JOB_ID
