@@ -51,32 +51,58 @@ node> cd $PROJECT_DIR
 
 ## Set-up Python
 
-```bash
-module purge
-module load anaconda3/2020.07
-module load cudnn/8.6.0.163-cuda11
+To set up python it is a good idea to explre wha is supported by the system as default.
 
-conda create -p $USER_SCRATCH/python310 python=3.10
-conda activate $USER_SCRATCH/python310
+Use the command
+
+```bash
+node> module spider anaconda
+node> module spider cudnn
+```
+
+You will see something like 
+
+```
+anaconda/2019.10-py2.7
+anaconda/2020.11-py3.8
+cudnn/7.6.5.32
+cudnn/8.0.5.39
+cudnn/8.2.4.15
+```
+
+Pick a version using python 3 and cudnn with 8 and above. Then we create a python virtual env called ENV3 that we will be using. The following steps will set this up.
+
+
+```bash
+node> module purge
+# module load anaconda3/2020.07
+# module load cudnn/8.6.0.163-cuda11
+
+node> module load anaconda/2020.11-py3.8
+node> module load cudnn/8.2.4.15
+
+node> time conda create -y -p $USER_SCRATCH/python310 python=3.10
+node> conda activate $USER_SCRATCH/python310
 
 # module load python/intel/3.8.6
-python3 -m venv $USER_SCRATCH/ENV3
+node> time python3 -m venv $USER_SCRATCH/ENV3
 
-conda deactivate
+node> conda deactivate
 
-source $USER_SCRATCH/ENV3/bin/activate
+node> source $USER_SCRATCH/ENV3/bin/activate
 
-pip install pip -U
-which python
+node> pip install pip -U
+node> which python
 
 ```
+
 This should return $USER_SCRATCH/ENV3/bin/python
 
-
 ```bash
-cd $PROJECT_DIR/experiments/greene/
-time make requirements
+node> cd $PROJECT_DIR/experiments/rivanna
+node> time make requirements
 ```
+
 This command takes about 1 minute to execute.
 
 ## Obtain the data
@@ -85,7 +111,7 @@ This command takes about 1 minute to execute.
 time make data
 ```
 
-This command takes about 1hr to execute.
+This command takes about 1hr to execute on rivanna
 
 ## Run the code
 
