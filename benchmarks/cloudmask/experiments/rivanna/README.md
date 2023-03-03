@@ -16,6 +16,8 @@ rivanna> git config --global core.editor "emacs"
 
 ## Get Interactive node and login
 
+As we want to install a working version of python, we will do this initially through an interactive node. This gurantees that we use the same version of python when we run the code. However this step can also be likely performed on the frontend of rivanna without an interactive node. We do this only to be extra careful.
+
 ```bash
 srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
