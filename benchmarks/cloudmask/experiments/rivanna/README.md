@@ -1,3 +1,95 @@
+# New Documentation
+
+
+## Set-up Git
+
+
+```bash
+greene> git config pull.rebase false
+greene> git config --global user.name "FIRST_NAME LAST_NAME"
+greene> git config --global user.email "MY_NAME@example.com"
+greene> git config --global core.editor "nano"
+```
+
+## Get Interactive node and login
+
+```bash
+srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+```
+
+## Generating Experiment Configurations
+
+To-do: Modify all bash terminal lines that are to be executed on the interactive node with 
+node>
+
+```bash
+export USER_SCRATCH=/scratch/$USER/github-fork
+export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+export PROJECT_DATA=$USER_SCRATCH/data
+
+mkdir -p $USER_SCRATCH
+mkdir -p $PROJECT_DATA
+cd $USER_SCRATCH
+
+git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+
+cd $PROJECT_DIR
+```
+
+## Set-up Python
+
+```bash
+module purge
+module load anaconda3/2020.07
+module load cudnn/8.6.0.163-cuda11
+
+conda create -p $USER_SCRATCH/python310 python=3.10
+conda activate $USER_SCRATCH/python310
+
+# module load python/intel/3.8.6
+python3 -m venv $USER_SCRATCH/ENV3
+
+conda deactivate
+
+source $USER_SCRATCH/ENV3/bin/activate
+
+pip install pip -U
+which python
+
+```
+This should return $USER_SCRATCH/ENV3/bin/python
+
+
+```bash
+cd $PROJECT_DIR/experiments/greene/
+time make requirements
+```
+This command takes about 1 minute to execute.
+
+## Obtain the data
+
+```bash
+time make data
+```
+
+This command takes about 1hr to execute.
+
+## Run the code
+
+
+```bash
+greene> cd $PROJECT_DIR/experiments/greene/
+greene> mkdir -p outputs
+greene> sbatch simple.slurm
+greene> squeue -u $USER
+```
+
+
+---
+**NOT TESTED FROM HERE ON**
+---
+
+
 # Parameterized jobs for rivanna with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 
