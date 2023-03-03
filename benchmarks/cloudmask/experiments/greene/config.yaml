@@ -25,9 +25,12 @@ run:
 # Submission Information
 submission:
   benchmark: cloudmask
-  submitter: Varshitha Chennamsetti
-  email: varsha99c@gmail.com
-  org: NYU
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  # submitter: Varshitha Chennamsetti
+  # email: varsha99c@gmail.com
+  # org: NYU
   division: closed
   version: mlcommons-cloudmask-v1.1
   github_commit_version: TBD
