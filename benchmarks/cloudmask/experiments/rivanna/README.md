@@ -32,21 +32,21 @@ srun --partition=bii-gpu -A bii_dsc_community --gres=gpu:v100:1 --pty --mem=64G 
 
 ## Generating Experiment Configurations
 
-To-do: Modify all bash terminal lines that are to be executed on the interactive node with 
-node>
+The following commands need to be executed in the node to set up the code (alternatively they can be executed on the rivanna frontend).
 
 ```bash
-export USER_SCRATCH=/scratch/$USER/github-fork
-export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-export PROJECT_DATA=$USER_SCRATCH/data
+node> export GITUSER=laszewsk
+node> export USER_SCRATCH=/scratch/$USER/github-fork
+node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+node> export PROJECT_DATA=$USER_SCRATCH/data
 
-mkdir -p $USER_SCRATCH
-mkdir -p $PROJECT_DATA
-cd $USER_SCRATCH
+node> mkdir -p $USER_SCRATCH
+node> mkdir -p $PROJECT_DATA
+node> cd $USER_SCRATCH
 
-git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+node> git clone https://github.com/$GITUSER/mlcommons.git
 
-cd $PROJECT_DIR
+node> cd $PROJECT_DIR
 ```
 
 ## Set-up Python
