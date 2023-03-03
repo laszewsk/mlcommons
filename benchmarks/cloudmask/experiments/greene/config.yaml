@@ -9,7 +9,7 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
-name: cloudmask-rivanna
+name: cloudmask-greene
 
 sbatch:
   mode: h
@@ -18,16 +18,19 @@ sbatch:
 run:
   filesystem: "/localscratch/{os.USER}"
   # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
-  venvpath: "$HOME/mlcommons-work/python"
+  venvpath: "/scratch/vc2209/ENV3"
   datadir: data
   branch: 'main'
 
 # Submission Information
 submission:
-  benchmark: earthquake
+  benchmark: cloudmask
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
   org: University of Virginia
+  # submitter: Varshitha Chennamsetti
+  # email: varsha99c@gmail.com
+  # org: NYU
   division: closed
   version: mlcommons-cloudmask-v1.1
   github_commit_version: TBD
@@ -42,7 +45,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1,10,30,50,100"
+  epoch: 1
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -65,25 +68,21 @@ experiment:
 #  constraint: ""
 
 system:
-  host: "rivanna"
+  host: "greene"
   python: "3.10.8"
   num_cpus: 1
-  partition: "bii-gpu"
-  allocation: bii_dsc_community
-  constraint: ""
-  reservation: ""
-  platform: rivanna
+  platform: greene
 
 mask: "float"
 
 # Training data
-train_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /scratch/vc2209/github-fork/data/one-day
 
 # Inference data
-inference_dir: /scratch/USERTOREPLACE/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /scratch/vc2209/github-fork/data/ssts
 
 # Model file
-model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -91,7 +90,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: ~/sciml_bench/outputs/slstr_cloud
+output_dir: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log

@@ -1,15 +1,25 @@
 SHELL=/bin/bash
 
-LOCAL_BIN=/home/${USER}/.local/bin
-PYTHON=~/ENV3/bin/activate
+all: requirements data
 
-all: setup project
+requirements:
+	pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
+
+yaml:
+	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
+
+
+data: yaml
+	mkdir -p $(PROJECT_DATA)/ssts
+	mkdir -p $(PROJECT_DATA)/one-day
+	echo -n "Downloading first portion of data..."
+	cd $(PROJECT_DIR); \
+	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
+	echo -n "Downloading second portion of data..."
+	cd $(PROJECT_DIR); \
+	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 project: project.json generate
-
-setup:
-	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/experiments/greene/requirements.txt
 
 generate: jobs-project.sh 
 
@@ -18,7 +28,8 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-project: project.json
+
+
 
 localscratch: localscratch.json
 
@@ -38,17 +49,6 @@ jobs-%.sh: %.json
                --source_dir=. \
                --verbose
 
-data:
-	echo $(LOCAL_BIN)
-	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-		mkdir -p data/ssts && mkdir -p data/one-day
-	source $(PYTHON) && pip install awscli
-	echo -n "Downloading first portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
-	echo -n "Downloading second portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 kill: stop
 

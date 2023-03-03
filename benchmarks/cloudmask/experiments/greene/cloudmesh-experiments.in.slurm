@@ -10,8 +10,8 @@
 #SBATCH --mail-type=ALL
 
 
-# #SBATCH --mem=64GB
-# #SBATCH --time=6:00:00
+#SBATCH --mem=64GB
+#SBATCH --time=6:00:00
 
 echo "# cloudmesh status=running progress=1 pid=$$"
 
