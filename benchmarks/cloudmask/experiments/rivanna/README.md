@@ -75,20 +75,9 @@ Pick a version using python 3 and cudnn with 8 and above. Then we create a pytho
 
 ```bash
 node> module purge
-# module load anaconda3/2020.07
-# module load cudnn/8.6.0.163-cuda11
-
-node> module load anaconda/2020.11-py3.8
-node> module load cudnn/8.2.4.15
-
-node> time conda create -y -p $USER_SCRATCH/python310 python=3.10
-node> conda activate $USER_SCRATCH/python310
-
-# module load python/intel/3.8.6
+node> module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
+node> time python -m venv ./ENV3
 node> python3 -m venv $USER_SCRATCH/ENV3
-
-node> conda deactivate
-
 node> source $USER_SCRATCH/ENV3/bin/activate
 
 node> pip install pip -U
@@ -103,7 +92,7 @@ node> cd $PROJECT_DIR/experiments/rivanna
 node> time make requirements
 ```
 
-This command takes about 1 minute to execute.
+This command takes about 5 minutes 10 seconds to execute on rivana
 
 ## Obtain the data
 
