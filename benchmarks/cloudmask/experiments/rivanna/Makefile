@@ -5,7 +5,7 @@ SHELL=/bin/bash
 all: requirements data
 
 requirements:
-	pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
+	time pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
 
 yaml:
 	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
