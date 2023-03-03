@@ -3,12 +3,15 @@
 
 ## Set-up Git
 
+To set up git on your machine, you need to make sure that on all machines that you access git and make commits use the same username. It is also advisable that you set the editor to an editor that you like and is supported uniformly on all machines that you intend to make git commits from. Good examples are emacs, vim, vi, pico, nano. Make sure the one you pick is supported.
+
+I am using here the user Gregor von Laszewski as an example, please adapt to your name and email accordingly
 
 ```bash
-greene> git config pull.rebase false
-greene> git config --global user.name "FIRST_NAME LAST_NAME"
-greene> git config --global user.email "MY_NAME@example.com"
-greene> git config --global core.editor "nano"
+rivanna> git config pull.rebase false
+rivanna> git config --global user.name "Gregor von Laszewski"
+rivanna> git config --global user.email "laszewski@gmail.com"
+rivanna> git config --global core.editor "emacs"
 ```
 
 ## Get Interactive node and login
@@ -78,10 +81,10 @@ This command takes about 1hr to execute.
 
 
 ```bash
-greene> cd $PROJECT_DIR/experiments/greene/
-greene> mkdir -p outputs
-greene> sbatch simple.slurm
-greene> squeue -u $USER
+rivanna> cd $PROJECT_DIR/experiments/greene/
+rivanna> mkdir -p outputs
+rivanna> sbatch simple.slurm
+rivanna> squeue -u $USER
 ```
 
 
