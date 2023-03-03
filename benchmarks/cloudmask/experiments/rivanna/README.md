@@ -1,5 +1,4 @@
-# New Documentation
-
+# Rivanna Setup
 
 ## Set-up Git
 
@@ -18,8 +17,17 @@ rivanna> git config --global core.editor "emacs"
 
 As we want to install a working version of python, we will do this initially through an interactive node. This gurantees that we use the same version of python when we run the code. However this step can also be likely performed on the frontend of rivanna without an interactive node. We do this only to be extra careful.
 
+For you ti use rivanna, you need to have a valid partition and allocation. Thise working with Gregor can use 
+
+* partition: bii-gpu
+* allocaton: bii_dsc_community
+
+You will need to be added to the UVA group bii_dsc_community at: https://mygroups.virginia.edu/groups/ by Gregor. Please contact him.
+
+
+
 ```bash
-srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+srun --partition=bii-gpu -A bii_dsc_community --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
 ## Generating Experiment Configurations
