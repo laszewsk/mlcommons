@@ -85,7 +85,7 @@ node> time conda create -y -p $USER_SCRATCH/python310 python=3.10
 node> conda activate $USER_SCRATCH/python310
 
 # module load python/intel/3.8.6
-node> time python3 -m venv $USER_SCRATCH/ENV3
+node> python3 -m venv $USER_SCRATCH/ENV3
 
 node> conda deactivate
 
