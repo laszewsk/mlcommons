@@ -11,6 +11,7 @@
 
 name: cloudmask-rivanna
 
+
 sbatch:
   mode: h
   dir: localscratch
@@ -18,9 +19,13 @@ sbatch:
 run:
   filesystem: "/localscratch/{os.USER}"
   # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
-  venvpath: "$HOME/mlcommons-work/python"
+  venvpath: "{os.HOME}/mlcommons-work/python"
   datadir: data
   branch: 'main'
+
+aaa:
+  x: "{run.branch}"
+
 
 # Submission Information
 submission:
