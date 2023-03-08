@@ -5,10 +5,10 @@ SHELL=/bin/bash
 all: requirements data
 
 requirements:
-	time pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
+	time pip install -r $(PROJECT_DIR)/experiments/rivanna/requirements.txt
 
 yaml:
-	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
+	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/rivanna/config.yaml
 
 data: yaml
 	mkdir -p $(PROJECT_DATA)/ssts
