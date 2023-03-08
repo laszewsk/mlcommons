@@ -1,4 +1,34 @@
 #!/usr/bin/env bash
+
+echo USER {os.USER}
+echo HOME {os.HOME}
+echo cardname {experiment.card_name}
+echo gpu count {experiment.gpu_count}
+echo epoc {experiment.epoch}
+echo repeat {experiment.repeat}
+echo jobno %j
+echo partition {system.partition}
+echo allocation {system.allocation}
+echo reservation {system.reservation}
+echo constraint {system.constraint}
+echo cpu num {experiment.cpu_num}
+echo mem {experiment.mem}
+echo %u
+
+#SBATCH --output=cloudmask-%j.log
+#SBATCH --error=cloudmask-%j.error
+#SBATCH --partition={system.partition}
+#SBATCH --account={system.allocation}
+#SBATCH --reservation={system.reservation}
+#SBATCH --constraint={system.constraint}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
+
+
 #SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
 #SBATCH --output=cloudmask-%j.log
 #SBATCH --error=cloudmask-%j.error
@@ -76,15 +106,11 @@ echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
 
-sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudmask_run.log" $(dirname $THEPATH)/config.yaml
-
-sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.log" $(dirname $THEPATH)/config.yaml
-
-sed -i "/model_file:/c\model_file: $(dirname $THEPATH)/cloudModel.h5" $(dirname $THEPATH)/config.yaml
-
-mkdir -p $(dirname $THEPATH)/output_masks
-sed -i "/output_dir:/c\output_dir: $(dirname $THEPATH)/output_masks/slstr_cloud" $(dirname $THEPATH)/config.yaml
-
+#sed -i "/log_file:/c\log_file: $(dirname $THEPATH)/cloudmask_run.log" $(dirname $THEPATH)/config.yaml
+#sed -i "/mlperf_logfile:/c\mlperf_logfile: $(dirname $THEPATH)/mlperf_cloudmask.log" $(dirname $THEPATH)/config.yaml
+#sed -i "/model_file:/c\model_file: $(dirname $THEPATH)/cloudModel.h5" $(dirname $THEPATH)/config.yaml
+#mkdir -p $(dirname $THEPATH)/output_masks
+#sed -i "/output_dir:/c\output_dir: $(dirname $THEPATH)/output_masks/slstr_cloud" $(dirname $THEPATH)/config.yaml
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 

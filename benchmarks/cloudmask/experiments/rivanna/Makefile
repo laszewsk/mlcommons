@@ -46,11 +46,14 @@ jobs-%.sh: %.json
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --nocm \
-	           --os=USER \
+	           --os=USER,HOME \
+		   --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
+
+
+#	           --noos \
 
 data-old:
 	echo $(LOCAL_BIN)
@@ -58,11 +61,11 @@ data-old:
 		mkdir -p data/ssts && mkdir -p data/one-day
 	source $(PYTHON) && pip install awscli
 	echo -n "Downloading first portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
+	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
 	echo -n "Downloading second portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
+	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
+	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 kill: stop
 
