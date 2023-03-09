@@ -11,21 +11,15 @@
 
 name: cloudmask-rivanna
 
-
 sbatch:
   mode: h
-  dir: localscratch
+  dir: scratch
 
 run:
-  filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
+  filesystem: "/sratch/{os.USER}"
   venvpath: "{os.HOME}/mlcommons-work/python"
   datadir: data
   branch: 'main'
-
-aaa:
-  x: "{run.branch}"
-
 
 # Submission Information
 submission:
@@ -58,17 +52,6 @@ experiment:
   gpu: 1
 
 
-#system:
-#  host: "rivanna"
-#  python: "3.10.8"
-#  num_cpus: 1
-#  partition: "bii-gpu"
-#  # allocation: ds6011-sp22-002
-#  # allocation: bii_dsc
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
-#  constraint: ""
-
 system:
   host: "rivanna"
   python: "3.10.8"
@@ -78,17 +61,25 @@ system:
   constraint: ""
   reservation: ""
   platform: rivanna
+  accelerators_per_node:1
+
+#  # allocation: ds6011-sp22-002
+#  # allocation: bii_dsc
+#  allocation: bii_dsc_community
+#  reservation: bi_fox_dgx
+#  constraint: ""
+
 
 mask: "float"
 
 # Training data
-train_dir: /scratch/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: "/scratch/{os.USER}/data/one-day"
 
 # Inference data
-inference_dir: /scratch/{os.USER}/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: "/scratch/{os.oser}/data/ssts"
 
 # Model file
-model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: "/scratch/{os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5"
 
 # training 
 training_loss: binary_crossentropy
@@ -96,7 +87,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: ~/sciml_bench/outputs/slstr_cloud
+output_dir: "/scratch/os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log
