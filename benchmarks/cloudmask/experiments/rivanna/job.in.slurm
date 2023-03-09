@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
+#SBATCH --output=cloudmask-%j.log
+#SBATCH --error=cloudmask-%j.error
+#SBATCH --partition={system.partition}
+#SBATCH --account={system.allocation}
+#SBATCH --reservation={system.reservation}
+#SBATCH --constraint={system.constraint}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
+
+# xSBATCH --partition=gpu
+# xSBATCH --mem=64GB
+# xSBATCH --time=6:00:00
+
+
 echo USER {os.USER}
 echo HOME {os.HOME}
 echo cardname {experiment.card_name}
@@ -15,37 +34,6 @@ echo cpu num {experiment.cpu_num}
 echo mem {experiment.mem}
 echo %u
 
-#SBATCH --output=cloudmask-%j.log
-#SBATCH --error=cloudmask-%j.error
-#SBATCH --partition={system.partition}
-#SBATCH --account={system.allocation}
-#SBATCH --reservation={system.reservation}
-#SBATCH --constraint={system.constraint}
-#SBATCH -c {experiment.cpu_num}
-#SBATCH --mem={experiment.mem}
-#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
-#SBATCH --cpus-per-task=1
-#SBATCH --mail-user=%u@virginia.edu
-#SBATCH --mail-type=ALL
-
-
-#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
-#SBATCH --output=cloudmask-%j.log
-#SBATCH --error=cloudmask-%j.error
-#SBATCH --partition={system.partition}
-#SBATCH --account={system.allocation}
-#SBATCH --reservation={system.reservation}
-#SBATCH --constraint={system.constraint}
-#SBATCH -c {experiment.cpu_num}
-#SBATCH --mem={experiment.mem}
-#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
-#SBATCH --cpus-per-task=1
-#SBATCH --mail-user=%u@virginia.edu
-#SBATCH --mail-type=ALL
-
-# #SBATCH --partition=gpu
-# #SBATCH --mem=64GB
-# #SBATCH --time=6:00:00
 
 echo "# cloudmesh status=running progress=1 pid=$$"
 

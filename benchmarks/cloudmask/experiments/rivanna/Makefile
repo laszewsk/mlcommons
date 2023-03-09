@@ -37,6 +37,20 @@ localscratch: localscratch.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
+
+simple:
+	cms sbatch generate \
+	           --source=simple.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER,HOME \
+		   	   --nocm \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
+
+
 %.json: config.yaml
 	cms sbatch generate \
 	           --source=job.in.slurm \
@@ -44,7 +58,7 @@ jobs-%.sh: %.json
 	           --name=$(basename $@) \
 	           --noos \
 	           --os=USER,HOME \
-		   	   --nocm \
+		   --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose

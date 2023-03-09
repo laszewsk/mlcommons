@@ -4,6 +4,7 @@ numpy==1.23.5
 tensorflow==2.8.0
 cloudmesh-gpu
 cloudmesh-common
+cloudmesh-sbatch
 scikit-learn
 h5py
 pyyaml

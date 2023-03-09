@@ -1,4 +1,4 @@
-# config.yaml
+ # config.yaml
 
 # SciML-Bench
 # Copyright © 2022 Scientific Machine Learning Research Group
@@ -61,7 +61,7 @@ system:
   constraint: ""
   reservation: ""
   platform: rivanna
-  accelerators_per_node:1
+  accelerators_per_node: 1
 
 #  # allocation: ds6011-sp22-002
 #  # allocation: bii_dsc
@@ -76,7 +76,7 @@ mask: "float"
 train_dir: "/scratch/{os.USER}/data/one-day"
 
 # Inference data
-inference_dir: "/scratch/{os.oser}/data/ssts"
+inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
 model_file: "/scratch/{os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5"
@@ -87,7 +87,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: "/scratch/os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
+output_dir: "/scratch/{os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud"
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log
