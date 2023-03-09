@@ -16,8 +16,8 @@ sbatch:
   dir: scratch
 
 run:
-  filesystem: "/sratch/{os.USER}"
-  venvpath: "{os.HOME}/mlcommons-work/python"
+  filesystem: "/sratch/thf2bn"
+  venvpath: "/sratch/thf2bn/ENV3/bin/python"
   datadir: data
   branch: 'main'
 
@@ -41,7 +41,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1,10,30,50,100"
+  epoch: "1"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -58,28 +58,26 @@ system:
   num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
-  constraint: ""
-  reservation: ""
   platform: rivanna
   accelerators_per_node: 1
 
-#  # allocation: ds6011-sp22-002
-#  # allocation: bii_dsc
+
 #  allocation: bii_dsc_community
 #  reservation: bi_fox_dgx
 #  constraint: ""
+#  reservation: ""
 
 
 mask: "float"
 
 # Training data
-train_dir: "/scratch/{os.USER}/data/one-day"
+train_dir: "/scratch/thf2bn/data/one-day"
 
 # Inference data
-inference_dir: "/scratch/{os.USER}/data/ssts"
+inference_dir: "/scratch/thf2bn/data/ssts"
 
 # Model file
-model_file: "/scratch/{os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5"
+model_file: "./cloudModel.h5"
 
 # training 
 training_loss: binary_crossentropy
@@ -87,7 +85,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: "/scratch/{os.USER}/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud"
+output_dir: "."
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log
