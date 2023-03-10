@@ -8,6 +8,7 @@ mkdir -p $PROJECT_DATA
 cd $USER_SCRATCH
 
 git clone https://github.com/$GITUSER/mlcommons.git
+git remote set-url origin git@github.com:laszewsk/mlcommons.git
 
 cd $PROJECT_DIR
 
