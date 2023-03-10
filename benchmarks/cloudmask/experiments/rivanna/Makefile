@@ -1,32 +1,29 @@
 SHELL=/bin/bash
 AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
-USER_SCRATCH=/scratch/$USER
-PROJECT_DIR=$(USER_SCRATCH)/mlcommons/benchmarks/cloudmask
-PROJECT_DATA=$(USER_SCRATCH)/data
+USER_SCRATCH=/scratch/${USER}
+PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
+PROJECT_DATA=${USER_SCRATCH}/data
 
 
 all: requirements data
 
 requirements:
-	time pip install -r $(PROJECT_DIR)/experiments/rivanna/requirements.txt
-
-#yaml:
-#	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/rivanna/config.yaml
+	time pip install -r ${PROJECT_DIR}/experiments/rivanna/requirements.txt
 
 data: 
-	mkdir -p $(PROJECT_DATA)/ssts
-	mkdir -p $(PROJECT_DATA)/one-day
+	mkdir -p ${PROJECT_DATA}/ssts
+	mkdir -p ${PROJECT_DATA}/one-day
 	echo -n "Downloading first portion of data..."
-	cd $(PROJECT_DATA); $(AWS_S3) sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./one-day --cli-read-timeout 0
+	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./one-day --cli-read-timeout 0
 	echo -n "Downloading second portion of data..."
-	cd $(PROJECT_DATA); $(AWS_S3) sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts --cli-read-timeout 0
+	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts --cli-read-timeout 0
 
 
 project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /scratch/${USER}/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
 
 generate: jobs-project.sh 
 
