@@ -21,13 +21,13 @@ import time
 import decimal
 import argparse
 import tensorflow as tf
-from .data_loader import load_datasets
-from .model import unet
+from data_loader import load_datasets
+from model import unet
 from pathlib import Path
 import numpy as np
-from .data_loader import SLSTRDataLoader
+from data_loader import SLSTRDataLoader
 from cloudmesh.common.StopWatch import StopWatch
-
+from sklearn import metrics
 from mlperf_logging import mllog
 import logging
 
@@ -142,32 +142,34 @@ def cloud_inference(config) -> None:
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
+            handle.create_dataset('mask_patches', data=mask_patches)
+            handle.create_dataset('patches', data=patches)
 
-        if config["mask"] == "integer":
-            # Change mask values from float to integer
-            mask_np = mask.numpy()
-            mask_np[mask_np > 0] = 1
-            mask_np[mask_np == 0] = 0
-            mask_flat = mask_np.reshape(-1)
+        # Change mask values from float to integer
+        mask_np = mask.numpy()
+        mask_np =  (mask_np > .5).astype(int)
+        mask_flat = mask_np.reshape(-1)
 
-            # Extract groundTruth from file, this is the Bayesian mask
-            with h5py.File(file_name, 'r') as handle:
-                groundTruth = handle['bayes'][:]
-                groundTruth[groundTruth > 0] = 1
-                groundTruth[groundTruth == 0] = 0
+        # Extract groundTruth from file, this is the Bayesian mask
+        with h5py.File(file_name, 'r') as handle:
+            groundTruth = handle['bayes'][:]
+            groundTruth[groundTruth > 0] = 1
+            groundTruth[groundTruth == 0] = 0
 
-            # Make 1D array
-            groundTruth_flat = groundTruth.reshape(-1)
+        # Make 1D array
+        groundTruth_flat = groundTruth.reshape(-1)
 
-            # Calculate hits between ground truth mask and the reconstructed mask
-            accuracy = np.mean(groundTruth_flat == mask_flat)
-            accuracyList.append(accuracy)
-       
+        # Calculate hits between ground truth mask and the reconstructed mask
+        accuracy = metrics.accuracy_score(groundTruth_flat, mask_flat)
+        accuracyList.append(accuracy)
+
     d = {
+        "avg_accuracy": np.array(accuracyList).mean(),
         "accuracy": accuracyList
     }
     # Return number of files used for inference and disctionary d with accuracy
     return len(file_paths), d
+
 
 
 #####################################################################
@@ -268,7 +270,6 @@ def main():
 
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
-    mllogger.event(key='accelerators_per_node', value=config['system.accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training
