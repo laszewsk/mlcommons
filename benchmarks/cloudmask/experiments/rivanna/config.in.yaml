@@ -16,8 +16,8 @@ sbatch:
   dir: scratch
 
 run:
-  filesystem: "/sratch/thf2bn"
-  venvpath: "/sratch/thf2bn/ENV3/bin/python"
+  filesystem: "/sratch/{os.USER}"
+  venvpath: "{os.HOME}/mlcommons-work/python"
   datadir: data
   branch: 'main'
 
@@ -41,7 +41,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1"
+  epoch: "1,10,30,50,100"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -58,23 +58,25 @@ system:
   num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
-  platform: rivanna
-  accelerators_per_node: 1
   constraint: ""
   reservation: ""
+  platform: rivanna
+  accelerators_per_node: 1
 
-
+#  # allocation: ds6011-sp22-002
+#  # allocation: bii_dsc
 #  allocation: bii_dsc_community
 #  reservation: bi_fox_dgx
+#  constraint: ""
 
 
 mask: "float"
 
 # Training data
-train_dir: "/scratch/thf2bn/data/one-day"
+train_dir: "/scratch/{os.USER}/data/one-day"
 
 # Inference data
-inference_dir: "/scratch/thf2bn/data/ssts"
+inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
 model_file: "./cloudModel.h5"

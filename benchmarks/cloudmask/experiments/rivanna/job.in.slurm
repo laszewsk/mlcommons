@@ -46,7 +46,10 @@ THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
 else
 THEPATH=$(realpath $0)
 fi
+LOCATION=$(dirname $THEPATH)
 
+echo "LOCATION:", $LOCATION
+echo "THEPATH:", $THEPATH
 ## to run this say sbatch rivanna.sh
 
 cd ~
@@ -94,9 +97,9 @@ echo "# cloudmesh status=running progress=6 pid=$$"
 
 # cd /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments
 
-cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
+cms gpu watch --gpu=0 --delay=1 --dense > $LOCATION/gpu0.log &
 
-python slstr_cloud.py --config $(dirname $THEPATH)/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+python slstr_cloud.py --config $LOCATION/config.yaml > $(dirname $THEPATH)/output.log 2>&1
 
 echo "# cloudmesh status=done progress=100 pid=$$"
 
