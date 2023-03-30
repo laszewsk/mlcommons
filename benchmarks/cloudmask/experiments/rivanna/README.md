@@ -1,3 +1,151 @@
+# Rivanna Setup
+
+## Set-up Git
+
+To set up git on your machine, you need to make sure that on all machines that you access git and make commits use the same username. It is also advisable that you set the editor to an editor that you like and is supported uniformly on all machines that you intend to make git commits from. Good examples are emacs, vim, vi, pico, nano. Make sure the one you pick is supported.
+
+I am using here the user Gregor von Laszewski as an example, please adapt to your name and email accordingly. To find out the values you set you can use the command
+
+```bash
+gitconfig -l
+```
+
+Which should return something like 
+
+```
+user.email=laszewski@gmail.com
+user.name=Gregor von Laszewski
+push.default=matching
+core.editor=emacs
+```
+
+If some of the values are different or do not match your username, first and lastname or e-mail, please adjust them with 
+
+```bash
+rivanna> git config pull.rebase false
+rivanna> git config --global user.name "Gregor von Laszewski"
+rivanna> git config --global user.email "laszewski@gmail.com"
+rivanna> git config --global core.editor "emacs"
+```
+
+## Simple Setup
+
+```bash
+wget https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init.bash
+source init.bash
+```
+
+## Get Interactive node and login
+
+As we want to install a working version of python, we will do this initially through an interactive node. This gurantees that we use the same version of python when we run the code. However this step can also be likely performed on the frontend of rivanna without an interactive node. We do this only to be extra careful.
+
+For you ti use rivanna, you need to have a valid partition and allocation. Thise working with Gregor can use 
+
+* partition: bii-gpu
+* allocaton: bii_dsc_community
+
+You will need to be added to the UVA group bii_dsc_community at: https://mygroups.virginia.edu/groups/ by Gregor. Please contact him.
+
+
+
+```bash
+srun --partition=bii-gpu -A bii_dsc_community --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+```
+
+## Generating Experiment Configurations
+
+The following commands need to be executed in the node to set up the code (alternatively they can be executed on the rivanna frontend).
+
+```bash
+rivanna> export GITUSER=laszewsk
+rivanna> export USER_SCRATCH=/scratch/$USER
+rivanna> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+rivanna> export PROJECT_DATA=$USER_SCRATCH/data
+
+rivanna> mkdir -p $USER_SCRATCH
+rivanna> cd $USER_SCRATCH
+
+rivanna> git clone https://github.com/$GITUSER/mlcommons.git
+
+rivanna> cd $PROJECT_DIR
+```
+
+If you already have set up this environment you can reactivate it simply with 
+
+```bash
+node> source init.bash
+```
+
+## Set-up Python
+
+To set up python it is a good idea to explre wha is supported by the system as default.
+
+Use the command
+
+```bash
+node> module spider anaconda
+node> module spider cudnn
+```
+
+You will see something like 
+
+```
+anaconda/2019.10-py2.7
+anaconda/2020.11-py3.8
+cudnn/7.6.5.32
+cudnn/8.0.5.39
+cudnn/8.2.4.15
+```
+
+Pick a version using python 3 and cudnn with 8 and above. Then we create a python virtual env called ENV3 that we will be using. The following steps will set this up.
+
+
+```bash
+node> module purge
+node> module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
+# node> time python -m venv ./ENV3
+node> time python3 -m venv $USER_SCRATCH/ENV3
+node> source $USER_SCRATCH/ENV3/bin/activate
+
+node> pip install pip -U
+node> which python
+
+```
+
+This should return $USER_SCRATCH/ENV3/bin/python
+
+```bash
+node> cd $PROJECT_DIR/experiments/rivanna
+node> time make requirements
+```
+
+This command takes about 5 minutes 10 seconds to execute on rivana
+
+## Obtain the data
+
+```bash
+time time make data
+```
+
+This command takes about 1hr to execute on rivanna
+
+## Run the code
+
+
+```bash
+rivanna> cd $PROJECT_DIR/experiments/rivanna/
+rivanna> rm -rf outputs
+rivanna> mkdir -p outputs
+rivanna> sbatch simple.slurm
+rivanna> squeue -u $USER
+```
+
+
+---
+**NOT TESTED FROM HERE ON**
+---
+
+
 # Parameterized jobs for rivanna with cloudmesh-sbatch
 
 This version of cloudmask uses [cloudmesh-sbatch](https://github.com/cloudmesh/cloudmesh-sbatch) 

@@ -1,4 +1,4 @@
-# config.yaml
+ # config.yaml
 
 # SciML-Bench
 # Copyright © 2022 Scientific Machine Learning Research Group
@@ -13,12 +13,11 @@ name: cloudmask-rivanna
 
 sbatch:
   mode: h
-  dir: localscratch
+  dir: scratch
 
 run:
-  filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
-  venvpath: "$HOME/mlcommons-work/python"
+  filesystem: "/sratch/thf2bn"
+  venvpath: "/sratch/thf2bn/ENV3/bin/python"
   datadir: data
   branch: 'main'
 
@@ -42,7 +41,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1,10,30,50,100"
+  epoch: "1"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -53,37 +52,32 @@ experiment:
   gpu: 1
 
 
-#system:
-#  host: "rivanna"
-#  python: "3.10.8"
-#  num_cpus: 1
-#  partition: "bii-gpu"
-#  # allocation: ds6011-sp22-002
-#  # allocation: bii_dsc
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
-#  constraint: ""
-
 system:
   host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
+  platform: rivanna
+  accelerators_per_node: 1
   constraint: ""
   reservation: ""
-  platform: rivanna
+
+
+#  allocation: bii_dsc_community
+#  reservation: bi_fox_dgx
+
 
 mask: "float"
 
 # Training data
-train_dir: /scratch/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: "/scratch/thf2bn/data/one-day"
 
 # Inference data
-inference_dir: /scratch/{os.USER}/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: "/scratch/thf2bn/data/ssts"
 
 # Model file
-model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: "./cloudModel.h5"
 
 # training 
 training_loss: binary_crossentropy
@@ -91,7 +85,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: ~/sciml_bench/outputs/slstr_cloud
+output_dir: "."
 
 # Log file for recording runtimes
 log_file: ./cloudmask_run.log

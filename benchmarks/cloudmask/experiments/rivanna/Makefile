@@ -1,15 +1,29 @@
 SHELL=/bin/bash
+AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
+USER_SCRATCH=/scratch/${USER}
+PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
+PROJECT_DATA=${USER_SCRATCH}/data
 
-LOCAL_BIN=/home/${USER}/.local/bin
-PYTHON=~/ENV3/bin/activate
 
-all: setup project
+all: requirements data
+
+requirements:
+	time pip install -r ${PROJECT_DIR}/experiments/rivanna/requirements.txt
+
+data: 
+	mkdir -p ${PROJECT_DATA}/ssts
+	mkdir -p ${PROJECT_DATA}/one-day
+	echo -n "Downloading first portion of data..."
+	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./one-day --cli-read-timeout 0
+	echo -n "Downloading second portion of data..."
+	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts --cli-read-timeout 0
+
 
 project: project.json generate
 
 setup:
 	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/$(USER)/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /scratch/${USER}/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
 
 generate: jobs-project.sh 
 
@@ -24,29 +38,31 @@ localscratch: localscratch.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
+
+simple:
+	cms sbatch generate \
+	           --source=simple.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER,HOME \
+		   	   --nocm \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
+
+
 %.json: config.yaml
 	cms sbatch generate \
 	           --source=job.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --nocm \
-	           --os=USER \
+	           --os=USER,HOME \
+		   --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose
-
-data:
-	echo $(LOCAL_BIN)
-	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-		mkdir -p data/ssts && mkdir -p data/one-day
-	source $(PYTHON) && pip install awscli
-	echo -n "Downloading first portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
-	echo -n "Downloading second portion of data..." ; source $(PYTHON) && \
-    	cd /scratch/$(USER)/mlcommons/benchmarks/cloudmask/ && \
-    	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 kill: stop
 

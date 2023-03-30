@@ -1,4 +1,5 @@
 SHELL=/bin/bash
+AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 
 all: requirements data
 
@@ -13,11 +14,9 @@ data: yaml
 	mkdir -p $(PROJECT_DATA)/ssts
 	mkdir -p $(PROJECT_DATA)/one-day
 	echo -n "Downloading first portion of data..."
-	cd $(PROJECT_DIR); \
-	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
+	cd $(PROJECT_DIR); $(AWS_S3) sync s3://sciml-datasets/es/cloud_slstr_ds1/one-day ./data/one-day --cli-read-timeout 0
 	echo -n "Downloading second portion of data..."
-	cd $(PROJECT_DIR); \
-	  aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
+	cd $(PROJECT_DIR); $(AWS_S3) sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
 project: project.json generate
 
@@ -28,11 +27,7 @@ run: submit
 submit:
 	-sh jobs-project.sh
 
-
-
-
 localscratch: localscratch.json
-
 
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
@@ -43,8 +38,8 @@ jobs-%.sh: %.json
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --nocm \
-	           --os=USER \
+	           --os=USER,HOME \
+		   	   --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose

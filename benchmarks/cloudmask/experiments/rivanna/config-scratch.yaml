@@ -9,40 +9,19 @@
 
 # This is a configuration file for the CloudMask benchmark.
 
-name: cloudmask-greene
+name: cloudmask-rivanna
 
 sbatch:
   mode: h
   dir: localscratch
-
-run:
-  filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}dat  /{experiment.repeat}"
-  venvpath: "/scratch/vc2209/ENV3"
-  datadir: data
-  branch: 'main'
-
-# Submission Information
-submission:
-  benchmark: cloudmask
-  submitter: Gregor von Laszewski
-  email: laszewski@gmail.com
-  org: University of Virginia
-  division: closed
-  version: mlcommons-cloudmask-v1.1
-  github_commit_version: TBD
-  status: completed
-  platform: rivanna
-  accelerators_per_node: 1
-
+  
 experiment:
-#  card_name: a100
-  card_name: a100
+  card_name: v100
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: 1
+  epoch: "1,10,30,50,100"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -52,6 +31,29 @@ experiment:
   nodes: 1
   gpu: 1
 
+
+# Submission Information
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-cloudmask-v1.1
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
+  
+run:
+  filesystem: "/scratch/{os.USER}/github-fork"
+  workdir: "{filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}" 
+  output_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/{platform}/outputs/slstr_cloud"
+  log_file: {output_dir}/cloudmask_run.log
+  mlperf_logfile: {output_dir}/mlperf_cloudmask.log
+  venvpath: "{filesystem}/ENV3"
+  datadir: "{filesystem}/data"
+  branch: 'main'
 
 #system:
 #  host: "rivanna"
@@ -65,35 +67,29 @@ experiment:
 #  constraint: ""
 
 system:
-  host: "greene"
+  host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
-  platform: greene
+  partition: "bii-gpu"
+  allocation: bii_dsc_community
+  constraint: ""
+  reservation: ""
+  platform: rivanna
 
 mask: "float"
 
 # Training data
-train_dir: /scratch/vc2209/github-fork/data/one-day
+train_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/data/one-day"
 
 # Inference data
-inference_dir: /scratch/vc2209/github-fork/data/ssts
+inference_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/data/ssts"
 
 # Model file
-model_file: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5
+model_file: "{filesystem}/mlcommons/benchmarks/cloudmask/sciml_bench/outputs/slstr_cloud/cloudModel.h5"
 
 # training 
 training_loss: binary_crossentropy
 training_metrics: accuracy
-
-
-# Output directory
-output_dir: /scratch/vc2209/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
-
-# Log file for recording runtimes
-log_file: ./cloudmask_run_diff_epochs.log
-
-# Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask_diff_epochs.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256

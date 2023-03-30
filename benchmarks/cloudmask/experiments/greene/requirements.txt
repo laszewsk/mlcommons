@@ -10,4 +10,3 @@ awscli
 cloudmesh-common
 # git+https://github.com/mlperf/logging.git@2.1.0
 git+https://github.com/mlperf/logging.git@1.0.0
-
