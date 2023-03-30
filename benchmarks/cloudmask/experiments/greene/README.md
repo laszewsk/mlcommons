@@ -1,8 +1,15 @@
 # New Documentation
 
+## Pre-requisite
+Before installing on Greene HPC:
+
+1. Renew or request for a [NYU HPC 
+Account](https://www.nyu.edu/life/information-technology/research-computing-services/high-performance-computing/high-performance-computing-nyu-it/hpc-accounts-and-eligibility.html).
+2. Set up SSH keys for your github account. 
+
+
 
 ## Set-up Git
-
 
 ```bash
 greene> git config pull.rebase false
@@ -19,57 +26,57 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 
 ## Generating Experiment Configurations
 
-To-do: Modify all bash terminal lines that are to be executed on the interactive node with 
-node>
+All bash terminal lines that are to be executed on the interactive node start with "node>".
 
 ```bash
-export USER_SCRATCH=/scratch/$USER/github-fork
-export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-export PROJECT_DATA=$USER_SCRATCH/data
+node> export USER_SCRATCH=/scratch/$USER/github-fork
+node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+node> export PROJECT_DATA=$USER_SCRATCH/data
 
-mkdir -p $USER_SCRATCH
-mkdir -p $PROJECT_DATA
-cd $USER_SCRATCH
+node> mkdir -p $USER_SCRATCH
+node> mkdir -p $PROJECT_DATA
+node> cd $USER_SCRATCH
 
-git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+node> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
 
-cd $PROJECT_DIR
+node> cd $PROJECT_DIR
 ```
 
 ## Set-up Python
 
 ```bash
-module purge
-module load anaconda3/2020.07
-module load cudnn/8.6.0.163-cuda11
+node> module purge
+node> module load anaconda3/2020.07
+node> module load cudnn/8.6.0.163-cuda11
 
-conda create -p $USER_SCRATCH/python310 python=3.10
-conda activate $USER_SCRATCH/python310
+node> conda create -p $USER_SCRATCH/python310 python=3.10
+node> conda activate $USER_SCRATCH/python310
 
 # module load python/intel/3.8.6
-python3 -m venv $USER_SCRATCH/ENV3
+node> python3 -m venv $USER_SCRATCH/ENV3
 
-conda deactivate
+node> conda deactivate
 
-source $USER_SCRATCH/ENV3/bin/activate
+node> source $USER_SCRATCH/ENV3/bin/activate
 
-pip install pip -U
-which python
+node> pip install pip -U
+node> which python
 
 ```
 This should return $USER_SCRATCH/ENV3/bin/python
 
+Make sure to change the paths in the 'config.yaml' file to appropriate locations.
 
 ```bash
-cd $PROJECT_DIR/experiments/greene/
-time make requirements
+node> cd $PROJECT_DIR/experiments/greene/
+node> time make requirements
 ```
 This command takes about 1 minute to execute.
 
 ## Obtain the data
 
 ```bash
-time make data
+node> time make data
 ```
 
 This command takes about 1hr to execute.
