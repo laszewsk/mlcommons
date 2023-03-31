@@ -1,4 +1,4 @@
-# New Documentation
+# Benchmarking on NYU HPC Greene Cluster
 
 ## Pre-requisite
 Before installing on Greene HPC:

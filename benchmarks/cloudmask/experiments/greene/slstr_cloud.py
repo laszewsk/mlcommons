@@ -207,18 +207,19 @@ def cloud_training(config) -> None:
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    # modelPath = os.path.expanduser(config['model_file'])
-    # Read experiment arguments
-    modelPath = ""
-    experiment_args = ["card_name","gpu_count","cpu_num","mem","repeat","epoch","seed","learning_rate","batch_size","train_split","clip_offset","no_cache","nodes","gpu"]
-    for arg_name in experiment_args:
-        modelPath += arg_name
-        modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
-    if not os.path.exists(modelPath):
-        os.makedirs(modelPath)
-    modelPath += "/cloudModel.h5"
-    print(modelPath)
-
+    if(config['run.mode']=="parallel"):
+        # Read experiment arguments and create a model path from them
+        modelPath = ""
+        experiment_args = ["card_name","gpu_count","cpu_num","mem","repeat","epoch","seed","learning_rate","batch_size","train_split","clip_offset","no_cache","nodes","gpu"]
+        for arg_name in experiment_args:
+            modelPath += arg_name
+            modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
+        if not os.path.exists(modelPath):
+            os.makedirs(modelPath)
+        modelPath += "model/cloudModel.h5"
+        # print(modelPath)
+    else: # mode: original
+        modelPath = os.path.expanduser(config['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")

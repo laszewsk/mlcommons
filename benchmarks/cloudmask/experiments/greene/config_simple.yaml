@@ -21,6 +21,9 @@ run:
   venvpath: "/scratch/vc2209/ENV3"
   datadir: data
   branch: 'main'
+  mode: "parallel"
+  # mode: "original"
+  # mode: "cloudmesh"
 
 # Submission Information
 submission:
@@ -42,7 +45,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: 1
+  epoch: 5
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
