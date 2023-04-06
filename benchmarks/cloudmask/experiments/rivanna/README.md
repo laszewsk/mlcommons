@@ -28,14 +28,6 @@ rivanna> git config --global user.email "laszewski@gmail.com"
 rivanna> git config --global core.editor "emacs"
 ```
 
-## Simple Setup
-
-```bash
-rm -rf init-cloudmask.bash
-wget --no-check-certificate --no-cache --no-cookies https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init-cloudmask.bash
-source init.bash
-```
-
 ## Get Interactive node and login
 
 As we want to install a working version of python, we will do this initially through an interactive node. This gurantees that we use the same version of python when we run the code. However this step can also be likely performed on the frontend of rivanna without an interactive node. We do this only to be extra careful.
@@ -58,6 +50,19 @@ Not sure where this command came from:
 ```bash
 srun --partition=bii-gpu -A bii_dsc_community --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
+
+
+## Simple Setup
+
+This step must be done on an interactive node. HOw to get one is explained in the previous step.
+
+
+```bash
+rm -rf init-cloudmask.bash
+curl -O https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init-cloudmask.bash
+source init-cloudmask.bash
+```
+
 
 ## Generating Experiment Configurations
 
