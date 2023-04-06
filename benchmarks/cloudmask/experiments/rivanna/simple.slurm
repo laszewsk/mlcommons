@@ -2,7 +2,7 @@
 #SBATCH --job-name=cloudmask-gpu-greene
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:v100:1
-#SBATCH --time=02:00:00
+#SBATCH --time=06:00:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/%j.out
 #SBATCH -e outputs/%j.err

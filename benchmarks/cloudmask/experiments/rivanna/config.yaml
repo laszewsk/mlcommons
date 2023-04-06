@@ -77,7 +77,7 @@ train_dir: "/scratch/thf2bn/data/one-day"
 inference_dir: "/scratch/thf2bn/data/ssts"
 
 # Model file
-model_file: "./cloudModel.h5"
+model_file: cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -85,13 +85,13 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: "."
+output_dir: "./outputs"
 
 # Log file for recording runtimes
-log_file: ./cloudmask_run.log
+log_file: c_cloudmask_run.log
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask.log
+mlperf_logfile: c_mlperf_cloudmask.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
