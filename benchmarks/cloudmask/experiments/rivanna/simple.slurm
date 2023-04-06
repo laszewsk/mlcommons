@@ -15,7 +15,8 @@ export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data
 
 module purge
-module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
+# module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
+module load singularity tensorflow/2.8.0
 
 source $PYTHON_DIR/bin/activate
 
@@ -27,6 +28,6 @@ cd $PROJECT_DIR/experiments/rivanna
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-python slstr_cloud.py --config config.yaml
+singularity run --nv $CONTAINERDIR/tensorflow-2.8.0.sif "python slstr_cloud.py --config config.yaml"
 
 seff $SLURM_JOB_ID
