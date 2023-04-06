@@ -31,8 +31,8 @@ rivanna> git config --global core.editor "emacs"
 ## Simple Setup
 
 ```bash
-rm -rf init.bash
- wget --no-check-certificate --no-cache --no-cookies https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init.bash
+rm -rf init-cloudmask.bash
+wget --no-check-certificate --no-cache --no-cookies https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init-cloudmask.bash
 source init.bash
 ```
 
