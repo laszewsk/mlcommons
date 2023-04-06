@@ -40,7 +40,7 @@ cd $PROJECT_DIR
 module purge
 module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
 
-time python3 -m venv $USER_SCRATCH/ENV3
+time python -m venv $USER_SCRATCH/ENV3
 source $USER_SCRATCH/ENV3/bin/activate
 
 pip install pip -U
@@ -57,7 +57,16 @@ echo "# ------------------------------------------"
 echo "# get the data"
 echo "# ------------------------------------------"
 
-time make data
+
+if [ ! -d " ${PROJECT_DATA}/ssts" ]
+then
+  time make data
+  # cd mlcommons
+  # git remote set-url origin git@github.com:laszewsk/mlcommons.gi
+else
+  echo "data dir already exists"
+fi
+
 
 # cd $PROJECT_DIR/experiments/rivanna/
 
