@@ -20,7 +20,7 @@ echo "# ------------------------------------------"
 echo "# clone the reporsitory"
 echo "# ------------------------------------------"
 
-if [ -d "mlcommons" ]
+if [ ! -d "mlcommons" ]
 then
   git clone https://github.com/$GITUSER/mlcommons.git
   # cd mlcommons
