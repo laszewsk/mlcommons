@@ -35,7 +35,7 @@ cd $PROJECT_DIR/experiments/rivanna
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 echo "# cloudmesh status=running progress=5 pid=$$"
 
-time python slstr_cloud.py --config config.yaml
+time python slstr_cloud.py --config simple-config.yaml
 
 echo "# cloudmesh status=running progress=99 pid=$$"
 
