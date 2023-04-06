@@ -4,8 +4,8 @@
 #SBATCH --gres=gpu:v100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
+#SBATCH -o outputs/v100-%u-%j.out
+#SBATCH -e outputs/v100-%u-%j.err
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 

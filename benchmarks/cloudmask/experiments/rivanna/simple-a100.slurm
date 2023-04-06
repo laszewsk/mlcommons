@@ -6,8 +6,8 @@
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 #SBATCH --gres=gpu:a100
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
+#SBATCH -o outputs/a100-%u-%j.out
+#SBATCH -e outputs/a100-%u-%j.err
 #SBATCH --reservation=bi_fox_dgx
 #SBATCH --constraint=a100_80gb
 #SBATCH --mem=64G
