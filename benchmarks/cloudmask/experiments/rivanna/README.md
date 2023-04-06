@@ -31,7 +31,8 @@ rivanna> git config --global core.editor "emacs"
 ## Simple Setup
 
 ```bash
-wget https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init.bash
+rm -rf init.bash
+ wget --no-check-certificate --no-cache --no-cookies https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init.bash
 source init.bash
 ```
 
@@ -46,7 +47,13 @@ For you ti use rivanna, you need to have a valid partition and allocation. Thise
 
 You will need to be added to the UVA group bii_dsc_community at: https://mygroups.virginia.edu/groups/ by Gregor. Please contact him.
 
+a100:
 
+```bash
+ijob -c 1 --time=3:00:00 --partition=bii-gpu --account=bii_dsc_community --gres=gpu:a100 --reservation=bi_fox_dgx --constraint=a100_80gb
+```
+
+Not sure where this command came from:
 
 ```bash
 srun --partition=bii-gpu -A bii_dsc_community --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
@@ -65,7 +72,7 @@ rivanna> export PROJECT_DATA=$USER_SCRATCH/data
 rivanna> mkdir -p $USER_SCRATCH
 rivanna> cd $USER_SCRATCH
 
-rivanna> git clone https://github.com/$GITUSER/mlcommons.git
+rivanna> time git clone https://github.com/$GITUSER/mlcommons.git
 
 rivanna> cd $PROJECT_DIR
 ```
