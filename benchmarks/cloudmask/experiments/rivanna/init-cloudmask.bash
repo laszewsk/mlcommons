@@ -20,9 +20,16 @@ echo "# ------------------------------------------"
 echo "# clone the reporsitory"
 echo "# ------------------------------------------"
 
+if [ -d "mlcommons" ]
+then
+  git clone https://github.com/$GITUSER/mlcommons.git
+  # cd mlcommons
+  # git remote set-url origin git@github.com:laszewsk/mlcommons.gi
+else
+  cd mlcommons
+  git pull
+fi
 
-git clone https://github.com/$GITUSER/mlcommons.git
-git remote set-url origin git@github.com:laszewsk/mlcommons.git
 
 echo "# ------------------------------------------"
 echo "# set up python"
