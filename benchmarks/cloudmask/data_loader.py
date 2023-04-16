@@ -39,7 +39,7 @@ class SLSTRDataLoader:
         self.single_image = single_image
         self.patch_padding = 'valid' if not single_image else 'same'
 
-        # Parameters from cloudMaskConfig.yaml
+        # Parameters from config.yaml
         self.patch_size = args['PATCH_SIZE']
         self.n_channels = args['N_CHANNELS']
         self.image_h = args['IMAGE_H']
@@ -52,7 +52,7 @@ class SLSTRDataLoader:
 
     @property
     def input_size(self):
-        return (self.patch_size, self.patch_size, self.n_channels)
+        return self.patch_size, self.patch_size, self.n_channels
 
     @property
     def output_size(self):
@@ -66,15 +66,15 @@ class SLSTRDataLoader:
             bts = handle['bts'][:]
             msk = handle['bayes'][:]
 
-        bts = (bts - 270.0) / 22.0
-        refs = refs - 0.5
+        bts = (bts - bts.mean()) / bts.std()
+        refs = (refs - refs.mean()) / refs.std()
         img = np.concatenate([refs, bts], axis=-1)
 
         msk[msk > 0] = 1
         msk[msk == 0] = 0
         msk = msk.astype(np.float)
 
-        yield (img, msk, path.encode('utf-8'))
+        yield img, msk, path.encode('utf-8')
 
     def _preprocess_images(self, img, msk, path):
         # Crop & convert to patches

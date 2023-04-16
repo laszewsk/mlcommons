@@ -1,7 +1,18 @@
+SHELL := /bin/bash
 
 all: project localscratch shm generate
 
+setup-%: rivanna-%.yaml
+	python 01-fetch-data.py $<
+	python 02-setup-venv.py $<
+
 generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
+#generate-%: jobs-%.sh
+
+generate-dgx: jobs-dgx.sh
+generate-localscratch: jobs-localscratch.sh
+generate-shm: jobs-shm.sh
+generate-dgx: jobs-dgx.sh
 
 run: submit
 
@@ -9,6 +20,8 @@ submit: all
 	sh jobs-project.sh
 	sh jobs-localscratch.sh
 	sh jobs-dgx.sh
+
+
 
 .PHONY: project
 project: project.json
@@ -25,23 +38,46 @@ dgx-shm: dgx-shm.json
 .PHONY: shm
 shm: shm.json
 
-.PHONY: cli
-cli:
-	cms sbatch generate rivanna-project.in.slurm --config=sbatch-rivanna.yaml --name=earthquake --noos --experiment=\"card_name=a100 gpu_count=1 cpu_num=6 mem=32GB\" --attribute=\"time=12:00:00\" --mode=h --dir=project
-
-
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
 %.json: rivanna-%.yaml
-	cms sbatch generate rivanna.in.slurm --config=$< --name=$(basename $@) --noos
+	cms sbatch generate \
+	           --source=rivanna.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
 
 dgx.json: rivanna-dgx.yaml
-	cms sbatch generate rivanna-dgx.in.slurm --config=$< --name=$(basename $@) --noos
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
 
 dgx-shm.json: rivanna-dgx-shm.yaml
-	cms sbatch generate rivanna-dgx.in.slurm --config=$< --name=$(basename $@) --noos
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
 
+watch: status
+
+status:
+	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 .PHONY: stop
 stop:
@@ -52,4 +88,6 @@ clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -rf dgx dgx.json jobs-dgx.sh
+	@-rm -rf shm shm.json jobs-shm.sh
 	@-rm -f rivanna.slurm
+	@-rm -rf '__pycache__'

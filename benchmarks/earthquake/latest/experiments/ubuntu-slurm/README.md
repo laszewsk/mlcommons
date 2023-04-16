@@ -15,6 +15,11 @@ cloudmesh-installer get sbatch
 cms help
 ```
 
+A cloudmesh docker repository is available at
+<https://github.com/cloudmesh/slurm-in-docker>
+and instructions on how to use it are available
+at <https://github.com/cloudmesh/cloudmesh-mpi/blob/main/doc/chapters/report-mpi.md#docker-virtualization>
+
 2. Generating experiment configurations
 
 # chose a PROJECT_DIR where you like to install the code
@@ -30,7 +35,7 @@ git clone ssh://git@github.com/laszewsk/mlcommons.git
 cd mlcommons/benchmarks/earthquake/${EQ_VERSION}/experiments/ubuntu
 
 # build slurm scripts
-# cms sbatch generate rivanna.in.slurm --setup=rivanna-2epoch.yaml --name="project" --noos 
+# cms sbatch generate --source=rivanna.in.slurm --config=rivanna-2epoch.yaml --name="project" --noos 
 make project
 
 

@@ -1,6 +1,4 @@
-# STEMDL
-
-STEMDL (Classification)
+# STEMDL (Classification)
 
 State of the art scanning transmission electron microscopes (STEM)
 produce focused electron beams with atomic dimensions and allow to
@@ -48,12 +46,12 @@ Benchmark Targets
 * Scientific objective(s):
   * Objective: Classification for crystal space groups
   * Formula: F1 score on validation data
-  * Score: 0.9 considered converged
+  * Score: 0.43 for the original train-test-dev split in the dataset (same materials don’t appear in both training and validation datasets), 0.9 for randomly re-shuffled train-val split
 * Data
   * Download: https://doi.ccs.ornl.gov/ui/doi/70
   * Data Size: 548.7 GiB
-  * Training samples: 138.7K
-  * Validation samples: 48.4
+  * Training samples: 148K
+  * Validation samples: 18.7K
 
 ## Versions
 
@@ -69,3 +67,13 @@ The original implementation is available
 [here](https://github.com/at-aaims/stemdl-benchmark) with the original
 [instructions](https://github.com/at-aaims/stemdl-benchmark#quickstart). The
 Time-to-solution: 40min on 60 V100 GPUs
+
+## Suggestions for improvement
+
+We have explored common CNN models,  such as ResNet, VGG, DenseNet. ResNet seems 
+to perform slightly better, and deeper model performs slightly better. Other model 
+architectures are worth exploring e.g. vision transformer. The most performance gain 
+seems to come from feature engineering: e.g. the center of the image has the largest 
+value and it quickly decreases to the side. By log-scaling the values, the accuracy 
+improves by over 20%. Other feature engineering techniques are worth exploring.  
+

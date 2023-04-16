@@ -1,0 +1,9 @@
+tensorflow==2.8.0
+tensorflow-gpu==2.8.0
+cloudmesh-gpu
+scikit-learn
+h5py
+pyyaml
+cloudmesh-common
+git+https://github.com/mlperf/logging.git@1.0.0
+protobuf==3.19.4

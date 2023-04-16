@@ -59,7 +59,7 @@ Note that it is recommended you target the makefile execution route unless you'r
 1.  Execute the cms sbatch generation script, providing the input script and configuration files as shown below
 
 ```bash
-cms sbatch generate dgx.in.slurm --setup=dgx-config.yaml --name=dgx
+cms sbatch generate --source=dgx.in.slurm --config=dgx-config.yaml --name=dgx
 ```
 
 2. Note that the DGX subsystems do not target slurm, so unlike the HPC executions, we do not need to generate a submission script.

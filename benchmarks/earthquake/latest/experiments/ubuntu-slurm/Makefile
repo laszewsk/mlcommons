@@ -8,7 +8,11 @@ submit: all
 .PHONY: project generate inspect run stop clean status watch out err status watch
 
 project:
-	cms sbatch generate ubuntu.in.slurm --noos --config=ubuntu-config.yaml --name="project"
+	cms sbatch generate \
+	           --source=ubuntu.in.slurm \
+	           --noos \
+	           --config=ubuntu-config.yaml \
+	           --name=project
 
 generate:
 	cms sbatch generate submit --name=project.json > jobs-project.sh

@@ -1,0 +1,111 @@
+# config.yaml
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# with modifications from Gregor von Laszewski, Juri Papay
+# All rights reserved.
+
+# This is a configuration file for the CloudMask benchmark.
+
+name: cloudmask-rivanna
+
+sbatch:
+  mode: h
+  dir: localscratch
+  
+experiment:
+  card_name: v100
+  gpu_count: 1
+  cpu_num: 1
+  mem: "64GB"
+  repeat: "1"
+  epoch: "1,10,30,50,100"
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
+
+# Submission Information
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-cloudmask-v1.1
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
+  
+run:
+  filesystem: "/scratch/{os.USER}/github-fork"
+  workdir: "{filesystem}/mlcommons/{experiment.epoch}/{experiment.repeat}" 
+  output_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/{platform}/outputs/slstr_cloud"
+  log_file: {output_dir}/cloudmask_run.log
+  mlperf_logfile: {output_dir}/mlperf_cloudmask.log
+  venvpath: "{filesystem}/ENV3"
+  datadir: "{filesystem}/data"
+  branch: 'main'
+
+#system:
+#  host: "rivanna"
+#  python: "3.10.8"
+#  num_cpus: 1
+#  partition: "bii-gpu"
+#  # allocation: ds6011-sp22-002
+#  # allocation: bii_dsc
+#  allocation: bii_dsc_community
+#  reservation: bi_fox_dgx
+#  constraint: ""
+
+system:
+  host: "rivanna"
+  python: "3.10.8"
+  num_cpus: 1
+  partition: "bii-gpu"
+  allocation: bii_dsc_community
+  constraint: ""
+  reservation: ""
+  platform: rivanna
+
+mask: "float"
+
+# Training data
+train_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/data/one-day"
+
+# Inference data
+inference_dir: "{filesystem}/mlcommons/benchmarks/cloudmask/data/ssts"
+
+# Model file
+model_file: "{filesystem}/mlcommons/benchmarks/cloudmask/sciml_bench/outputs/slstr_cloud/cloudModel.h5"
+
+# training 
+training_loss: binary_crossentropy
+training_metrics: accuracy
+
+# Size of each patch to feed to the network
+PATCH_SIZE: 256
+
+# Original height of the image
+IMAGE_H: 1200
+
+# Original width of the image
+IMAGE_W: 1500
+
+# No. of channels
+N_CHANNELS: 9
+
+# Min allowable SST
+MIN_SST: 273.15
+
+# Amount to crop the edges of the images by
+CROP_SIZE: 80
+
