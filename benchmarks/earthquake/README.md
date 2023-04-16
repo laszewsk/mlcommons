@@ -41,7 +41,7 @@ benchmark
 * Gregor von Laszewski
 * Robert Knuuti
 * Thomas Butler
-* Jake Kolesar
+* Jake Kolessar
 
 A paper about the firs results are published at
 
