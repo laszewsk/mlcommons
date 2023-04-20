@@ -7,6 +7,9 @@ PROJECT_DATA=${USER_SCRATCH}/data
 
 all: requirements data
 
+download:
+	git clone git@github.com:laszewsk/mlcommons.git
+
 requirements:
 	time pip install -r ${PROJECT_DIR}/experiments/rivanna/requirements.txt
 
