@@ -14,11 +14,9 @@ else
   git clone git@github.com:laszewsk/mlcommons.git
 fi
 
-echo"Now execute the command"
-
+echo "Now execute the command"
+echo
 echo "    cd mlcommons/benchmarks/cloudmask/"
-
-
 echo
 exit 0
 
