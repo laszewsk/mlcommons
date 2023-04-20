@@ -8,7 +8,9 @@
 # <pre>
 #! /bin/sh
 
-if [! -d mlcommons]; then
+if [-d mlcommons ]; then
+  echo "mlcommons dire exists. skipping"
+else
   git clone git@github.com:laszewsk/mlcommons.git
 fi
 
