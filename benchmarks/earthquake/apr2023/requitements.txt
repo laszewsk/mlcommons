@@ -1,0 +1,5 @@
+cloudmesh-common
+numpy
+pandas
+jupyter
+jupyterlab
