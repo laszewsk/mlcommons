@@ -2,11 +2,14 @@ SHELL=/bin/bash
 
 PROJECT=`pwd`
 DATA=/scratch2/data/cloudmask/data/
+UID=`id -u`
+GUID=`id -g`
 
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
 PROJECT=.
+
 
 all: setup project
 
@@ -15,9 +18,22 @@ image:
 	docker image ls cloudmask
 
 shell:
-	docker run --gpus all -it --rm --shm-size=1g --ulimit memlock=-1 -v \
-		${PROJECT}:/project -v ${DATA}:/data \
+	docker run --gpus all -it --rm \
+	    --user $UID:$GID \
+	    --shm-size=1g --ulimit memlock=-1 \
+	    -v ${PROJECT}:/project \
+	    -v ${DATA}:/data \
 		cloudmask
+
+run:
+	docker run --gpus all --rm \
+	    --user ${UID}:${GID} \
+	    --shm-size=1g --ulimit memlock=-1 \
+	    -v ${PROJECT}:/project \
+	    -v ${DATA}:/data \
+		cloudmask \
+		python slstr_cloud.py | tee  run.log
+
 
 
 project: project.json generate

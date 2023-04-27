@@ -270,6 +270,11 @@ def main():
 
     user_name = config["submission.submitter"]
 
+
+    if config["run.gpu.debug"]:
+        tf.debugging.set_log_device_placement(True)
+
+
     print ("AAA")
 
 

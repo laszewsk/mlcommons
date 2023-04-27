@@ -22,6 +22,8 @@ run:
   datadir: data
   branch: 'main'
   close_files: False
+  gpu:
+    debug: False
 
 # Submission Information
 submission:
