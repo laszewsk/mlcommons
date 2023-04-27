@@ -1,9 +1,24 @@
 SHELL=/bin/bash
-WORKDIR=/project1
+
+PROJECT=`pwd`
+DATA=/scratch2/data/cloudmask/data/
+
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
+PROJECT=.
+
 all: setup project
+
+image:
+	docker build -t cloudmask .
+	docker image ls cloudmask
+
+shell:
+	docker run --gpus all -it --rm --shm-size=1g --ulimit memlock=-1 -v \
+		${PROJECT}:/project -v ${DATA}:/data \
+		cloudmask
+
 
 project: project.json generate
 
