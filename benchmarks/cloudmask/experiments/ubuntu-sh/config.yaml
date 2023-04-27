@@ -16,11 +16,12 @@ sbatch:
   dir: localscratch
 
 run:
-  filesystem: "/project1/{os.USER}"
+  filesystem: "/project"
   # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}/{experiment.repeat}"
   venvpath: "$HOME/ENV3"
   datadir: data
   branch: 'main'
+  close_files: False
 
 # Submission Information
 submission:
@@ -66,10 +67,10 @@ system:
 mask: "float"
 
 # Training data
-train_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/one-day
+train_dir: /data/one-day
 
 # Inference data
-inference_dir: /project1/{os.USER}/mlcommons/benchmarks/cloudmask/data/ssts
+inference_dir: /data/ssts
 
 # Model file
 model_file: ./sciml_bench/outputs/slstr_cloud/cloudModel.h5

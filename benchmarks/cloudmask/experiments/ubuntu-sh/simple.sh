@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export USER_SCRATCH=/scratch2/data/cloudmask
-export PROJECT_DIR=/home/$USER/Desktop/github/mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh
+export PROJECT_DIR=.
 export PYTHON_DIR=$USER/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data
 
@@ -11,9 +11,9 @@ which python
 
 nvidia-smi
 
-cd $PROJECT_DIR/experiments/rivanna
+cd $PROJECT_DIR
 
-% cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+# cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-python slstr_cloud.py --config config.yaml
+time python slstr_cloud.py --config config.yaml
 

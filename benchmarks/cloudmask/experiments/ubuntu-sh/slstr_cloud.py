@@ -215,7 +215,8 @@ def cloud_training(config) -> None:
                             verbose=1)
 
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if config["run.close_files"]:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['model_file'])
@@ -248,13 +249,14 @@ def cloud_training(config) -> None:
 
 def main():
 
-
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
         description='CloudMask command line arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
+
+    print ("AAA")
 
     parser.add_argument('--config',
                         default=os.path.expanduser('./config.yaml'),
@@ -267,6 +269,8 @@ def main():
     log_file = os.path.expanduser(config['log_file'])
 
     user_name = config["submission.submitter"]
+
+    print ("AAA")
 
 
     # MLCommons logging
@@ -286,6 +290,11 @@ def main():
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
     mllogger.end(key=mllog.constants.INIT_STOP)
+
+    print ("AAA")
+
+    from pprint import pprint
+    pprint (config)
 
     # Training
     StopWatch.start("training")
