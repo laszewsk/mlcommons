@@ -214,10 +214,11 @@ def cloud_training(config) -> None:
         for arg_name in experiment_args:
             modelPath += arg_name
             modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
+        modelPath+= "model"
         if not os.path.exists(modelPath):
             os.makedirs(modelPath)
-        modelPath += "model/cloudModel.h5"
-        # print(modelPath)
+        modelPath += "/cloudModel.h5"
+        print("\n\n"+modelPath+"\n\n")
     else: # mode: original
         modelPath = os.path.expanduser(config['model_file'])
     tf.keras.models.save_model(model, modelPath)
