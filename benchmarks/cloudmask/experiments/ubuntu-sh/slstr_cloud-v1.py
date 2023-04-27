@@ -21,21 +21,18 @@ import time
 import decimal
 import argparse
 import tensorflow as tf
-from data_loader import load_datasets
-from model import unet
+from .data_loader import load_datasets
+from .model import unet
 from pathlib import Path
 import numpy as np
-from data_loader import SLSTRDataLoader
+from .data_loader import SLSTRDataLoader
 from cloudmesh.common.StopWatch import StopWatch
-from sklearn import metrics
+
 from mlperf_logging import mllog
 import logging
 
 from cloudmesh.common.FlatDict import read_config_parameters
 
-# config = read_config_parameters(filename='config.yaml')
-
-# print(config)
 
 # Loss function
 def weighted_cross_entropy(beta):
@@ -130,12 +127,11 @@ def cloud_inference(config) -> None:
         #mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
-        mask_patches = tf.image.crop_to_bounding_box(
-            mask_patches,
-            CROP_SIZE // 2,
-            CROP_SIZE // 2,
-            PATCH_SIZE - CROP_SIZE,
-            PATCH_SIZE - CROP_SIZE)
+        mask_patches = tf.image.crop_to_bounding_box(mask_patches,
+                                                     CROP_SIZE // 2,
+                                                     CROP_SIZE // 2,
+                                                     PATCH_SIZE - CROP_SIZE,
+                                                     PATCH_SIZE - CROP_SIZE)
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
@@ -146,34 +142,32 @@ def cloud_inference(config) -> None:
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
-            handle.create_dataset('mask_patches', data=mask_patches)
-            handle.create_dataset('patches', data=patches)
 
-        # Change mask values from float to integer
-        mask_np = mask.numpy()
-        mask_np =  (mask_np > .5).astype(int)
-        mask_flat = mask_np.reshape(-1)
+        if config["mask"] == "integer":
+            # Change mask values from float to integer
+            mask_np = mask.numpy()
+            mask_np[mask_np > 0] = 1
+            mask_np[mask_np == 0 ] = 0
+            mask_flat = mask_np.reshape(-1)
 
-        # Extract groundTruth from file, this is the Bayesian mask
-        with h5py.File(file_name, 'r') as handle:
-            groundTruth = handle['bayes'][:]
-            groundTruth[groundTruth > 0] = 1
-            groundTruth[groundTruth == 0] = 0
-
-        # Make 1D array
-        groundTruth_flat = groundTruth.reshape(-1)
-
-        # Calculate hits between ground truth mask and the reconstructed mask
-        accuracy = metrics.accuracy_score(groundTruth_flat, mask_flat)
-        accuracyList.append(accuracy)
-
+            # Extract groundTruth from file, this is the Bayesian mask
+            with h5py.File(file_name, 'r') as handle:
+                groundTruth = handle['bayes'][:]
+                groundTruth[groundTruth > 0] = 1
+                groundTruth[groundTruth == 0] = 0
+        
+            # Make 1D array
+            groundTruth_flat = groundTruth.reshape(-1)
+       
+            # Calculate hits between ground truth mask and the reconstructed mask
+            accuracy = np.mean( groundTruth_flat == mask_flat)
+            accuracyList.append(accuracy)
+       
     d = {
-        "avg_accuracy": np.array(accuracyList).mean(),
         "accuracy": accuracyList
     }
     # Return number of files used for inference and disctionary d with accuracy
     return len(file_paths), d
-
 
 
 #####################################################################
@@ -187,9 +181,7 @@ def cloud_training(config) -> None:
 
     # load the datasets
     StopWatch.start("loaddata")
-    train_dataset, test_dataset = load_datasets(
-        dataset_dir=data_dir,
-        config=config)
+    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, config=config)
     StopWatch.stop("loaddata")
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
@@ -203,16 +195,9 @@ def cloud_training(config) -> None:
 
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(config['PATCH_SIZE'],
-                                  config['PATCH_SIZE'],
-                                  config['N_CHANNELS']))
-        model.compile(optimizer=optimizer,
-                      loss=config['training_loss'],
-                      metrics=[config['training_metrics']])
-        history = model.fit(train_dataset,
-                            validation_data=test_dataset,
-                            epochs=int(config['experiment.epoch']),
-                            verbose=1)
+        model = unet(input_shape=(config['PATCH_SIZE'], config['PATCH_SIZE'], config['N_CHANNELS']))
+        model.compile(optimizer=optimizer, loss=config['training_loss'], metrics=[config['training_metrics']])
+        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(config['experiment.epoch']), verbose=1)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
@@ -248,7 +233,6 @@ def cloud_training(config) -> None:
 
 def main():
 
-
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
@@ -256,9 +240,7 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    parser.add_argument('--config',
-                        default=os.path.expanduser('./config.yaml'),
-                        help='path to config file')
+    parser.add_argument('--config', default=os.path.expanduser('./config.yaml'), help='path to config file')
     command_line_args = parser.parse_args()
 
     configYamlFile = os.path.expanduser(command_line_args.config)
@@ -285,6 +267,7 @@ def main():
 
     mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
     mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
+    mllogger.event(key='accelerators_per_node', value=config['system.accelerators_per_node'])
     mllogger.end(key=mllog.constants.INIT_STOP)
 
     # Training
@@ -344,9 +327,7 @@ def main():
 
     }
     mllogger.event(key="result", value=result)
-    mllogger.end(key=mllog.constants.RUN_STOP,
-                 value="CloudMask benchmark run finished",
-                 metadata={'status': 'success'})
+    mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
     mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
     StopWatch.stop("total")
