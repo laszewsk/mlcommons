@@ -130,8 +130,12 @@ def cloud_inference(config) -> None:
         #mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
-        mask_patches = tf.image.crop_to_bounding_box(mask_patches, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE,
-                                                     PATCH_SIZE - CROP_SIZE)
+        mask_patches = tf.image.crop_to_bounding_box(
+            mask_patches,
+            CROP_SIZE // 2,
+            CROP_SIZE // 2,
+            PATCH_SIZE - CROP_SIZE,
+            PATCH_SIZE - CROP_SIZE)
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
@@ -183,7 +187,9 @@ def cloud_training(config) -> None:
 
     # load the datasets
     StopWatch.start("loaddata")
-    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir, config=config)
+    train_dataset, test_dataset = load_datasets(
+        dataset_dir=data_dir,
+        config=config)
     StopWatch.stop("loaddata")
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
@@ -197,9 +203,16 @@ def cloud_training(config) -> None:
 
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(config['PATCH_SIZE'], config['PATCH_SIZE'], config['N_CHANNELS']))
-        model.compile(optimizer=optimizer, loss=config['training_loss'], metrics=[config['training_metrics']])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=int(config['experiment.epoch']), verbose=1)
+        model = unet(input_shape=(config['PATCH_SIZE'],
+                                  config['PATCH_SIZE'],
+                                  config['N_CHANNELS']))
+        model.compile(optimizer=optimizer,
+                      loss=config['training_loss'],
+                      metrics=[config['training_metrics']])
+        history = model.fit(train_dataset,
+                            validation_data=test_dataset,
+                            epochs=int(config['experiment.epoch']),
+                            verbose=1)
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
@@ -243,7 +256,9 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    parser.add_argument('--config', default=os.path.expanduser('./config.yaml'), help='path to config file')
+    parser.add_argument('--config',
+                        default=os.path.expanduser('./config.yaml'),
+                        help='path to config file')
     command_line_args = parser.parse_args()
 
     configYamlFile = os.path.expanduser(command_line_args.config)
@@ -329,7 +344,9 @@ def main():
 
     }
     mllogger.event(key="result", value=result)
-    mllogger.end(key=mllog.constants.RUN_STOP, value="CloudMask benchmark run finished", metadata={'status': 'success'})
+    mllogger.end(key=mllog.constants.RUN_STOP,
+                 value="CloudMask benchmark run finished",
+                 metadata={'status': 'success'})
     mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
     StopWatch.stop("total")
