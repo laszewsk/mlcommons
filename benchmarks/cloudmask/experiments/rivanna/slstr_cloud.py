@@ -131,7 +131,8 @@ def cloud_inference(config) -> None:
 
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(
-            mask_patches, CROP_SIZE // 2,
+            mask_patches,
+            CROP_SIZE // 2,
             CROP_SIZE // 2,
             PATCH_SIZE - CROP_SIZE,
             PATCH_SIZE - CROP_SIZE)
@@ -186,8 +187,9 @@ def cloud_training(config) -> None:
 
     # load the datasets
     StopWatch.start("loaddata")
-    train_dataset, test_dataset = load_datasets(dataset_dir=data_dir,
-                                                config=config)
+    train_dataset, test_dataset = load_datasets(
+        dataset_dir=data_dir,
+        config=config)
     StopWatch.stop("loaddata")
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))

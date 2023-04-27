@@ -1,5 +1,7 @@
 cloudmesh-common
 numpy
 pandas
+matplotlib
 jupyter
 jupyterlab
+
