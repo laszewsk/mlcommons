@@ -96,13 +96,14 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 # Inference
 def cloud_inference(config) -> None:
     print('Running benchmark slstr_cloud in inference mode.')
+    global modelPath
     # Read arguments 
     CROP_SIZE = config['CROP_SIZE']
     PATCH_SIZE = config['PATCH_SIZE']
     N_CHANNELS = config['N_CHANNELS']
 
     # Load model
-    modelPath = os.path.expanduser(config['model_file'])
+    # modelPath = os.path.expanduser(config['model_file'])
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
@@ -182,6 +183,7 @@ def cloud_inference(config) -> None:
 
 def cloud_training(config) -> None:
     print('Running benchmark slstr_cloud in training mode.')
+    global modelPath
     tf.random.set_seed(config['experiment.seed'])
     data_dir = os.path.expanduser(config['train_dir'])
 
@@ -218,7 +220,20 @@ def cloud_training(config) -> None:
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    modelPath = os.path.expanduser(config['model_file'])
+    if(config['run.mode']=="parallel"):
+        # Read experiment arguments and create a model path from them
+        modelPath = ""
+        experiment_args = ["card_name","gpu_count","cpu_num","mem","repeat","epoch","seed","learning_rate","batch_size","train_split","clip_offset","no_cache","nodes","gpu"]
+        for arg_name in experiment_args:
+            modelPath += arg_name
+            modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
+        modelPath+= "model"
+        if not os.path.exists(modelPath):
+            os.makedirs(modelPath)
+        modelPath += "/cloudModel.h5"
+        print("\n\n"+modelPath+"\n\n")
+    else: # mode: original
+        modelPath = os.path.expanduser(config['model_file'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
