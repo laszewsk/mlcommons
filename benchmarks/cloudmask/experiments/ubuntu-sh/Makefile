@@ -9,6 +9,10 @@ GUID=`id -g`
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
+SDEF=singularity.def
+SIF=myimage.sif
+
+
 PROJECT=.
 
 default: help
@@ -55,8 +59,15 @@ dkill:
 
 simage:
 	rm -f cloudmask.sif
-	time sudo singularity build cloudmask.sif singularity.def
-	ls -h cloudmask.sif
+	time sudo singularity build ${SIF} ${SDEF}
+	ls -h ${SIF}
+
+
+rimage:
+	cp ${SDEF} build.def
+	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
+	cp output_image.sif ${SIF}
+	make -f clean
 
 sshell:
 	sudo singularity shell cloudmask.sif
