@@ -10,7 +10,7 @@ LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
 SDEF=singularity.def
-SIF=myimage.sif
+SIF=cloudmask.sif
 
 
 PROJECT=.
@@ -65,9 +65,11 @@ simage:
 
 rimage:
 	cp ${SDEF} build.def
+	date
 	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
+	date
 	cp output_image.sif ${SIF}
-	make -f clean
+	rm -f build.def output_image.sif
 
 sshell:
 	sudo singularity shell cloudmask.sif
