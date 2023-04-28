@@ -1,3 +1,5 @@
 Bootstrap: docker
 From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
 
+%test
+    echo "hello from test" "$@"
