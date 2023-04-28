@@ -6,8 +6,10 @@ Create the image with
 make simage
 ```
 
-amd: real	5m1.565s
+amd  downloaded         3m20.396s
+amd  new                5m1.565s
 
+rivanna /scratch: 
 
 
 To delete the image and all singularity cache say 
