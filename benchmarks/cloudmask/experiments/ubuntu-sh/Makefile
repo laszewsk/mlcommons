@@ -6,29 +6,26 @@ DATA=/scratch2/data/cloudmask/data/
 UID=`id -u`
 GUID=`id -g`
 
-LOCAL_BIN=/home/${USER}/.local/bin
-PYTHON=~/ENV3/bin/activate
-
 SDEF=singularity.def
 SIF=cloudmask.sif
 
-
-PROJECT=.
+LOCAL_BIN=/home/${USER}/.local/bin
+PYTHON=~/ENV3/bin/activate
 
 default: help
 
-.PHONY: help
-help: # Show help for each of the Makefile recipes.
-	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+#.PHONY: help
+#help: # Show help for each of the Makefile recipes.
+#	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
 
-all: setup project
+all: setup project # stup all
 
 dimage: # create a docker image
 	time docker build -t cloudmask .
 	docker image ls cloudmask
 
-dshell:
+dshell: # docker image shell
 	docker run --gpus all -it --rm \
     	-v /etc/passwd:/etc/passwd:ro \
     	-v /etc/group:/etc/group:ro \
@@ -40,7 +37,7 @@ dshell:
 		cloudmask
 
 
-drun:
+drun: # docker image run
 	mkdir -p outputs
 	docker run --gpus all --rm \
     	-v /etc/passwd:/etc/passwd:ro \
@@ -53,39 +50,39 @@ drun:
 		cloudmask \
 		python slstr_cloud.py > ./outputs/run.log 2>&1
 
-dkill:
+dkill: # docker kill
 	docker kill `docker ps -q`
 
 
-simage:
+simage: # singularity image
 	rm -f cloudmask.sif
 	time sudo singularity build ${SIF} ${SDEF}
 	ls -h ${SIF}
 
 
-rimage:
+rimage: # rivanna singularity image
 	cp ${SDEF} build.def
 	time sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
 	cp output_image.sif ${SIF}
 	make -f clean
 
-sshell:
-	singularity shell cloudmask.sif
+sshell: # singularity shell
+	sudo singularity shell --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} ${SIF}
 
-sclean:
+sclean: # singularity clean
 	sudo singularity cache clean -f
 	rm -f cloudmask.sif
 
-project: project.json generate
+project: project.json generate # project
 
-setup:
+setup: # setup
 	source ~/ENV3/bin/activate && pip install -r /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh/requirements.txt
 
-generate: jobs-project.sh
+generate: jobs-project.sh # generate
 
 # run: submit
 
-submit:
+submit: # submit
 	-sh jobs-project.sh
 
 jobs-%.sh: %.json
@@ -103,7 +100,7 @@ jobs-%.sh: %.json
                --source_dir=. \
                --verbose
 
-data:
+data: # data
 	echo $(LOCAL_BIN)
 	cd /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/ && \
 		mkdir -p data/ssts && mkdir -p data/one-day
@@ -117,21 +114,21 @@ data:
 
 # kill: stop
 
-stop:
+stop: #stop
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
-inspect:
+inspect: #inspect
 	$(eval D=$(shell ls project/$(ls -1) | head -n 1))
 	echo ${D}
 	$(shell emacs project/${D}/config.yaml project/${D}/job.sh)
 
-watch: status
+watch: status # watch
 
-status:
+status: #status
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 
-clean:
+clean: # clean
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f job.sh
 	@-rm -rf '__pycache__'
