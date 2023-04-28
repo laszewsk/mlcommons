@@ -1,6 +1,22 @@
 #!/bin/bash
 #
 
+# ####################################
+# Runtime Variable
+# ####################################
+
+# Array of epochs and times required for jobs
+epochsArray=(1 5 10 20 30 50 80 100)
+timesArray=("00:30:00" "00:40:00" "00:50:00" "01:10:00" "01:30:00" "02:30:00" "3:00:00" "4:00:00")
+REPEAT=5
+
+# GPU
+
+GPU = "v100"
+
+#
+# #####################################
+
 # Experiments with v100, 1 GPU
 
 # Initial setup for paths of Log files in config_simple.yaml
@@ -14,9 +30,7 @@ sed -i 's/--gres=.*/--gres=gpu:v100:1/' simple.slurm
 sed -i 's/card_name.*/card_name: v100/' config_simple.yaml
 sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
 
-# Array of epochs and times required for jobs
-epochsArray=(1 5 10 20 30 50 80 100)
-timesArray=("00:30:00" "00:40:00" "00:50:00" "01:10:00" "01:30:00" "02:30:00" "3:00:00" "4:00:00")
+
 
 # Running 5 jobs and then waiting for them to complete before other commands
 for((i=1; i<6; i++)); do
