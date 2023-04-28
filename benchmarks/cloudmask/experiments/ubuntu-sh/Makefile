@@ -9,6 +9,9 @@ GUID=`id -g`
 SDEF=singularity.def
 SIF=cloudmask.sif
 
+SDEF=tf.def
+SIF=tf.sif
+
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
@@ -59,16 +62,11 @@ simage: # singularity image
 	time sudo singularity build ${SIF} ${SDEF}
 	ls -h ${SIF}
 
-
 rimage: # rivanna singularity image
 	cp ${SDEF} build.def
-<<<<<<< HEAD
 	date
 	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
 	date
-=======
-	time sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
->>>>>>> 09048125229f5a1c2c5fbd3c2e07365a1cb9c3ae
 	cp output_image.sif ${SIF}
 	rm -f build.def output_image.sif
 

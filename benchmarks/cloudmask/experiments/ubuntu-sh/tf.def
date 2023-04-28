@@ -1,5 +1,8 @@
-Bootstrap: docker
-From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
+Bootstrap: library
+From:  /sylabsdemo/containers/tensorflow:latest-gpu-signed
+
+%post
+	apt install time
 
 %test
-    echo "hello from test" "$@"
+	echo "gregor"
