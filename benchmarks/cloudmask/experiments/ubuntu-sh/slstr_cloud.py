@@ -276,10 +276,11 @@ def main():
     pprint(config)
 
     if config["run.gpu.log_on"]:
-        interval = config["run.gpu.log_interval"]
+        gpu_interval = config["run.gpu.log_interval"]
+        gpu_logfile = config["run.gpu.log_file"]
         os.system("cms help")
-        os.system(f"cms gpu watch --gpu=0 --delay={interval} --dense > "
-                  f"gpu.log &")
+        os.system(f"cms gpu watch --gpu=0 --delay={gpu_interval} --dense > "
+                  f"{gpu_logfile} &")
 
     if config["run.gpu.debug"]:
         tf.debugging.set_log_device_placement(True)
