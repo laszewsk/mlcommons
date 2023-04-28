@@ -62,9 +62,15 @@ simage: # singularity image
 
 rimage: # rivanna singularity image
 	cp ${SDEF} build.def
+<<<<<<< HEAD
+	date
+	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
+	date
+=======
 	time sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
+>>>>>>> 09048125229f5a1c2c5fbd3c2e07365a1cb9c3ae
 	cp output_image.sif ${SIF}
-	make -f clean
+	rm -f build.def output_image.sif
 
 sshell: # singularity shell
 	sudo singularity shell --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} ${SIF}
