@@ -11,14 +11,20 @@ PYTHON=~/ENV3/bin/activate
 
 PROJECT=.
 
+default: help
+
+.PHONY: help
+help: # Show help for each of the Makefile recipes.
+	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+
 
 all: setup project
 
-image:
-	docker build -t cloudmask .
+dimage: # create a docker image
+	time docker build -t cloudmask .
 	docker image ls cloudmask
 
-shell:
+dshell:
 	docker run --gpus all -it --rm \
     	-v /etc/passwd:/etc/passwd:ro \
     	-v /etc/group:/etc/group:ro \
@@ -30,7 +36,7 @@ shell:
 		cloudmask
 
 
-run:
+drun:
 	mkdir -p outputs
 	docker run --gpus all --rm \
     	-v /etc/passwd:/etc/passwd:ro \
@@ -43,8 +49,21 @@ run:
 		cloudmask \
 		python slstr_cloud.py > ./outputs/run.log 2>&1
 
-kill:
+dkill:
 	docker kill `docker ps -q`
+
+
+simage:
+	rm -f cloudmask.sif
+	time sudo singularity build cloudmask.sif singularity.def
+	ls -h cloudmask.sif
+
+sshell:
+	sudo singularity shell cloudmask.sif
+
+sclean:
+	sudo singularity cache clean -f
+	rm -f cloudmask.sif
 
 project: project.json generate
 
