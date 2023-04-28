@@ -30,6 +30,7 @@ from cloudmesh.common.StopWatch import StopWatch
 from sklearn import metrics
 from mlperf_logging import mllog
 import logging
+from pprint import pprint
 
 from cloudmesh.common.FlatDict import read_config_parameters
 
@@ -270,6 +271,20 @@ def main():
 
     user_name = config["submission.submitter"]
 
+    os.system("mkdir ./outputs")
+
+    pprint(config)
+
+    if config["run.gpu.log_on"]:
+        interval = config["run.gpu.log_interval"]
+        os.system("cms help")
+        os.system(f"cms gpu watch --gpu=0 --delay={interval} --dense > "
+                  f"gpu.log &")
+
+    if config["run.gpu.debug"]:
+        tf.debugging.set_log_device_placement(True)
+
+
     print ("AAA")
 
 
@@ -293,8 +308,6 @@ def main():
 
     print ("AAA")
 
-    from pprint import pprint
-    pprint (config)
 
     # Training
     StopWatch.start("training")

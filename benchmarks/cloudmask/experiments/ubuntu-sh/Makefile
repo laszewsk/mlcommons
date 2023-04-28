@@ -1,12 +1,16 @@
 SHELL=/bin/bash
 
+INTERVAL=1.0
 PROJECT=`pwd`
 DATA=/scratch2/data/cloudmask/data/
+UID=`id -u`
+GUID=`id -g`
 
 LOCAL_BIN=/home/${USER}/.local/bin
 PYTHON=~/ENV3/bin/activate
 
 PROJECT=.
+
 
 all: setup project
 
@@ -15,10 +19,32 @@ image:
 	docker image ls cloudmask
 
 shell:
-	docker run --gpus all -it --rm --shm-size=1g --ulimit memlock=-1 -v \
-		${PROJECT}:/project -v ${DATA}:/data \
+	docker run --gpus all -it --rm \
+    	-v /etc/passwd:/etc/passwd:ro \
+    	-v /etc/group:/etc/group:ro \
+	    --user ${UID}:${GID} \
+	    --shm-size=1g --ulimit memlock=-1 \
+	    -v ${PROJECT}:/project \
+	    -v ${DATA}:/data \
+	    -v ${HOME}:${HOME} \
 		cloudmask
 
+
+run:
+	mkdir -p outputs
+	docker run --gpus all --rm \
+    	-v /etc/passwd:/etc/passwd:ro \
+    	-v /etc/group:/etc/group:ro \
+	    --user ${UID}:${GID} \
+	    --shm-size=1g --ulimit memlock=-1 \
+	    -v ${PROJECT}:/project \
+	    -v ${DATA}:/data \
+	    -v ${HOME}:${HOME} \
+		cloudmask \
+		python slstr_cloud.py > ./outputs/run.log 2>&1
+
+kill:
+	docker kill `docker ps -q`
 
 project: project.json generate
 
@@ -27,7 +53,7 @@ setup:
 
 generate: jobs-project.sh
 
-run: submit
+# run: submit
 
 submit:
 	-sh jobs-project.sh
@@ -59,7 +85,7 @@ data:
     	cd /$(WORKDIR)/$(USER)/mlcommons/benchmarks/cloudmask/ && \
     	aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
-kill: stop
+# kill: stop
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done

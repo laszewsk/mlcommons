@@ -22,6 +22,11 @@ run:
   datadir: data
   branch: 'main'
   close_files: False
+  gpu:
+    debug: False
+    log_on: True
+    log_interval: 1.0
+    log_file: ./outputs/gpu.log
 
 # Submission Information
 submission:
@@ -73,7 +78,7 @@ train_dir: /data/one-day
 inference_dir: /data/ssts
 
 # Model file
-model_file: ./sciml_bench/outputs/slstr_cloud/cloudModel.h5
+model_file: ./outputs/slstr_cloud/cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -81,13 +86,13 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: ./sciml_bench/outputs/slstr_cloud
+output_dir: ./outputs/slstr_cloud
 
 # Log file for recording runtimes
-log_file: ./cloudmask_run.log
+log_file: ./outputs/cloudmask_run.log
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask.log
+mlperf_logfile: ./outputs/mlperf_cloudmask.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
