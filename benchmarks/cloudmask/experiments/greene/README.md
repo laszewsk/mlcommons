@@ -91,6 +91,20 @@ greene> sbatch simple.slurm
 greene> squeue -u $USER
 ```
 
+## Reproduce Experiments
+
+
+```bash
+bash reproduce_experiments.sh
+```
+
+## Visualize results
+
+To visualize the graphs, pass the paths to the log files as the arguments while running the file visualizer.py
+
+```bash
+python3 visualizer.py mlperf_cloudmask_diff_epochs.log cloudmask_run_diff_epochs.log
+```
 
 ---
 **NOT TESTED FROM HERE ON**
