@@ -57,13 +57,15 @@ docker-run: # docker image run
 docker-watch: # watch the output of the current run
 	tail -f ./outputs/run.log
 
+singularity-watch: # watch the output of the current run
+	tail -f ./outputs/run.log
+
 docker-kill: # docker kill
 	docker kill `docker ps -q`
 
 singularity-run: # singularity run
 	mkdir -p outputs
-	time singularity exec --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} tf.sif \
-		/TF/bin/python slstr_cloud.py > ./outputs/run.log 2>&1
+	time singularity exec --nv --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} tf.sif /TF/bin/python slstr_cloud.py > ./outputs/run.log 2>&1
 
 singularity-image: # singularity image
 	rm -f cloudmask.sif

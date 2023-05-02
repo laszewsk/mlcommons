@@ -12,3 +12,4 @@ From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
 	pip install pyyaml
 	pip install scikit-learn
 	pip install git+https://github.com/mlperf/logging.git@1.0.0
+	pip install tensorflow
