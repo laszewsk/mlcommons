@@ -10,6 +10,7 @@ SDEF=singularity.def
 SIF=cloudmask.sif
 
 SDEF=tf.def
+SDEF=singularity.def
 SIF=tf.sif
 
 LOCAL_BIN=/home/${USER}/.local/bin
@@ -53,13 +54,20 @@ docker-run: # docker image run
 		cloudmask \
 		python slstr_cloud.py > ./outputs/run.log 2>&1
 
+docker-watch: # watch the output of the current run
+	tail -f ./outputs/run.log
+
 docker-kill: # docker kill
 	docker kill `docker ps -q`
 
+singularity-run: # singularity run
+	mkdir -p outputs
+	time singularity exec --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} tf.sif \
+		/TF/bin/python slstr_cloud.py > ./outputs/run.log 2>&1
 
 singularity-image: # singularity image
 	rm -f cloudmask.sif
-	time sudo singularity build ${SIF} ${SDEF}
+	time sudo singularity build --force ${SIF} ${SDEF}
 	ls -h ${SIF}
 
 rivana-image: # rivanna singularity image
