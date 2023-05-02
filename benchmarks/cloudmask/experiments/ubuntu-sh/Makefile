@@ -24,11 +24,11 @@ default: help
 
 all: setup project # stup all
 
-dimage: # create a docker image
+docker-image: # create a docker image
 	time docker build -t cloudmask .
 	docker image ls cloudmask
 
-dshell: # docker image shell
+docker-shell: # docker image shell
 	docker run --gpus all -it --rm \
     	-v /etc/passwd:/etc/passwd:ro \
     	-v /etc/group:/etc/group:ro \
@@ -40,9 +40,9 @@ dshell: # docker image shell
 		cloudmask
 
 
-drun: # docker image run
+docker-run: # docker image run
 	mkdir -p outputs
-	docker run --gpus all --rm \
+	time docker run --gpus all --rm \
     	-v /etc/passwd:/etc/passwd:ro \
     	-v /etc/group:/etc/group:ro \
 	    --user ${UID}:${GID} \
@@ -53,16 +53,16 @@ drun: # docker image run
 		cloudmask \
 		python slstr_cloud.py > ./outputs/run.log 2>&1
 
-dkill: # docker kill
+docker-kill: # docker kill
 	docker kill `docker ps -q`
 
 
-simage: # singularity image
+singularity-image: # singularity image
 	rm -f cloudmask.sif
 	time sudo singularity build ${SIF} ${SDEF}
 	ls -h ${SIF}
 
-rimage: # rivanna singularity image
+rivana-image: # rivanna singularity image
 	cp ${SDEF} build.def
 	date
 	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
@@ -70,10 +70,10 @@ rimage: # rivanna singularity image
 	cp output_image.sif ${SIF}
 	rm -f build.def output_image.sif
 
-sshell: # singularity shell
+singularity-shell: # singularity shell
 	sudo singularity shell --bind ${PROJECT}:/project,${DATA}:/data,${HOME}:${HOME} ${SIF}
 
-sclean: # singularity clean
+singularity-clean: # singularity clean
 	sudo singularity cache clean -f
 	rm -f cloudmask.sif
 

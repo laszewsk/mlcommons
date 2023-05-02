@@ -15,5 +15,5 @@ cd $PROJECT_DIR
 
 # cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-time python slstr_cloud.py --config config.yaml
+time python slstr_cloud.py --config simple.yaml
 
