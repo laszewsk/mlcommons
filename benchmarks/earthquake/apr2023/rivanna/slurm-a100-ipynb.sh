@@ -4,12 +4,13 @@
 #SBATCH --ntasks=1
 #SBATCH --time=3-00:00:00
 #SBATCH --partition=bii-gpu
-#SBATCH --account=comp4gc
+#SBATCH --account=bii_dsc_community
+#SBATCH --reservation=bi_fox_dgx
 #SBATCH --mem=64GB
-#SBATCH --gres=gpu:v100:1
-#SBATCH --job-name=earthquake-2
-#SBATCH --output=%u-%j-v100.out
-#SBATCH --error=%u-%j-v100.err
+#SBATCH --gres=gpu:a100:1
+#SBATCH --job-name=earthquake-a100
+#SBATCH --output=%u-%j-a100.out
+#SBATCH --error=%u-%j-a100.err
 
 hostname
 echo "SLURM_CPUS_ON_NODE: $SLURM_CPUS_ON_NODE"

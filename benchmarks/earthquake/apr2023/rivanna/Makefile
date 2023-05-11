@@ -17,7 +17,7 @@ delete:
 	rm -f *_output.ipynb
 
 submit:
-	sbatch slurm-v100-ipynb.sh
+	sbatch slurm-a100-ipynb.sh
 
 watch: status
 
@@ -30,4 +30,12 @@ run:
 shell:
 	singularity shell --nv mnist.sif
 
-all: delete clean image submit watch
+cancel: stop
+
+stop:
+	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
+
+view:
+	watch tail -n 50 *.err
+
+all: delete clean image submit view
