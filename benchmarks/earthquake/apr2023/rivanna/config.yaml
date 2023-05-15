@@ -1,0 +1,64 @@
+name: earthquake-project
+experiment:
+  card_name: a100
+  gpu_count: 1
+  cpu_num: 6
+  mem: 32GB
+  repeat: '1'
+  TFTTransformerepochs: '2'
+system:
+  allocation: bii_dsc_community
+  partition: bii-gpu
+  host: rivanna
+  user: '{user}'
+  reservation: 'bi_fox_dgx'
+  constraint: ''
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+benchmark:
+  name: Earthquake
+  user: Gregor von Laszewski
+  e-mail: laszewski@gmail.com
+  organisation: University of Virginia
+  division: closed
+  status: completed
+  platform: rivanna
+code:
+  script: FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb
+  revision: latest
+  branch: 2.0
+run:
+  filesystem: project/bii_dsc_community/users/dje5dj
+  venvpath: $HOME/mlcommons-work/python
+  datadir: data
+  branch: main
+  colortheme: 'False'
+time: 3-0
+set_soft_device_placement: false
+debugging_set_log_device_placement: false
+DLAnalysisOnly: false
+DLRestorefromcheckpoint: false
+DLinputCheckpointpostfix: ''
+TFTTransformerbatch_size: 64
+TFTd_model: 160
+Tseq: 26
+TFTdropout_rate: 0.1
+learning_rate: 5.0e-07
+max_gradient_norm: 0.01
+early_stopping_patience: 60
+TFTnum_AttentionLayers: 2
+TFTnum_heads: 4
+os:
+  USER: dje5dj
+cloudmesh:
+  trace: 'False'
+  debug: 'False'
+  timer: 'False'

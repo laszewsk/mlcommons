@@ -36,8 +36,8 @@ singularity exec --nv mnist.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.l
 
 allocations
 singularity exec --nv mnist.sif bash -c "source ~/ENV3/bin/activate ; \
-          papermill FFFFWNPFEARTHQ_newTFTv29.ipynb \
-          FFFFWNPFEARTHQ_newTFTv29_output.ipynb \
+          papermill FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb \
+          FFFFWNPFEARTHQ_newTFTv29-mllog_output.ipynb \
           --no-progress-bar --log-output --execution-timeout=-1 --log-level INFO"
 allocations
 
