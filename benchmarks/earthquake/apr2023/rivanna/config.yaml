@@ -4,8 +4,10 @@ experiment:
   gpu_count: 1
   cpu_num: 6
   mem: 32GB
-  repeat: '1'
-  TFTTransformerepochs: '2'
+  repeat: '1,2,3,4,5'
+  TFTTransformerepochs: '90'
+sbatch:
+  identifier: 123
 system:
   allocation: bii_dsc_community
   partition: bii-gpu

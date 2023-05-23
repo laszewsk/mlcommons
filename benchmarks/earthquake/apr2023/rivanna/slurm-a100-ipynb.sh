@@ -30,13 +30,13 @@ echo "Working in $(pwd)"
 # echo "Python Version: $(singularity run python -V)"
 # echo "Running on host: $(hostname -a)"
 
-singularity exec --nv mnist.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+singularity exec --nv /scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna/mnist.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
 
 allocations
-singularity exec --nv mnist.sif bash -c "source ~/ENV3/bin/activate ; \
-          papermill FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb \
+singularity exec --nv /scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna/mnist.sif bash -c "source ~/ENV3/bin/activate ; \
+          papermill /scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna/FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb \
           FFFFWNPFEARTHQ_newTFTv29-mllog_output.ipynb \
           --no-progress-bar --log-output --execution-timeout=-1 --log-level INFO"
 allocations
