@@ -1,5 +1,7 @@
-BUILD=mnist.def
-IMAGE=mnist.sif
+NAME=earthquake
+
+BUILD=${NAME}.def
+IMAGE=${NAME}.sif
 
 image:
 	cp ${BUILD} build.def
@@ -26,10 +28,10 @@ status:
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 run:
-	singularity exec --nv mnist.sif papermill mnist.ipynb mnist_output.ipynb
+	singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
 shell:
-	singularity shell --nv mnist.sif
+	singularity shell --nv ${NAME}.sif
 
 cancel: stop
 
