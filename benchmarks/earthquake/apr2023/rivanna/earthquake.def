@@ -13,17 +13,17 @@ From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
     pip install pip -U
     python --version
 
-	pip install git+https://github.com/mlperf/logging.git@1.0.0
-	pip install googleapis-common-protos protobuf==3.20.3
+    pip install git+https://github.com/mlperf/logging.git@1.0.0
+    pip install googleapis-common-protos protobuf==3.20.3
 
-	pip install humanize
-	pip install numpy matplotlib pandas scikit-learn \
-	    jupyter jupyterlab papermill
+    pip install humanize
+    pip install numpy matplotlib pandas scikit-learn \
+	        jupyter jupyterlab papermill
 
     pip install tensorflow_datasets tensorflow-metadata
     pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
 
-	pip install cloudmesh-common cloudmesh-gpu
+    pip install cloudmesh-common cloudmesh-gpu
 
 
 
