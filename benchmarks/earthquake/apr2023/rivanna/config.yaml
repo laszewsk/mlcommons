@@ -16,6 +16,7 @@ system:
   reservation: 'bi_fox_dgx'
   constraint: ''
 submission:
+  name: earthquake
   benchmark: earthquake
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com

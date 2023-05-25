@@ -1,4 +1,8 @@
 name: earthquake-project
+
+os:
+  USER: dje5dj
+
 experiment:
   card_name: a100
   gpu_count: 1
@@ -6,8 +10,10 @@ experiment:
   mem: 32GB
   repeat: '1,2,3,4,5'
   TFTTransformerepochs: '90'
+
 sbatch:
   identifier: 123
+
 system:
   allocation: bii_dsc_community
   partition: bii-gpu
@@ -15,7 +21,9 @@ system:
   user: '{user}'
   reservation: 'bi_fox_dgx'
   constraint: ''
+
 submission:
+  name: earthquake
   benchmark: earthquake
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
@@ -25,6 +33,7 @@ submission:
   github_commit_version: TBD
   status: completed
   platform: rivanna
+
 benchmark:
   name: Earthquake
   user: Gregor von Laszewski
@@ -33,16 +42,19 @@ benchmark:
   division: closed
   status: completed
   platform: rivanna
+
 code:
   script: FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb
   revision: latest
   branch: 2.0
+
 run:
   filesystem: project/bii_dsc_community/users/dje5dj
   venvpath: $HOME/mlcommons-work/python
   datadir: data
   branch: main
   colortheme: 'False'
+
 time: 3-0
 set_soft_device_placement: false
 debugging_set_log_device_placement: false
@@ -58,8 +70,7 @@ max_gradient_norm: 0.01
 early_stopping_patience: 60
 TFTnum_AttentionLayers: 2
 TFTnum_heads: 4
-os:
-  USER: dje5dj
+
 cloudmesh:
   trace: 'False'
   debug: 'False'
