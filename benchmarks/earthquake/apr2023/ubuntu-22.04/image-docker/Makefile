@@ -1,8 +1,7 @@
-BUILD=earthquake.def
-IMAGE=earthquake.sif
+NAME=local/earthquake-nvidia
 
 image:
-	sudo singularity build ${IMAGE} ${BUILD}
+	time docker build -t ${NAME} -f Dockerfile .
 
 queue: watch
 
@@ -22,10 +21,15 @@ status:
 
 # TODO
 run:
-	singularity exec --nv earthquake.sif papermill earthquake.ipynb mnist_output.ipynb
+	# --ipc=host
+	# stack=67108864
+	docker run --gpus all --ulimit memlock=-1 ${NAME}  papermill earthquake.ipynb earthquake_output.ipynb
+
+ls:
+	docker images ${NAME}
 
 shell:
-	singularity shell --nv earthquake.sif
+	docker run -it --gpus all --ulimit memlock=-1 ${NAME}
 
 cancel: stop
 

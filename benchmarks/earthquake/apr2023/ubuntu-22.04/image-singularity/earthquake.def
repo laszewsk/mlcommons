@@ -8,26 +8,23 @@ Bootstrap: docker
 From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
 
 %post
+    apt update
+    apt install -y python3-venv git
+    pip install pip -U
     python --version
-    python -m venv ~/ENV3
-    apt-get update && apt-get install -y \
-            git
-    #!/bin/bash source ~/ENV3/bin/activate ; \
-        pip install --upgrade pip ; \
-	    pip install pip -U ; \
-	    pip install numpy matplotlib pandas scikit-learn \
-	        cloudmesh-common jupyter jupyterlab papermill
-    #!/bin/bash source ~/ENV3/bin/activate ; \
-        pip install cloudmesh-gpu keras psutil scipy \
-        tabulate tensorflow_datasets tqdm wheel \
-        ipywidgets jupyter-autotime ipython-autotime
-    #!/bin/bash source ~/ENV3/bin/activate ; \
-        pip install tensorflow ; \
-        pip install tensorflow-metadata ; \
-        pip install googleapis-common-protos ; \
-        pip install protobuf==3.20.3 ; \
-        pip install humanize ; \
-        pip install git+https://github.com/mlperf/logging.git@1.0.0
+
+	pip install git+https://github.com/mlperf/logging.git@1.0.0
+	pip install googleapis-common-protos protobuf==3.20.3
+
+	pip install humanize
+	pip install numpy matplotlib pandas scikit-learn \
+	    jupyter jupyterlab papermill
+
+    pip install tensorflow_datasets tensorflow-metadata
+    pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
+
+	pip install cloudmesh-common cloudmesh-gpu
+
 
 
 
