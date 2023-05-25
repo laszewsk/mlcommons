@@ -42,3 +42,6 @@ view:
 	watch tail -n 50 *.err
 
 all: delete clean image submit view
+
+convert-to-ssh-repo:
+	git remote set-url origin git@github.com:laszewsk/mlcommons.git
