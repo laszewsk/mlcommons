@@ -1,42 +1,102 @@
-BUILD=mnist.def
-IMAGE=mnist.sif
 
-image:
-	cp ${BUILD} build.def
-	sudo /opt/singularity/3.7.1/bin/singularity build output_image.sif build.def
-	cp output_image.sif ${IMAGE}
-	make -f Makefile clean
+SHELL := /bin/bash
 
-clean:
-	rm -rf build.def output_image.sif
+PRG=FFFFWNPFEARTHQ_newTFTv29-mllog-gregor.ipynb
 
-queue: watch
+.PHONY: stop project localscratch dgx dgx-shm shm singularity clean
 
-delete:
-	rm -f *.out *.err
-	rm -f *_output.ipynb
-	rm *.log
+all: project localscratch shm generate
 
-submit:
-	sbatch slurm-a100-ipynb.sh
+setup-%: rivanna-%.yaml
+	python 01-fetch-data.py $<
+	python 02-setup-venv.py $<
 
-watch: status
+generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
+#generate-%: jobs-%.sh
 
-status:
-	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
+generate-dgx: jobs-dgx.sh
+generate-localscratch: jobs-localscratch.sh
+generate-shm: jobs-shm.sh
+generate-dgx: jobs-dgx.sh
+generate-singularity: jobs-singularity.sh
 
-run:
-	singularity exec --nv mnist.sif papermill mnist.ipynb mnist_output.ipynb
+run: submit
 
-shell:
-	singularity shell --nv mnist.sif
+submit: all
+	sh jobs-project.sh
+	sh jobs-localscratch.sh
+	sh jobs-dgx.sh
 
-cancel: stop
+project: project.json
+
+
+localscratch: localscratch.json
+
+dgx: dgx.json
+
+dgx-shm: dgx-shm.json
+
+shm: shm.json
+
+singularity: singularity.json
+
+jobs-%.sh: %.json
+	source ~/ENV3/bin/activate ; \
+	cms sbatch generate submit --name=$<  > $@
+
+singularity.json: config.yaml
+	source ~/ENV3/bin/activate ; \
+	cms sbatch generate \
+	           --source=slurm-a100-ipynb.sh \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --copycode=$(PRG) \
+
+dgx.json: rivanna-dgx.yaml
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --copycode=$(PRG) \
+               --verbose
+
+dgx-shm.json: rivanna-dgx-shm.yaml
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --copycode=$(PRG) \
+               --verbose
+
 
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
-view:
-	watch tail -n 50 *.err
+clean:
+	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
+	@-rm -rf project project.json jobs-project.sh
+	@-rm -rf dgx dgx.json jobs-dgx.sh
+	@-rm -rf shm shm.json jobs-shm.sh
+	@-rm -f rivanna.slurm
+	@-rm -rf '__pycache__'
 
-all: delete clean image submit view
+
+#
+# image
+#
+
+image:
+	cd image-singularity; make image
+	mv image-singularity/earthquake.sif .

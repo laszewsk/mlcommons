@@ -1,7 +1,7 @@
 name: earthquake-project
 
-os:
-  USER: dje5dj
+#os:
+#  USER: dje5dj
 
 experiment:
   card_name: a100
@@ -18,7 +18,7 @@ system:
   allocation: bii_dsc_community
   partition: bii-gpu
   host: rivanna
-  user: '{user}'
+  user: '{os.USER}'
   reservation: 'bi_fox_dgx'
   constraint: ''
 
@@ -54,6 +54,10 @@ run:
   datadir: data
   branch: main
   colortheme: 'False'
+
+earthquake:
+  RunName: 'EARTHQ-newTFTv29'
+  identifier: "a"
 
 time: 3-0
 set_soft_device_placement: false

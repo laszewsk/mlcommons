@@ -1,11 +1,11 @@
-Bootstrap: localimage
-From: /share/resources/containers/singularity/tensorflow-2.10.0.sif
+#Bootstrap: localimage
+#From: /share/resources/containers/singularity/tensorflow-2.10.0.sif
 #From: /share/resources/containers/singularity/tensorflow-2.4.1.sif
 #From: /share/resources/containers/singularity/tensorflow_23.03-tf1-py3.sif
 #From: /share/resources/containers/singularity/tensorflow_23.03-tf2-py3.sif
 
-#Bootstrap: docker
-#From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
+Bootstrap: docker
+From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
 
 %post
     python --version
