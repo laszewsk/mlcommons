@@ -1,44 +1,94 @@
-NAME=earthquake
+SHELL := /bin/bash
 
-BUILD=${NAME}.def
-IMAGE=${NAME}.sif
+all: project localscratch shm generate
 
-image:
-	time bin/singularity-image.sh ${NAME}
+setup-%: rivanna-%.yaml
+	python 01-fetch-data.py $<
+	python 02-setup-venv.py $<
 
-clean:
-	rm -rf build.def output_image.sif
+generate: jobs-project.sh jobs-localscratch.sh jobs-dgx.sh
+#generate-%: jobs-%.sh
 
-queue: watch
+generate-dgx: jobs-dgx.sh
+generate-localscratch: jobs-localscratch.sh
+generate-shm: jobs-shm.sh
+generate-dgx: jobs-dgx.sh
+generate-singularity: jobs-singularity.sh
 
-delete:
-	rm -f *.out *.err
-	rm -f *_output.ipynb
-	rm *.log
+run: submit
 
-submit:
-	sbatch slurm-a100-ipynb.sh
+submit: all
+	sh jobs-project.sh
+	sh jobs-localscratch.sh
+	sh jobs-dgx.sh
 
-watch: status
 
-status:
-	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
-run:
-	singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
+.PHONY: project
+project: project.json
 
-shell:
-	singularity shell --nv ${NAME}.sif
+.PHONY: localscratch
+localscratch: localscratch.json
 
-cancel: stop
+.PHONY: dgx
+dgx: dgx.json
 
+.PHONY: dgx-shm
+dgx-shm: dgx-shm.json
+
+.PHONY: shm
+shm: shm.json
+
+.PHONY: singularity
+singularity: singularity.json
+
+jobs-%.sh: %.json
+	source ~/ENV3/bin/activate ; \
+	cms sbatch generate submit --name=$<  > $@
+
+singularity.json: config.yaml
+	source ~/ENV3/bin/activate ; \
+	cms sbatch generate \
+	           --source=slurm-a100-ipynb.sh \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
+
+dgx.json: rivanna-dgx.yaml
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
+
+dgx-shm.json: rivanna-dgx-shm.yaml
+		cms sbatch generate \
+	           --source=rivanna-dgx.in.slurm \
+	           --config=$< \
+	           --name=$(basename $@) \
+	           --noos \
+	           --os=USER \
+	           --output_dir=./$(basename $@) \
+               --source_dir=. \
+               --verbose
+
+.PHONY: stop
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
-view:
-	watch tail -n 50 *.err
-
-all: delete clean image submit view
-
-convert-to-ssh-repo:
-	git remote set-url origin git@github.com:laszewsk/mlcommons.git
+.PHONY: clean
+clean:
+	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
+	@-rm -rf project project.json jobs-project.sh
+	@-rm -rf dgx dgx.json jobs-dgx.sh
+	@-rm -rf shm shm.json jobs-shm.sh
+	@-rm -f rivanna.slurm
+	@-rm -rf '__pycache__'
