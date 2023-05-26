@@ -2,6 +2,7 @@ SHELL := /bin/bash
 
 # NOTEBOOK=FFFFWNPFEARTHQ_newTFTv29-mllog-gregor.ipynb
 NOTEBOOK=FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb
+VENV=/scratch/$(USER)/EQ
 
 .PHONY: clean project localscratch dgx dgx-shm shm singularity stop singularity.json
 
@@ -40,11 +41,11 @@ shm: shm.json
 singularity: singularity.json
 
 jobs-%.sh: %.json
-	source ~/ENV3/bin/activate ; \
+	source ${VENV}/bin/activate ; \
 	cms sbatch generate submit --name=$<  > $@
 
 singularity.json: config.yaml
-	source ~/ENV3/bin/activate ; \
+	source ${VENV}/bin/activate ; \
 	cms sbatch generate \
 	           --source=slurm-a100-ipynb.sh \
 	           --config=$< \

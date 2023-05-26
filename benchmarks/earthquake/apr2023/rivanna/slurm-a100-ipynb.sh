@@ -41,7 +41,7 @@ echo "###############################################################"
 
 BASENAME=FFFFWNPFEARTHQ_newTFTv29-mllog
 NOTEBOOK_IN=${BASENAME}.ipynb
-NOTEBOOK_OUT=${BASENAME}.ipynb
+NOTEBOOK_OUT=${BASENAME}-output.ipynb
 
 # echo "Repository Revision: $(git rev-parse HEAD)"
 # echo "Python Version: $(singularity run python -V)"
