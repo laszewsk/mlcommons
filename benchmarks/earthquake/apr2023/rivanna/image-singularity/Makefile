@@ -4,7 +4,7 @@ BUILD=earthquake.def
 IMAGE=earthquake.sif
 
 image:
-	time bin/singularity-image.sh ${NAME}
+	time ../bin/singularity-image.sh ${NAME}
 
 queue: watch
 
