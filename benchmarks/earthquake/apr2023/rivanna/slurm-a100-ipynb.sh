@@ -64,7 +64,7 @@ allocations
 singularity exec --nv ../../earthquake.sif \
           bash -c \
           "papermill ${CODE_DIR}/${NOTEBOOK_IN} \
-          ${CODEDIR}/${NOTEBOOK_OUT} \
+          ${CODE_DIR}/${NOTEBOOK_OUT} \
           --no-progress-bar --log-output --execution-timeout=-1 --log-level INFO"
 
 allocations
