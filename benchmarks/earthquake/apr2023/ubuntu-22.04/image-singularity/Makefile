@@ -3,7 +3,7 @@ BUILD=${NAME}.def
 IMAGE=${NAME}.sif
 
 image:
-	time bin/singularity-image.sh ${NAME}
+	time ../bin/singularity-image.sh ${NAME}
 
 
 queue: watch
