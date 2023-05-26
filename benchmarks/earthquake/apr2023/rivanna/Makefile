@@ -94,3 +94,7 @@ clean:
 image:
 	cd image-singularity; make image
 	mv image-singularity/earthquake.sif .
+
+update:
+	-git push
+	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/earthquake/apr2023/rivanna; ssh-add; git pull"
