@@ -4,7 +4,7 @@ BUILD=earthquake.def
 IMAGE=earthquake.sif
 
 image:
-	sudo singularity build ${IMAGE} ${BUILD}
+	time bin/singularity-image.sh ${NAME}
 
 queue: watch
 

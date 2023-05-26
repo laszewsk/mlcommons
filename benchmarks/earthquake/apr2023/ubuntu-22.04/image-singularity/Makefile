@@ -6,9 +6,6 @@ image:
 	time bin/singularity-image.sh ${NAME}
 
 
-image:
-	sudo singularity build ${NAME}.sif ${NAME}.def
-
 queue: watch
 
 delete:
