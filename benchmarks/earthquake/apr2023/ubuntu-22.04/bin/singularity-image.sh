@@ -1,5 +1,10 @@
 #! /bin/sh
 
+#
+# This script is a simulation on hw we can call singularity on rivanna as it does not allow us
+# to use it in a different fashion
+#
+
 NAME=$1
 
 start_total=`date +%s`

@@ -1,0 +1,30 @@
+#Bootstrap: localimage
+#From: /share/resources/containers/singularity/tensorflow-2.10.0.sif
+#From: /share/resources/containers/singularity/tensorflow-2.4.1.sif
+#From: /share/resources/containers/singularity/tensorflow_23.03-tf1-py3.sif
+#From: /share/resources/containers/singularity/tensorflow_23.03-tf2-py3.sif
+
+Bootstrap: docker
+From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
+
+%post
+    apt update
+    apt install -y python3-venv git
+    pip install pip -U
+    python --version
+
+	pip install git+https://github.com/mlperf/logging.git@1.0.0
+	pip install googleapis-common-protos protobuf==3.20.3
+
+	pip install humanize
+	pip install numpy matplotlib pandas scikit-learn \
+	    jupyter jupyterlab papermill
+
+    pip install tensorflow_datasets tensorflow-metadata
+    pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
+
+	pip install cloudmesh-common cloudmesh-gpu
+
+
+
+

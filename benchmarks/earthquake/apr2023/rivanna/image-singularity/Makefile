@@ -1,13 +1,10 @@
+NAME=earthquake
 
-BUILD=${NAME}.def
-IMAGE=${NAME}.sif
-
-image:
-	time bin/singularity-image.sh ${NAME}
-
+BUILD=earthquake.def
+IMAGE=earthquake.sif
 
 image:
-	sudo singularity build ${NAME}.sif ${NAME}.def
+	sudo singularity build ${IMAGE} ${BUILD}
 
 queue: watch
 
@@ -28,7 +25,6 @@ status:
 # TODO
 run:
 	singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
-
 
 shell:
 	singularity shell --nv ${NAME}.sif

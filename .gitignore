@@ -1,4 +1,5 @@
 *~
+*.sif
 data.tar.xz
 benchmarks/earthquake/data
 /public
