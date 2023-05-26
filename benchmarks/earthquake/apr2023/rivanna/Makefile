@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+.PHONY: clean project localscratch dgx dgx-shm shm singularity stop
+
 all: project localscratch shm generate
 
 setup-%: rivanna-%.yaml
@@ -22,24 +24,16 @@ submit: all
 	sh jobs-localscratch.sh
 	sh jobs-dgx.sh
 
-
-
-.PHONY: project
 project: project.json
 
-.PHONY: localscratch
 localscratch: localscratch.json
 
-.PHONY: dgx
 dgx: dgx.json
 
-.PHONY: dgx-shm
 dgx-shm: dgx-shm.json
 
-.PHONY: shm
 shm: shm.json
 
-.PHONY: singularity
 singularity: singularity.json
 
 jobs-%.sh: %.json
@@ -80,11 +74,10 @@ dgx-shm.json: rivanna-dgx-shm.yaml
                --source_dir=. \
                --verbose
 
-.PHONY: stop
 stop:
 	for i in "$$(squeue --user $$USER | awk 'NR>1{print $$1}')"; do scancel $$i ; done
 
-.PHONY: clean
+
 clean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
@@ -92,3 +85,12 @@ clean:
 	@-rm -rf shm shm.json jobs-shm.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'
+
+
+#
+# image
+#
+
+image:
+	cd image-singularity; make image
+	mv image-singularity/earthquake.sif .

@@ -1,3 +1,10 @@
+## Build Image
+
+```
+make image
+```
+
+
 ```bash
 # on rivanna
 python -m venv ~/ENV3 # might be old version of python
