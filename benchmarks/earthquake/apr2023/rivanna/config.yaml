@@ -12,7 +12,7 @@ system:
   allocation: bii_dsc_community
   partition: bii-gpu
   host: rivanna
-  user: '{user}'
+  user: '{os.USER}'
   reservation: 'bi_fox_dgx'
   constraint: ''
 submission:
@@ -59,8 +59,6 @@ max_gradient_norm: 0.01
 early_stopping_patience: 60
 TFTnum_AttentionLayers: 2
 TFTnum_heads: 4
-os:
-  USER: dje5dj
 cloudmesh:
   trace: 'False'
   debug: 'False'

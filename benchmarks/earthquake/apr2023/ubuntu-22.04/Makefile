@@ -1,7 +1,7 @@
 
 SHELL := /bin/bash
 
-PRG=FFFFWNPFEARTHQ_newTFTv29-mllog-gregor.ipynb
+NOTEBOOK=FFFFWNPFEARTHQ_newTFTv29-mllog-gregor.ipynb
 
 .PHONY: stop project localscratch dgx dgx-shm shm singularity clean
 
@@ -54,7 +54,7 @@ singularity.json: config.yaml
 	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-               --copycode=$(PRG) \
+               --copycode=$(NOTEBOOK) \
 
 dgx.json: rivanna-dgx.yaml
 		cms sbatch generate \
@@ -65,7 +65,7 @@ dgx.json: rivanna-dgx.yaml
 	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-               --copycode=$(PRG) \
+               --copycode=$(NOTEBOOK) \
                --verbose
 
 dgx-shm.json: rivanna-dgx-shm.yaml
@@ -77,7 +77,7 @@ dgx-shm.json: rivanna-dgx-shm.yaml
 	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-               --copycode=$(PRG) \
+               --copycode=$(NOTEBOOK) \
                --verbose
 
 

@@ -12,6 +12,15 @@
 #SBATCH --output=%u-%j-a100.out
 #SBATCH --error=%u-%j-a100.err
 
+echo "###############################################################"
+echo "# ENVIRONMENT                                                 #"
+echo "###############################################################"
+
+#CODE_DIR=/scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna
+CODE_DIR=.
+
+echo "Working in $(pwd)"
+
 HOSTNAME=`hostname`
 echo "HOSTNAME:              $HOSTNAME"
 echo "SLURM_CPUS_ON_NODE:    $SLURM_CPUS_ON_NODE"
@@ -24,31 +33,49 @@ echo "SLURM_JOB_PARTITION:   $SLURM_JOB_PARTITION"
 echo "SLURM_JOB_RESERVATION: $SLURM_JOB_RESERVATION"
 echo "SLURM_SUBMIT_HOST:     $SLURM_SUBMIT_HOST"
 
-CODE_DIR=/scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna
+nvidia-smi
+
+echo "###############################################################"
+echo "# CODE SETUP                                                  #"
+echo "###############################################################"
 
 BASENAME=FFFFWNPFEARTHQ_newTFTv29-mllog
 NOTEBOOK_IN=${BASENAME}.ipynb
 NOTEBOOK_OUT=${BASENAME}.ipynb
 
-nvidia-smi
-
-echo "Working in $(pwd)"
 # echo "Repository Revision: $(git rev-parse HEAD)"
 # echo "Python Version: $(singularity run python -V)"
 # echo "Running on host: $(hostname -a)"
+
+echo "###############################################################"
+echo "# GPU MONITOR                                                 #"
+echo "###############################################################"
 
 singularity exec --nv ${CODE_DIR}/earthquake.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
 
+echo "###############################################################"
+echo "# RUN CODE                                                    #"
+echo "###############################################################"
+
 allocations
 
-singularity exec --nv ${CODE_DIR}/earthquake.sif bash -c \
+singularity exec --nv ${CODE_DIR}/earthquake.sif \
+          bash -c \
           "papermill ${CODE_DIR}/${NOTEBOOK_IN} \
-          ${NOTEBOOK_OUT} \
+          ${CODEDIR}/${NOTEBOOK_OUT} \
           --no-progress-bar --log-output --execution-timeout=-1 --log-level INFO"
 
 allocations
 
-echo "==================================================="
+echo "###############################################################"
+echo "# EFFICIENCY MONITOR                                          #"
+echo "###############################################################"
+
 seff $SLURM_JOB_ID
+
+echo "###############################################################"
+echo "# END SCRIPT                                                  #"
+echo "###############################################################"
+
