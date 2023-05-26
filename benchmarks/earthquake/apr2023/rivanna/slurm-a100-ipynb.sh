@@ -51,7 +51,7 @@ echo "###############################################################"
 echo "# GPU MONITOR                                                 #"
 echo "###############################################################"
 
-singularity exec --nv ${CODE_DIR}/earthquake.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+singularity exec --nv ../../earthquake.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
 
@@ -61,7 +61,7 @@ echo "###############################################################"
 
 allocations
 
-singularity exec --nv ${CODE_DIR}/earthquake.sif \
+singularity exec --nv ../../earthquake.sif \
           bash -c \
           "papermill ${CODE_DIR}/${NOTEBOOK_IN} \
           ${CODEDIR}/${NOTEBOOK_OUT} \

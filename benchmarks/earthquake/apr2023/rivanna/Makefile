@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-
+NAME=earthquake
 # NOTEBOOK=FFFFWNPFEARTHQ_newTFTv29-mllog-gregor.ipynb
 NOTEBOOK=FFFFWNPFEARTHQ_newTFTv29-mllog.ipynb
 VENV=/scratch/$(USER)/EQ
@@ -92,6 +92,7 @@ clean:
 	@-rm -rf shm shm.json jobs-shm.sh
 	@-rm -f rivanna.slurm
 	@-rm -rf '__pycache__'
+	@-rm -rf image-singularity/output_image.sif
 
 
 #
@@ -105,3 +106,11 @@ image:
 push:
 	-git push
 	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/earthquake/apr2023/rivanna; ssh-add; git pull"
+
+watch: status
+
+status:
+	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
+
+shell:
+	singularity shell --nv ${NAME}.sif

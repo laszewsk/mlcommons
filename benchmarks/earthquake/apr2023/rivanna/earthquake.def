@@ -23,7 +23,7 @@ From:  nvcr.io/nvidia/tensorflow:23.04-tf2-py3
     pip install tensorflow_datasets tensorflow-metadata
     pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
 
-    pip install cloudmesh-common cloudmesh-gpu
+    pip install cloudmesh-common cloudmesh-gpu -U
 
 
 
