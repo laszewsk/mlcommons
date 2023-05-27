@@ -27,7 +27,7 @@ run:
 	singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
 shell:
-	singularity shell --nv ${NAME}.sif
+	singularity shell --nv output_image.sif
 
 cancel: stop
 
