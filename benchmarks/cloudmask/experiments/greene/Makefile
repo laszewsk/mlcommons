@@ -43,7 +43,7 @@ jobs-%.sh: %.json
 %.json: config.in.yaml
 	source ${VENV}/bin/activate ; \
 	cms sbatch generate \
-	           --source=submit.in.sh \
+	           --source=slurm.in.sh \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \

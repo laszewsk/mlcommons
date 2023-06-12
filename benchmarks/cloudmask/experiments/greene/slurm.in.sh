@@ -9,24 +9,6 @@
 #SBATCH -e outputs/%u-cloudmask-{experiment.cardname}-{experiment.repeat}-%j.err
 
 
-experiment:
-#  card_name: a100
-  card_name: "v100,a100"
-  gpu_count: 1
-  cpu_num: 1
-  mem: "64GB"
-  repeat: "1,2"
-  epoch: 1,50,100
-  seed: "1234"
-  learning_rate: 0.001
-  batch_size: 32
-  train_split: 0.8
-  clip_offset: 15
-  no_cache: False
-  nodes: 1
-  gpu: 1
-
-
 export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
