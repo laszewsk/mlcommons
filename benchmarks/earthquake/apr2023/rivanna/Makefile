@@ -94,6 +94,14 @@ clean:
 	@-rm -rf '__pycache__'
 	@-rm -rf image-singularity/output_image.sif
 
+#
+# SLURM
+#
+
+watch: status
+
+status:
+	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 #
 # image
@@ -107,10 +115,6 @@ push:
 	-git push
 	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/earthquake/apr2023/rivanna; ssh-add; git pull"
 
-watch: status
-
-status:
-	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 shell:
 	singularity shell --nv ${NAME}.sif

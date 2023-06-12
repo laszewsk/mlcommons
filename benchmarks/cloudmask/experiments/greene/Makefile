@@ -1,5 +1,13 @@
-SHELL=/bin/bash
+SHELL := /bin/bash
 AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
+NAME=cloudmask
+VENV=/scratch/$(USER)/ENV3
+
+.PHONY: clean project localscratch singularity stop singularity.json
+
+all: project localscratch shm generate
+
+
 
 all: requirements data
 
@@ -32,18 +40,18 @@ localscratch: localscratch.json
 jobs-%.sh: %.json
 	cms sbatch generate submit --name=$<  > $@
 
-%.json: config.yaml
+%.json: config.in.yaml
+	source ${VENV}/bin/activate ; \
 	cms sbatch generate \
-	           --source=job.in.slurm \
+	           --source=submit.in.sh \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --os=USER,HOME \
-		   	   --nocm \
+	           --os=USER \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
+               --copycode=slstr_cloud.py \
                --verbose
-
 
 kill: stop
 
@@ -67,3 +75,20 @@ clean:
 	@-rm -f greene.slurm
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
+
+
+
+#
+# SINGULARITY IMAGE
+#
+
+image:
+	cd image-singularity; make image
+	mv image-singularity/${NAME}.sif .
+
+push:
+	-git push
+	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/ ssh-add; git pull"
+
+shell:
+	singularity shell --nv ${NAME}.sif
