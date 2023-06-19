@@ -1,5 +1,41 @@
 # Benchmarking on NYU HPC Greene Cluster
 
+## Install Python
+
+First you need a working version of python on Greene that works on the frontend 
+node as well os on the workere nodes. To gurantee that we have all needed 
+libraries such as CUDNN installed we execute the python install from a worker 
+node instead of the head node.
+
+Thus we start first an interactive worker node:
+
+```bash
+srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+```
+
+Then on the node execute
+
+```bash
+node> module purge
+node> module load anaconda3/2020.07
+node> module load cudnn/8.6.0.163-cuda11
+
+node> conda create -p $USER_SCRATCH/python310 python=3.10
+node> conda activate $USER_SCRATCH/python310
+
+# module load python/intel/3.8.6
+node> python3 -m venv $USER_SCRATCH/ENV3
+
+node> conda deactivate
+
+node> source $USER_SCRATCH/ENV3/bin/activate
+
+node> pip install pip -U
+node> which python
+
+```
+
+
 ## Data download
 
 ### Install aws client
@@ -194,8 +230,8 @@ node> source $USER_SCRATCH/ENV3/bin/activate
 
 node> pip install pip -U
 node> which python
-
 ```
+
 This should return $USER_SCRATCH/ENV3/bin/python
 
 Make sure to change the paths in the 'config.yaml' file to appropriate locations.
