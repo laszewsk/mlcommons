@@ -52,7 +52,9 @@ Before installing on Greene HPC:
 Account](https://www.nyu.edu/life/information-technology/research-computing-services/high-performance-computing/high-performance-computing-nyu-it/hpc-accounts-and-eligibility.html).
 2. Set up SSH keys for your github account. 
 
+The above is for any system you have sudo on.
 
+TODO: is aws available on greene. How do I activate?
 
 ## Set-up Git
 
@@ -69,14 +71,20 @@ greene> git config --global core.editor "nano"
 srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
-## Generating Experiment Configurations
-
-All bash terminal lines that are to be executed on the interactive node start with "node>".
+## Set experiment directories
 
 ```bash
 node> export USER_SCRATCH=/scratch/$USER/github-fork
 node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 node> export PROJECT_DATA=$USER_SCRATCH/data
+```
+
+## Generating Experiment Configurations
+
+
+All bash terminal lines that are to be executed on the interactive node start with "node>".
+
+```bash
 
 node> mkdir -p $USER_SCRATCH
 node> mkdir -p $PROJECT_DATA
