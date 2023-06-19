@@ -102,11 +102,23 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 
 ## Set experiment directories
 
+
+### AMD5950X Desktop
+
+```bash
+node> export PROJECT_SCRATCH=/home/$USER/Desktop/github/mlcommons
+node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+node> export PROJECT_DATA=/scratch2/data/cloudmask/data
+```
+
+### Greene
+
 ```bash
 node> export USER_SCRATCH=/scratch/$USER/github-fork
 node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 node> export PROJECT_DATA=$USER_SCRATCH/data
 ```
+
 
 ## Generating Experiment Configurations
 
@@ -123,6 +135,14 @@ node> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
 
 node> cd $PROJECT_DIR
 ```
+
+## Updateing the code once the directories already exist
+
+```
+node> cd $PROJECT_DIR
+node> git pull
+```
+
 
 ## Set-up Python
 
@@ -156,6 +176,7 @@ node> time make requirements
 This command takes about 1 minute to execute.
 
 ## Obtain the data
+
 
 ```bash
 node> time make data
