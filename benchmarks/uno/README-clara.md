@@ -1,5 +1,6 @@
-UNO
-Using rclone to download data
+# UNO
+
+- [x] Using rclone to download data
 Cannot run on front load noad
 Download data to uno directory within scratch directory 
 rivanna:/scratch/uno/data
@@ -13,10 +14,12 @@ export PROJECT_DIR=/project/bii_dsc_community/esf3xw/uno
 Locate the repository for UNO (final production do not use!!!)
 https://github.com/mlcommons/science/tree/main/benchmarks/uno
 Development Repo
+
+```bash
 rivanna>	
-cd $PROJECT_DIR
-git clone
-https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
+  cd $PROJECT_DIR
+  git clone https://github.com/laszewsk/mlcommons/tree/main/benchmarks/uno
+```
 
 Figure out from the original Readme how to run code.
 Learn how to run an interactive node on the Rivanna system
