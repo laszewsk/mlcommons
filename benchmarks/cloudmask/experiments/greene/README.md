@@ -1,6 +1,47 @@
 # Benchmarking on NYU HPC Greene Cluster
 
+## Data download
+
+### Install aws client
+
+#### Linux x86
+
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+#### ARM
+
+```
+$ curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+#### MacOs
+
+```
+https://awscli.amazonaws.com/AWSCLIV2.pkg
+```
+
+It will install it in 
+
+```
+/usr/local/bin/aws 
+```
+
+Verify version 
+
+```
+which aws
+aws --version
+```
+
+
 ## Pre-requisite
+
 Before installing on Greene HPC:
 
 1. Renew or request for a [NYU HPC 
