@@ -32,7 +32,11 @@ It will install it in
 /usr/local/bin/aws 
 ```
 
-Verify version 
+#### Others
+
+* <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
+
+#### Verify version 
 
 ```
 which aws
