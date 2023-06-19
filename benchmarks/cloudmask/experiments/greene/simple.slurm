@@ -5,14 +5,14 @@
 #SBATCH --gres=gpu:v100:1
 #SBATCH --time=00:40:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/%j.out
-#SBATCH -e outputs/%j.err
+#SBATCH -o outputs/%u-%j.out
+#SBATCH -e outputs/u%-%j.err
 
 export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data
-
+# export PROJECT_DATA=/scratch/vc2209/github-fork/data
 
 module purge
 # module load anaconda3/2020.07

@@ -147,8 +147,12 @@ node>
   python --version
 ```
 
+This should return 
 
-This should return $USER_SCRATCH/ENV3/bin/python
+```
+$USER_SCRATCH/ENV3/bin/python
+3.10
+```
 
 This is a one time set up. 
 Onece this is set up, you do not have to do the reinstall it again. 
@@ -255,6 +259,11 @@ export PATH=~/bin:$PATH
 export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PROJECT_DATA=$USER_SCRATCH/data
+#
+# current existing downloaded dataset is located at
+#
+# export PROJECT_DATA=/scratch/vc2209/github-fork/data
+
 
 source $USER_SCRATCH/ENV3/bin/activate
 ```
@@ -269,21 +278,26 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 
 ### Set experiment directories
 
-### AMD5950X Desktop
-
-```bash
-node> export PROJECT_SCRATCH=/home/$USER/Desktop/github/mlcommons
-node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-node> export PROJECT_DATA=/scratch2/data/cloudmask/data
-```
-
 ### Greene
 
 ```bash
-node> export USER_SCRATCH=/scratch/$USER/github-fork
-node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-node> export PROJECT_DATA=$USER_SCRATCH/data
+node> 
+  export USER_SCRATCH=/scratch/$USER/github-fork
+  export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+  export PROJECT_DATA=$USER_SCRATCH/data
 ```
+
+### AMD5950X Desktop
+
+Do not use, its here for future documentation
+
+```bash
+computer>
+  export PROJECT_SCRATCH=/home/$USER/Desktop/github/mlcommons
+  export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+  export PROJECT_DATA=/scratch2/data/cloudmask/data
+```
+
 
 
 ## Generating Experiment Configurations
@@ -292,13 +306,13 @@ Now you need to download and install the code. Please only clone one version of 
 
 ```bash
 
-node> mkdir -p $USER_SCRATCH
-node> mkdir -p $PROJECT_DATA
-node> cd $USER_SCRATCH
-
-node> git clone https://github.com/laszewsk/mlcommons.git
-node(alternative 1)> git clone https://github.com/rg3515/mlcommons.git
-node(alternative2 )> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+greene> 
+  mkdir -p $USER_SCRATCH
+  mkdir -p $PROJECT_DATA
+  cd $USER_SCRATCH
+  git clone https://github.com/laszewsk/mlcommons.git
+  node(alternative 1)> git clone https://github.com/rg3515/mlcommons.git
+  node(alternative2 )> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
 
 node> cd $PROJECT_DIR
 ```
@@ -308,8 +322,9 @@ node> cd $PROJECT_DIR
 In case you previously cloned the code you only have to update it
 
 ```
-node> cd $PROJECT_DIR
-node> git pull
+node> 
+  cd $PROJECT_DIR
+  git pull
 ```
 
 
@@ -318,8 +333,9 @@ node> git pull
 Make sure to change the paths in the 'config.yaml' file to appropriate locations.
 
 ```bash
-node> cd $PROJECT_DIR/experiments/greene/
-node> time make requirements
+node> 
+  cd $PROJECT_DIR/experiments/greene/
+  time make requirements
 ```
 
 This command takes about 1 minute to execute.
@@ -327,10 +343,13 @@ This command takes about 1 minute to execute.
 ## Obtain the data
 
 ```bash
-node> time make data
+node> 
+  time make data
 ```
 
 This command takes about 1hr to execute.
+
+From now on you no longer need to use an interactive node and all submissions are managed via slurm from a frontend node.
 
 ## Run the code
 
@@ -342,6 +361,19 @@ greene>
   squeue -u $USER
 ```
 
+To see the output use the comamnd 
+
+```
+greene>
+  cat *.out
+  cat *.err
+  cat outputs/gpu0.log 
+```
+
+---
+NOTE: **RG PLEASE TRY TO GET ALL THE STEPS TILL HERE**
+---
+
 ## Reproduce Experiments
 
 A script has developed that replicates the more bpowerful cloudmesh-sbatch program which we will document ASAP but is already available on the production code Makefile in the greene code experiemnet.
@@ -352,7 +384,7 @@ To use is, simple modify the config.in.yaml file and slurm.in.sh configuration f
 
 make project
 
-However the current group is using an alternative method whil eexecuting 
+However the current group is using an alternative method whil executing 
 
 ```bash
 bash reproduce_experiments.sh
