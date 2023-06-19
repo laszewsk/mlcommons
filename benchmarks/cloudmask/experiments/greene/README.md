@@ -7,7 +7,7 @@
 #### Linux x86
 
 ```
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
 unzip awscliv2.zip
 sudo ./aws/install
 ```
@@ -15,7 +15,7 @@ sudo ./aws/install
 #### ARM
 
 ```
-$ curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+$ curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip
 unzip awscliv2.zip
 sudo ./aws/install
 ```
@@ -36,13 +36,44 @@ It will install it in
 
 * <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
 
+
+## Greene
+
+First load a python version 
+
+```bash
+module load python/intel/3.8.6
+```
+
+On Greene we do not have sudo priviedges, so we install it in the home dir with 
+
+```bash
+mkdir ~/tmp
+cd ~/tmp
+curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+unzip awscliv2.zip 
+./aws/install -b ~/bin/aws -i ~/aws-cli
+```
+
+Set $PATH environment variable
+
+```
+$ echo $PATH | grep ~/bin     // See if $PATH contains ~/bin (output will be empty if it doesn't)
+$ export PATH=~/bin:$PATH     // Add ~/bin to $PATH if necessary
+```
+
+Best is to add it to your .bashrc file and add the line 
+
+```
+export PATH=~/bin:$PATH     // Add ~/bin to $PATH if necessary
+```
+
 #### Verify version 
 
 ```
 which aws
 aws --version
 ```
-
 
 ## Pre-requisite
 
