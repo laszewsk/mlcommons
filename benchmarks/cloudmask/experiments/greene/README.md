@@ -56,6 +56,35 @@ The above is for any system you have sudo on.
 
 TODO: is aws available on greene. How do I activate?
 
+## Access grene from a local computer with ssh
+
+Assume you username on grene is `abc123`
+
+
+```
+ServerAliveInterval 60
+
+Host greene
+     User abc123
+     HostName 216.165.13.137
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene1
+     User abc123
+     HostName 216.165.13.137
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene2
+     User abc123
+     HostName 216.165.13.138
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene3
+     User abc123
+     HostName 216.165.13.139
+     IdentityFile ~/.ssh/id_rsa.pub
+```
+
 ## Set-up Git
 
 ```bash
