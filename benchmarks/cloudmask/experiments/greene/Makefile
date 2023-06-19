@@ -7,8 +7,6 @@ VENV=/scratch/$(USER)/ENV3
 
 all: project localscratch shm generate
 
-
-
 all: requirements data
 
 requirements:
