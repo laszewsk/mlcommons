@@ -1,11 +1,126 @@
 # Benchmarking on NYU HPC Greene Cluster
 
-## Install Python
+
+## Nomencalture
+
+* The frontend node (sometimes called head node) of Greene is indicated with `green>`
+* A worker node is indicated with `node>`
+* YOur computer in fornt of you is indicated with `computer>`
+
+## Pre-requisite
+
+Before using  Greene HPC you need to obtain an account in it while working 
+with faculty or staff to get permission to use it.  To obtain an account follow the documentation at 
+
+* [NYU HPC 
+Account Creation](https://www.nyu.edu/life/information-technology/research-computing-services/high-performance-computing/high-performance-computing-nyu-it/hpc-accounts-and-eligibility.html).
+
+## Account setup
+
+To use Greene efficently for this project, you needs to install a number of brograms and set some configurations. This includes
+
+* SSH
+* Github
+* Python
+* AWS CLI client
+
+We will discuss each of them in this document.
+
+## SSH setup
+
+In order to log into Greene it is advised to use ssh. SSH is available on most computers and the Documentation of Greene includes [hints](https://TBD) on how to set it up.
+
+**Note for windows users:** if you have a windows machine it is bets to use 
+[gitbash](https://TBD) as it behaves just like bash on linux and 
+MacOS thus unifying the documentation for all platforms, 
+please download and install gitbash.
+
+From her on we asumme everything is done in bash terminals.
+
+## Access grene from a local computer with ssh
+
+To use ssh you need to first create an ssh key. If you have not yet done so, you need to use the command
+
+```
+computer>
+  ssh-keygen
+```
+
+Please leve the defaults, but make sure that your passphrase 
+is a strong passphrase and not an empty pass phrase. Those using empty passphrases need to take a security class and should regenerate their keys to use one with passphrase.
+
+To not always typ in the passphrase you can use ssh agent as follows on your computer. On mac and Linux ssh-agent is usually started automatically and you just can use ssh-add. On windows you do 
+
+```
+computer>
+  eval `ssh-agent`
+  ssh-add
+```
+
+As Greene has multiple login nodes and they are not set up with different 
+host certifcates, it is important to register each login node so that the known_host file does not allerat you with duplication of host certificates.
+
+Please place the following in your `~/.ssh/config` file
+
+This examle assumes you have the username `abc123` on greene. Please replace it with you user name.
+
+```
+ServerAliveInterval 60
+
+Host greene
+     User abc123
+     HostName 216.165.13.137
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene1
+     User abc123
+     HostName 216.165.13.137
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene2
+     User abc123
+     HostName 216.165.13.138
+     IdentityFile ~/.ssh/id_rsa.pub
+
+Host greene3
+     User abc123
+     HostName 216.165.13.139
+     IdentityFile ~/.ssh/id_rsa.pub
+```
+
+After instalation of the config file, you need to copy the public key into Grene authorized_keys file. This is bets done with the command
+
+```
+computer>
+  ssh-copy-id greene
+```
+
+## Set-up Git
+
+As the code is amanged in github, you need to make sure github is propperly configures on all machines This includes your computer and Greene this you execute the following commands while making appropriate adjustments. 
+
+```bash
+computer> 
+  git config pull.rebase false
+  git config --global user.name "FIRST_NAME LAST_NAME"
+  git config --global user.email "MY_NAME@example.com"
+  git config --global core.editor "nano"
+```
+
+```bash
+greene> 
+  git config pull.rebase false
+  git config --global user.name "FIRST_NAME LAST_NAME"
+  git config --global user.email "MY_NAME@example.com"
+  git config --global core.editor "nano"
+```
+
+## Installing Python
 
 First you need a working version of python on Greene that works on the frontend 
-node as well os on the workere nodes. To gurantee that we have all needed 
-libraries such as CUDNN installed we execute the python install from a worker 
-node instead of the head node.
+node as well os on the worker nodes. To gurantee that we have all needed 
+libraries such as CUDA installed we execute the python install from a worker 
+node instead of the frontend node.
 
 Thus we start first an interactive worker node:
 
@@ -14,7 +129,8 @@ greene>
   srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
-Then on the node execute
+This will create an interactive worker node, indicated with `node>` 
+in the following documentation.  Then on the node execute
 
 ```bash
 node> 
@@ -28,8 +144,22 @@ node>
   source $USER_SCRATCH/ENV3/bin/activate
   pip install pip -U
   which python
+  python --version
 ```
 
+
+This should return $USER_SCRATCH/ENV3/bin/python
+
+This is a one time set up. 
+Onece this is set up, you do not have to do the reinstall it again. 
+However, if you log into Greene wit a new terminal, 
+you must activate python if you want to use python, with
+
+```bash
+source $USER_SCRATCH/ENV3/bin/activate
+```
+
+This is done regardless if you use the frontend node or a worker node
 
 ## Data download
 
@@ -70,10 +200,12 @@ It will install it in
 
 ## Greene
 
-First load a python version 
+We assume that you have installed python as discussed in the 
+Python setup section. E.g.
 
 ```bash
-module load python/intel/3.8.6
+greene>
+  source $USER_SCRATCH/ENV3/bin/activate
 ```
 
 On Greene we do not have sudo priviedges, so we install it in the home dir with 
@@ -106,64 +238,36 @@ which aws
 aws --version
 ```
 
-## Pre-requisite
+## Modification of .bashrc
 
-Before installing on Greene HPC:
-
-1. Renew or request for a [NYU HPC 
-Account](https://www.nyu.edu/life/information-technology/research-computing-services/high-performance-computing/high-performance-computing-nyu-it/hpc-accounts-and-eligibility.html).
-2. Set up SSH keys for your github account. 
-
-The above is for any system you have sudo on.
-
-TODO: is aws available on greene. How do I activate?
-
-## Access grene from a local computer with ssh
-
-Assume you username on grene is `abc123`
-
-
-```
-ServerAliveInterval 60
-
-Host greene
-     User abc123
-     HostName 216.165.13.137
-     IdentityFile ~/.ssh/id_rsa.pub
-
-Host greene1
-     User abc123
-     HostName 216.165.13.137
-     IdentityFile ~/.ssh/id_rsa.pub
-
-Host greene2
-     User abc123
-     HostName 216.165.13.138
-     IdentityFile ~/.ssh/id_rsa.pub
-
-Host greene3
-     User abc123
-     HostName 216.165.13.139
-     IdentityFile ~/.ssh/id_rsa.pub
-```
-
-## Set-up Git
+As we ahve many different parameters that will be used repeatedly when we log in we recommend that you add the following to your `.bashrc` file. Please use your favorte editor
 
 ```bash
-greene> git config pull.rebase false
-greene> git config --global user.name "FIRST_NAME LAST_NAME"
-greene> git config --global user.email "MY_NAME@example.com"
-greene> git config --global core.editor "nano"
+greene>
+  nano ~/.bashrc
 ```
 
-## Get Interactive node and login
+In this file add 
+
+```
+export PATH=~/bin:$PATH 
+
+export USER_SCRATCH=/scratch/$USER/github-fork
+export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+export PROJECT_DATA=$USER_SCRATCH/data
+
+source $USER_SCRATCH/ENV3/bin/activate
+```
+
+## Installing the code
+
+### Get Interactive node and login
 
 ```bash
 srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
-## Set experiment directories
-
+### Set experiment directories
 
 ### AMD5950X Desktop
 
@@ -184,8 +288,7 @@ node> export PROJECT_DATA=$USER_SCRATCH/data
 
 ## Generating Experiment Configurations
 
-
-All bash terminal lines that are to be executed on the interactive node start with "node>".
+Now you need to download and install the code. Please only clone one version of the repository. This depends on wht user you are. For production use `https://github.com/laszewsk/mlcommons.git`
 
 ```bash
 
@@ -193,12 +296,16 @@ node> mkdir -p $USER_SCRATCH
 node> mkdir -p $PROJECT_DATA
 node> cd $USER_SCRATCH
 
-node> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+node> git clone https://github.com/laszewsk/mlcommons.git
+node(alternative 1)> git clone https://github.com/rg3515/mlcommons.git
+node(alternative2 )> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
 
 node> cd $PROJECT_DIR
 ```
 
 ## Updateing the code once the directories already exist
+
+In case you previously cloned the code you only have to update it
 
 ```
 node> cd $PROJECT_DIR
@@ -206,28 +313,7 @@ node> git pull
 ```
 
 
-## Set-up Python
-
-```bash
-node> module purge
-node> module load anaconda3/2020.07
-node> module load cudnn/8.6.0.163-cuda11
-
-node> conda create -p $USER_SCRATCH/python310 python=3.10
-node> conda activate $USER_SCRATCH/python310
-
-# module load python/intel/3.8.6
-node> python3 -m venv $USER_SCRATCH/ENV3
-
-node> conda deactivate
-
-node> source $USER_SCRATCH/ENV3/bin/activate
-
-node> pip install pip -U
-node> which python
-```
-
-This should return $USER_SCRATCH/ENV3/bin/python
+## Set-up Python requirements
 
 Make sure to change the paths in the 'config.yaml' file to appropriate locations.
 
@@ -235,10 +321,10 @@ Make sure to change the paths in the 'config.yaml' file to appropriate locations
 node> cd $PROJECT_DIR/experiments/greene/
 node> time make requirements
 ```
+
 This command takes about 1 minute to execute.
 
 ## Obtain the data
-
 
 ```bash
 node> time make data
@@ -248,16 +334,25 @@ This command takes about 1hr to execute.
 
 ## Run the code
 
-
 ```bash
-greene> cd $PROJECT_DIR/experiments/greene/
-greene> mkdir -p outputs
-greene> sbatch simple.slurm
-greene> squeue -u $USER
+greene> 
+  cd $PROJECT_DIR/experiments/greene/
+  mkdir -p outputs
+  sbatch simple.slurm
+  squeue -u $USER
 ```
 
 ## Reproduce Experiments
 
+A script has developed that replicates the more bpowerful cloudmesh-sbatch program which we will document ASAP but is already available on the production code Makefile in the greene code experiemnet.
+
+cloudmesh s-batch can generate a number of subdirectories with appropriate copies of configuration files and duplication of the code for easy execution with any queuing system including SLURM which is used on Greene.
+
+To use is, simple modify the config.in.yaml file and slurm.in.sh configuration files. To generate a script jobs.sh with all jobs to be executed use the command
+
+make project
+
+However the current group is using an alternative method whil eexecuting 
 
 ```bash
 bash reproduce_experiments.sh
