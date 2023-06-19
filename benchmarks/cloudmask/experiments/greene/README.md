@@ -10,7 +10,8 @@ node instead of the head node.
 Thus we start first an interactive worker node:
 
 ```bash
-srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+greene>
+  srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
 Then on the node execute
