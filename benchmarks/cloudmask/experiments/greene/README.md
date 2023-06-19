@@ -16,23 +16,17 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 Then on the node execute
 
 ```bash
-node> module purge
-node> module load anaconda3/2020.07
-node> module load cudnn/8.6.0.163-cuda11
-
-node> conda create -p $USER_SCRATCH/python310 python=3.10
-node> conda activate $USER_SCRATCH/python310
-
-# module load python/intel/3.8.6
-node> python3 -m venv $USER_SCRATCH/ENV3
-
-node> conda deactivate
-
-node> source $USER_SCRATCH/ENV3/bin/activate
-
-node> pip install pip -U
-node> which python
-
+node> 
+  module purge
+  module load anaconda3/2020.07
+  module load cudnn/8.6.0.163-cuda11
+  conda create -p $USER_SCRATCH/python310 python=3.10
+  conda activate $USER_SCRATCH/python310
+  python3 -m venv $USER_SCRATCH/ENV3
+  conda deactivate
+  source $USER_SCRATCH/ENV3/bin/activate
+  pip install pip -U
+  which python
 ```
 
 
