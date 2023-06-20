@@ -67,9 +67,14 @@ This examle assumes you have the username `abc123` on greene. Please replace it 
 ```
 ServerAliveInterval 60
 
+Host *.hpc.nyu.edu
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR
+  
 Host greene
      User abc123
-     HostName 216.165.13.137
+     HostName greene.hpc.nyu.edu
      IdentityFile ~/.ssh/id_rsa.pub
 
 Host greene1
@@ -94,6 +99,51 @@ After instalation of the config file, you need to copy the public key into Grene
 computer>
   ssh-copy-id greene
 ```
+
+## Greene ssh tunnel
+
+A different way to set up ssh for Greene is to use the following `~/.ssh/config` file
+
+```
+Host *.hpc.nyu.edu
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR
+
+Host greenetunnel
+  HostName gw.hpc.nyu.edu
+  ForwardX11 no
+  LocalForward 8027 greene.hpc.nyu.edu:22
+  User <Your NetID>
+
+Host greene
+  HostName localhost
+  Port 8027
+  ForwardX11 yes
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR
+  User <Your NetID>
+```
+
+Now you can create in a bash terminal a tunnel with 
+
+```bash
+ssh greenetunnel
+```
+
+This window has to stay open. Next, you can log into greene on another terminal with 
+
+```bash
+ssh greene
+```
+
+In case you like to forward X11 you can use
+
+```bash
+ssh -Y greene
+```
+
 
 ## Set-up Git
 
