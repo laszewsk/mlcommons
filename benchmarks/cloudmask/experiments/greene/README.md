@@ -219,41 +219,6 @@ This is done regardless if you use the frontend node or a worker node
 
 ### Install aws client
 
-#### Linux x86
-
-```
-curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-unzip awscliv2.zip
-sudo ./aws/install
-```
-
-#### ARM
-
-```
-$ curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip
-unzip awscliv2.zip
-sudo ./aws/install
-```
-
-#### MacOs
-
-```
-https://awscli.amazonaws.com/AWSCLIV2.pkg
-```
-
-It will install it in 
-
-```
-/usr/local/bin/aws 
-```
-
-#### Others
-
-* <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
-
-
-## Greene
-
 We assume that you have installed python as discussed in the 
 Python setup section. E.g.
 
