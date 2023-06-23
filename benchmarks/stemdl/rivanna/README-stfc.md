@@ -31,7 +31,27 @@ which is split into four folders: training (`28` GB, `148006` files),
 validation (`3.8` GB, `20401` files), testing (`1.8` GB, `9374` files)
 and inference (`1.8` GB, `9375` files).
 
-The datasets can be downloaded from remote server by using this command:
+The datasets can be downloaded from remote server by using AWS CLI:
+
+### AWS Command Line Interface
+Ensure you have AWS CLI installed on your system https://aws.amazon.com/cli/.
+
+After installing run the command below to configure the system:
+
+```bash
+aws configure 
+```
+When prompted to enter keys just leave it empty and press enter.
+
+#### Download data
+Run the command to download the data from the remote server.
+
+Download will take at least 3 hours.
+
+- real    207m6.905s
+- user    0m0.078s
+- sys     0m0.124s
+
 
 ```bash
 $ aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk sync s3://sciml-datasets/ms/stemdl_ds1a ./
