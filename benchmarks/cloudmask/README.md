@@ -272,6 +272,41 @@ jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./config.yaml
 ```
 
 
+## AWS Client install
+
+
+#### Linux x86
+
+```
+curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+#### ARM
+
+```
+$ curl https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip -o awscliv2.zip
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+#### MacOs
+
+```
+https://awscli.amazonaws.com/AWSCLIV2.pkg
+```
+
+It will install it in 
+
+```
+/usr/local/bin/aws 
+```
+
+#### Others
+
+* <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
+
 
 
 

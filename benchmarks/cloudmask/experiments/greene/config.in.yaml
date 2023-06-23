@@ -44,8 +44,8 @@ experiment:
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
-  repeat: "1,2"
-  epoch: 1,50,100
+  repeat: "11,12,13,14"
+  epoch: "1,50,100"
   seed: "1234"
   learningrate: 0.001
   batch_size: 32
