@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# slstr_cloud.py
+# python cloudmask_v2.py --config=config-new.yaml
+# cloudmask_v2.py
 
 # SciML-Bench
 # Copyright © 2022 Scientific Machine Learning Research Group
 # Scientific Computing Department, Rutherford Appleton Laboratory
 # Science and Technology Facilities Council, UK.
-# with modifications from Gregor von Laszewski, Juri Papay
+# v1 with modifications from Gregor von Laszewski, Juri Papay, Sam
+# v2 Gregor von Laszewski
+# * use of cloudmesh StopWatch to simplify logging
+# * new yaml file format
+# * integration of cloudmesh FlatDict to manage yaml file
+# * use StopWatch.organization_submit to remove explicit mllog commands to just use the yaml file
+# * relace np.float with float
+
+
 # All rights reserved.
 
 # import sys
