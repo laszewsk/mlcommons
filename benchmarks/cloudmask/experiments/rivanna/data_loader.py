@@ -40,13 +40,13 @@ class SLSTRDataLoader:
         self.patch_padding = 'valid' if not single_image else 'same'
 
         # Parameters from config.yaml
-        self.patch_size = config['PATCH_SIZE']
-        self.n_channels = config['N_CHANNELS']
-        self.image_h = config['IMAGE_H']
-        self.image_w = config['IMAGE_W']
+        self.patch_size = config['image.PATCH_SIZE']
+        self.n_channels = config['image.N_CHANNELS']
+        self.image_h = config['image.IMAGE_H']
+        self.image_w = config['image.IMAGE_W']
         self.batch_size = config['experiment.batch_size']
         self.no_cache = config['experiment.no_cache']
-        self.crop_size = config['CROP_SIZE']
+        self.crop_size = config['image.CROP_SIZE']
 
         assert len(self._image_paths) > 0, 'No image data found in path!'
 
@@ -72,7 +72,7 @@ class SLSTRDataLoader:
 
         msk[msk > 0] = 1
         msk[msk == 0] = 0
-        msk = msk.astype(np.float)
+        msk = msk.astype(float)
 
         yield img, msk, path.encode('utf-8')
 
@@ -160,6 +160,8 @@ class SLSTRDataLoader:
 # Dataloader specific to this benchmark
 def load_datasets(dataset_dir: Path, config: dict):
     data_paths = list(Path(dataset_dir).glob('**/S3A*.hdf'))
+    print ("WWWWW", dataset_dir)
+    print ("WWWWW", data_paths)
 
     train_paths, test_paths = train_test_split(data_paths, train_size=config['experiment.train_split'], random_state=42)
 

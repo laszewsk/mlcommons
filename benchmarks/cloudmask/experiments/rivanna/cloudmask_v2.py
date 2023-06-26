@@ -13,25 +13,29 @@
 # import sys
 # sys.path.append("..")
 
-import yaml
-import os
-import atexit
-import h5py
-import time
-import decimal
+from pprint import pprint
 import argparse
+import atexit
+import decimal
+import h5py
+import logging
+import numpy as np
+import os
+import sys
 import tensorflow as tf
+import time
+from cloudmesh.common.FlatDict import FlatDict
+from cloudmesh.common.StopWatchMllog import StopWatch
+from cloudmesh.common.util import banner
+from mlperf_logging import mllog
+from pathlib import Path
+from sklearn import metrics
+
+from data_loader import SLSTRDataLoader
 from data_loader import load_datasets
 from model import unet
-from pathlib import Path
-import numpy as np
-from data_loader import SLSTRDataLoader
-from cloudmesh.common.StopWatch import StopWatch
-from sklearn import metrics
-from mlperf_logging import mllog
-import logging
 
-from cloudmesh.common.FlatDict import read_config_parameters
+cloudmask_version = "2.0"
 
 # config = read_config_parameters(filename='config.yaml')
 
@@ -74,8 +78,8 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
     :return: the reconstructed image with shape (1, height, weight, 1)
     """
     # Read arguments 
-    IMAGE_H = config['IMAGE_H']
-    IMAGE_W = config['IMAGE_W']
+    IMAGE_H = config['image.IMAGE_H']
+    IMAGE_W = config['image.IMAGE_W']
 
     h = ny * patch_size
     w = nx * patch_size
@@ -97,16 +101,16 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 def cloud_inference(config) -> None:
     print('Running benchmark slstr_cloud in inference mode.')
     # Read arguments 
-    CROP_SIZE = config['CROP_SIZE']
-    PATCH_SIZE = config['PATCH_SIZE']
-    N_CHANNELS = config['N_CHANNELS']
+    CROP_SIZE = config['image.CROP_SIZE']
+    PATCH_SIZE = config['image.PATCH_SIZE']
+    N_CHANNELS = config['image.N_CHANNELS']
 
     # Load model
-    modelPath = os.path.expanduser(config['model_file'])
+    modelPath = os.path.expanduser(config['data.model'])
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
-    inference_dir = os.path.expanduser(config['inference_dir'])
+    inference_dir = os.path.expanduser(config['data.inference'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
     
     # Create data loader in single image mode. This turns off shuffling and
@@ -142,7 +146,7 @@ def cloud_inference(config) -> None:
         mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         
         # Save reconstructed image (mask)
-        output_dir = os.path.expanduser(config['output_dir'])
+        output_dir = os.path.expanduser(config['data.output'])
         mask_name = output_dir + file_name.name + '.h5'
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
@@ -182,15 +186,19 @@ def cloud_inference(config) -> None:
 
 def cloud_training(config) -> None:
     print('Running benchmark slstr_cloud in training mode.')
-    tf.random.set_seed(config['experiment.seed'])
-    data_dir = os.path.expanduser(config['train_dir'])
+    tf.random.set_seed(int(config['experiment.seed']))
+    data_dir = config['data.training']
 
+    print ("AAAAA", data_dir)
     # load the datasets
-    StopWatch.start("loaddata")
+    StopWatch.start("loaddata", value=data_dir)
+
+    banner(data_dir)
+
     train_dataset, test_dataset = load_datasets(
         dataset_dir=data_dir,
         config=config)
-    StopWatch.stop("loaddata")
+    StopWatch.stop("loaddata", value=data_dir)
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
     num_samples = len(samples)
@@ -203,12 +211,12 @@ def cloud_training(config) -> None:
 
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(config['PATCH_SIZE'],
-                                  config['PATCH_SIZE'],
-                                  config['N_CHANNELS']))
+        model = unet(input_shape=(config['image.PATCH_SIZE'],
+                                  config['image.PATCH_SIZE'],
+                                  config['image.N_CHANNELS']))
         model.compile(optimizer=optimizer,
-                      loss=config['training_loss'],
-                      metrics=[config['training_metrics']])
+                      loss=config['training.loss'],
+                      metrics=[config['training.metrics']])
         history = model.fit(train_dataset,
                             validation_data=test_dataset,
                             epochs=int(config['experiment.epoch']),
@@ -218,7 +226,7 @@ def cloud_training(config) -> None:
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    modelPath = os.path.expanduser(config['model_file'])
+    modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
@@ -257,47 +265,58 @@ def main():
     )
 
     parser.add_argument('--config',
-                        default=os.path.expanduser('./config.yaml'),
+                        default=os.path.expanduser('./config-new.yaml'),
                         help='path to config file')
     command_line_args = parser.parse_args()
 
+    print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
-    config = read_config_parameters(filename=configYamlFile)
 
-    log_file = os.path.expanduser(config['log_file'])
+    config = FlatDict(sep=".")
 
+
+    config.load(content=configYamlFile)
+
+    print (config)
+    pprint (config.dict)
+
+    log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
-
-
     # MLCommons logging
-    mlperf_logfile = os.path.expanduser(config['mlperf_logfile'])
-    mllog.config(filename=mlperf_logfile)
-    mllogger = mllog.get_mllogger()
+    mlperf_logfile = config['log.mlperf']
+
+    print (user_name)
+    print (log_file)
+
+    print (mlperf_logfile)
+
+    StopWatch.activate_mllog(filename=mlperf_logfile)
+    StopWatch.organization_submission(configfile=configYamlFile)
+
+
+
+    # mllog.config(filename=mlperf_logfile)
+    # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
-    # Values extracted from config.yaml
-    mllogger.event(key=mllog.constants.SUBMISSION_BENCHMARK, value=config['submission.benchmark'])
-    mllogger.event(key=mllog.constants.SUBMISSION_ORG, value=config['submission.org'])
-    mllogger.event(key=mllog.constants.SUBMISSION_DIVISION, value=config['submission.division'])
 
-    mllogger.event(key=mllog.constants.SUBMISSION_PLATFORM, value=config['system.platform'])
-    mllogger.start(key=mllog.constants.INIT_START)
-
-    mllogger.event(key='number_of_ranks', value=config['experiment.gpu'])
-    mllogger.event(key='number_of_nodes', value=config['experiment.nodes'])
-    mllogger.end(key=mllog.constants.INIT_STOP)
+    StopWatch.start("init")
+    StopWatch.event("number_of_ranks", value=config['experiment.gpu'])
+    StopWatch.event('number_of_nodes', value=config['experiment.nodes'])
+    StopWatch.event('version', value=cloudmask_version)
+    StopWatch.stop("init")
 
     # Training
-    StopWatch.start("training")
+    StopWatch.start("training block")
     start = time.time()
-    mllogger.event(key=mllog.constants.EVAL_START, value="Start: Training")
+    StopWatch.start("training")
     samples, training_d = cloud_training(config)
-    mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Training")
+    StopWatch.stop("training")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_epoch = elapsedTime / int(config['experiment.epoch'])
     time_per_epoch_str = f"{time_per_epoch:.2f}"
-    StopWatch.stop("training")
+    StopWatch.stop("training block")
 
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask training, samples = {samples}, "
@@ -308,17 +327,17 @@ def main():
                       f"time_per_epoch={time_per_epoch_str}\n")
 
     # Inference
-    StopWatch.start("inference")
+    StopWatch.start("inference block")
 
     start = time.time()
-    mllogger.event(key=mllog.constants.EVAL_START, value="Start: Inference")
+    StopWatch.start("inference")
     number_inferences, inference_d = cloud_inference(config)
-    mllogger.event(key=mllog.constants.EVAL_STOP, value="Stop: Inference")
+    StopWatch.stop("inference")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_inference = elapsedTime / number_inferences
     time_per_inference_str = f"{time_per_inference:.2f}"
-    StopWatch.stop("inference")
+    StopWatch.stop("inference block")
 
     print("number_inferences: ", number_inferences)
 
@@ -343,11 +362,11 @@ def main():
         },
 
     }
-    mllogger.event(key="result", value=result)
-    mllogger.end(key=mllog.constants.RUN_STOP,
+    StopWatch.event(key="result", value=result)
+    StopWatch.event(key=mllog.constants.RUN_STOP,
                  value="CloudMask benchmark run finished",
                  metadata={'status': 'success'})
-    mllogger.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
+    StopWatch.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
     StopWatch.stop("total")
 
