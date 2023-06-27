@@ -12,7 +12,9 @@ From:  nvcr.io/nvidia/tensorflow:22.10-tf2-py3
     apt install -y python3-venv git
     pip install pip -U ; python --version
     # install from requirements file in rivanna folder
-    pip install -r /scratch/$USER/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+    pip install protobuf==3.20.0 numpy tensorflow cloudmesh-gpu cloudmesh-common cloudmesh-sbatch scikit-learn h5py pyyaml awscli
+    pip install git+https://github.com/mlperf/logging.git@1.0.0
+
 
 
     # protobuf solution
