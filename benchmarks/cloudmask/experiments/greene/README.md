@@ -65,7 +65,7 @@ node> which python
 ```
 This should return $USER_SCRATCH/ENV3/bin/python
 
-Make sure to change the paths in the 'config.yaml' file to appropriate locations.
+Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 'train_dir', 'inference_dir', 'model_file', 'output_dir' and 'venvpath' must be fixed based on the user's directory.
 
 ```bash
 node> cd $PROJECT_DIR/experiments/greene/
@@ -93,6 +93,7 @@ greene> squeue -u $USER
 
 ## Reproduce Experiments
 
+This will create multiple copies of config_simple.yaml, simple.slurm and the output log files.
 
 ```bash
 bash reproduce_experiments.sh
@@ -100,11 +101,16 @@ bash reproduce_experiments.sh
 
 ## Visualize results
 
-To visualize the graphs, pass the paths to the log files as the arguments while running the file visualizer.py
+To visualize the graphs, pass the paths to the log files as the arguments while running the file visualizer.py. You can pass along a single experiment log files or combine all of them and then pass them as inputs.
 
 ```bash
-python3 visualizer.py mlperf_cloudmask_diff_epochs.log cloudmask_run_diff_epochs.log
+cat cloudmask_200* >> cloudmask_200.log
+cat mlperf_cloudmask_200* >> mlperf_cloudmask_200.log
+python3 visualizer.py mlperf_cloudmask_200.log cloudmask_200.log
 ```
+
+
+
 
 ---
 **NOT TESTED FROM HERE ON**
