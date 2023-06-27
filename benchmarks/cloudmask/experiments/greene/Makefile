@@ -16,7 +16,7 @@ yaml:
 	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
 
 
-data: yaml
+data:
 	mkdir -p $(PROJECT_DATA)/ssts
 	mkdir -p $(PROJECT_DATA)/one-day
 	echo -n "Downloading first portion of data..."
