@@ -4,7 +4,7 @@ BUILD=cloudmask.def
 IMAGE=cloudmask.sif
 
 image:
-	time ../bin/singularity-image.sh ${NAME}
+	time ./bin/singularity-image.sh ${NAME}
 
 queue: watch
 
