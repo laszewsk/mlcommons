@@ -16,8 +16,8 @@ sbatch:
   dir: scratch
 
 run:
-  filesystem: "/sratch/thf2bn"
-  venvpath: "/sratch/thf2bn/ENV3/bin/python"
+  filesystem: "/scratch/thf2bn"
+  venvpath: "/scratch/thf2bn/ENV3/bin/python"
   datadir: data
   branch: 'main'
 
