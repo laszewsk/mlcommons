@@ -3,7 +3,7 @@ AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 NAME=cloudmask
 VENV=/scratch/$(USER)/ENV3
 
-.PHONY: clean project localscratch singularity stop singularity.json
+.PHONY: data clean project localscratch singularity stop singularity.json
 
 all: project localscratch shm generate
 
