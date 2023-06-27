@@ -19,9 +19,10 @@ def epoch_vs_scimet(mlperf_file):
     content = readfile(mlperf_file).splitlines()
 
     # Create dataframes
-    train_df = pd.DataFrame(columns = ['Epochs','Train Accuracy','Train Loss','Validation Accuracy','Validation loss'])
+    train_df = pd.DataFrame(columns = ['Run','Epochs','Train Accuracy','Train Loss','Validation Accuracy','Validation Loss'])
     test_df = pd.DataFrame(columns = ['Epochs', 'Test Accuracy'])
 
+    run = 0
     # Appending accuracies to the dataframe
     for line in content:
         # Locate Result line
@@ -44,18 +45,19 @@ def epoch_vs_scimet(mlperf_file):
 
                 # Appending to dataframe
                 for i in range(epochs):
-                    train_df = train_df.append({'Epochs' : i, 'Train Accuracy' : train_acc[i], 'Train Loss': train_loss[i], 'Validation Accuracy': val_acc[i], 'Validation Loss': val_loss[i]}, ignore_index = True)
-                test_df = test_df.append({'Epochs': epochs, 'Test Accuracy' : test_acc}, ignore_index = True)
+                    train_df.loc[len(train_df.index)] = ["Run " + str(run+1), i, train_acc[i], train_loss[i], val_acc[i], val_loss[i]]
+                test_df.loc[len(test_df.index)] = [epochs, test_acc]
             else:
                 print("The values for accuracies and losses don't have same length.")
                 return
+            run+=1
 
     # print(train_df)
     # print(test_df)
 
     # Creating images directory
     if not os.path.exists("images"):
-        os.makedirs(images)
+        os.makedirs("images")
 
     # Plotting the graphs
     acc_plot = sns.lineplot(data = train_df , x = "Epochs", y = "Train Accuracy", label = "Train Accuracy")
@@ -83,6 +85,51 @@ def epoch_vs_scimet(mlperf_file):
 
     loss_plot.figure.clf()
 
+    # Plotting different runs seperately
+    if(run>1):
+        sns.color_palette("pastel")
+        train_acc_plot = sns.lineplot(data = train_df, y = "Train Accuracy", x = "Epochs", hue = "Run", palette="pastel")
+        train_acc_plot.set_title("Train Accuracies for different runs")
+        train_acc_plot.set(xlabel = "Epochs", ylabel = "Train Accuracy")
+
+        train_acc_plot.figure.savefig("images/train_accuracy_diff_runs.svg")
+        train_acc_plot.figure.savefig("images/train_accuracy_diff_runs.png", dpi=300)
+        train_acc_plot.figure.savefig("images/train_accuracy_diff_runs.pdf")
+
+        train_acc_plot.figure.clf()
+
+        train_loss_plot = sns.lineplot(data = train_df, y = "Train Loss", x = "Epochs", hue = "Run", palette="pastel")
+        train_loss_plot.set_title("Train Losses for different runs")
+        train_loss_plot.set(xlabel = "Epochs", ylabel = "Train Loss")
+
+        train_loss_plot.figure.savefig("images/train_loss_diff_runs.svg")
+        train_loss_plot.figure.savefig("images/train_loss_diff_runs.png", dpi=300)
+        train_loss_plot.figure.savefig("images/train_loss_diff_runs.pdf")
+
+        train_loss_plot.figure.clf()
+
+
+        val_acc_plot = sns.lineplot(data = train_df, y = "Validation Accuracy", x = "Epochs", hue = "Run", palette="pastel")
+        val_acc_plot.set_title("Validation Accuracies for different runs")
+        val_acc_plot.set(xlabel = "Epochs", ylabel = "Validation Accuracy")
+
+        val_acc_plot.figure.savefig("images/validation_accuracy_diff_runs.svg")
+        val_acc_plot.figure.savefig("images/validation_accuracy_diff_runs.png", dpi=300)
+        val_acc_plot.figure.savefig("images/validation_accuracy_diff_runs.pdf")
+
+        val_acc_plot.figure.clf()
+
+        val_loss_plot = sns.lineplot(data = train_df, y = "Validation Loss", x = "Epochs", hue = "Run", palette="pastel")
+        val_loss_plot.set_title("Validation Losses for different runs")
+        val_loss_plot.set(xlabel = "Epochs", ylabel = "Validation Loss")
+
+        val_loss_plot.figure.savefig("images/validation_loss_diff_runs.svg")
+        val_loss_plot.figure.savefig("images/validation_loss_diff_runs.png", dpi=300)
+        val_loss_plot.figure.savefig("images/validation_loss_diff_runs.pdf")
+
+        val_loss_plot.figure.clf()
+
+
 def epoch_vs_perf(cloudmask_file):
     
     # Create lists
@@ -109,12 +156,15 @@ def epoch_vs_perf(cloudmask_file):
         test_time =  pd.DataFrame(columns = ['Epochs','Average Time Per Epoch (ms)'])
 
         # Appending values to dataframe
+        #print(time_for_training)
+        #print(time_for_inference)
+        #print(epochs)
         for i in range(len(epochs)):
-            train_time = train_time.append({'Epochs' : epochs[i], 'Average Time Per Epoch (ms)' : time_for_training[i]}, ignore_index = True)
-            test_time = test_time.append({'Epochs': epochs[i], 'Average Time Per Epoch (ms)' : time_for_inference[i]}, ignore_index = True)
+            train_time.loc[len(train_time.index)] = [epochs[i], time_for_training[i]]
+            test_time.loc[len(test_time.index)] = [epochs[i], time_for_inference[i]]
 
         # Plotting the graphs
-        train_time_plot = sns.lineplot(data = train_time , x = "Epochs", y = "Average Time Per Epoch (ms)", label = "Train Avg. time per epoch")
+        train_time_plot = sns.lineplot(data = train_time , y = "Epochs", x = "Average Time Per Epoch (ms)", label = "Train Avg. time per epoch")
         train_time_plot.set(xlabel = "Epochs", ylabel = "Average Time Per Epoch (ms)")
         train_time_plot.set_title("Epochs vs. Avg. time per epoch")
 
@@ -124,7 +174,7 @@ def epoch_vs_perf(cloudmask_file):
 
         train_time_plot.figure.clf()
 
-        test_time_plot = sns.lineplot(data = test_time , x = "Epochs", y = "Average Time Per Epoch (ms)", label = "Inference Avg. Time per epoch")
+        test_time_plot = sns.lineplot(data = test_time , y = "Epochs", x = "Average Time Per Epoch (ms)", label = "Inference Avg. Time per epoch")
         test_time_plot.set(xlabel = "Epochs", ylabel = "Average Time Per Epoch (ms)")
         test_time_plot.set_title("Epochs vs. Avg. time per epoch")
 

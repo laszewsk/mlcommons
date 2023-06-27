@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=cloudmask-gpu-greene
+#SBATCH --job-name=cloudmask-gpu-greene-epoch-1
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:v100:1
 #SBATCH --time=00:40:00
