@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/sh -x
 export SINGULARITY_CACHEDIR=/scratch/$USER/.singularity/
 mkdir -p $SINGULARITY_CACHEDIR
 NAME=$1
