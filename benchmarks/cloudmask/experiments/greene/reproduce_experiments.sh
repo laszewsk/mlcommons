@@ -6,8 +6,8 @@
 # ####################################
 
 # Array of epochs and times required for jobs
-epochsArray=(200)
-timesArray=("13:00:00")
+epochsArray=(1 5 10 20 30 50 80 100 200)
+timesArray=("00:30:00" "00:40:00" "00:50:00" "01:10:00" "01:30:00" "02:30:00" "3:00:00" "4:00:00" "13:00:00")
 REPEAT=5
 
 # GPU
