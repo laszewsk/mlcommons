@@ -1,0 +1,118 @@
+# config.yaml
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# with modifications from Gregor von Laszewski, Juri Papay
+# All rights reserved.
+
+# This is a configuration file for the CloudMask benchmark.
+
+name: cloudmask-greene
+
+sbatch:
+  mode: h
+  dir: localscratch
+
+run:
+  filesystem: "/localscratch/{os.USER}"
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepochs}dat  /{experiment.repeat}"
+  venvpath: "/scratch/vc2209/ENV3"
+  datadir: data
+  branch: 'main'
+  mode: "parallel"
+  # mode: "original"
+  # mode: "cloudmesh"
+
+# Submission Information
+submission:
+  benchmark: cloudmask
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-cloudmask-v1.1
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
+
+experiment:
+#  card_name: v100
+  card_name: v100
+  gpu_count: 1
+  cpu_num: 1
+  mem: "64GB"
+  repeat: "1"
+  epoch: 100
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
+
+#system:
+#  host: "rivanna"
+#  python: "3.10.8"
+#  num_cpus: 1
+#  partition: "bii-gpu"
+#  # allocation: ds6011-sp22-002
+#  # allocation: bii_dsc
+#  allocation: bii_dsc_community
+#  reservation: bi_fox_dgx
+#  constraint: ""
+
+system:
+  host: "greene"
+  python: "3.10.8"
+  num_cpus: 1
+  platform: greene
+
+mask: "float"
+
+# Training data
+train_dir: /scratch/rg3515/data/one-day
+
+# Inference data
+inference_dir: /scratch/rg3515/data/ssts
+
+# Model file
+model_file: /scratch/rg3515/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud/cloudModel.h5
+
+# training 
+training_loss: binary_crossentropy
+training_metrics: accuracy
+
+
+# Output directory
+output_dir: /scratch/rg3515/github-fork/mlcommons/benchmark/cloudmask/experiments/greene/outputs/slstr_cloud
+
+# Log file for recording runtimes
+log_file: ./cloudmask_v100_gpu_1.log
+
+# Log file for MLCommons logging
+mlperf_logfile: ./mlperf_cloudmask_v100_gpu_1.log
+
+# Size of each patch to feed to the network
+PATCH_SIZE: 256
+
+# Original height of the image
+IMAGE_H: 1200
+
+# Original width of the image
+IMAGE_W: 1500
+
+# No. of channels
+N_CHANNELS: 9
+
+# Min allowable SST
+MIN_SST: 273.15
+
+# Amount to crop the edges of the images by
+CROP_SIZE: 80
+

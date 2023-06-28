@@ -1,0 +1,110 @@
+# config.yaml
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# with modifications from Gregor von Laszewski, Juri Papay
+# All rights reserved.
+
+# This is a configuration file for the CloudMask benchmark.
+
+# General info
+benchmark: CloudMask
+organisation: STFC
+division: SciML
+status: research
+platform: nvidia gtx-2
+accelerators_per_node: 16
+
+# Submission Information
+submission:
+  benchmark: earthquake
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: closed
+  version: mlcommons-earthquake-v1.0
+  github_commit_version: TBD
+  status: completed
+  platform: ubuntu-sh
+
+experiment:
+  card_name: rtx3090
+  gpu_count: 1
+  cpu_num: 1
+  mem: "64GB"
+  repeat: "1"
+  epoch: "10,30,50,100"
+
+system:
+  host: "rivanna"
+  python: "3.10.6"
+  num_cpus: 6
+  partition: "bii-gpu"
+  allocation: bii_dsc_community
+  reservation: bi_fox_dgx
+  constraint: ""
+  
+# Training data
+train_dir: ~/sciml_bench/datasets/cloud_slstr_ds1/one-day
+
+# Inference data
+inference_dir: ~/sciml_bench/datasets/cloud_slstr_ds1/ssts
+
+# Model file
+model_file: ~/sciml_bench/outputs/slstr_cloud/cloudModel.h5
+
+# training 
+training_loss: binary_crossentropy
+training_metrics: accuracy
+
+
+# Output directory
+output_dir: ~/sciml_bench/outputs/slstr_cloud
+
+# Log file for recording runtimes
+log_file: ./cloudMask_Log
+
+# Log file for MLCommons logging
+mlperf_logfile: ./mlperf_cloudmask.log
+
+# Size of each patch to feed to the network
+PATCH_SIZE: 256
+
+# Original height of the image
+IMAGE_H: 1200
+
+# Original width of the image
+IMAGE_W: 1500
+
+# No. of channels
+N_CHANNELS: 9
+
+# Min allowable SST
+MIN_SST: 273.15
+
+# Amount to crop the edges of the images by
+CROP_SIZE: 80
+
+# Hyperparameters
+seed: 1234
+
+learning_rate: 0.001
+
+epochs: 1
+
+batch_size: 32
+
+train_split: 0.8
+
+clip_offset: 15
+
+no_cache: False
+
+nodes: 1
+
+gpu: 1
+
+
+
