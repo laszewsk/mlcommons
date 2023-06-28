@@ -3,7 +3,7 @@ AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 USER_SCRATCH=/scratch/${USER}
 PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
-
+NAME=cloudmask
 
 all: requirements data
 
