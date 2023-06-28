@@ -4,6 +4,7 @@ USER_SCRATCH=/scratch/${USER}
 PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 
+.PHONY: data clean project localscratch singularity stop singularity.json
 
 all: requirements data
 
