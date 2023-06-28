@@ -3,7 +3,7 @@ AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 NAME=cloudmask
 VENV=/scratch/$(USER)/ENV3
 
-.PHONY: clean project localscratch singularity stop singularity.json
+.PHONY: data clean project localscratch singularity stop singularity.json
 
 all: project localscratch shm generate
 
@@ -16,7 +16,7 @@ yaml:
 	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
 
 
-data: yaml
+data:
 	mkdir -p $(PROJECT_DATA)/ssts
 	mkdir -p $(PROJECT_DATA)/one-day
 	echo -n "Downloading first portion of data..."

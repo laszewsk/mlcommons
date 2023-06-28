@@ -1,0 +1,47 @@
+#Bootstrap: localimage
+#From: /share/resources/containers/singularity/tensorflow-2.10.0.sif
+#From: /share/resources/containers/singularity/tensorflow-2.4.1.sif
+#From: /share/resources/containers/singularity/tensorflow_23.03-tf1-py3.sif
+#From: /share/resources/containers/singularity/tensorflow_23.03-tf2-py3.sif
+
+Bootstrap: docker
+From:  nvcr.io/nvidia/tensorflow:22.10-tf2-py3
+
+%post
+    apt update
+    apt install -y python3-venv git
+    pip install pip -U ; python --version
+    # install from requirements file in rivanna folder
+    pip install protobuf==3.20.0 numpy tensorflow cloudmesh-gpu cloudmesh-common cloudmesh-sbatch scikit-learn h5py pyyaml awscli
+    pip install git+https://github.com/mlperf/logging.git@1.0.0
+
+
+
+    # protobuf solution
+
+    # # module purge ; module load gcc/11.2 openmpi/4.1.4 python/3.11.1 ; python -m venv ./EQVENV
+    # # source ./EQVENV/bin/activate ;
+    # # pip install --upgrade protobuf
+    # # python -m site
+    # # cp ~/.local/lib/python3.8/site-packages/google/protobuf/internal/builder.py ./builder.py
+    # pip install protobuf==3.20.3
+    # # cp ./builder.py ~/.local/lib/python3.8/site-packages/google/protobuf/internal/builder.py
+
+
+
+	# pip install git+https://github.com/mlperf/logging.git@1.0.0
+	# # pip install googleapis-common-protos
+	# # pip install --upgrade protobuf
+
+	pip install humanize
+	pip install numpy matplotlib pandas scikit-learn \
+	    jupyter jupyterlab papermill
+
+    pip install tensorflow_datasets tensorflow-metadata
+    pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
+
+	pip install cloudmesh-common cloudmesh-gpu
+
+
+
+

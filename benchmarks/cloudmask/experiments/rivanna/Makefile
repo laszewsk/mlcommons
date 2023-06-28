@@ -3,7 +3,7 @@ AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 USER_SCRATCH=/scratch/${USER}
 PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
-
+NAME=cloudmask
 
 all: requirements data
 
@@ -90,3 +90,18 @@ clean:
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
 
+
+# image
+
+
+image:
+	cd image-singularity; make image
+	mv image-singularity/cloudmask.sif .
+
+push:
+	-git push
+	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/cloudmask; ssh-add; git pull"
+
+
+shell:
+	singularity shell --nv ${NAME}.sif
