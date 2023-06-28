@@ -15,6 +15,9 @@
 
 import yaml
 import os
+os.environ['PYTHONHASHSEED']=str(0)
+
+
 import atexit
 import h5py
 import time
@@ -30,8 +33,9 @@ from cloudmesh.common.StopWatch import StopWatch
 from sklearn import metrics
 from mlperf_logging import mllog
 import logging
-
+from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler
 from cloudmesh.common.FlatDict import read_config_parameters
+import random
 
 # config = read_config_parameters(filename='config.yaml')
 
@@ -176,6 +180,21 @@ def cloud_inference(config) -> None:
     return len(file_paths), d
 
 
+# Learning Rate scheduler
+def lr_time_based_decay(epoch, lr):
+    decay = 0.001/100
+    return lr * 1 / (1 + decay * epoch)
+
+
+
+def reset_random_seeds(seed):
+    os.environ['PYTHONHASHSEED']=str(seed)
+    os.environ['TF_CUDNN_DETERMINISTIC'] = '1'
+    random.seed(seed)
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
+
+
 
 #####################################################################
 # Training mode                                                     #
@@ -184,7 +203,8 @@ def cloud_inference(config) -> None:
 def cloud_training(config) -> None:
     print('Running benchmark slstr_cloud in training mode.')
     global modelPath
-    tf.random.set_seed(config['experiment.seed'])
+    reset_random_seeds(config['experiment.seed'])
+    #tf.random.set_seed(config['experiment.seed'])
     data_dir = os.path.expanduser(config['train_dir'])
 
     # load the datasets
@@ -202,7 +222,7 @@ def cloud_training(config) -> None:
     StopWatch.start("training_on_mutiple_GPU")
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
-
+    callbacks = [EarlyStopping(monitor='val_loss', patience=25)]
     with mirrored_strategy.scope():
         # create U-Net model
         model = unet(input_shape=(config['PATCH_SIZE'],
@@ -214,6 +234,7 @@ def cloud_training(config) -> None:
         history = model.fit(train_dataset,
                             validation_data=test_dataset,
                             epochs=int(config['experiment.epoch']),
+                            callbacks=callbacks,
                             verbose=1)
 
     # Close file descriptors
@@ -250,7 +271,10 @@ def cloud_training(config) -> None:
             "loss": history.history['loss'],
             "val_loss": history.history['val_loss'],
             "val_accuracy": history.history['val_accuracy']
-        }
+        },
+        "batch_size": config['experiment.batch_size'],
+        "crop_size": config['CROP_SIZE'],
+        "learning_rate": config['experiment.learning_rate']
     }
 
     return num_samples, result
