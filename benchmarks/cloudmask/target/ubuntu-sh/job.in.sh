@@ -36,7 +36,7 @@ echo "Running on host:           $(hostname -a)"
 
 echo "# cloudmesh status=running progress=6 pid=$$"
 
-cd /$WORKDIR/$USER/mlcommons/benchmarks/cloudmask/experiments
+cd /$WORKDIR/$USER/mlcommons/benchmarks/cloudmask/target
 
 cms gpu watch --gpu=0 --delay=1 --dense > $(dirname $THEPATH)/gpu0.log &
 

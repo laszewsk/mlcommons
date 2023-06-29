@@ -349,7 +349,7 @@ Make sure to change the paths in the 'config.yaml' file to appropriate locations
 
 ```bash
 node> 
-  cd $PROJECT_DIR/experiments/greene/
+  cd $PROJECT_DIR/target/greene/
   time make requirements
 ```
 
@@ -370,7 +370,7 @@ From now on you no longer need to use an interactive node and all submissions ar
 
 ```bash
 greene> 
-  cd $PROJECT_DIR/experiments/greene/
+  cd $PROJECT_DIR/target/greene/
   mkdir -p outputs
   sbatch simple.slurm
   squeue -u $USER
@@ -492,7 +492,7 @@ export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/cloudmask/experiments/rivanna
+cd mlcommons/benchmarks/cloudmask/target/rivanna
 ```
 ## 3. Obtaining the data
 

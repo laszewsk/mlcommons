@@ -74,7 +74,7 @@ This should return $USER_SCRATCH/ENV3/bin/python
 Make sure to change the paths in the 'config.yaml' file to appropriate locations.
 
 ```bash
-node> cd $PROJECT_DIR/experiments/greene/
+node> cd $PROJECT_DIR/target/greene/
 node> time make requirements
 ```
 This command takes about 1 minute to execute.
@@ -91,7 +91,7 @@ This command takes about 1hr to execute.
 
 
 ```bash
-greene> cd $PROJECT_DIR/experiments/greene/
+greene> cd $PROJECT_DIR/target/greene/
 greene> mkdir -p outputs
 greene> sbatch simple.slurm
 greene> squeue -u $USER
@@ -191,7 +191,7 @@ export PROJECT_DIR=/scratch/$USER
 mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
-cd mlcommons/benchmarks/cloudmask/experiments/rivanna
+cd mlcommons/benchmarks/cloudmask/target/rivanna
 ```
 ## 3. Obtaining the data
 

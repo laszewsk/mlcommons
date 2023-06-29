@@ -137,7 +137,7 @@ mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
 git checkout main
-cd mlcommons/benchmarks/cloudmask/experiments/ubuntu-sh
+cd mlcommons/benchmarks/cloudmask/target/ubuntu-sh
 pip install -r requirements
 ```
 

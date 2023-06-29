@@ -50,7 +50,7 @@ echo "# ------------------------------------------"
 echo "# set up requirements"
 echo "# ------------------------------------------"
 
-cd $PROJECT_DIR/experiments/rivanna
+cd $PROJECT_DIR/target/rivanna
 time make requirements
 
 echo "# ------------------------------------------"
@@ -68,7 +68,7 @@ else
 fi
 
 
-# cd $PROJECT_DIR/experiments/rivanna/
+# cd $PROJECT_DIR/target/rivanna/
 
 echo "# ------------------------------------------"
 echo "# set up finished"

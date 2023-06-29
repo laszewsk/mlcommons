@@ -29,7 +29,7 @@ echo "# cloudmesh status=running progress=3 pid=$$"
 nvidia-smi
 echo "# cloudmesh status=running progress=4 pid=$$"
 
-cd $PROJECT_DIR/experiments/rivanna
+cd $PROJECT_DIR/target/rivanna
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 echo "# cloudmesh status=running progress=5 pid=$$"

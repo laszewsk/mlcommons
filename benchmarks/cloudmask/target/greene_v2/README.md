@@ -59,7 +59,7 @@ This step must be done on an interactive node. HOw to get one is explained in th
 
 ```bash
 rm -rf init-cloudmask.bash
-curl -O https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/init-cloudmask.bash
+curl -O https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/target/rivanna/init-cloudmask.bash
 source init-cloudmask.bash
 ```
 
@@ -127,7 +127,7 @@ node> which python
 This should return $USER_SCRATCH/ENV3/bin/python
 
 ```bash
-node> cd $PROJECT_DIR/experiments/rivanna
+node> cd $PROJECT_DIR/target/rivanna
 node> time make requirements
 ```
 
@@ -145,7 +145,7 @@ This command takes about 1hr to execute on rivanna
 
 
 ```bash
-rivanna> cd $PROJECT_DIR/experiments/rivanna/
+rivanna> cd $PROJECT_DIR/target/rivanna/
 rivanna> rm -rf outputs
 rivanna> mkdir -p outputs
 rivanna> sbatch simple.slurm
@@ -233,7 +233,7 @@ mkdir -p ${PROJECT_DIR}
 cd ${PROJECT_DIR}
 git clone ssh://git@github.com/laszewsk/mlcommons.git
 git checkout main
-cd mlcommons/benchmarks/cloudmask/experiments/rivanna
+cd mlcommons/benchmarks/cloudmask/target/rivanna
 ```
 
 In case you would like to have a different branch other than

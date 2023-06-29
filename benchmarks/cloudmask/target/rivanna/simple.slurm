@@ -25,7 +25,7 @@ which python
 
 nvidia-smi
 
-cd $PROJECT_DIR/experiments/rivanna
+cd $PROJECT_DIR/target/rivanna
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 

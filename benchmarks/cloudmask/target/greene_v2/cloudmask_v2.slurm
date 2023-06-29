@@ -26,7 +26,7 @@ which python
 
 nvidia-smi
 
-cd $PROJECT_DIR/experiments/greene
+cd $PROJECT_DIR/target/greene
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 

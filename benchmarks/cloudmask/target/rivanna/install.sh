@@ -2,7 +2,7 @@
 #
 # Using python3
 #
-#   curl -Ls https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/experiments/rivanna/install.sh | sh -
+#   curl -Ls https://raw.githubusercontent.com/laszewsk/mlcommons/main/benchmarks/cloudmask/target/rivanna/install.sh | sh -
 
 ##
 # <pre>
