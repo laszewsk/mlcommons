@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=v100-cloudmask-gpu-greene
+#SBATCH --job-name=v100-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:v100:1
 #SBATCH --time=02:00:00
