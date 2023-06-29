@@ -109,7 +109,6 @@ echo "# cloudmesh status=running progress=5 pid=$$"
 
 echo "Working in Directory:      $(pwd)"
 echo "Repository Revision:       $(git rev-parse HEAD)"
-echo "Notebook Script:           {code.script}"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 

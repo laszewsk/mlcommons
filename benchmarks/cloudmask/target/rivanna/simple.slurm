@@ -24,19 +24,19 @@ echo "# ==================================="
 echo "# SLURM info"
 echo "# ==================================="
 
-echo USER {os.USER}
-echo HOME {os.HOME}
-echo cardname {experiment.card_name}
-echo gpu count {experiment.gpu_count}
-echo epoc {experiment.epoch}
-echo repeat {experiment.repeat}
+# echo USER {os.USER}
+# echo HOME {os.HOME}
+# echo cardname {experiment.card_name}
+# echo gpu count {experiment.gpu_count}
+# echo epoc {experiment.epoch}
+# echo repeat {experiment.repeat}
 echo jobno %j
-echo partition {system.partition}
-echo allocation {system.allocation}
-echo reservation {system.reservation}
-echo constraint {system.constraint}
-echo cpu num {experiment.cpu_num}
-echo mem {experiment.mem}
+# echo partition {system.partition}
+# echo allocation {system.allocation}
+# echo reservation {system.reservation}
+# echo constraint {system.constraint}
+# echo cpu num {experiment.cpu_num}
+# echo mem {experiment.mem}
 echo %u
 
 PROGRESS "running" 2
@@ -106,7 +106,6 @@ echo "# cloudmesh status=running progress=5 pid=$$"
 
 echo "Working in Directory:      $(pwd)"
 echo "Repository Revision:       $(git rev-parse HEAD)"
-echo "Notebook Script:           {code.script}"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
