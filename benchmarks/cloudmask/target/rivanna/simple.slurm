@@ -10,6 +10,15 @@
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
+PROGRESS () {
+    echo "# ###########################################"
+    echo "# cloudmesh status="$1" progress=$2 pid=$$"
+    echo "# ###########################################"
+}
+
+
+PROGRESS "running" 1
+
 export USER_SCRATCH=/scratch/$USER
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 # export PYTHON_DIR=$USER_SCRATCH/ENV3

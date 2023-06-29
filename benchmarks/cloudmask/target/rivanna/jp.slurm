@@ -51,6 +51,7 @@ pwd
 ls
 singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
 
+
 echo "# ==================================="
 echo "# start gpu log and cloudmask"
 echo "# ==================================="
