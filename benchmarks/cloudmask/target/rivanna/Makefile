@@ -5,6 +5,8 @@ PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 NAME=cloudmask
 
+.PHONY: image-singularity image-docker
+
 all: requirements data
 
 download:
