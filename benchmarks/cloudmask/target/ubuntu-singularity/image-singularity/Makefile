@@ -5,9 +5,6 @@ IMAGE=cloudmask.sif
 DATA=/scratch2/data/cloudmask/data
 BIND=--bind ${DATA}:${DATA}
 
-image-sh:
-	time ../bin/singularity-image.sh ${NAME}
-
 image:
 	time ../bin/singularity-image.py ${NAME}
 
@@ -34,7 +31,7 @@ run:
 #singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
 shell:
-	singularity ${BIND} shell --nv output_image.sif
+	singularity ${BIND} shell --nv ${IMAGE}.sif
 
 cancel: stop
 

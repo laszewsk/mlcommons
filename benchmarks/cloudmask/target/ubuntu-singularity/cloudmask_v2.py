@@ -249,7 +249,7 @@ def cloud_training(config) -> None:
         history = model.fit(train_dataset,
                             validation_data=test_dataset,
                             epochs=int(config['experiment.epoch']),
-                            verbose=config['fit-verbose'])
+                            verbose=int(config['run.fit-verbose']))
 
 
 

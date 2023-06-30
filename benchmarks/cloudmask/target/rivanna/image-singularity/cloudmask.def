@@ -34,8 +34,7 @@ From:  nvcr.io/nvidia/tensorflow:22.10-tf2-py3
 	# # pip install --upgrade protobuf
 
 	pip install humanize
-	pip install numpy matplotlib pandas scikit-learn \
-	    jupyter jupyterlab papermill
+	pip install numpy matplotlib pandas scikit-learn jupyter jupyterlab papermill
 
     pip install tensorflow_datasets tensorflow-metadata
     pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
