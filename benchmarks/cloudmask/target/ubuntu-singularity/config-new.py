@@ -1,13 +1,13 @@
 
 from cloudmesh.common.FlatDict import FlatDict
 import yaml
+from cloudmesh.common.StopWatch import StopWatch
 
 f = FlatDict(sep=".")
 
 #filename = "config-new.yaml"
 # f.loadf(filename=filename)
 # print ("Load from file", f)
-
 
 filename = "test-data.yaml"
 
@@ -35,6 +35,21 @@ print ("Type Load from string", f)
 f.load(content=d)
 print ("Type Load from dict", f)
 
+
+
+StopWatch.start("total")
+
+
+filename = "config-new.yaml"
+f.load(content=filename)
+
+print (f)
+
+StopWatch.stop("total")
+
+
+
+StopWatch.benchmark(tag=f'{f["run.target"]}')
 
 """
 

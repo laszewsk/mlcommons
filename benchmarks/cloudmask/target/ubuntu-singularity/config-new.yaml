@@ -16,6 +16,8 @@ sbatch:
   dir: scratch
 
 run:
+  fit-verbose: 1
+  target: ubuntu-singularity
   filesystem: "/scratch/thf2bn"
   venvpath: "/scratch/thf2bn/ENV3/bin/python"
   datadir: data
@@ -98,46 +100,3 @@ image:
   CROP_SIZE: 80
 
 #
-# OLD
-#
-
-# Training data
-# data.training: train_dir: "/scratch/thf2bn/data/one-day"
-
-# Inference data
-# data.inference: inference_dir: "/scratch/thf2bn/data/ssts"
-
-# Model file
-# data.model: model_file: cloudModel.h5
-
-# training 
-# training.loss: training_loss: binary_crossentropy
-# training.metrics: training_metrics: accuracy
-
-# Output directory
-# data.output: output_dir: "./outputs"
-
-# Log file for recording runtimes
-# log.file :log_file: c_cloudmask_run.log
-
-# Log file for MLCommons logging
-# log.mlperf: mlperf_logfile: c_mlperf_cloudmask.log
-
-# Size of each patch to feed to the network
-#PATCH_SIZE: 256
-
-# Original height of the image
-#IMAGE_H: 1200
-
-# Original width of the image
-#IMAGE_W: 1500
-
-# No. of channels
-#N_CHANNELS: 9
-
-# Min allowable SST
-#MIN_SST: 273.15
-
-# Amount to crop the edges of the images by
-#CROP_SIZE: 80
-

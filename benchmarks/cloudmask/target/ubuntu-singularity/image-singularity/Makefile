@@ -3,7 +3,7 @@ CODE_DIR=..
 BUILD=cloudmask.def
 IMAGE=cloudmask.sif
 DATA=/scratch2/data/cloudmask/data
-
+BIND=--bind ${DATA}:${DATA}
 
 image-sh:
 	time ../bin/singularity-image.sh ${NAME}
@@ -28,12 +28,13 @@ status:
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 run:
-	cd ${CODE_DIR}; singularity exec --bind ${DATA}:${DATA} --nv cloudmask.sif bash -c "python cloudmask_v2.py --config=config-new.yaml"
+	cd ${CODE_DIR}; mkdir -p outputs
+	cd ${CODE_DIR}; singularity exec ${BIND} --nv cloudmask.sif bash -c "python cloudmask_v2.py --config=config-new.yaml"
 
 #singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
 shell:
-	singularity shell --bind ${DATA}:${DATA} --nv output_image.sif
+	singularity ${BIND} shell --nv output_image.sif
 
 cancel: stop
 
