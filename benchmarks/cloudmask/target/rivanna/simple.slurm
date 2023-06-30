@@ -96,29 +96,7 @@ source $PYTHON_DIR/bin/activate
 
 which python
 
-PROGRESS "running" 6
-
-# ####################################################################################################
-# PROJECT ENVIRONMENT
-# ####################################################################################################
-
-echo "# cloudmesh status=running progress=5 pid=$$"
-
-echo "Working in Directory:      $(pwd)"
-echo "Repository Revision:       $(git rev-parse HEAD)"
-echo "Python Version:            $(python -V)"
-echo "Running on host:           $(hostname -a)"
-
-PROGRESS "running" 7
-
-# ####################################################################################################
-# GPU environment
-# ####################################################################################################
-
 nvidia-smi
-
-PROGRESS "running" 8
-
 
 echo "# ==================================="
 echo "# go to codedir"
@@ -126,7 +104,6 @@ echo "# ==================================="
 
 cd $CODE_DIR
 
-PROGRESS "running" 9
 
 echo "# ==================================="
 echo "# check filesystem"
@@ -135,14 +112,13 @@ pwd
 ls
 singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
 
-PROGRESS "running" 10
-
-
 
 echo "# ==================================="
-echo "# start gpu log"
+echo "# start gpu log and cloudmask"
 echo "# ==================================="
-
+#
+# START THE
+#
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
 PROGRESS "running" 21
