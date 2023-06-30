@@ -1,14 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
-#SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
-#SBATCH --time=06:00:00
-#SBATCH --mem=64G
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
-#SBATCH --partition=bii-gpu
-#SBATCH --account=bii_dsc_community
+#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
+#SBATCH --output=cloudmask-%u-%j.log
+#SBATCH --error=cloudmask-%u-%j.error
+#SBATCH --partition={system.partition}
+#SBATCH --account={system.allocation}
+#SBATCH --reservation={system.reservation}
+#SBATCH --constraint={system.constraint}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
+
+# xSBATCH --partition=gpu
+# xSBATCH --mem=64GB
+# xSBATCH --time=6:00:00
 
 PROGRESS () {
     echo "# ###########################################"
@@ -16,27 +24,25 @@ PROGRESS () {
     echo "# ###########################################"
 }
 
-
 PROGRESS "running" 1
-
 
 echo "# ==================================="
 echo "# SLURM info"
 echo "# ==================================="
 
-# echo USER {os.USER}
-# echo HOME {os.HOME}
-# echo cardname {experiment.card_name}
-# echo gpu count {experiment.gpu_count}
-# echo epoc {experiment.epoch}
-# echo repeat {experiment.repeat}
+echo USER {os.USER}
+echo HOME {os.HOME}
+echo cardname {experiment.card_name}
+echo gpu count {experiment.gpu_count}
+echo epoc {experiment.epoch}
+echo repeat {experiment.repeat}
 echo jobno %j
-# echo partition {system.partition}
-# echo allocation {system.allocation}
-# echo reservation {system.reservation}
-# echo constraint {system.constraint}
-# echo cpu num {experiment.cpu_num}
-# echo mem {experiment.mem}
+echo partition {system.partition}
+echo allocation {system.allocation}
+echo reservation {system.reservation}
+echo constraint {system.constraint}
+echo cpu num {experiment.cpu_num}
+echo mem {experiment.mem}
 echo %u
 
 PROGRESS "running" 2
@@ -56,7 +62,6 @@ export CONTAINERDIR=.
 export CODE_DIR=$PROJECT_DIR/target/rivanna
 
 PROGRESS "running" 3
-
 
 # set -uxe
 
@@ -78,6 +83,7 @@ echo "CONTAINERDIR: $CONTAINERDIR"
 
 PROGRESS "running" 4
 
+
 # ####################################################################################################
 # MODULE LOAD
 # ####################################################################################################
@@ -86,9 +92,6 @@ echo "# cloudmesh status=running progress=2 pid=$$"
 
 module purge
 module load singularity
-
-# module load  gcc/9.2.0  cuda/11.0.228  openmpi/3.1.6 python/3.8.8
-# module load singularity tensorflow/2.8.0
 
 PROGRESS "running" 4
 
@@ -119,7 +122,6 @@ nvidia-smi
 
 PROGRESS "running" 8
 
-
 echo "# ==================================="
 echo "# go to codedir"
 echo "# ==================================="
@@ -137,6 +139,11 @@ singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"impo
 
 PROGRESS "running" 10
 
+# ####################################################################################################
+# CLOUDMASK
+# ####################################################################################################
+
+PROGRESS "running" 20
 
 
 echo "# ==================================="
@@ -146,7 +153,6 @@ echo "# ==================================="
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
 PROGRESS "running" 21
-
 
 echo "# ==================================="
 echo "# start cloudmask"

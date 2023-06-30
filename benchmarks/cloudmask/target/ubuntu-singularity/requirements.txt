@@ -1,7 +1,10 @@
-protobuf==3.20.3
+#protobuf==3.19.4
+#numpy<1.24
+#numpy==1.23.5
+#tensorflow==2.8.0
+protobuf==3.20.0
 numpy
-tensorflow==2.8
-tensorboard-data-server<0.8.0
+tensorflow
 cloudmesh-gpu
 cloudmesh-common
 cloudmesh-sbatch
