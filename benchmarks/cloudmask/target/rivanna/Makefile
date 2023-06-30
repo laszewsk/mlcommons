@@ -5,7 +5,11 @@ PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 NAME=cloudmask
 
+.PHONY: image-singularity image-docker
+
+
 all: requirements data
+
 
 download:
 	git clone git@github.com:laszewsk/mlcommons.git
@@ -94,14 +98,23 @@ clean:
 # image
 
 
-image:
+image-singularity:
 	cd image-singularity; make image
 	mv image-singularity/cloudmask.sif .
+
+run-singularity:
+	cd image-singularity; make run
+
+shell-singularity:
+	cd image-singularity; make shell
+
+run: run-singularity
+
+image: image-singularity
 
 push:
 	-git push
 	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/cloudmask; ssh-add; git pull"
 
 
-shell:
-	singularity shell --nv ${NAME}.sif
+shell: shell-singularity
