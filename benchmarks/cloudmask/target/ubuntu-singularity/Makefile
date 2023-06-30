@@ -98,6 +98,12 @@ image:
 	cd image-singularity; make image
 	mv image-singularity/cloudmask.sif .
 
+run-singularity:
+	cd image-singularity; make run
+
+run-docker:
+	cd image-docker; make image
+
 push:
 	-git push
 	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/cloudmask; ssh-add; git pull"
@@ -105,3 +111,4 @@ push:
 
 shell:
 	singularity shell --nv ${NAME}.sif
+
