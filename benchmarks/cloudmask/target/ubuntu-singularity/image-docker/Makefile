@@ -1,9 +1,22 @@
 NAME=cloudmask
 TAG=cloudmask:latest
 
+USER_NAME=`whoami`
+GROUP_NAME='dsc:'
+USER_ID=`id -u`
+#GROUP_ID=`id -g`
+GROUP_ID=`getent group | fgrep ${GROUP_NAME} | cut -d":" -f 3`
+
 image:
+	echo
+	echo "Create Image"
+	echo
 	cp ../requirements.txt .
-	time docker build -t ${TAG} .
+	time docker build --label=${TAG} --tag=${TAG} \
+		--build-arg USER_ID=${USER_ID} \
+		--build-arg GROUP_ID=${GROUP_ID} \
+		--build-arg USER_NAME=${USER_NAME} \
+		.
 
 queue: watch
 

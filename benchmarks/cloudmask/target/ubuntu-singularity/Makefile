@@ -5,6 +5,8 @@ PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 NAME=cloudmask
 
+.PHONY: image-docker image-singularity
+
 all: requirements data
 
 download:
@@ -94,15 +96,24 @@ clean:
 # image
 
 
-image:
+image-singularity:
 	cd image-singularity; make image
 	mv image-singularity/cloudmask.sif .
 
 run-singularity:
 	cd image-singularity; make run
 
-run-docker:
+shell-singularity:
+	cd image-singularity; make shell
+
+image-docker:
 	cd image-docker; make image
+
+run-docker:
+	cd image-docker; make run
+
+shell-docker:
+	cd image-docker; make shell
 
 push:
 	-git push
