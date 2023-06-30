@@ -10,13 +10,15 @@ from cloudmesh.common.util import banner
 NAME = sys.argv[1]
 home = os.environ["USER"]
 
-Sudo.password()
-
-# CHECK FOR RIVANNA
-
 banner ("SETUP")
 hostname = Shell.run("hostname -a")
 rivanna = "hpc.virginia.edu" in hostname
+
+if not rivanna:
+    Sudo.password()
+
+# CHECK FOR RIVANNA
+
 
 singularity = "singularity"
 if rivanna:
