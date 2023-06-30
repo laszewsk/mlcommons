@@ -11,7 +11,7 @@
 export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
-export PROJECT_DATA=$USER_SCRATCH/data
+export PROJECT_DATA=/scratch/$USER/data
 
 module purge
 # module load anaconda3/2020.07
@@ -26,7 +26,9 @@ nvidia-smi
 
 cd $PROJECT_DIR/target/greene
 
-mkdir -p outputs
+mkdir -p outputs/slstr_cloud
+
+sleep 1
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 

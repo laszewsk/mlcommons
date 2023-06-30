@@ -76,10 +76,10 @@ system:
 mask: "float"
 
 # Training data
-train_dir: /scratch/rg3515/github-fork/data/one-day
+train_dir: /scratch/rg3515/data/one-day
 
 # Inference data
-inference_dir: /scratch/rg3515/github-fork/data/ssts
+inference_dir: /scratch/rg3515/data/ssts
 
 # Model file
 model_file: /scratch/rg3515/github-fork/mlcommons/benchmark/cloudmask/target/greene/outputs/slstr_cloud/cloudModel.h5
