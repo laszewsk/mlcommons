@@ -17,7 +17,8 @@ sbatch:
 
 run:
   fit-verbose: 1
-  target: ubuntu-singularity
+  host: rivanna
+  target: rivanna-singularity
   filesystem: "/scratch/thf2bn"
   venvpath: "/scratch/thf2bn/ENV3/bin/python"
   datadir: data

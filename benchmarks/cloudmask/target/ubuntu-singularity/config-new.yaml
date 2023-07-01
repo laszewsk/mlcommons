@@ -17,6 +17,7 @@ sbatch:
 
 run:
   fit-verbose: 1
+  host: ubuntu
   target: ubuntu-singularity
   filesystem: "/scratch/thf2bn"
   venvpath: "/scratch/thf2bn/ENV3/bin/python"

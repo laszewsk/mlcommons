@@ -22,7 +22,7 @@
 # import sys
 # sys.path.append("..")
 
-from pprint import pprint
+from tqdm import tqdm
 import argparse
 import atexit
 import decimal
@@ -30,7 +30,6 @@ import h5py
 import logging
 import numpy as np
 import os
-import sys
 import tensorflow as tf
 import time
 from cloudmesh.common.FlatDict import FlatDict
@@ -38,6 +37,7 @@ from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
 from mlperf_logging import mllog
 from pathlib import Path
+from pprint import pprint
 from sklearn import metrics
 
 from data_loader import SLSTRDataLoader
@@ -139,6 +139,8 @@ def cloud_inference(config) -> None:
     StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+
+    pbar = tqdm(total=100)
     # counter = 0
     for patches, file_name in dataset:
         # counter = counter + 1
