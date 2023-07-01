@@ -17,39 +17,32 @@ platform: nvidia gtx-2
 accelerators_per_node: 6
 
 # Training dir
-train_dir: ~/sciml_bench/datasets/stemdl_ds1a/training
+train_dir: ./data/training
 
 # Test dir
-test_dir: ~/sciml_bench/datasets/stemdl_ds1a/testing
+test_dir: ./data/testing
 
 # Validation dir
-val_dir: ~/sciml_bench/datasets/stemdl_ds1a/validation
+val_dir: ./data/validation
 
 # Inference dir
-inference_dir: ~/sciml_bench/datasets/stemdl_ds1a/inference
+inference_dir: ./data/inference
 
 # Log file for recording runtimes
-log_file: ./stemdlLog
+log_file: ./outputs/stemdlLog
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_stemdl.log
+mlperf_logfile: ./outputs/mlperf_stemdl.log
 
 # Model file
-model_file : ./stemdlModel.h5
+model_file : ./outputs/stemdlModel.h5
 
 # Hyperparameters
 seed: 1234
-
 learning_rate: 0.001
-
 epochs: 1
-
 batchsize: 32
-
 train_split: 0.8
-
 resnet: resnet50
-
 nodes: 1
-
 gpu: 1

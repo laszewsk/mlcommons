@@ -11,6 +11,8 @@
 # Science and Technology Facilities Council, UK.
 # All rights reserved.
 
+from cloudmesh.common.util import banner
+from cloudmesh.common.StopWatch import StopWatch
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -18,7 +20,8 @@ from torch.utils.data import DataLoader
 from torch.utils.data import random_split
 from torchvision import transforms
 import pytorch_lightning as pl
-from pytorch_lightning.plugins import DDPPlugin
+from pytorch_lightning.strategies import DDPStrategy
+##from pytorch_lightning.plugins import DDPPlugin
 
 # imports from stemdl
 import time, sys, os, math, glob, argparse, yaml, decimal
@@ -134,9 +137,16 @@ def main():
     mllog.config(filename=mlperf_logfile)
     mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
+    banner("Trainer Values")
+    print("gpu:",int(config['gpu']))
+    print("num_nodes:",int(config['nodes']))
+    print("precision:",16)
+    print("strategy:",ddp)
+    print("max_epochs:",int(config['epochs']))
+    print("sys.argv:", sys.argv)
 
     # Initiase trainer object
-    trainer = pl.Trainer(gpus=int(config['gpu']), num_nodes=int(config['nodes']), precision=16, strategy="ddp",
+    trainer = pl.Trainer(int(config['gpu']), num_nodes=int(config['nodes']), precision=16, strategy="ddp",
                          max_epochs=int(config['epochs']))
 
     if (trainer.global_rank == 0):
