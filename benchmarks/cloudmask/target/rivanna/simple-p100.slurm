@@ -7,7 +7,9 @@
 #SBATCH --mem=64G
 #SBATCH -o outputs/p100-%u-%j.out
 #SBATCH -e outputs/p100-%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH -p gpu
+
+#  xSBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
