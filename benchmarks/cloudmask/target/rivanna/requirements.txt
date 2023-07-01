@@ -1,11 +1,9 @@
-#protobuf==3.19.4
-#numpy<1.24
-#numpy==1.23.5
-#tensorflow==2.8.0
-protobuf==3.20.0
+#tensorflow==2.9.0
+protobuf==3.20.1
 numpy
 tqdm
 tensorflow
+tensorflow-addons
 cloudmesh-gpu
 cloudmesh-common
 cloudmesh-sbatch
