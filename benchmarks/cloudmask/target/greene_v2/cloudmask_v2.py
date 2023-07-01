@@ -46,6 +46,7 @@ from model import unet
 
 cloudmask_version = "2.0"
 
+
 # config = read_config_parameters(filename='config.yaml')
 
 # print(config)
@@ -106,41 +107,52 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
     reconstructed = tf.image.crop_to_bounding_box(reconstructed, offset_y, offset_x, IMAGE_H, IMAGE_W)
     return reconstructed
 
+
 # Inference
 def cloud_inference(config) -> None:
-    print('Running benchmark slstr_cloud in inference mode.')
-    # Read arguments 
+    banner(f'Running benchmark {__file__} in inference mode.')
+    # Read arguments
     CROP_SIZE = config['image.CROP_SIZE']
     PATCH_SIZE = config['image.PATCH_SIZE']
     N_CHANNELS = config['image.N_CHANNELS']
 
     # Load model
+    StopWatch.start("load model")
     modelPath = os.path.expanduser(config['data.model'])
     model = tf.keras.models.load_model(modelPath)
+    StopWatch.stop("load model")
 
     # Read inference files
+    StopWatch.start("read inference files")
     inference_dir = os.path.expanduser(config['data.inference'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
-    
+    StopWatch.stop("read inference files")
+
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
     data_loader = SLSTRDataLoader(config, file_paths, single_image=True, crop_size=CROP_SIZE)
     # data_loader = SLSTRDataLoader(config, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+
+    banner("inference")
+
+    StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+    # counter = 0
     for patches, file_name in dataset:
+        # counter = counter + 1
+        # print (counter)
         file_name = Path(file_name.numpy().decode('utf-8'))
-        
+
         # convert patches to a batch of patches
         n, ny, nx, _ = patches.shape
         patches = tf.reshape(patches, (n * nx * ny, PATCH_SIZE, PATCH_SIZE, N_CHANNELS))
 
         # perform inference on patches
         mask_patches = model.predict_on_batch(patches)
-        #mask_patches = model.test_on_batch(patches) # might return also the accuracy
+        # mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(
@@ -153,10 +165,10 @@ def cloud_inference(config) -> None:
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
         mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
-        
+
         # Save reconstructed image (mask)
         output_dir = os.path.expanduser(config['data.output'])
-        mask_name = output_dir + file_name.name + '.h5'
+        mask_name = f"{output_dir}/{file_name.name}.h5"
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
             handle.create_dataset('mask_patches', data=mask_patches)
@@ -164,7 +176,7 @@ def cloud_inference(config) -> None:
 
         # Change mask values from float to integer
         mask_np = mask.numpy()
-        mask_np =  (mask_np > .5).astype(int)
+        mask_np = (mask_np > .5).astype(int)
         mask_flat = mask_np.reshape(-1)
 
         # Extract groundTruth from file, this is the Bayesian mask
@@ -179,6 +191,7 @@ def cloud_inference(config) -> None:
         # Calculate hits between ground truth mask and the reconstructed mask
         accuracy = metrics.accuracy_score(groundTruth_flat, mask_flat)
         accuracyList.append(accuracy)
+    StopWatch.start("inference")
 
     d = {
         "avg_accuracy": np.array(accuracyList).mean(),
@@ -188,17 +201,15 @@ def cloud_inference(config) -> None:
     return len(file_paths), d
 
 
-
 #####################################################################
 # Training mode                                                     #
 #####################################################################
 
 def cloud_training(config) -> None:
-    print('Running benchmark slstr_cloud in training mode.')
+    banner('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(int(config['experiment.seed']))
     data_dir = config['data.training']
 
-    print ("AAAAA", data_dir)
     # load the datasets
     StopWatch.start("loaddata", value=data_dir)
 
@@ -207,14 +218,22 @@ def cloud_training(config) -> None:
     train_dataset, test_dataset = load_datasets(
         dataset_dir=data_dir,
         config=config)
+
     StopWatch.stop("loaddata", value=data_dir)
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
+
     num_samples = len(samples)
     print("num_samples: ", num_samples)
+    print("train_dataset:", train_dataset)
+    print("test_dataset:", test_dataset)
 
     # Running training on multiple GPUs
+
+    banner("training on the GPUs")
+
     StopWatch.start("training_on_mutiple_GPU")
+
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
 
@@ -229,7 +248,7 @@ def cloud_training(config) -> None:
         history = model.fit(train_dataset,
                             validation_data=test_dataset,
                             epochs=int(config['experiment.epoch']),
-                            verbose=1)
+                            verbose=int(config['run.fit-verbose']))
 
     # Close file descriptors
     atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
@@ -237,9 +256,8 @@ def cloud_training(config) -> None:
     # save model
     modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
-    print('END slstr_cloud in training mode.')
+    banner(f'END {__file__} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
-
 
     result = {
         "samples": num_samples,
@@ -261,11 +279,9 @@ def cloud_training(config) -> None:
 # #################################
 # Main
 # #################################
-# Running the benchmark: python slstr_cloud.py --config ./config.yaml
+# Running the benchmark: python cloudmask_v2.py --config ./config.yaml
 
 def main():
-
-
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
@@ -278,41 +294,37 @@ def main():
                         help='path to config file')
     command_line_args = parser.parse_args()
 
-    print (command_line_args)
+    print(command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
 
     config = FlatDict(sep=".")
 
-
     config.load(content=configYamlFile)
 
-    print (config)
-    pprint (config.dict)
+    print(config)
+    pprint(config.dict)
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
 
-    print (user_name)
-    print (log_file)
+    print(user_name)
+    print(log_file)
 
-    print (mlperf_logfile)
+    print(mlperf_logfile)
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
-
-
 
     # mllog.config(filename=mlperf_logfile)
     # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
-
     StopWatch.start("init")
-    StopWatch.event("number_of_ranks", value=config['experiment.gpu'])
-    StopWatch.event('number_of_nodes', value=config['experiment.nodes'])
-    StopWatch.event('version', value=cloudmask_version)
+    StopWatch.event("number_of_ranks", value=config['experiment.gpu'], msg=config['experiment.gpu'])
+    StopWatch.event('number_of_nodes', value=config['experiment.nodes'], msg=config['experiment.nodes'])
+    StopWatch.event('version', value=cloudmask_version, msg=cloudmask_version)
     StopWatch.stop("init")
 
     # Training
@@ -373,13 +385,14 @@ def main():
     }
     StopWatch.event(key="result", value=result)
     StopWatch.event(key=mllog.constants.RUN_STOP,
-                 value="CloudMask benchmark run finished",
-                 metadata={'status': 'success'})
+                    value="CloudMask benchmark run finished",
+                    metadata={'status': 'success'})
     StopWatch.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
     StopWatch.stop("total")
 
-    StopWatch.benchmark(user=user_name)
+    StopWatch.benchmark(user=user_name, tag=f'{config["run.target"]}')
+
 
 if __name__ == "__main__":
     main()
