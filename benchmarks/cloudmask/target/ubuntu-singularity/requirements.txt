@@ -4,6 +4,7 @@
 #tensorflow==2.8.0
 protobuf==3.20.0
 numpy
+tqdm
 tensorflow
 cloudmesh-gpu
 cloudmesh-common
