@@ -138,11 +138,12 @@ def cloud_inference(config) -> None:
 
     StopWatch.start("inference")
     # Inference Loop
+
     accuracyList = []
-    # counter = 0
+    counter = 0
     for patches, file_name in dataset:
-        # counter = counter + 1
-        # print (counter)
+        counter = counter + 1
+        print (counter, len(dataset))
         file_name = Path(file_name.numpy().decode('utf-8'))
         
         # convert patches to a batch of patches
@@ -254,7 +255,8 @@ def cloud_training(config) -> None:
 
 
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if not rivanna:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['data.model'])
