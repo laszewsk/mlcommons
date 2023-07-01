@@ -2,11 +2,11 @@
 
 #SBATCH --job-name=cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:rtx2080ti:1
+#SBATCH --gres=gpu:rtx2080:1
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
+#SBATCH -o outputs/rtx2080-%u-%j.out
+#SBATCH -e outputs/rtx2080-%u-%j.err
 #SBATCH -p gpu
 
 #   xSBATCH --partition=bii-gpu
@@ -126,7 +126,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/rtx2080ti-%u-%j-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/rtx2080-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 

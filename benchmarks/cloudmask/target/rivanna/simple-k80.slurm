@@ -6,7 +6,7 @@
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/k80-%u-%j.out
-#SBATCH -e outputs/k90-%u-%j.err
+#SBATCH -e outputs/k80-%u-%j.err
 #SBATCH -p gpu
 #   xSBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
@@ -25,6 +25,8 @@ echo "# ==================================="
 echo "# SLURM info"
 echo "# ==================================="
 
+echo USER $USER
+echo JOBNO $SLURM_JOB_ID
 # echo USER {os.USER}
 # echo HOME {os.HOME}
 # echo cardname {experiment.card_name}
@@ -125,7 +127,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/k80-%u-%j-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/k80-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 

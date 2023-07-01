@@ -126,7 +126,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/p100-%u-%j-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/p100-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
