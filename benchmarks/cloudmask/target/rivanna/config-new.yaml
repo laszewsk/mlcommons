@@ -74,8 +74,7 @@ training:
   metrics: accuracy
 
 data:
-#  scratch: "/scratch/thf2bn/data/cloudmask"
-  scratch: "/scratch2/data/cloudmask/data"
+  scratch: "/project/bii_dsc_community/thf2bn/data/cloudmask"
   training: "{data.scratch}/one-day"
   inference: "{data.scratch}/ssts"
   model: cloudModel.h5
