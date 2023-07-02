@@ -1,14 +1,20 @@
- # config.yaml
-
-# SciML-Bench
-# Copyright © 2022 Scientific Machine Learning Research Group
-# Scientific Computing Department, Rutherford Appleton Laboratory
-# Science and Technology Facilities Council, UK.
-# with modifications from Gregor von Laszewski, Juri Papay
-# All rights reserved.
-
-# This is a configuration file for the CloudMask benchmark.
-
+# file: config-new.yaml
+#
+# This configuration file was created by Gregor von Laszewski laszewski@gmail.com
+# The values under image: and some other values have been taken from
+#
+# SciML-Bench, which is under
+#   Copyright © 2022 Scientific Machine Learning Research Group
+#   Scientific Computing Department, Rutherford Appleton Laboratory
+#   Science and Technology Facilities Council, UK.
+#   All rights reserved.
+#
+# Sveral values of that have been modified also by
+#    Gregor von Laszewski, Juri Papay
+#
+# This is a configuration file for the mlcommons Science CloudMask benchmark.
+# It works with cloudmask_v2.py
+#
 name: cloudmask-rivanna
 
 sbatch:
