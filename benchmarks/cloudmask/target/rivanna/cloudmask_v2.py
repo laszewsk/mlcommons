@@ -22,7 +22,6 @@
 # import sys
 # sys.path.append("..")
 
-from pprint import pprint
 import argparse
 import atexit
 import decimal
@@ -30,14 +29,15 @@ import h5py
 import logging
 import numpy as np
 import os
-import sys
 import tensorflow as tf
 import time
+from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
 from mlperf_logging import mllog
 from pathlib import Path
+from pprint import pprint
 from sklearn import metrics
 
 from data_loader import SLSTRDataLoader
@@ -139,6 +139,7 @@ def cloud_inference(config) -> None:
     StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+
     # counter = 0
     for patches, file_name in dataset:
         # counter = counter + 1
@@ -208,6 +209,13 @@ def cloud_inference(config) -> None:
 def cloud_training(config) -> None:
     banner('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(int(config['experiment.seed']))
+
+    # Consider either turning off auto-sharding or
+    # tf.data.Options()`
+    # options.experimental_distribute.auto_shard_policy = AutoShardPolicy.DATA` before
+    # applying the options object to the dataset via `
+    # dataset.with_options(options)
+
     data_dir = config['data.training']
 
 
@@ -254,7 +262,8 @@ def cloud_training(config) -> None:
 
 
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if config["run.host"] in ['ubuntu']:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['data.model'])
@@ -298,28 +307,43 @@ def main():
     parser.add_argument('--config',
                         default=os.path.expanduser('./config-new.yaml'),
                         help='path to config file')
+    parser.add_argument('--data_output',
+                        default="None",
+                        help='prefix of output directory')
     command_line_args = parser.parse_args()
 
+    banner("CONFIGURATION")
     print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
+    data_output = os.path.expanduser(command_line_args.data_output)
 
     config = FlatDict(sep=".")
-
-
-    config.load(content=configYamlFile)
+    config.load(content=configYamlFile, data={"data.output": data_output})
 
     print (config)
     pprint (config.dict)
+
+
+    # update log file directory
+
+
+
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
+    model_file = config['data.model']
 
-    print (user_name)
-    print (log_file)
+    banner("READ CONFIG FILE AND ADAPT OUTPUT DIRECTORY")
 
-    print (mlperf_logfile)
+    print ("user_name:", user_name)
+    print ("log_file:", log_file)
+    print ("mlperf_logfile:", mlperf_logfile)
+    print ("model_file:", model_file)
+    print ("config[data.output]", config['data.output'])
+
+    Shell.mkdir(config['data.output'])
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
@@ -330,6 +354,7 @@ def main():
     # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
+    banner("INIT")
 
     StopWatch.start("init")
     StopWatch.event("number_of_ranks", value=config['experiment.gpu'], msg=config['experiment.gpu'])
@@ -337,6 +362,7 @@ def main():
     StopWatch.event('version', value=cloudmask_version, msg=cloudmask_version)
     StopWatch.stop("init")
 
+    banner("TRAINING")
     # Training
     StopWatch.start("training block")
     start = time.time()
@@ -357,7 +383,9 @@ def main():
                       f"gpus={config['experiment.gpu']}, "
                       f"time_per_epoch={time_per_epoch_str}\n")
 
+    StopWatch.benchmark(user=user_name, tag=f'train-{config["run.target"]}')
     # Inference
+    banner ("INFERENCE")
     StopWatch.start("inference block")
 
     start = time.time()

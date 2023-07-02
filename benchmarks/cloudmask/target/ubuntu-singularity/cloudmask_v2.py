@@ -22,7 +22,6 @@
 # import sys
 # sys.path.append("..")
 
-from pprint import pprint
 import argparse
 import atexit
 import decimal
@@ -30,7 +29,6 @@ import h5py
 import logging
 import numpy as np
 import os
-import sys
 import tensorflow as tf
 import time
 from cloudmesh.common.FlatDict import FlatDict
@@ -38,6 +36,7 @@ from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
 from mlperf_logging import mllog
 from pathlib import Path
+from pprint import pprint
 from sklearn import metrics
 
 from data_loader import SLSTRDataLoader
@@ -139,6 +138,7 @@ def cloud_inference(config) -> None:
     StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+
     # counter = 0
     for patches, file_name in dataset:
         # counter = counter + 1
@@ -208,6 +208,13 @@ def cloud_inference(config) -> None:
 def cloud_training(config) -> None:
     banner('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(int(config['experiment.seed']))
+
+    # Consider either turning off auto-sharding or
+    # tf.data.Options()`
+    # options.experimental_distribute.auto_shard_policy = AutoShardPolicy.DATA` before
+    # applying the options object to the dataset via `
+    # dataset.with_options(options)
+
     data_dir = config['data.training']
 
 
@@ -254,7 +261,8 @@ def cloud_training(config) -> None:
 
 
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if config["run.host"] in ['ubuntu']:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['data.model'])
@@ -300,6 +308,7 @@ def main():
                         help='path to config file')
     command_line_args = parser.parse_args()
 
+    banner("CONFIGURATION")
     print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
 
@@ -330,6 +339,7 @@ def main():
     # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
+    banner("INIT")
 
     StopWatch.start("init")
     StopWatch.event("number_of_ranks", value=config['experiment.gpu'], msg=config['experiment.gpu'])
@@ -337,6 +347,7 @@ def main():
     StopWatch.event('version', value=cloudmask_version, msg=cloudmask_version)
     StopWatch.stop("init")
 
+    banner("TRAINING")
     # Training
     StopWatch.start("training block")
     start = time.time()
@@ -358,6 +369,7 @@ def main():
                       f"time_per_epoch={time_per_epoch_str}\n")
 
     # Inference
+    banner ("INFERENCE")
     StopWatch.start("inference block")
 
     start = time.time()

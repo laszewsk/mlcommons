@@ -1,6 +1,7 @@
 protobuf==3.19.4
 # numpy<1.24
 numpy==1.23.5
+tqdm
 tensorflow==2.8.0
 cloudmesh-gpu
 scikit-learn
