@@ -31,6 +31,7 @@ import numpy as np
 import os
 import tensorflow as tf
 import time
+from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
@@ -306,29 +307,43 @@ def main():
     parser.add_argument('--config',
                         default=os.path.expanduser('./config-new.yaml'),
                         help='path to config file')
+    parser.add_argument('--data_output',
+                        default="None",
+                        help='prefix of output directory')
     command_line_args = parser.parse_args()
 
     banner("CONFIGURATION")
     print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
+    data_output = os.path.expanduser(command_line_args.data_output)
 
     config = FlatDict(sep=".")
-
-
-    config.load(content=configYamlFile)
+    config.load(content=configYamlFile, data={"data.output": data_output})
 
     print (config)
     pprint (config.dict)
+
+
+    # update log file directory
+
+
+
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
+    model_file = config['data.model']
 
-    print (user_name)
-    print (log_file)
+    banner("READ CONFIG FILE AND ADAPT OUTPUT DIRECTORY")
 
-    print (mlperf_logfile)
+    print ("user_name:", user_name)
+    print ("log_file:", log_file)
+    print ("mlperf_logfile:", mlperf_logfile)
+    print ("model_file:", model_file)
+    print ("config[data.output]", config['data.output'])
+
+    Shell.mkdir(config['data.output'])
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
