@@ -368,6 +368,7 @@ def main():
                       f"gpus={config['experiment.gpu']}, "
                       f"time_per_epoch={time_per_epoch_str}\n")
 
+    StopWatch.benchmark(user=user_name, tag=f'train-{config["run.target"]}')
     # Inference
     banner ("INFERENCE")
     StopWatch.start("inference block")
