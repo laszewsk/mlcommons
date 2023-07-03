@@ -124,11 +124,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-<<<<<<< HEAD
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
-=======
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-$USER-$SLURM_JOB_ID-gpu0.log &
->>>>>>> 4f07452642b52f056d7a1b00117ddef972baee65
 
 PROGRESS "running" 21
 
@@ -137,7 +133,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml --data_output/a100-%u-%j"
 
 PROGRESS "running" 99
 
