@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=simple-cloudmask-gpu-rivanna
+#SBATCH --job-name=rtx3090-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:rtx3090:1
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/simple-v100-%u-%j.out
-#SBATCH -e outputs/simple-v100-%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH -o outputs/rtx3090-%u-%j.out
+#SBATCH -e outputs/rtx3090-%u-%j.err
+#SBATCH -p gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
@@ -124,7 +124,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/simple-$USER-$SLURM_JOB_ID-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/rtx3090-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 

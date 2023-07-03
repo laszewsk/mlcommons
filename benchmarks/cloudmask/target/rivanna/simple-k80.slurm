@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=simple-cloudmask-gpu-rivanna
+#SBATCH --job-name=k80-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:k80:1
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/simple-v100-%u-%j.out
-#SBATCH -e outputs/simple-v100-%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH -o outputs/k80-%u-%j.out
+#SBATCH -e outputs/k80-%u-%j.err
+#SBATCH -p gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
@@ -24,6 +24,8 @@ echo "# ==================================="
 echo "# SLURM info"
 echo "# ==================================="
 
+echo USER $USER
+echo JOBNO $SLURM_JOB_ID
 # echo USER {os.USER}
 # echo HOME {os.HOME}
 # echo cardname {experiment.card_name}
@@ -124,7 +126,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/simple-$USER-$SLURM_JOB_ID-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/k80-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
