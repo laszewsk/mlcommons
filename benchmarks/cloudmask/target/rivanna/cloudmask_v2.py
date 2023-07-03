@@ -22,7 +22,6 @@
 # import sys
 # sys.path.append("..")
 
-from pprint import pprint
 import argparse
 import atexit
 import decimal
@@ -30,14 +29,15 @@ import h5py
 import logging
 import numpy as np
 import os
-import sys
 import tensorflow as tf
 import time
+from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
 from mlperf_logging import mllog
 from pathlib import Path
+from pprint import pprint
 from sklearn import metrics
 
 from data_loader import SLSTRDataLoader
@@ -108,30 +108,42 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 
 # Inference
 def cloud_inference(config) -> None:
-    print('Running benchmark slstr_cloud in inference mode.')
+    banner(f'Running benchmark {__file__} in inference mode.')
     # Read arguments 
     CROP_SIZE = config['image.CROP_SIZE']
     PATCH_SIZE = config['image.PATCH_SIZE']
     N_CHANNELS = config['image.N_CHANNELS']
 
     # Load model
+    StopWatch.start("load model")
     modelPath = os.path.expanduser(config['data.model'])
     model = tf.keras.models.load_model(modelPath)
+    StopWatch.stop("load model")
+
 
     # Read inference files
+    StopWatch.start("read inference files")
     inference_dir = os.path.expanduser(config['data.inference'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
-    
+    StopWatch.stop("read inference files")
+
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
     data_loader = SLSTRDataLoader(config, file_paths, single_image=True, crop_size=CROP_SIZE)
     # data_loader = SLSTRDataLoader(config, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+
+    banner ("inference")
+
+    StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+
+    # counter = 0
     for patches, file_name in dataset:
+        # counter = counter + 1
+        # print (counter)
         file_name = Path(file_name.numpy().decode('utf-8'))
         
         # convert patches to a batch of patches
@@ -179,6 +191,7 @@ def cloud_inference(config) -> None:
         # Calculate hits between ground truth mask and the reconstructed mask
         accuracy = metrics.accuracy_score(groundTruth_flat, mask_flat)
         accuracyList.append(accuracy)
+    StopWatch.start("inference")
 
     d = {
         "avg_accuracy": np.array(accuracyList).mean(),
@@ -194,11 +207,18 @@ def cloud_inference(config) -> None:
 #####################################################################
 
 def cloud_training(config) -> None:
-    print('Running benchmark slstr_cloud in training mode.')
+    banner('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(int(config['experiment.seed']))
+
+    # Consider either turning off auto-sharding or
+    # tf.data.Options()`
+    # options.experimental_distribute.auto_shard_policy = AutoShardPolicy.DATA` before
+    # applying the options object to the dataset via `
+    # dataset.with_options(options)
+
     data_dir = config['data.training']
 
-    print ("AAAAA", data_dir)
+
     # load the datasets
     StopWatch.start("loaddata", value=data_dir)
 
@@ -207,14 +227,22 @@ def cloud_training(config) -> None:
     train_dataset, test_dataset = load_datasets(
         dataset_dir=data_dir,
         config=config)
+
     StopWatch.stop("loaddata", value=data_dir)
 
     samples = list(Path(data_dir).glob('**/S3A*.hdf'))
+
     num_samples = len(samples)
     print("num_samples: ", num_samples)
+    print("train_dataset:", train_dataset)
+    print("test_dataset:", test_dataset)
 
     # Running training on multiple GPUs
+
+    banner("training on the GPUs")
+
     StopWatch.start("training_on_mutiple_GPU")
+
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
 
@@ -229,15 +257,18 @@ def cloud_training(config) -> None:
         history = model.fit(train_dataset,
                             validation_data=test_dataset,
                             epochs=int(config['experiment.epoch']),
-                            verbose=1)
+                            verbose=int(config['run.fit-verbose']))
+
+    banner("finished model fit")
 
     # Close file descriptors
-    # atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if config["run.host"] in ['ubuntu']:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
-    print('END slstr_cloud in training mode.')
+    banner(f'END {__file__} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
 
 
@@ -261,7 +292,7 @@ def cloud_training(config) -> None:
 # #################################
 # Main
 # #################################
-# Running the benchmark: python slstr_cloud.py --config ./config.yaml
+# Running the benchmark: python cloudmask_v2.py --config ./config.yaml
 
 def main():
 
@@ -276,28 +307,43 @@ def main():
     parser.add_argument('--config',
                         default=os.path.expanduser('./config-new.yaml'),
                         help='path to config file')
+    parser.add_argument('--data_output',
+                        default="None",
+                        help='prefix of output directory')
     command_line_args = parser.parse_args()
 
+    banner("CONFIGURATION")
     print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
+    data_output = os.path.expanduser(command_line_args.data_output)
 
     config = FlatDict(sep=".")
-
-
-    config.load(content=configYamlFile)
+    config.load(content=configYamlFile, data={"data.output": data_output})
 
     print (config)
     pprint (config.dict)
+
+
+    # update log file directory
+
+
+
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
+    model_file = config['data.model']
 
-    print (user_name)
-    print (log_file)
+    banner("READ CONFIG FILE AND ADAPT OUTPUT DIRECTORY")
 
-    print (mlperf_logfile)
+    print ("user_name:", user_name)
+    print ("log_file:", log_file)
+    print ("mlperf_logfile:", mlperf_logfile)
+    print ("model_file:", model_file)
+    print ("config[data.output]", config['data.output'])
+
+    Shell.mkdir(config['data.output'])
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
@@ -308,13 +354,15 @@ def main():
     # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
+    banner("INIT")
 
     StopWatch.start("init")
-    StopWatch.event("number_of_ranks", value=config['experiment.gpu'])
-    StopWatch.event('number_of_nodes', value=config['experiment.nodes'])
-    StopWatch.event('version', value=cloudmask_version)
+    StopWatch.event("number_of_ranks", value=config['experiment.gpu'], msg=config['experiment.gpu'])
+    StopWatch.event('number_of_nodes', value=config['experiment.nodes'], msg=config['experiment.nodes'])
+    StopWatch.event('version', value=cloudmask_version, msg=cloudmask_version)
     StopWatch.stop("init")
 
+    banner("TRAINING")
     # Training
     StopWatch.start("training block")
     start = time.time()
@@ -335,7 +383,9 @@ def main():
                       f"gpus={config['experiment.gpu']}, "
                       f"time_per_epoch={time_per_epoch_str}\n")
 
+    StopWatch.benchmark(user=user_name, tag=f'train-{config["run.target"]}')
     # Inference
+    banner ("INFERENCE")
     StopWatch.start("inference block")
 
     start = time.time()
@@ -379,7 +429,7 @@ def main():
 
     StopWatch.stop("total")
 
-    StopWatch.benchmark(user=user_name)
+    StopWatch.benchmark(user=user_name, tag=f'{config["run.target"]}')
 
 if __name__ == "__main__":
     main()

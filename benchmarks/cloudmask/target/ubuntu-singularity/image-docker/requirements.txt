@@ -1,0 +1,16 @@
+#protobuf==3.19.4
+#numpy<1.24
+#numpy==1.23.5
+#tensorflow==2.8.0
+protobuf==3.20.0
+numpy
+tensorflow
+cloudmesh-gpu
+cloudmesh-common
+cloudmesh-sbatch
+scikit-learn
+h5py
+pyyaml
+awscli
+# git+https://github.com/mlperf/logging.git@2.1.0
+git+https://github.com/mlperf/logging.git@1.0.0

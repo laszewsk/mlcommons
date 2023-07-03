@@ -160,8 +160,6 @@ class SLSTRDataLoader:
 # Dataloader specific to this benchmark
 def load_datasets(dataset_dir: Path, config: dict):
     data_paths = list(Path(dataset_dir).glob('**/S3A*.hdf'))
-    print ("WWWWW", dataset_dir)
-    print ("WWWWW", data_paths)
 
     train_paths, test_paths = train_test_split(data_paths, train_size=config['experiment.train_split'], random_state=42)
 

@@ -1,0 +1,143 @@
+ # config.yaml
+
+# SciML-Bench
+# Copyright © 2022 Scientific Machine Learning Research Group
+# Scientific Computing Department, Rutherford Appleton Laboratory
+# Science and Technology Facilities Council, UK.
+# with modifications from Gregor von Laszewski, Juri Papay
+# All rights reserved.
+
+# This is a configuration file for the CloudMask benchmark.
+
+name: cloudmask-rivanna
+
+sbatch:
+  mode: h
+  dir: scratch
+
+run:
+  filesystem: "/sratch/thf2bn"
+  venvpath: "/sratch/thf2bn/ENV3/bin/python"
+  datadir: data
+  branch: 'main'
+
+# Submission Information
+submission:
+  name: cloudmask
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: open
+  version: mlcommons-cloudmask-v2.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
+
+experiment:
+#  card_name: a100
+  card_name: v100
+  gpu_count: 1
+  cpu_num: 1
+  mem: "64GB"
+  repeat: "1"
+  epoch: "1"
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
+system:
+  host: "rivanna"
+  python: "3.10.8"
+  num_cpus: 1
+  partition: "bii-gpu"
+  allocation: bii_dsc_community
+  platform: rivanna
+  accelerators_per_node: 1
+  constraint: ""
+  reservation: ""
+
+#  allocation: bii_dsc_community
+#  reservation: bi_fox_dgx
+
+mask: "float"
+
+training:
+  loss: binary_crossentropy
+  metrics: accuracy
+
+data:
+#  scratch: "/scratch/thf2bn/data/cloudmask"
+  scratch: "/scratch2/data/cloudmask/data"
+  training: "{data.scratch}/one-day"
+  inference: "{data.scratch}/ssts"
+  model: cloudModel.h5
+  output: "./outputs"
+
+log:
+  file: c_cloudmask_run.log
+  mlperf: c_mlperf_cloudmask.log
+
+image:
+  # Size of each patch to feed to the network
+  PATCH_SIZE: 256
+  # Original height of the image
+  IMAGE_H: 1200
+  # Original width of the image
+  IMAGE_W: 1500
+  # No. of channels
+  N_CHANNELS: 9
+  # Min allowable SST
+  MIN_SST: 273.15
+  # Amount to crop the edges of the images by
+  CROP_SIZE: 80
+
+#
+# OLD
+#
+
+# Training data
+# data.training: train_dir: "/scratch/thf2bn/data/one-day"
+
+# Inference data
+# data.inference: inference_dir: "/scratch/thf2bn/data/ssts"
+
+# Model file
+# data.model: model_file: cloudModel.h5
+
+# training 
+# training.loss: training_loss: binary_crossentropy
+# training.metrics: training_metrics: accuracy
+
+# Output directory
+# data.output: output_dir: "./outputs"
+
+# Log file for recording runtimes
+# log.file :log_file: c_cloudmask_run.log
+
+# Log file for MLCommons logging
+# log.mlperf: mlperf_logfile: c_mlperf_cloudmask.log
+
+# Size of each patch to feed to the network
+#PATCH_SIZE: 256
+
+# Original height of the image
+#IMAGE_H: 1200
+
+# Original width of the image
+#IMAGE_W: 1500
+
+# No. of channels
+#N_CHANNELS: 9
+
+# Min allowable SST
+#MIN_SST: 273.15
+
+# Amount to crop the edges of the images by
+#CROP_SIZE: 80
+
