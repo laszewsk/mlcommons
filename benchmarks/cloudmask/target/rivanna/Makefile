@@ -107,6 +107,9 @@ run-singularity:
 shell-singularity:
 	cd image-singularity; make shell
 
+shell-rivanna:
+	cd image-singularity; make shell-rivanna
+
 run: run-singularity
 
 image: image-singularity

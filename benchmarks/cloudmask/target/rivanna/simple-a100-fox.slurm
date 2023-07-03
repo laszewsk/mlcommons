@@ -1,18 +1,15 @@
 #!/bin/bash
 
-#SBATCH --job-name=a100-pod-cloudmask-gpu-rivanna
+#SBATCH --job-name=a100-special-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/a100-pod-%u-%j.out
-#SBATCH -e outputs/a100-pod-%u-%j.err
-#SBATCH -p gpu
-#SBATCH -C gpupod
+#SBATCH -o outputs/a100-fox-%u-%j.out
+#SBATCH -e outputs/a100-fox-%u-%j.err
 #SBATCH --account=bii_dsc_community
-
-
-#  xSBATCH --partition=bii-gpu
+#SBATCH --reservation=bi_fox_dgx
+#SBATCH --partition=bii-gpu
 
 
 PROGRESS () {
@@ -129,7 +126,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-pod-$USER-$SLURM_JOB_ID-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-fox-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
@@ -138,7 +135,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml --data_output=a100-pod-$USER-$SLURM_JOB_ID"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
 
 PROGRESS "running" 99
 

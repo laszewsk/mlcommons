@@ -31,7 +31,11 @@ run:
 #singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
 shell:
-	singularity ${BIND} shell --nv ${IMAGE}.sif
+	singularity ${BIND} shell --nv ${IMAGE}
+
+shell-rivanna:
+	singularity shell --nv ${IMAGE}
+
 
 cancel: stop
 
