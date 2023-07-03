@@ -258,7 +258,7 @@ def cloud_training(config) -> None:
                             epochs=int(config['experiment.epoch']),
                             verbose=int(config['run.fit-verbose']))
 
-
+    banner("finished model fit")
 
     # Close file descriptors
     if config["run.host"] in ['ubuntu']:
