@@ -5,8 +5,8 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/a100-fox-%u-%j.out
-#SBATCH -e outputs/a100-fox-%u-%j.err
+#SBATCH -o outputs/a100-dgx-%u-%j.out
+#SBATCH -e outputs/a100-dgx-%u-%j.err
 #SBATCH --account=bii_dsc_community
 #SBATCH --reservation=bi_fox_dgx
 #SBATCH --partition=bii-gpu
@@ -53,6 +53,7 @@ export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 # export PYTHON_DIR=$HOME/ENV3
 export PYTHON_DIR=$USER_SCRACTH/ENV3
 #export PROJECT_DATA=/project/bii_dsc_community/thf2bn/data/cloudmask
+
 export PROJECT_DATA=/localscratch/$USER/data/cloudmask
 export CONTAINERDIR=.
 
@@ -127,7 +128,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-fox-$USER-$SLURM_JOB_ID-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-dgx-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
