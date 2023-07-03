@@ -107,6 +107,12 @@ run-singularity:
 shell-singularity:
 	cd image-singularity; make shell
 
+run-localscratch:
+	cd image-singularity; make run-localscratch
+
+shell-localscratch:
+	cd image-singularity; make shell-localscratch
+
 shell-rivanna:
 	cd image-singularity; make shell-rivanna
 
