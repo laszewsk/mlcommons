@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=k80-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:k80:1
 #SBATCH --time=06:00:00
@@ -8,7 +8,6 @@
 #SBATCH -o outputs/k80-%u-%j.out
 #SBATCH -e outputs/k80-%u-%j.err
 #SBATCH -p gpu
-#   xSBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {

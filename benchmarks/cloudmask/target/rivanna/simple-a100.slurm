@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=a100-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/a100-%u-%j.out
 #SBATCH -e outputs/a100-%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH --partition=gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=rtx3090-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:rtx3090:1
 #SBATCH --time=06:00:00
@@ -8,8 +8,6 @@
 #SBATCH -o outputs/rtx3090-%u-%j.out
 #SBATCH -e outputs/rtx3090-%u-%j.err
 #SBATCH -p gpu
-
-#   xSBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
