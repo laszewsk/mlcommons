@@ -58,14 +58,14 @@ simple:
                --verbose
 
 
-%.json: config.yaml
+%.json: config-new.yaml
 	cms sbatch generate \
 	           --source=job.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
 	           --os=USER,HOME \
-		   --nocm \
+		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
                --verbose

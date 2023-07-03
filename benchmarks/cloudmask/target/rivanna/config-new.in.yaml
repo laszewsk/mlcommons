@@ -9,10 +9,10 @@
 #   Science and Technology Facilities Council, UK.
 #   All rights reserved.
 #
-# Sveral values of that have been modified also by
+# Several values of that have been modified also by
 #    Gregor von Laszewski, Juri Papay
 #
-# This is a configuration file for the mlcommons Science CloudMask benchmark.
+# This is a configuration file for the MLcommons Science CloudMask benchmark.
 # It works with cloudmask_v2.py
 
 name: cloudmask-rivanna

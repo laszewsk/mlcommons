@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
-#SBATCH --output=cloudmask-%u-%j.log
-#SBATCH --error=cloudmask-%u-%j.error
+#SBATCH --job-name={experiment.card_name}-cloudmask-{experiment.epoch}-{experiment.repeat}
+#SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.log
+#SBATCH --error={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.err
 #SBATCH --partition={system.partition}
 #SBATCH --account={system.allocation}
 #SBATCH --reservation={system.reservation}
@@ -150,7 +150,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0-{gpu}-$USER-$SLURM_JOB_ID.log &
 
 PROGRESS "running" 21
 
