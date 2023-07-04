@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=a100-special-cloudmask-gpu-rivanna
+#SBATCH --job-name=a100-dgx-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=02:00:00
@@ -10,6 +10,14 @@
 #SBATCH --account=bii_dsc_community
 #SBATCH --reservation=bi_fox_dgx
 #SBATCH --partition=bii-gpu
+
+
+cd /localscratch/$USER
+
+ls
+
+pwd
+
 
 
 PROGRESS () {
@@ -32,14 +40,14 @@ echo "# ==================================="
 # echo gpu count {experiment.gpu_count}
 # echo epoc {experiment.epoch}
 # echo repeat {experiment.repeat}
-echo jobno %j
+echo jobno $SLURM_JOB_ID
 # echo partition {system.partition}
 # echo allocation {system.allocation}
 # echo reservation {system.reservation}
 # echo constraint {system.constraint}
 # echo cpu num {experiment.cpu_num}
 # echo mem {experiment.mem}
-echo %u
+echo USER $USER
 
 PROGRESS "running" 2
 
@@ -48,11 +56,9 @@ echo "# Set up file system"
 echo "# ==================================="
 
 
-export USER_SCRATCH=/scratch/$USER
+export USER_SCRATCH=/localscratch/$USER
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-# export PYTHON_DIR=$HOME/ENV3
-export PYTHON_DIR=$USER_SCRATCH/ENV3
-#export PROJECT_DATA=/project/bii_dsc_community/thf2bn/data/cloudmask
+export PYTHON_DIR=/home/$USER/ENV3
 
 export PROJECT_DATA=/localscratch/$USER/data/cloudmask
 export CONTAINERDIR=.
@@ -60,6 +66,9 @@ export CONTAINERDIR=.
 export CODE_DIR=$PROJECT_DIR/target/rivanna
 
 PROGRESS "running" 3
+
+
+
 
 
 # set -uxe
@@ -79,8 +88,12 @@ echo "PROJECT_DIR:  $PROJECT_DIR"
 echo "PYTHON_DIR:   $PYTHON_DIR"
 echo "PROJECT_DATA: $PROJECT_DATA"
 echo "CONTAINERDIR: $CONTAINERDIR"
+echo "CODE_DIR: $CODE_DIR"
+
 
 PROGRESS "running" 4
+
+
 
 # ####################################################################################################
 # MODULE LOAD
@@ -99,10 +112,15 @@ PROGRESS "running" 4
 source $PYTHON_DIR/bin/activate
 
 which python
+python --version
 
 nvidia-smi
 
+cms gpu system
+
 PROGRESS "running" 8
+
+
 
 
 echo "# ==================================="
@@ -111,6 +129,13 @@ echo "# ==================================="
 
 cd $CODE_DIR
 
+pwd 
+
+ls *.py
+
+
+
+
 PROGRESS "running" 9
 
 echo "# ==================================="
@@ -118,7 +143,10 @@ echo "# check filesystem"
 echo "# ==================================="
 pwd
 ls
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('pwd')\""
+# singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls -lisa')\""
+
+
 
 PROGRESS "running" 10
 
@@ -128,7 +156,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-dgx-$USER-$SLURM_JOB_ID-gpu0.log &
+# cms gpu watch --gpu=0 --delay=0.5 --dense > ./outputs/a100-dgx-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
@@ -137,7 +165,8 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-dgx.yaml"
+echo $CODE_DIR
+singularity exec --bind "/localscratch:/localscratch" --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-dgx.yaml"
 
 PROGRESS "running" 99
 
