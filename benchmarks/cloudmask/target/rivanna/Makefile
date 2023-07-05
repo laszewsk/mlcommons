@@ -5,7 +5,7 @@ PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 NAME=cloudmask
 
-.PHONY: image-singularity image-docker
+.PHONY: image-singularity image-docker project
 
 all: requirements data
 
@@ -25,7 +25,7 @@ data:
 	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts --cli-read-timeout 0
 
 
-project: project.json generate
+project: clean project.json generate
 
 setup:
 	python setup_env_and_yaml.py
