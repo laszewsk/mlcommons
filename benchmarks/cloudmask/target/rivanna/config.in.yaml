@@ -64,7 +64,7 @@ system:
   host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
-  partition: "bii-gpu"
+  partition: "gpu"
   allocation: bii_dsc_community
   platform: rivanna
   accelerators_per_node: 1
