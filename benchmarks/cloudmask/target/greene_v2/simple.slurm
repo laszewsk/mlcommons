@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=simple-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:v100:1
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
+#SBATCH -o outputs/simple-v100-%u-%j.out
+#SBATCH -e outputs/simple-v100-%u-%j.err
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
@@ -118,11 +118,13 @@ singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"impo
 
 PROGRESS "running" 10
 
+
+
 echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/simple-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
@@ -131,7 +133,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config.yaml"
 
 PROGRESS "running" 99
 

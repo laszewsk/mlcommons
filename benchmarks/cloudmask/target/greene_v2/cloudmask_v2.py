@@ -22,7 +22,6 @@
 # import sys
 # sys.path.append("..")
 
-from pprint import pprint
 import argparse
 import atexit
 import decimal
@@ -30,14 +29,15 @@ import h5py
 import logging
 import numpy as np
 import os
-import sys
 import tensorflow as tf
 import time
+from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
 from mlperf_logging import mllog
 from pathlib import Path
+from pprint import pprint
 from sklearn import metrics
 
 from data_loader import SLSTRDataLoader
@@ -45,7 +45,6 @@ from data_loader import load_datasets
 from model import unet
 
 cloudmask_version = "2.0"
-
 
 # config = read_config_parameters(filename='config.yaml')
 
@@ -107,11 +106,10 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
     reconstructed = tf.image.crop_to_bounding_box(reconstructed, offset_y, offset_x, IMAGE_H, IMAGE_W)
     return reconstructed
 
-
 # Inference
 def cloud_inference(config) -> None:
     banner(f'Running benchmark {__file__} in inference mode.')
-    # Read arguments
+    # Read arguments 
     CROP_SIZE = config['image.CROP_SIZE']
     PATCH_SIZE = config['image.PATCH_SIZE']
     N_CHANNELS = config['image.N_CHANNELS']
@@ -121,6 +119,7 @@ def cloud_inference(config) -> None:
     modelPath = os.path.expanduser(config['data.model'])
     model = tf.keras.models.load_model(modelPath)
     StopWatch.stop("load model")
+
 
     # Read inference files
     StopWatch.start("read inference files")
@@ -135,24 +134,25 @@ def cloud_inference(config) -> None:
     # data_loader = SLSTRDataLoader(config, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
 
-    banner("inference")
+    banner ("inference")
 
     StopWatch.start("inference")
     # Inference Loop
     accuracyList = []
+
     # counter = 0
     for patches, file_name in dataset:
         # counter = counter + 1
         # print (counter)
         file_name = Path(file_name.numpy().decode('utf-8'))
-
+        
         # convert patches to a batch of patches
         n, ny, nx, _ = patches.shape
         patches = tf.reshape(patches, (n * nx * ny, PATCH_SIZE, PATCH_SIZE, N_CHANNELS))
 
         # perform inference on patches
         mask_patches = model.predict_on_batch(patches)
-        # mask_patches = model.test_on_batch(patches) # might return also the accuracy
+        #mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(
@@ -165,7 +165,7 @@ def cloud_inference(config) -> None:
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
         mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
-
+        
         # Save reconstructed image (mask)
         output_dir = os.path.expanduser(config['data.output'])
         mask_name = f"{output_dir}/{file_name.name}.h5"
@@ -176,7 +176,7 @@ def cloud_inference(config) -> None:
 
         # Change mask values from float to integer
         mask_np = mask.numpy()
-        mask_np = (mask_np > .5).astype(int)
+        mask_np =  (mask_np > .5).astype(int)
         mask_flat = mask_np.reshape(-1)
 
         # Extract groundTruth from file, this is the Bayesian mask
@@ -201,6 +201,7 @@ def cloud_inference(config) -> None:
     return len(file_paths), d
 
 
+
 #####################################################################
 # Training mode                                                     #
 #####################################################################
@@ -208,7 +209,15 @@ def cloud_inference(config) -> None:
 def cloud_training(config) -> None:
     banner('Running benchmark slstr_cloud in training mode.')
     tf.random.set_seed(int(config['experiment.seed']))
+
+    # Consider either turning off auto-sharding or
+    # tf.data.Options()`
+    # options.experimental_distribute.auto_shard_policy = AutoShardPolicy.DATA` before
+    # applying the options object to the dataset via `
+    # dataset.with_options(options)
+
     data_dir = config['data.training']
+
 
     # load the datasets
     StopWatch.start("loaddata", value=data_dir)
@@ -250,14 +259,18 @@ def cloud_training(config) -> None:
                             epochs=int(config['experiment.epoch']),
                             verbose=int(config['run.fit-verbose']))
 
+    banner("finished model fit")
+
     # Close file descriptors
-    atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
+    if config["run.host"] in ['ubuntu']:
+        atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
     modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
     banner(f'END {__file__} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
+
 
     result = {
         "samples": num_samples,
@@ -282,6 +295,8 @@ def cloud_training(config) -> None:
 # Running the benchmark: python cloudmask_v2.py --config ./config.yaml
 
 def main():
+
+
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
@@ -292,34 +307,54 @@ def main():
     parser.add_argument('--config',
                         default=os.path.expanduser('./config-new.yaml'),
                         help='path to config file')
+    parser.add_argument('--data_output',
+                        default="None",
+                        help='prefix of output directory')
     command_line_args = parser.parse_args()
 
-    print(command_line_args)
+    banner("CONFIGURATION")
+    print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
+    data_output = os.path.expanduser(command_line_args.data_output)
 
     config = FlatDict(sep=".")
+    config.load(content=configYamlFile, data={"data.output": data_output})
 
-    config.load(content=configYamlFile)
+    print (config)
+    pprint (config.dict)
 
-    print(config)
-    pprint(config.dict)
+
+    # update log file directory
+
+
+
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
+    model_file = config['data.model']
 
-    print(user_name)
-    print(log_file)
+    banner("READ CONFIG FILE AND ADAPT OUTPUT DIRECTORY")
 
-    print(mlperf_logfile)
+    print ("user_name:", user_name)
+    print ("log_file:", log_file)
+    print ("mlperf_logfile:", mlperf_logfile)
+    print ("model_file:", model_file)
+    print ("config[data.output]", config['data.output'])
+
+    Shell.mkdir(config['data.output'])
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
 
+
+
     # mllog.config(filename=mlperf_logfile)
     # mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
+
+    banner("INIT")
 
     StopWatch.start("init")
     StopWatch.event("number_of_ranks", value=config['experiment.gpu'], msg=config['experiment.gpu'])
@@ -327,6 +362,7 @@ def main():
     StopWatch.event('version', value=cloudmask_version, msg=cloudmask_version)
     StopWatch.stop("init")
 
+    banner("TRAINING")
     # Training
     StopWatch.start("training block")
     start = time.time()
@@ -347,7 +383,9 @@ def main():
                       f"gpus={config['experiment.gpu']}, "
                       f"time_per_epoch={time_per_epoch_str}\n")
 
+    StopWatch.benchmark(user=user_name, tag=f'train-{config["run.target"]}')
     # Inference
+    banner ("INFERENCE")
     StopWatch.start("inference block")
 
     start = time.time()
@@ -385,14 +423,13 @@ def main():
     }
     StopWatch.event(key="result", value=result)
     StopWatch.event(key=mllog.constants.RUN_STOP,
-                    value="CloudMask benchmark run finished",
-                    metadata={'status': 'success'})
+                 value="CloudMask benchmark run finished",
+                 metadata={'status': 'success'})
     StopWatch.event(key=mllog.constants.SUBMISSION_STATUS, value='success')
 
     StopWatch.stop("total")
 
     StopWatch.benchmark(user=user_name, tag=f'{config["run.target"]}')
-
 
 if __name__ == "__main__":
     main()

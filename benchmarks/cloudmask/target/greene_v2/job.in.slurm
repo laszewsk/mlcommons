@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-#SBATCH --job-name=mlcommons-cloudmask-{experiment.card_name}-{experiment.gpu_count}-{experiment.epoch}-{experiment.repeat}
-#SBATCH --output=cloudmask-%j.log
-#SBATCH --error=cloudmask-%j.error
+#SBATCH --job-name={experiment.card_name}-cloudmask-{experiment.epoch}-{experiment.repeat}
+#SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.log
+#SBATCH --error={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.err
 #SBATCH --partition={system.partition}
 #SBATCH --account={system.allocation}
 #SBATCH --reservation={system.reservation}
@@ -18,6 +18,17 @@
 # xSBATCH --mem=64GB
 # xSBATCH --time=6:00:00
 
+PROGRESS () {
+    echo "# ###########################################"
+    echo "# cloudmesh status="$1" progress=$2 pid=$$"
+    echo "# ###########################################"
+}
+
+PROGRESS "running" 1
+
+echo "# ==================================="
+echo "# SLURM info"
+echo "# ==================================="
 
 echo USER {os.USER}
 echo HOME {os.HOME}
@@ -34,12 +45,25 @@ echo cpu num {experiment.cpu_num}
 echo mem {experiment.mem}
 echo %u
 
+PROGRESS "running" 2
 
-echo "# cloudmesh status=running progress=1 pid=$$"
+echo "# ==================================="
+echo "# Set up file system"
+echo "# ==================================="
+
+
+export USER_SCRATCH=/scratch/$USER
+export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+# export PYTHON_DIR=$HOME/ENV3
+export PYTHON_DIR=$USER_SCRACTH/ENV3
+export PROJECT_DATA=/project/bii_dsc_community/thf2bn/data/cloudmask
+export CONTAINERDIR=.
+
+export CODE_DIR=$PROJECT_DIR/target/rivanna
+
+PROGRESS "running" 3
 
 # set -uxe
-
-DATA_PATH="/scratch/${USER}/data"
 
 if [ -n $SLURM_JOB_ID ] ; then
 THEPATH=$(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}')
@@ -50,9 +74,14 @@ LOCATION=$(dirname $THEPATH)
 
 echo "LOCATION:", $LOCATION
 echo "THEPATH:", $THEPATH
-## to run this say sbatch rivanna.sh
+echo
+echo "USER_SCRATCH: $USER_SCRATCH"
+echo "PROJECT_DIR:  $PROJECT_DIR"
+echo "PYTHON_DIR:   $PYTHON_DIR"
+echo "PROJECT_DATA: $PROJECT_DATA"
+echo "CONTAINERDIR: $CONTAINERDIR"
 
-cd ~
+PROGRESS "running" 4
 
 
 # ####################################################################################################
@@ -61,47 +90,81 @@ cd ~
 
 echo "# cloudmesh status=running progress=2 pid=$$"
 
-# module load anaconda
-# conda init bash
+module purge
+module load singularity
 
-#set +eu
-#conda activate cloudenv
-#set -eu
-#set -uxe
+PROGRESS "running" 4
 
-#module load singularity tensorflow/2.8.0
-#module load cudatoolkit/11.0.3-py3.8
-#module load cuda/11.4.2
-#module load cudnn/8.2.4.15
-#module load anaconda/2020.11-py3.8
-#module load gcc
+source $PYTHON_DIR/bin/activate
 
-source /scratch/$USER/ENV3/bin/activate
+which python
+
+PROGRESS "running" 6
 
 # ####################################################################################################
-# CLOUDMASK
+# PROJECT ENVIRONMENT
 # ####################################################################################################
 
 echo "# cloudmesh status=running progress=5 pid=$$"
 
 echo "Working in Directory:      $(pwd)"
-# echo "Running in Directory:      ${RUN_BASE}"
-echo "Experiment Data Directory: ${DATA_PATH}"
-# echo "Repository Revision:       $(git rev-parse HEAD)"
-echo "Notebook Script:           {code.script}"
+echo "Repository Revision:       $(git rev-parse HEAD)"
 echo "Python Version:            $(python -V)"
 echo "Running on host:           $(hostname -a)"
 
+PROGRESS "running" 7
 
-echo "# cloudmesh status=running progress=6 pid=$$"
+# ####################################################################################################
+# GPU environment
+# ####################################################################################################
 
-# cd /scratch/$USER/mlcommons/benchmarks/cloudmask/target
+nvidia-smi
 
-cms gpu watch --gpu=0 --delay=1 --dense > $LOCATION/gpu0.log &
+PROGRESS "running" 8
 
-python slstr_cloud.py --config $LOCATION/config.yaml > $(dirname $THEPATH)/output.log 2>&1
+echo "# ==================================="
+echo "# go to codedir"
+echo "# ==================================="
 
-echo "# cloudmesh status=done progress=100 pid=$$"
+cd $CODE_DIR
+
+PROGRESS "running" 9
+
+echo "# ==================================="
+echo "# check filesystem"
+echo "# ==================================="
+pwd
+ls
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
+
+PROGRESS "running" 10
+
+# ####################################################################################################
+# CLOUDMASK
+# ####################################################################################################
+
+PROGRESS "running" 20
+
+
+echo "# ==================================="
+echo "# start gpu log"
+echo "# ==================================="
+
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0-{gpu}-$USER-$SLURM_JOB_ID.log &
+
+PROGRESS "running" 21
+
+echo "# ==================================="
+echo "# start cloudmask"
+echo "# ==================================="
+
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+
+PROGRESS "running" 99
+
+seff $SLURM_JOB_ID
+
+PROGRESS "done" 100
 
 echo "Execution Complete"
 
