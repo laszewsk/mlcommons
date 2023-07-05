@@ -64,18 +64,10 @@ system:
   host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
-<<<<<<< HEAD
-  partition: "gpu"
-  allocation: bii_dsc_community
-=======
->>>>>>> f1129379114038f795d1ea0702f9f555b11bd8a5
   platform: rivanna
   accelerators_per_node: 1
   constraint: ""
   reservation: ""
-
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
 
 mask: "float"
 
