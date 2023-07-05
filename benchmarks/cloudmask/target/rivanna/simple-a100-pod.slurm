@@ -7,8 +7,8 @@
 #SBATCH --mem=64G
 #SBATCH -o outputs/a100-pod-%u-%j.out
 #SBATCH -e outputs/a100-pod-%u-%j.err
-#SBATCH -p gpu
-#SBATCH -C gpupod
+#SBATCH --partition gpu
+#SBATCH --constaring gpupod
 #SBATCH --account=bii_dsc_community
 
 
