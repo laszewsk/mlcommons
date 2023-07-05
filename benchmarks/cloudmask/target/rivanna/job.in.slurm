@@ -3,16 +3,15 @@
 #SBATCH --job-name={experiment.card_name}-cloudmask-{experiment.epoch}-{experiment.repeat}
 #SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.log
 #SBATCH --error={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.err
-#SBATCH --partition={system.partition}
-#SBATCH --account={system.allocation}
-#SBATCH --reservation={system.reservation}
-#SBATCH --constraint={system.constraint}
+{slurm.sbatch}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
 #SBATCH --cpus-per-task=1
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
+
+
 
 # xSBATCH --partition=gpu
 # xSBATCH --mem=64GB

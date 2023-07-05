@@ -7,6 +7,7 @@
 #SBATCH --account={system.allocation}
 #SBATCH --reservation={system.reservation}
 #SBATCH --constraint={system.constraint}
+#SBATCH cms --host={system.host} {experiment.card_name}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
 #SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
