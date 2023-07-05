@@ -149,7 +149,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0-{gpu}-$USER-$SLURM_JOB_ID.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > {sbatch.identifier}/gpu0-{experiment.card_name}-$USER-$SLURM_JOB_ID.log &
 
 PROGRESS "running" 21
 
