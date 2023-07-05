@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #SBATCH --job-name={experiment.card_name}-cloudmask-{experiment.epoch}-{experiment.repeat}
-#SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.log
+#SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.out
 #SBATCH --error={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.err
 {slurm.sbatch}
 #SBATCH -c {experiment.cpu_num}
