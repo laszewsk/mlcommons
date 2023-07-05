@@ -69,9 +69,6 @@ system:
   constraint: ""
   reservation: ""
 
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
-
 mask: "float"
 
 training:
