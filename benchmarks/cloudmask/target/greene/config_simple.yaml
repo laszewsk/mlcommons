@@ -17,7 +17,7 @@ sbatch:
 
 run:
   filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch: 1
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch: 200
   venvpath: "/scratch/rg3515/ENV3"
   datadir: data
   branch: 'main'
@@ -39,13 +39,13 @@ submission:
   accelerators_per_node: 1
 
 experiment:
-#  card_name: v100
-  card_name: v100
+#  card_name: a100
+  card_name: a100
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: 1
+  epoch: 200
   seed: 1234
   learning_rate: 0.001
   batch_size: 32

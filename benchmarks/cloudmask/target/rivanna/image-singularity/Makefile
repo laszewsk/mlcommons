@@ -5,6 +5,9 @@ IMAGE=cloudmask.sif
 DATA=/scratch2/data/cloudmask/data
 BIND=--bind ${DATA}:${DATA}
 
+DATA_LOCALSCRATCH=/localscratch/${USER}/cloudmask/
+BIND_LOCALSCRATCH=--bind ${DATA}:${DATA}
+
 image:
 	time ../bin/singularity-image.py ${NAME}
 
@@ -32,6 +35,15 @@ run:
 
 shell:
 	singularity ${BIND} shell --nv ${IMAGE}
+
+run-localscratch:
+	cd ${CODE_DIR}; mkdir -p outputs
+	cd ${CODE_DIR}; singularity exec ${BIND_LOCALSCRATCH} --nv cloudmask.sif bash -c "python cloudmask_v2.py --config=config-new.yaml"
+
+#singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
+
+shell-localscratch:
+	singularity ${BIND_LOCALSCRATCH} shell --nv ${IMAGE}
 
 shell-rivanna:
 	singularity shell --nv ${IMAGE}

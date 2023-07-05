@@ -103,6 +103,12 @@ image-singularity:
 run-singularity:
 	cd image-singularity; make run
 
+run-dgx:
+	cd image-singularity; make run-dgx
+
+shell-dgx:
+	cd image-singularity; make shell-dgx
+
 shell-singularity:
 	cd image-singularity; make shell
 
