@@ -58,7 +58,7 @@ simple:
                --verbose
 
 
-%.json: config-new.yaml
+%.json: config.in.yaml
 	cms sbatch generate \
 	           --source=job.in.slurm \
 	           --config=$< \
