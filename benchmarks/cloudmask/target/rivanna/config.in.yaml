@@ -76,7 +76,7 @@ training:
   metrics: accuracy
 
 data:
-  scratch: "/scratch/thf2bn/data/cloudmask"
+  scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask/"
 #  scratch: "/scratch2/data/cloudmask/data"
   training: "{data.scratch}/one-day"
   inference: "{data.scratch}/ssts"
