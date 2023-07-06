@@ -15,6 +15,7 @@ d = {
     "person":
         {"name": "Gregor"},
     "author": "{person.name}"
+    "time" : "eval 2*3"
 }
 
 with open(filename, 'w') as file:
