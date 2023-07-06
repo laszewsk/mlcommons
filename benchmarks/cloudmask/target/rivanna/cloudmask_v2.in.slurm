@@ -60,6 +60,9 @@ export CONTAINERDIR=.
 
 export CODE_DIR=$PROJECT_DIR/target/rivanna
 
+export $OUTPUTS_DIR=./project/{sbatch.identifier}/outputs
+
+
 PROGRESS "running" 3
 
 # set -uxe
@@ -79,6 +82,9 @@ echo "PROJECT_DIR:  $PROJECT_DIR"
 echo "PYTHON_DIR:   $PYTHON_DIR"
 echo "PROJECT_DATA: $PROJECT_DATA"
 echo "CONTAINERDIR: $CONTAINERDIR"
+
+
+mkdir -p $OUTPUTS_DIR
 
 PROGRESS "running" 4
 
@@ -126,6 +132,7 @@ echo "# go to codedir"
 echo "# ==================================="
 
 cd $CODE_DIR
+
 
 PROGRESS "running" 9
 
