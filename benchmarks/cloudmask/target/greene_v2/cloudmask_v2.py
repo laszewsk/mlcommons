@@ -317,6 +317,8 @@ def main():
     configYamlFile = os.path.expanduser(command_line_args.config)
     data_output = os.path.expanduser(command_line_args.data_output)
 
+
+
     config = FlatDict(sep=".")
     config.load(content=configYamlFile, data={"data.output": data_output})
 
