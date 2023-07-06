@@ -138,7 +138,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml --data_output=a100-pod-$USER-$SLURM_JOB_ID"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-simple.yaml --data_output=a100-pod-$USER-$SLURM_JOB_ID"
 
 PROGRESS "running" 99
 

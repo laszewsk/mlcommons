@@ -60,7 +60,7 @@ simple:
 
 %.json: config.in.yaml
 	cms sbatch generate \
-	           --source=job.in.slurm \
+	           --source=cloudmask_v2.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
