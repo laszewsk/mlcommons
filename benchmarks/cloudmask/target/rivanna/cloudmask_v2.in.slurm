@@ -53,14 +53,15 @@ echo "# ==================================="
 
 export USER_SCRATCH=/scratch/$USER
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-# export PYTHON_DIR=$HOME/ENV3
-export PYTHON_DIR=$USER_SCRACTH/ENV3
+export PYTHON_DIR=$HOME/ENV3
+#export PYTHON_DIR=$USER_SCRACTH/ENV3
 export PROJECT_DATA=/project/bii_dsc_community/mlcommons/data/cloudmask/
 export CONTAINERDIR=.
 
 export CODE_DIR=$PROJECT_DIR/target/rivanna
 
-export $OUTPUTS_DIR=./project/{sbatch.identifier}/outputs
+export OUTPUTS_DIR="${CODE_DIR}/project/{sbatch.identifier}/outputs"
+
 
 
 PROGRESS "running" 3
@@ -164,7 +165,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config.yaml"
 
 PROGRESS "running" 99
 
