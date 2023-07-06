@@ -45,7 +45,7 @@ submission:
 
 experiment:
 #  card_name: a100
-  card_name: "a100,p100,k80"
+  card_name: "a100,p100,k80,a100-dgx,rtx2080,rtx3090"
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
