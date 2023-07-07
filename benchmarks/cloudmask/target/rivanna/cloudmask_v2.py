@@ -41,6 +41,7 @@ from mlperf_logging import mllog
 from pathlib import Path
 from pprint import pprint
 from sklearn import metrics
+from cloudmesh.common.util import writefile
 
 from data_loader import SLSTRDataLoader
 from data_loader import load_datasets
@@ -269,6 +270,7 @@ def cloud_training(config) -> None:
 
     # save model
      
+    output_dir = os.path.expanduser(config['data.output'])
     modelPath = output_dir
     # modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
@@ -428,6 +430,8 @@ def main():
 
     result = {
         "name": "cloudmask",
+        "identifier": config["sbatch.identifier"]
+        "experiment": config["experiment"],
         "training": training_d,
         "inference": inference_d,
 
@@ -440,6 +444,11 @@ def main():
         },
 
     }
+
+    banner ("BEGIN FINAL RESULT")
+    print(str(result))
+    banner("END FINAL RESULT")
+
     StopWatch.event(key="result", value=result)
     StopWatch.event(key=mllog.constants.RUN_STOP,
                  value="CloudMask benchmark run finished",
