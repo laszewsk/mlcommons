@@ -24,7 +24,7 @@ sbatch:
 run:
   fit-verbose: 1
   host: ubuntu
-  target: ubuntu-singularity
+  target: rivanna-singularity
   filesystem: "/scratch/thf2bn"
   venvpath: "/scratch/thf2bn/ENV3/bin/python"
   datadir: data
@@ -45,8 +45,9 @@ submission:
 
 experiment:
 #  card_name: a100
-  card_name: "a100,p100,k80,a100-dgx,rtx2080,rtx3090"
-  gpu_count: 1
+#  card_name: "a100,p100,k80,a100-dgx,rtx2080,rtx3090"
+  card_name: "a100"
+  gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
@@ -76,7 +77,7 @@ training:
   metrics: accuracy
 
 data:
-  scratch: "/scratch/thf2bn/data/cloudmask"
+  scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
 #  scratch: "/scratch2/data/cloudmask/data"
   training: "{data.scratch}/one-day"
   inference: "{data.scratch}/ssts"
