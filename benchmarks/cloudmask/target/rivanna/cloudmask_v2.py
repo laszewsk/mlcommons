@@ -268,7 +268,9 @@ def cloud_training(config) -> None:
         atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    modelPath = os.path.expanduser(config['data.model'])
+     
+    modelPath = output_dir
+    # modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
     banner(f'END {__file__} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")

@@ -1,6 +1,6 @@
 # file: config-new.yaml
 #
-# This configuration file was created by Gregor von Laszewski laszewski@gmail.com
+# This configuratixcon file was created by Gregor von Laszewski laszewski@gmail.com
 # The values under image: and some other values have been taken from
 #
 # SciML-Bench, which is under
@@ -18,6 +18,7 @@
 name: cloudmask-rivanna
 
 sbatch:
+  time: "6:00:00"
   mode: h
   dir: scratch
 
@@ -45,12 +46,13 @@ submission:
 
 experiment:
 #  card_name: a100-dgx
-  card_name: "a100,p100,k80,rtx2080,rtx3090"
+  card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
-  repeat: "1"
-  epoch: "1"
+  repeat: "2"
+  epoch: "2,10,30,50,70,100"
+#  epoch: "1"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32

@@ -10,12 +10,12 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mail-user=%u@virginia.edu
 #SBATCH --mail-type=ALL
-
+#SBATCH --time={sbatch.time}
 
 
 # xSBATCH --partition=gpu
 # xSBATCH --mem=64GB
-# xSBATCH --time=6:00:00
+
 
 PROGRESS () {
     echo "# ###########################################"
