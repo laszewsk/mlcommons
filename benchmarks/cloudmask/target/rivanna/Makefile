@@ -68,6 +68,7 @@ simple:
 		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
+		--copycode="cloudmask_v2.py,data_loader.py,model.py" \
                --verbose
 
 kill: stop
@@ -98,8 +99,7 @@ clean:
 
 
 image-singularity:
-	cd image-singularity; make image
-	mv image-singularity/cloudmask.sif .
+	yes | cms rivanna singularity build image-singularity/cloudmask.def
 
 run-singularity:
 	cd image-singularity; make run

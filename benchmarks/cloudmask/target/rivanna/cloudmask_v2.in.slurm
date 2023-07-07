@@ -35,14 +35,11 @@ echo cardname {experiment.card_name}
 echo gpu count {experiment.gpu_count}
 echo epoc {experiment.epoch}
 echo repeat {experiment.repeat}
-echo jobno %j
-echo partition {system.partition}
-echo allocation {system.allocation}
-echo reservation {system.reservation}
-echo constraint {system.constraint}
+echo jobno $SLURM_JOB_ID
+echo {slurm.sbatch}
 echo cpu num {experiment.cpu_num}
 echo mem {experiment.mem}
-echo %u
+echo USER $USER
 
 PROGRESS "running" 2
 
@@ -50,17 +47,28 @@ echo "# ==================================="
 echo "# Set up file system"
 echo "# ==================================="
 
+#
+# PYTHON with cms on rivanna
+#
 
-export USER_SCRATCH=/scratch/$USER
-export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$HOME/ENV3
 #export PYTHON_DIR=$USER_SCRACTH/ENV3
-export PROJECT_DATA=/project/bii_dsc_community/mlcommons/data/cloudmask/
-export CONTAINERDIR=.
 
+#
+# CODE
+#
+export USER_SCRATCH=/scratch/$USER
+export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export CODE_DIR=$PROJECT_DIR/target/rivanna
+export CONTAINERDIR=${CODE_DIR}
 
 export OUTPUTS_DIR="${CODE_DIR}/project/{sbatch.identifier}/outputs"
+
+#
+# DATA
+#
+
+export PROJECT_DATA=/project/bii_dsc_community/mlcommons/data/cloudmask/
 
 
 
@@ -165,7 +173,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config.yaml"
+cd ${CODE_DIR} ; singularity exec --nv ./cloudmask.sif bash -c "python cloudmask_v2.py --config=config.yaml"
 
 PROGRESS "running" 99
 
