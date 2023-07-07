@@ -140,7 +140,7 @@ echo "# ==================================="
 echo "# go to codedir"
 echo "# ==================================="
 
-cd $CODE_DIR
+# cd $CODE_DIR
 
 
 PROGRESS "running" 9
@@ -150,7 +150,7 @@ echo "# check filesystem"
 echo "# ==================================="
 pwd
 ls
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
+singularity exec --nv $CONTAINERDIR/cloudmask.sif bash -c "python -c \"import os; os.system('ls')\""
 
 PROGRESS "running" 10
 
@@ -173,7 +173,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-cd ${CODE_DIR} ; singularity exec --nv ./cloudmask.sif bash -c "python cloudmask_v2.py --config=config.yaml"
+singularity exec --nv $CONTAINERDIR/cloudmask.sif bash -c "python cloudmask_v2.py --config=config.yaml"
 
 PROGRESS "running" 99
 

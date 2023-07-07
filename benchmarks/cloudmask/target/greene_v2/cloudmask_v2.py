@@ -331,7 +331,7 @@ def main():
     try:
         
         config = FlatDict(sep=".")
-        config.loadf(content=configYamlFile, data={"data.output": data_output})
+        config.loadf(filename=configYamlFile, data={"data.output": data_output})
 
         print (config)
         pprint (config.dict)
