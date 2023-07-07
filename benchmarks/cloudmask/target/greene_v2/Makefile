@@ -16,7 +16,7 @@ download:
 requirements:
 	time pip install -r ${PROJECT_DIR}/experiments/rivanna/requirements.txt
 
-data:
+data: 
 	mkdir -p ${PROJECT_DATA}/ssts
 	mkdir -p ${PROJECT_DATA}/one-day
 	echo -n "Downloading first portion of data..."
@@ -31,7 +31,7 @@ setup:
 	python setup_env_and_yaml.py
 	source ~/ENV3/bin/activate && pip install -r /scratch/${USER}/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
 
-generate: jobs-project.sh
+generate: jobs-project.sh 
 
 run: submit
 
@@ -68,6 +68,7 @@ simple:
 		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
+		--copycode="cloudmask_v2.py,data_loader.py,model.py" \
                --verbose
 
 kill: stop
@@ -98,8 +99,7 @@ clean:
 
 
 image-singularity:
-	cd image-singularity; make image
-	mv image-singularity/cloudmask.sif .
+	cms rivanna singularity build image-singularity/cloudmask.def
 
 run-singularity:
 	cd image-singularity; make run

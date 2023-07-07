@@ -22,6 +22,7 @@
 # import sys
 # sys.path.append("..")
 
+import sys
 import argparse
 import atexit
 import decimal
@@ -31,6 +32,7 @@ import numpy as np
 import os
 import tensorflow as tf
 import time
+from cloudmesh.common.console import Console
 from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
@@ -305,7 +307,7 @@ def main():
     )
 
     parser.add_argument('--config',
-                        default=os.path.expanduser('./config-new.yaml'),
+                        default=os.path.expanduser('./config.yaml'),
                         help='path to config file')
     parser.add_argument('--data_output',
                         default="None",
@@ -317,14 +319,27 @@ def main():
     configYamlFile = os.path.expanduser(command_line_args.config)
     data_output = os.path.expanduser(command_line_args.data_output)
 
+    banner("READING FILE")
 
+    print ("pwd")
+    os.system("pwd")
+    print ("LS")
+    os.system("ls")
 
-    config = FlatDict(sep=".")
-    config.load(content=configYamlFile, data={"data.output": data_output})
+    print ("content:", configYamlFile)
 
-    print (config)
-    pprint (config.dict)
+    try:
+        
+        config = FlatDict(sep=".")
+        config.loadf(filename=configYamlFile, data={"data.output": data_output})
 
+        print (config)
+        pprint (config.dict)
+        
+    except Exception as e:
+        banner("ERROR")
+        Console.error(e, traceflag=True)
+        sys.exit()
 
     # update log file directory
 
