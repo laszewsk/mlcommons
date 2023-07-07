@@ -99,7 +99,7 @@ clean:
 
 
 image-singularity:
-	yes | cms rivanna singularity build image-singularity/cloudmask.def
+	cms rivanna singularity build image-singularity/cloudmask.def
 
 run-singularity:
 	cd image-singularity; make run
