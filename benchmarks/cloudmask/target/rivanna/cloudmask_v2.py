@@ -430,7 +430,7 @@ def main():
 
     result = {
         "name": "cloudmask",
-        "identifier": config["sbatch.identifier"]
+        "identifier": config["sbatch.identifier"],
         "experiment": config["experiment"],
         "training": training_d,
         "inference": inference_d,
