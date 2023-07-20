@@ -17,8 +17,8 @@ sbatch:
 
 run:
   filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch: 200
-  venvpath: "/scratch/rg3515/ENV3"
+  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch}: 200
+  venvpath: "/scratch/vc2209/ENV3"
   datadir: data
   branch: 'main'
   mode: "parallel"
@@ -76,13 +76,13 @@ system:
 mask: "float"
 
 # Training data
-train_dir: /scratch/rg3515/data/one-day
+train_dir: /scratch/vc2209/data/one-day
 
 # Inference data
-inference_dir: /scratch/rg3515/data/ssts
+inference_dir: /scratch/vc2209/data/ssts
 
 # Model file
-model_file: /scratch/rg3515/github-fork/mlcommons/benchmarks/cloudmask/target/greene/outputs/slstr_cloud/cloudModel.h5
+model_file: /scratch/vc2209/github-fork/mlcommons/benchmarks/cloudmask/target/greene/outputs/slstr_cloud/cloudModel.h5
 
 # training 
 training_loss: binary_crossentropy
@@ -90,7 +90,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: /scratch/rg3515/github-fork/mlcommons/benchmarks/cloudmask/target/greene/outputs/slstr_cloud
+output_dir: /scratch/vc2209/github-fork/mlcommons/benchmarks/cloudmask/target/greene/outputs/slstr_cloud
 
 # Log file for recording runtimes
 log_file: ./cloudmask_final_1.log
