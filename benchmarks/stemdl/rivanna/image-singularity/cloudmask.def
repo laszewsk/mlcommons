@@ -1,0 +1,43 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:23.06-py3
+
+%post
+    apt update
+    apt install -y python3-venv git
+    pip install pip -U ; python --version
+    pip install matplotlib
+    pip install -r requirements.txt
+
+
+    # pip install protobuf==3.20.0 numpy tensorflow cloudmesh-gpu cloudmesh-common cloudmesh-sbatch scikit-learn h5py pyyaml awscli
+    # pip install git+https://github.com/mlperf/logging.git@1.0.0
+
+
+
+    # protobuf solution
+
+    # # module purge ; module load gcc/11.2 openmpi/4.1.4 python/3.11.1 ; python -m venv ./EQVENV
+    # # source ./EQVENV/bin/activate ;
+    # # pip install --upgrade protobuf
+    # # python -m site
+    # # cp ~/.local/lib/python3.8/site-packages/google/protobuf/internal/builder.py ./builder.py
+    # pip install protobuf==3.20.3
+    # # cp ./builder.py ~/.local/lib/python3.8/site-packages/google/protobuf/internal/builder.py
+
+
+
+	# pip install git+https://github.com/mlperf/logging.git@1.0.0
+	# # pip install googleapis-common-protos
+	# # pip install --upgrade protobuf
+
+	# pip install humanize
+	# pip install numpy matplotlib pandas scikit-learn jupyter jupyterlab papermill
+
+    # pip install tensorflow_datasets tensorflow-metadata
+    # pip install tqdm wheel ipywidgets jupyter-autotime ipython-autotime
+
+	# pip install cloudmesh-common cloudmesh-gpu
+
+
+
+
