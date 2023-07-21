@@ -15,6 +15,10 @@
 # This is a configuration file for the mlcommons Science CloudMask benchmark.
 # It works with cloudmask_v2.py
 #
+
+# /raid/gregor/laszewsk/mlcommons/benchmarks/cloudmask/target/ubuntu-singularity
+# /raid/gregor/data/cloudmask/
+
 name: cloudmask-rivanna
 
 sbatch:
@@ -25,8 +29,8 @@ run:
   fit-verbose: 1
   host: ubuntu
   target: ubuntu-singularity
-  filesystem: "/scratch/thf2bn"
-  venvpath: "/scratch/thf2bn/ENV3/bin/python"
+  filesystem: "/data"
+  venvpath: "/home/gregor/ENV3/bin/python"
   datadir: data
   branch: 'main'
 
@@ -82,7 +86,9 @@ training:
 
 data:
 #  scratch: "/scratch/thf2bn/data/cloudmask"
-  scratch: "/scratch2/data/cloudmask/data"
+#  scratch: "/scratch2/data/cloudmask/data"
+#  scratch: "/raid/gregor/data/cloudmask/"
+  scratch: "/data"
   training: "{data.scratch}/one-day"
   inference: "{data.scratch}/ssts"
   model: cloudModel.h5

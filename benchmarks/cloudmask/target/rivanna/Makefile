@@ -5,7 +5,7 @@ PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
 PROJECT_DATA=${USER_SCRATCH}/data
 NAME=cloudmask
 
-.PHONY: image-singularity image-docker
+.PHONY: image-singularity image-docker project
 
 all: requirements data
 
@@ -25,7 +25,7 @@ data:
 	cd ${PROJECT_DATA}; ${AWS_S3} sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./ssts --cli-read-timeout 0
 
 
-project: project.json generate
+project: clean project.json generate
 
 setup:
 	python setup_env_and_yaml.py
@@ -58,16 +58,17 @@ simple:
                --verbose
 
 
-%.json: config.yaml
+%.json: config.in.yaml
 	cms sbatch generate \
-	           --source=job.in.slurm \
+	           --source=cloudmask_v2.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
 	           --os=USER,HOME \
-		   --nocm \
+		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
+		--copycode="cloudmask_v2.py,data_loader.py,model.py" \
                --verbose
 
 kill: stop
@@ -98,14 +99,22 @@ clean:
 
 
 image-singularity:
-	cd image-singularity; make image
-	mv image-singularity/cloudmask.sif .
+	cms rivanna singularity build image-singularity/cloudmask.def
 
 run-singularity:
 	cd image-singularity; make run
 
 shell-singularity:
 	cd image-singularity; make shell
+
+run-localscratch:
+	cd image-singularity; make run-localscratch
+
+shell-localscratch:
+	cd image-singularity; make shell-localscratch
+
+shell-rivanna:
+	cd image-singularity; make shell-rivanna
 
 run: run-singularity
 

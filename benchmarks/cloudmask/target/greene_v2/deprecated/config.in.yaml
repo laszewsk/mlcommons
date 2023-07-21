@@ -16,19 +16,19 @@ sbatch:
   dir: scratch
 
 run:
-  filesystem: "/sratch/thf2bn"
-  venvpath: "/sratch/thf2bn/ENV3/bin/python"
+  filesystem: "/sratch/{os.USER}"
+  venvpath: "{os.HOME}/mlcommons-work/python"
   datadir: data
   branch: 'main'
 
 # Submission Information
 submission:
-  name: cloudmask
+  benchmark: earthquake
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
   org: University of Virginia
-  division: open
-  version: mlcommons-cloudmask-v2.0
+  division: closed
+  version: mlcommons-cloudmask-v1.1
   github_commit_version: TBD
   status: completed
   platform: rivanna
@@ -41,7 +41,7 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1"
+  epoch: "1,10,30,50,100"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -51,93 +51,65 @@ experiment:
   nodes: 1
   gpu: 1
 
+
 system:
   host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
-  platform: rivanna
-  accelerators_per_node: 1
   constraint: ""
   reservation: ""
+  platform: rivanna
+  accelerators_per_node: 1
 
+#  # allocation: ds6011-sp22-002
+#  # allocation: bii_dsc
 #  allocation: bii_dsc_community
 #  reservation: bi_fox_dgx
+#  constraint: ""
+
 
 mask: "float"
 
-training:
-  loss: binary_crossentropy
-  metrics: accuracy
-
-data:
-#  scratch: "/scratch/thf2bn/data/cloudmask"
-  scratch: "/scratch2/data/cloudmask/data"
-  training: "{data.scratch}/one-day"
-  inference: "{data.scratch}/ssts"
-  model: cloudModel.h5
-  output: "./outputs"
-
-log:
-  file: c_cloudmask_run.log
-  mlperf: c_mlperf_cloudmask.log
-
-image:
-  # Size of each patch to feed to the network
-  PATCH_SIZE: 256
-  # Original height of the image
-  IMAGE_H: 1200
-  # Original width of the image
-  IMAGE_W: 1500
-  # No. of channels
-  N_CHANNELS: 9
-  # Min allowable SST
-  MIN_SST: 273.15
-  # Amount to crop the edges of the images by
-  CROP_SIZE: 80
-
-#
-# OLD
-#
-
 # Training data
-# data.training: train_dir: "/scratch/thf2bn/data/one-day"
+train_dir: "/scratch/{os.USER}/data/one-day"
 
 # Inference data
-# data.inference: inference_dir: "/scratch/thf2bn/data/ssts"
+inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
-# data.model: model_file: cloudModel.h5
+model_file: "./cloudModel.h5"
 
 # training 
-# training.loss: training_loss: binary_crossentropy
-# training.metrics: training_metrics: accuracy
+training_loss: binary_crossentropy
+training_metrics: accuracy
+
 
 # Output directory
-# data.output: output_dir: "./outputs"
+output_dir: "."
 
 # Log file for recording runtimes
-# log.file :log_file: c_cloudmask_run.log
+log_file: ./cloudmask_run.log
 
 # Log file for MLCommons logging
-# log.mlperf: mlperf_logfile: c_mlperf_cloudmask.log
+mlperf_logfile: ./mlperf_cloudmask.log
 
 # Size of each patch to feed to the network
-#PATCH_SIZE: 256
+PATCH_SIZE: 256
 
 # Original height of the image
-#IMAGE_H: 1200
+IMAGE_H: 1200
 
 # Original width of the image
-#IMAGE_W: 1500
+IMAGE_W: 1500
 
 # No. of channels
-#N_CHANNELS: 9
+N_CHANNELS: 9
 
 # Min allowable SST
-#MIN_SST: 273.15
+MIN_SST: 273.15
 
 # Amount to crop the edges of the images by
-#CROP_SIZE: 80
+CROP_SIZE: 80
 

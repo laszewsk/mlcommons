@@ -1,13 +1,19 @@
- # config.yaml
-
-# SciML-Bench
-# Copyright © 2022 Scientific Machine Learning Research Group
-# Scientific Computing Department, Rutherford Appleton Laboratory
-# Science and Technology Facilities Council, UK.
-# with modifications from Gregor von Laszewski, Juri Papay
-# All rights reserved.
-
-# This is a configuration file for the CloudMask benchmark.
+# file: config-new.yaml
+#
+# This configuration file was created by Gregor von Laszewski laszewski@gmail.com
+# The values under image: and some other values have been taken from
+#
+# SciML-Bench, which is under
+#   Copyright © 2022 Scientific Machine Learning Research Group
+#   Scientific Computing Department, Rutherford Appleton Laboratory
+#   Science and Technology Facilities Council, UK.
+#   All rights reserved.
+#
+# Several values of that have been modified also by
+#    Gregor von Laszewski, Juri Papay
+#
+# This is a configuration file for the MLcommons Science CloudMask benchmark.
+# It works with cloudmask_v2.py
 
 name: cloudmask-rivanna
 
@@ -78,12 +84,12 @@ data:
   scratch: "/project/bii_dsc_community/thf2bn/data/cloudmask"
   training: "{data.scratch}/one-day"
   inference: "{data.scratch}/ssts"
-  model: cloudModel.h5
+  model: "{data.output}/cloudModel.h5"
   output: "./outputs"
 
 log:
-  file: c_cloudmask_run.log
-  mlperf: c_mlperf_cloudmask.log
+  file: "{data.output}/c_cloudmask_run.log"
+  mlperf: "{data.output}/c_mlperf_cloudmask.log"
 
 image:
   # Size of each patch to feed to the network

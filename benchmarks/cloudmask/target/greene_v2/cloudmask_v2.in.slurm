@@ -1,14 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#SBATCH --job-name=cloudmask-gpu-greene
-#SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
-#SBATCH --time=02:00:00
-#SBATCH --mem=64G
-#SBATCH -o outputs/%j.out
-#SBATCH -e outputs/%j.err
-#SBATCH --partition=bii-gpu
-#SBATCH --account=bii_dsc_community
+#SBATCH --job-name={experiment.card_name}-cloudmask-{experiment.epoch}-{experiment.repeat}
+#SBATCH --output={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.out
+#SBATCH --error={experiment.card_name}-{experiment.epoch}-{experiment.repeat}-cloudmask-%u-%j.err
+{slurm.sbatch}
+#SBATCH -c {experiment.cpu_num}
+#SBATCH --mem={experiment.mem}
+#SBATCH --gres=gpu:{experiment.card_name}:{experiment.gpu_count}
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=%u@virginia.edu
+#SBATCH --mail-type=ALL
+
+
+
+# xSBATCH --partition=gpu
+# xSBATCH --mem=64GB
+# xSBATCH --time=6:00:00
 
 PROGRESS () {
     echo "# ###########################################"
@@ -28,14 +35,11 @@ echo cardname {experiment.card_name}
 echo gpu count {experiment.gpu_count}
 echo epoc {experiment.epoch}
 echo repeat {experiment.repeat}
-echo jobno %j
-echo partition {system.partition}
-echo allocation {system.allocation}
-echo reservation {system.reservation}
-echo constraint {system.constraint}
+echo jobno $SLURM_JOB_ID
+echo {slurm.sbatch}
 echo cpu num {experiment.cpu_num}
 echo mem {experiment.mem}
-echo %u
+echo USER $USER
 
 PROGRESS "running" 2
 
@@ -43,11 +47,30 @@ echo "# ==================================="
 echo "# Set up file system"
 echo "# ==================================="
 
+#
+# PYTHON with cms on rivanna
+#
+
+export PYTHON_DIR=$HOME/ENV3
+#export PYTHON_DIR=$USER_SCRACTH/ENV3
+
+#
+# CODE
+#
 export USER_SCRATCH=/scratch/$USER
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-export PYTHON_DIR=$USER_SCRATCH/ENV3
-export PROJECT_DATA=$USER_SCRATCH/data
-export CODE_DIR=$PROJECT_DIR/target/greene_v2
+export CODE_DIR=$PROJECT_DIR/target/rivanna
+export CONTAINERDIR=${CODE_DIR}
+
+export OUTPUTS_DIR="${CODE_DIR}/project/{sbatch.identifier}/outputs"
+
+#
+# DATA
+#
+
+export PROJECT_DATA=/project/bii_dsc_community/mlcommons/data/cloudmask/
+
+
 
 PROGRESS "running" 3
 
@@ -69,6 +92,9 @@ echo "PYTHON_DIR:   $PYTHON_DIR"
 echo "PROJECT_DATA: $PROJECT_DATA"
 echo "CONTAINERDIR: $CONTAINERDIR"
 
+
+mkdir -p $OUTPUTS_DIR
+
 PROGRESS "running" 4
 
 
@@ -78,7 +104,8 @@ PROGRESS "running" 4
 
 echo "# cloudmesh status=running progress=2 pid=$$"
 
-
+module purge
+module load singularity
 
 PROGRESS "running" 4
 
@@ -86,15 +113,11 @@ source $PYTHON_DIR/bin/activate
 
 which python
 
-
-
 PROGRESS "running" 6
 
-# 
-####################################################################################################
+# ####################################################################################################
 # PROJECT ENVIRONMENT
-# 
-####################################################################################################
+# ####################################################################################################
 
 echo "# cloudmesh status=running progress=5 pid=$$"
 
@@ -105,16 +128,11 @@ echo "Running on host:           $(hostname -a)"
 
 PROGRESS "running" 7
 
-# 
-####################################################################################################
+# ####################################################################################################
 # GPU environment
-# 
-####################################################################################################
-
+# ####################################################################################################
 
 nvidia-smi
-
-
 
 PROGRESS "running" 8
 
@@ -122,27 +140,32 @@ echo "# ==================================="
 echo "# go to codedir"
 echo "# ==================================="
 
-#WHY GO TO RIVANNA DIRECTORY?????
-cd $PROJECT_DIR/target/rivanna
+# cd $CODE_DIR
 
 
+PROGRESS "running" 9
+
+echo "# ==================================="
+echo "# check filesystem"
+echo "# ==================================="
+pwd
+ls
+singularity exec --nv $CONTAINERDIR/cloudmask.sif bash -c "python -c \"import os; os.system('ls')\""
 
 PROGRESS "running" 10
 
-# 
-####################################################################################################
+# ####################################################################################################
 # CLOUDMASK
-# 
-####################################################################################################
+# ####################################################################################################
 
 PROGRESS "running" 20
+
 
 echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-
+cms gpu watch --gpu=0 --delay=0.5 --dense > project/{sbatch.identifier}/gpu0-{experiment.card_name}-$USER-$SLURM_JOB_ID.log &
 
 PROGRESS "running" 21
 
@@ -150,7 +173,9 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-python slstr_cloud.py --config config.yaml
+singularity exec --nv $CONTAINERDIR/cloudmask.sif bash -c "python cloudmask_v2.py --config=config.yaml"
+
+PROGRESS "running" 99
 
 seff $SLURM_JOB_ID
 
@@ -160,3 +185,4 @@ echo "Execution Complete"
 
 #
 exit 0
+

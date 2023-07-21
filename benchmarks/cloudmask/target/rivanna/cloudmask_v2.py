@@ -22,6 +22,7 @@
 # import sys
 # sys.path.append("..")
 
+import sys
 import argparse
 import atexit
 import decimal
@@ -31,6 +32,8 @@ import numpy as np
 import os
 import tensorflow as tf
 import time
+from cloudmesh.common.console import Console
+from cloudmesh.common.Shell import Shell
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatchMllog import StopWatch
 from cloudmesh.common.util import banner
@@ -38,6 +41,7 @@ from mlperf_logging import mllog
 from pathlib import Path
 from pprint import pprint
 from sklearn import metrics
+from cloudmesh.common.util import writefile
 
 from data_loader import SLSTRDataLoader
 from data_loader import load_datasets
@@ -258,14 +262,17 @@ def cloud_training(config) -> None:
                             epochs=int(config['experiment.epoch']),
                             verbose=int(config['run.fit-verbose']))
 
-
+    banner("finished model fit")
 
     # Close file descriptors
     if config["run.host"] in ['ubuntu']:
         atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
     # save model
-    modelPath = os.path.expanduser(config['data.model'])
+     
+    output_dir = os.path.expanduser(config['data.output'])
+    modelPath = output_dir
+    # modelPath = os.path.expanduser(config['data.model'])
     tf.keras.models.save_model(model, modelPath)
     banner(f'END {__file__} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
@@ -304,31 +311,60 @@ def main():
     )
 
     parser.add_argument('--config',
-                        default=os.path.expanduser('./config-new.yaml'),
+                        default=os.path.expanduser('./config.yaml'),
                         help='path to config file')
+    parser.add_argument('--data_output',
+                        default="None",
+                        help='prefix of output directory')
     command_line_args = parser.parse_args()
 
     banner("CONFIGURATION")
     print (command_line_args)
     configYamlFile = os.path.expanduser(command_line_args.config)
+    data_output = os.path.expanduser(command_line_args.data_output)
 
-    config = FlatDict(sep=".")
+    banner("READING FILE")
+
+    print ("pwd")
+    os.system("pwd")
+    print ("LS")
+    os.system("ls")
+
+    print ("content:", configYamlFile)
+
+    try:
+        
+        config = FlatDict(sep=".")
+        config.loadf(filename=configYamlFile, data={"data.output": data_output})
+
+        print (config)
+        pprint (config.dict)
+        
+    except Exception as e:
+        banner("ERROR")
+        Console.error(e, traceflag=True)
+        sys.exit()
+
+    # update log file directory
 
 
-    config.load(content=configYamlFile)
 
-    print (config)
-    pprint (config.dict)
 
     log_file = os.path.expanduser(config['log.file'])
     user_name = config["submission.submitter"]
     # MLCommons logging
     mlperf_logfile = config['log.mlperf']
+    model_file = config['data.model']
 
-    print (user_name)
-    print (log_file)
+    banner("READ CONFIG FILE AND ADAPT OUTPUT DIRECTORY")
 
-    print (mlperf_logfile)
+    print ("user_name:", user_name)
+    print ("log_file:", log_file)
+    print ("mlperf_logfile:", mlperf_logfile)
+    print ("model_file:", model_file)
+    print ("config[data.output]", config['data.output'])
+
+    Shell.mkdir(config['data.output'])
 
     StopWatch.activate_mllog(filename=mlperf_logfile)
     StopWatch.organization_submission(configfile=configYamlFile)
@@ -394,6 +430,8 @@ def main():
 
     result = {
         "name": "cloudmask",
+        "identifier": config["sbatch.identifier"],
+        "experiment": config["experiment"],
         "training": training_d,
         "inference": inference_d,
 
@@ -406,6 +444,11 @@ def main():
         },
 
     }
+
+    banner ("BEGIN FINAL RESULT")
+    print(str(result))
+    banner("END FINAL RESULT")
+
     StopWatch.event(key="result", value=result)
     StopWatch.event(key=mllog.constants.RUN_STOP,
                  value="CloudMask benchmark run finished",

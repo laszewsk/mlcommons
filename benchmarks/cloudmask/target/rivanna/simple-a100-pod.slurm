@@ -1,14 +1,19 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=a100-pod-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
-#SBATCH --time=06:00:00
+#SBATCH --gres=gpu:a100:1
+#SBATCH --time=02:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/%u-%j.out
-#SBATCH -e outputs/%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH -o outputs/a100-pod-%u-%j.out
+#SBATCH -e outputs/a100-pod-%u-%j.err
+#SBATCH --partition gpu
+#SBATCH --constaring gpupod
 #SBATCH --account=bii_dsc_community
+
+
+#  xSBATCH --partition=bii-gpu
+
 
 PROGRESS () {
     echo "# ###########################################"
@@ -98,12 +103,16 @@ which python
 
 nvidia-smi
 
+PROGRESS "running" 8
+
+
 echo "# ==================================="
 echo "# go to codedir"
 echo "# ==================================="
 
 cd $CODE_DIR
 
+PROGRESS "running" 9
 
 echo "# ==================================="
 echo "# check filesystem"
@@ -112,14 +121,15 @@ pwd
 ls
 singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python -c \"import os; os.system('ls')\""
 
+PROGRESS "running" 10
+
+
 
 echo "# ==================================="
-echo "# start gpu log and cloudmask"
+echo "# start gpu log"
 echo "# ==================================="
-#
-# START THE
-#
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/a100-pod-$USER-$SLURM_JOB_ID-gpu0.log &
 
 PROGRESS "running" 21
 
@@ -128,7 +138,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=jp-config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-simple.yaml --data_output=a100-pod-$USER-$SLURM_JOB_ID"
 
 PROGRESS "running" 99
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=a100-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=02:00:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/a100-%u-%j.out
 #SBATCH -e outputs/a100-%u-%j.err
-#SBATCH --partition=bii-gpu
+#SBATCH --partition=gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
@@ -133,7 +133,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-simple.yaml --data_output/a100-%u-%j"
 
 PROGRESS "running" 99
 

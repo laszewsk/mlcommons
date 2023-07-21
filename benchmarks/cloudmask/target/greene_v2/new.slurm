@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=k80-cloudmask-gpu-rivanna
+#SBATCH --job-name=cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:k80:1
+#SBATCH --gres=gpu:v100:1
 #SBATCH --time=06:00:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/k80-%u-%j.out
-#SBATCH -e outputs/k80-%u-%j.err
-#SBATCH -p gpu
+#SBATCH -o outputs/%u-%j.out
+#SBATCH -e outputs/%u-%j.err
+#SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
@@ -24,8 +24,6 @@ echo "# ==================================="
 echo "# SLURM info"
 echo "# ==================================="
 
-echo USER $USER
-echo JOBNO $SLURM_JOB_ID
 # echo USER {os.USER}
 # echo HOME {os.HOME}
 # echo cardname {experiment.card_name}
@@ -98,6 +96,25 @@ source $PYTHON_DIR/bin/activate
 
 which python
 
+PROGRESS "running" 6
+
+# ####################################################################################################
+# PROJECT ENVIRONMENT
+# ####################################################################################################
+
+echo "# cloudmesh status=running progress=5 pid=$$"
+
+echo "Working in Directory:      $(pwd)"
+echo "Repository Revision:       $(git rev-parse HEAD)"
+echo "Python Version:            $(python -V)"
+echo "Running on host:           $(hostname -a)"
+
+PROGRESS "running" 7
+
+# ####################################################################################################
+# GPU environment
+# ####################################################################################################
+
 nvidia-smi
 
 PROGRESS "running" 8
@@ -126,7 +143,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/k80-$USER-$SLURM_JOB_ID-gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
 PROGRESS "running" 21
 
@@ -135,7 +152,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-simple.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
 
 PROGRESS "running" 99
 

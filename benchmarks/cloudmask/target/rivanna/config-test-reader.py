@@ -1,9 +1,14 @@
 
 from cloudmesh.common.FlatDict import FlatDict
 import yaml
+from pprint import pprint
 
 f = FlatDict(sep=".")
+f.load(content="config.in.yaml")
+pprint(f.__dict__)
 
+
+"""
 #filename = "config-new.yaml"
 # f.loadf(filename=filename)
 # print ("Load from file", f)
@@ -34,7 +39,7 @@ print ("Type Load from string", f)
 
 f.load(content=d)
 print ("Type Load from dict", f)
-
+"""
 
 """
 

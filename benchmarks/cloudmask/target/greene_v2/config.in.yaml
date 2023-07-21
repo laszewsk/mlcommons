@@ -1,14 +1,20 @@
- # config.yaml
-
-# SciML-Bench
-# Copyright © 2022 Scientific Machine Learning Research Group
-# Scientific Computing Department, Rutherford Appleton Laboratory
-# Science and Technology Facilities Council, UK.
-# with modifications from Gregor von Laszewski, Juri Papay
-# All rights reserved.
-
-# This is a configuration file for the CloudMask benchmark.
-
+# file: config-new.yaml
+#
+# This configuration file was created by Gregor von Laszewski laszewski@gmail.com
+# The values under image: and some other values have been taken from
+#
+# SciML-Bench, which is under
+#   Copyright © 2022 Scientific Machine Learning Research Group
+#   Scientific Computing Department, Rutherford Appleton Laboratory
+#   Science and Technology Facilities Council, UK.
+#   All rights reserved.
+#
+# Sveral values of that have been modified also by
+#    Gregor von Laszewski, Juri Papay
+#
+# This is a configuration file for the mlcommons Science CloudMask benchmark.
+# It works with cloudmask_v2.py
+#
 name: cloudmask-rivanna
 
 sbatch:
@@ -16,32 +22,35 @@ sbatch:
   dir: scratch
 
 run:
-  filesystem: "/sratch/{os.USER}"
-  venvpath: "{os.HOME}/mlcommons-work/python"
+  fit-verbose: 1
+  host: ubuntu
+  target: rivanna-singularity
+  filesystem: "/scratch/thf2bn"
+  venvpath: "/scratch/thf2bn/ENV3/bin/python"
   datadir: data
   branch: 'main'
 
 # Submission Information
 submission:
-  benchmark: earthquake
+  name: cloudmask
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
   org: University of Virginia
-  division: closed
-  version: mlcommons-cloudmask-v1.1
+  division: open
+  version: mlcommons-cloudmask-v2.0
   github_commit_version: TBD
   status: completed
   platform: rivanna
   accelerators_per_node: 1
 
 experiment:
-#  card_name: a100
-  card_name: v100
-  gpu_count: 1
+#  card_name: a100-dgx
+  card_name: "a100,p100,k80,rtx2080,rtx3090"
+  gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: "1,10,30,50,100"
+  epoch: "1"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -51,65 +60,45 @@ experiment:
   nodes: 1
   gpu: 1
 
-
 system:
   host: "rivanna"
   python: "3.10.8"
   num_cpus: 1
-  partition: "bii-gpu"
-  allocation: bii_dsc_community
-  constraint: ""
-  reservation: ""
   platform: rivanna
   accelerators_per_node: 1
-
-#  # allocation: ds6011-sp22-002
-#  # allocation: bii_dsc
-#  allocation: bii_dsc_community
-#  reservation: bi_fox_dgx
-#  constraint: ""
-
+  constraint: ""
+  reservation: ""
 
 mask: "float"
 
-# Training data
-train_dir: "/scratch/{os.USER}/data/one-day"
+training:
+  loss: binary_crossentropy
+  metrics: accuracy
 
-# Inference data
-inference_dir: "/scratch/{os.USER}/data/ssts"
+data:
+  scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
+#  scratch: "/scratch2/data/cloudmask/data"
+  training: "{data.scratch}/one-day"
+  inference: "{data.scratch}/ssts"
+  model: cloudModel.h5
+  output: "./outputs"
 
-# Model file
-model_file: "./cloudModel.h5"
+log:
+  file: c_cloudmask_run.log
+  mlperf: c_mlperf_cloudmask.log
 
-# training 
-training_loss: binary_crossentropy
-training_metrics: accuracy
+image:
+  # Size of each patch to feed to the network
+  PATCH_SIZE: 256
+  # Original height of the image
+  IMAGE_H: 1200
+  # Original width of the image
+  IMAGE_W: 1500
+  # No. of channels
+  N_CHANNELS: 9
+  # Min allowable SST
+  MIN_SST: 273.15
+  # Amount to crop the edges of the images by
+  CROP_SIZE: 80
 
-
-# Output directory
-output_dir: "."
-
-# Log file for recording runtimes
-log_file: ./cloudmask_run.log
-
-# Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask.log
-
-# Size of each patch to feed to the network
-PATCH_SIZE: 256
-
-# Original height of the image
-IMAGE_H: 1200
-
-# Original width of the image
-IMAGE_W: 1500
-
-# No. of channels
-N_CHANNELS: 9
-
-# Min allowable SST
-MIN_SST: 273.15
-
-# Amount to crop the edges of the images by
-CROP_SIZE: 80
-
+#

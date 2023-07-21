@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=cloudmask-gpu-rivanna
+#SBATCH --job-name=rtx2080-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:rtx2080:1
 #SBATCH --time=06:00:00
@@ -8,8 +8,6 @@
 #SBATCH -o outputs/rtx2080-%u-%j.out
 #SBATCH -e outputs/rtx2080-%u-%j.err
 #SBATCH -p gpu
-
-#   xSBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
 PROGRESS () {
@@ -135,7 +133,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-new.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${CODE_DIR} ; python cloudmask_v2.py --config=config-simple.yaml"
 
 PROGRESS "running" 99
 
