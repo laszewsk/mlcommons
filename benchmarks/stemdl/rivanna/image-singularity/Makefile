@@ -6,7 +6,7 @@ DATA=/scratch2/data/cloudmask/data
 BIND=--bind ${DATA}:${DATA}
 
 image:
-	time ../bin/singularity-image.py ${NAME}
+	time python ../bin/singularity-image.py ${NAME}
 
 queue: watch
 

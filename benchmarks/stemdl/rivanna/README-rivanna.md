@@ -1,15 +1,33 @@
 # STEMDL classification benchmark
 
-export USER=$HOME
-python3 -m venv ~/ENV3
-source ~/ENV3/Scripts/activate 
+
+
+# Initial Setup
+
+In order to properly run program we must first set up a virtual environment 
+
+Set Python version to python3
+```bash
+alias python='python3'
+```
+Activate ENV3 
+```bash
+python -m venv /scratch/$USER/ENV3
+```
+```bash
+source /scratch/$USER/ENV3/bin/activate 
+```
+Ensure latest version of pip
+```bash
 pip install pip -U
+```
 
 Declare the export variables here 
 
--bash-4.2$-bash-4.2$export SINGULARITY_CACHE=/scratch/$USER/.singularity/cache
--bash-4.2$-bash-4.2$mkdir -p $SINGULARITY_CACHE
-
+```bash
+export SINGULARITY_CACHE=/scratch/$USER/.singularity/cache
+mkdir -p $SINGULARITY_CACHE
+```
 
 Download Data in correct directory
 
@@ -38,9 +56,7 @@ the star
 
 ## 2. Datasets
 
-
-
-This test is only for the small dataset.:
+This test is only for the small dataset.
 
 The datasets can be downloaded from remote server by using AWS CLI:
 
