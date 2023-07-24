@@ -1,11 +1,13 @@
-NAME=cloudmask
+NAME=uno
+VERSION=v2
+PRG=uno_mllog_$(VERSION)
 CODE_DIR=..
-BUILD=cloudmask.def
-IMAGE=cloudmask.sif
-DATA=/scratch2/data/cloudmask/data
+BUILD=$(NAME).def
+IMAGE=$(NAME).sif
+DATA=/scratch2/data/$(NAME)/data
 BIND=--bind ${DATA}:${DATA}
 
-DATA_LOCALSCRATCH=/localscratch/${USER}/cloudmask/
+DATA_LOCALSCRATCH=/localscratch/${USER}/$(NAME)/
 BIND_LOCALSCRATCH=--bind ${DATA}:${DATA}
 
 image:
@@ -29,7 +31,7 @@ status:
 
 run:
 	cd ${CODE_DIR}; mkdir -p outputs
-	cd ${CODE_DIR}; singularity exec ${BIND} --nv cloudmask.sif bash -c "python cloudmask_v2.py --config=config-new.yaml"
+	cd ${CODE_DIR}; singularity exec ${BIND} --nv $(NAME).sif bash -c "python $(PRG).py --config=config.yaml"
 
 #singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
@@ -38,7 +40,7 @@ shell:
 
 run-localscratch:
 	cd ${CODE_DIR}; mkdir -p outputs
-	cd ${CODE_DIR}; singularity exec ${BIND_LOCALSCRATCH} --nv cloudmask.sif bash -c "python cloudmask_v2.py --config=config-new.yaml"
+	cd ${CODE_DIR}; singularity exec ${BIND_LOCALSCRATCH} --nv $(NAME).sif bash -c "python $(NAME)_v2.py --config=config-new.yaml"
 
 #singularity exec --nv ${NAME}.sif papermill ${NAME}.ipynb ${NAME}_output.ipynb
 
