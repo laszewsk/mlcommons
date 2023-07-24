@@ -28,9 +28,9 @@ nvidia-smi
 
 cd $PROJECT_DIR
 
-mkdir outputs
-cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
+# cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-python uno_mllog.py --config config_simple.yaml
+# python uno_mllog.py --config config_simple.yaml
+python uno_mllog_v2.py
 
 seff $SLURM_JOB_ID
