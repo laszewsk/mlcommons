@@ -1,0 +1,106 @@
+# file: config-new.yaml
+#
+# This configuratixcon file was created by Gregor von Laszewski laszewski@gmail.com
+# The values under image: and some other values have been taken from
+#
+# SciML-Bench, which is under
+#   Copyright © 2022 Scientific Machine Learning Research Group
+#   Scientific Computing Department, Rutherford Appleton Laboratory
+#   Science and Technology Facilities Council, UK.
+#   All rights reserved.
+#
+# Sveral values of that have been modified also by
+#    Gregor von Laszewski, Juri Papay
+#
+# This is a configuration file for the mlcommons Science CloudMask benchmark.
+# It works with cloudmask_v2.py
+#
+name: cloudmask-rivanna
+
+sbatch:
+  time: "6:00:00"
+  mode: h
+  dir: scratch
+
+run:
+  fit-verbose: 1
+  host: ubuntu
+  target: rivanna-singularity
+  filesystem: "/scratch/thf2bn"
+  venvpath: "/scratch/thf2bn/ENV3/bin/python"
+  datadir: data
+  branch: 'main'
+
+# Submission Information
+submission:
+  name: cloudmask
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: open
+  version: mlcommons-cloudmask-v2.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
+
+experiment:
+#  card_name: a100-dgx
+  card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
+  gpu_count: "1"
+  cpu_num: 1
+  mem: "64GB"
+  repeat: "2"
+  epoch: "2,10,30,50,70,100"
+#  epoch: "1"
+  seed: 1234
+  learning_rate: 0.001
+  batch_size: 32
+  train_split: 0.8
+  clip_offset: 15
+  no_cache: False
+  nodes: 1
+  gpu: 1
+
+system:
+  host: "rivanna"
+  python: "3.10.8"
+  num_cpus: 1
+  platform: rivanna
+  accelerators_per_node: 1
+  constraint: ""
+  reservation: ""
+
+mask: "float"
+
+training:
+  loss: binary_crossentropy
+  metrics: accuracy
+
+data:
+  scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
+#  scratch: "/scratch2/data/cloudmask/data"
+  training: "{data.scratch}/one-day"
+  inference: "{data.scratch}/ssts"
+  model: cloudModel.h5
+  output: "./outputs"
+
+log:
+  file: c_cloudmask_run.log
+  mlperf: c_mlperf_cloudmask.log
+
+image:
+  # Size of each patch to feed to the network
+  PATCH_SIZE: 256
+  # Original height of the image
+  IMAGE_H: 1200
+  # Original width of the image
+  IMAGE_W: 1500
+  # No. of channels
+  N_CHANNELS: 9
+  # Min allowable SST
+  MIN_SST: 273.15
+  # Amount to crop the edges of the images by
+  CROP_SIZE: 80
+
+#
