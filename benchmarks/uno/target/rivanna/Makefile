@@ -1,9 +1,9 @@
 SHELL=/bin/bash
 AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 USER_SCRATCH=/scratch/${USER}
-PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/cloudmask
+PROJECT_DIR=${USER_SCRATCH}/mlcommons/benchmarks/uno
 PROJECT_DATA=${USER_SCRATCH}/data
-NAME=cloudmask
+NAME=uno
 
 .PHONY: image-singularity image-docker project
 
@@ -29,7 +29,7 @@ project: clean project.json generate
 
 setup:
 	python setup_env_and_yaml.py
-	source ~/ENV3/bin/activate && pip install -r /scratch/${USER}/mlcommons/benchmarks/cloudmask/experiments/rivanna/requirements.txt
+	source ~/ENV3/bin/activate && pip install -r /scratch/${USER}/mlcommons/benchmarks/uno/experiments/rivanna/requirements.txt
 
 generate: jobs-project.sh 
 
@@ -60,7 +60,7 @@ simple:
 
 %.json: config.in.yaml
 	cms sbatch generate \
-	           --source=cloudmask_v2.in.slurm \
+	           --source=uno_v2.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
@@ -68,7 +68,7 @@ simple:
 		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-		--copycode="cloudmask_v2.py,data_loader.py,model.py" \
+		--copycode="uno_mllog_v2.py,data_loader.py,model.py" \
                --verbose
 
 kill: stop
@@ -99,7 +99,7 @@ clean:
 
 
 image-singularity:
-	cms rivanna singularity build image-singularity/cloudmask.def
+	cms rivanna singularity build image-singularity/uno.def
 
 run-singularity:
 	cd image-singularity; make run
@@ -122,7 +122,7 @@ image: image-singularity
 
 push:
 	-git push
-	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/cloudmask; ssh-add; git pull"
+	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/uno; ssh-add; git pull"
 
 
 shell: shell-singularity
