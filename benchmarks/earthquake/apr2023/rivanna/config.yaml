@@ -6,7 +6,7 @@ experiment:
   mem: 32GB
   repeat: '1,2,3,4,5'
   TFTTransformerepochs: '90'
-sbatch:
+ee:
   identifier: 123
 system:
   allocation: bii_dsc_community

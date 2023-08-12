@@ -115,3 +115,7 @@ ENV/
 
 # Source Model Data
 benchmarks/earthquake/feb-2022/data/EarthquakeDec2020/
+**/blob/blobs/*
+*.err
+*.out
+*-output.ipynb
