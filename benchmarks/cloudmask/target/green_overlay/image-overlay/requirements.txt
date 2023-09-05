@@ -1,0 +1,16 @@
+matplotlib
+#tensorflow==2.9.0
+protobuf==3.20.1
+numpy
+tqdm
+tensorflow
+tensorflow-addons
+cloudmesh-gpu
+cloudmesh-common
+cloudmesh-ee
+scikit-learn
+h5py
+pyyaml
+awscli
+# git+https://github.com/mlperf/logging.git@2.1.0
+git+https://github.com/mlperf/logging.git@1.0.0
