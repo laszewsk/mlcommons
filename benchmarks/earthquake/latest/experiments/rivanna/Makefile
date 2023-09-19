@@ -13,6 +13,7 @@ generate-dgx: jobs-dgx.sh
 generate-localscratch: jobs-localscratch.sh
 generate-shm: jobs-shm.sh
 generate-dgx: jobs-dgx.sh
+generate-project: jobs-project.sh
 
 run: submit
 

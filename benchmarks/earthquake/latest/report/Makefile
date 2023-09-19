@@ -75,3 +75,7 @@ fetch:
 	mkdir -p ../experiments/rivanna/localscratch
 	rsync -avH --progress rivanna:/home/dje5dj/mlcommons/benchmarks/earthquake/latest/experiments/rivanna/localscratch ../experiments/rivanna
 
+fetch-singularity:
+	mkdir -p ../experiments/rivanna/singularity
+	rsync -avH --progress rivanna:/scratch/dje5dj/mlcommons/benchmarks/earthquake/apr2023/rivanna/singularity ../experiments/rivanna
+

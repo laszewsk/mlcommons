@@ -1,7 +1,7 @@
 # ##############################################################
-# pytest -v -x --capture=no benchmarks/cloudmask/target/rivanna/run_cloudmask_workflow.py
-# pytest -v  benchmarks/cloudmask/target/rivanna/run_cloudmask_workflow.py
-# pytest -v --capture=no  benchmarks/cloudmask/target/rivanna/run_cloudmask_workflow.py::TestCloudmask::<METHODNAME>
+# pytest -v -x --capture=no benchmarks/cloudmask/target/rivanna-cloudmesh-cc/rivanna/run_cloudmask_workflow.py
+# pytest -v  benchmarks/cloudmask/target/rivanna-cloudmesh-cc/rivanna/run_cloudmask_workflow.py
+# pytest -v --capture=no  benchmarks/cloudmask/target/rivanna-cloudmesh-cc/rivanna/run_cloudmask_workflow.py::TestCloudmask::<METHODNAME>
 # ##############################################################
 import os.path
 from pathlib import Path
