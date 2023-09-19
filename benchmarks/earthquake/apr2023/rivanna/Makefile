@@ -42,11 +42,11 @@ singularity: singularity.json
 
 jobs-%.sh: %.json
 	source ${VENV}/bin/activate ; \
-	cms sbatch generate submit --name=$<  > $@
+	cms ee generate submit --name=$<  > $@
 
 singularity.json: config.yaml
 	source ${VENV}/bin/activate ; \
-	cms sbatch generate \
+	cms ee generate \
 	           --source=slurm-a100-ipynb.sh \
 	           --config=$< \
 	           --name=$(basename $@) \
@@ -58,7 +58,7 @@ singularity.json: config.yaml
                --verbose
 
 dgx.json: rivanna-dgx.yaml
-		cms sbatch generate \
+		cms ee generate \
 	           --source=rivanna-dgx.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
@@ -70,7 +70,7 @@ dgx.json: rivanna-dgx.yaml
                --verbose
 
 dgx-shm.json: rivanna-dgx-shm.yaml
-		cms sbatch generate \
+		cms ee generate \
 	           --source=rivanna-dgx.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \

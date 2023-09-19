@@ -17,7 +17,8 @@ echo "# ENVIRONMENT                                                 #"
 echo "###############################################################"
 
 #CODE_DIR=/scratch/$USER/mlcommons/benchmarks/earthquake/apr2023/rivanna
-CODE_DIR=.
+# CODE_DIR=.
+CODE_DIR=$(dirname $(scontrol show job $SLURM_JOBID | awk -F= '/Command=/{print $2}'))
 
 echo "Working in $(pwd)"
 
@@ -51,7 +52,7 @@ echo "###############################################################"
 echo "# GPU MONITOR                                                 #"
 echo "###############################################################"
 
-singularity exec --nv ../../earthquake.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
+singularity exec --nv --bind /sfs/weka:/sfs/weka ../../earthquake.sif cms gpu watch --gpu=0 --delay=1 --dense > gpu0.log &
 
 # Execute the notebook using papermill
 
@@ -61,7 +62,7 @@ echo "###############################################################"
 
 allocations
 
-singularity exec --nv ../../earthquake.sif \
+singularity exec --nv --bind /sfs/weka:/sfs/weka ../../earthquake.sif \
           bash -c \
           "papermill ${CODE_DIR}/${NOTEBOOK_IN} \
           ${CODE_DIR}/${NOTEBOOK_OUT} \
