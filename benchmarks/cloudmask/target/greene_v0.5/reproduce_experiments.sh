@@ -1,8 +1,14 @@
 #!/bin/bash
 #
 
-
-RUN=0
+ Check if a parameter is provided
+if [ $# -eq 0 ]; then
+    # If no parameter is provided, set it to 1
+    RUN=1
+else
+    # Use the provided parameter
+    RUN="$1"
+fi
 
 # ####################################
 # Runtime Variable
