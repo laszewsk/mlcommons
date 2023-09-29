@@ -232,7 +232,12 @@ def cloud_training(config) -> None:
     #    if callbacks is None:
     #        callbacks = []
     #    callbacks.append(EarlyStopping(monitor='val_loss', patience=patience))
-    #    callbacks = [EarlyStopping(monitor='val_loss', patience=25)]
+    if config['hyperparameter.early_stoppage']:    
+        es_patience = int(config['experiment.early_stoppage_patience'])
+        callbacks = [EarlyStopping(monitor='val_loss', patience=es_patience)]
+        print("Early Stopping Activated")
+    else:
+        print("No Early Stopping")
         
 
     with mirrored_strategy.scope():
