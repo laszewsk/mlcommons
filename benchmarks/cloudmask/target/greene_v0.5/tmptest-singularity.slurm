@@ -12,7 +12,7 @@ export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=/scratch/$USER/data
-
+export TARGET=PROJECT_DIR=/target/greene_v0.5
 
 nvidia-smi
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
@@ -21,12 +21,12 @@ cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
 
 singularity exec --nv \
-    --overlay $PROJECT_DIR/target/greene_v0.5/tmptest-overlay-image:ro \
-    $PROJECT_DIR/target/greene_v0.5/cloudmask.sif \
+    --overlay $TARGET/tmptest-overlay-image:ro \
+    $TARGET/cloudmask.sif \
     /bin/bash \
     -c "source /ext3/env.sh; \
     source $PYTHON_DIR/bin/activate; \
-    cd $PROJECT_DIR/target/greene_v0.5; \
+    cd $TARGET; \
     python slstr_cloud.py --config config_simple.yaml"
 
 seff $SLURM_JOB_ID

@@ -123,7 +123,14 @@ greene>
   python3 visualizer.py mlperf_cloudmask_200.log cloudmask_200.log
 ```
 
+## Killing all jobs
 
+To kill all jobs in the queue, please use
+
+```bash
+greene>
+    squeue -u $USER -h | awk '{print $1}' | xargs scancel
+```
 
 
 ---
