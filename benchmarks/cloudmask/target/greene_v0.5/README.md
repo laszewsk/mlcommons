@@ -12,16 +12,18 @@ Account](https://www.nyu.edu/life/information-technology/research-computing-serv
 ## Set-up Git
 
 ```bash
-greene> git config pull.rebase false
-greene> git config --global user.name "FIRST_NAME LAST_NAME"
-greene> git config --global user.email "MY_NAME@example.com"
-greene> git config --global core.editor "nano"
+greene> 
+  git config pull.rebase false
+  git config --global user.name "FIRST_NAME LAST_NAME"
+  git config --global user.email "MY_NAME@example.com"
+  git config --global core.editor "nano"
 ```
 
 ## Get Interactive node and login
 
 ```bash
-srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
+greene> 
+  srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 ```
 
 ## Generating Experiment Configurations
@@ -29,38 +31,45 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 All bash terminal lines that are to be executed on the interactive node start with "node>".
 
 ```bash
-node> export USER_SCRATCH=/scratch/$USER/github-fork
-node> export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
-node> export PROJECT_DATA=$USER_SCRATCH/data
+node> 
+  # export USER_SCRATCH=/scratch/$USER/github-fork
 
-node> mkdir -p $USER_SCRATCH
-node> mkdir -p $PROJECT_DATA
-node> cd $USER_SCRATCH
+  export USER_SCRATCH=/scratch/$USER/github
+  export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
+  export PROJECT_DATA=$USER_SCRATCH/data
+  export TARGET=PROJECT_DIR/target/greene_v0.5
+  
+  mkdir -p $USER_SCRATCH
+  mkdir -p $PROJECT_DATA
+  cd $USER_SCRATCH
 
-node> git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+  git clone https://github.com/laszewsk/mlcommons.git
+  # git clone https://github.com/VarshithaChennamsetti/mlcommons.git
+  # git clone https://github.com/rg3515/mlcommons.git
 
-node> cd $PROJECT_DIR
+  cd $PROJECT_DIR
 ```
 
 ## Set-up Python
 
 ```bash
-node> module purge
-node> module load anaconda3/2020.07
-node> module load cudnn/8.6.0.163-cuda11
+node> 
+  module purge
+  module load anaconda3/2020.07
+  module load cudnn/8.6.0.163-cuda11
 
-node> conda create -p $USER_SCRATCH/python310 python=3.10
-node> conda activate $USER_SCRATCH/python310
+  conda create -p $USER_SCRATCH/python310 python=3.10
+  conda activate $USER_SCRATCH/python310
 
-# module load python/intel/3.8.6
-node> python3 -m venv $USER_SCRATCH/ENV3
+  # module load python/intel/3.8.6
+  python3 -m venv $USER_SCRATCH/ENV3
 
-node> conda deactivate
+  conda deactivate
 
-node> source $USER_SCRATCH/ENV3/bin/activate
+  source $USER_SCRATCH/ENV3/bin/activate
 
-node> pip install pip -U
-node> which python
+  pip install pip -U
+  which python
 
 ```
 This should return $USER_SCRATCH/ENV3/bin/python
@@ -68,15 +77,17 @@ This should return $USER_SCRATCH/ENV3/bin/python
 Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 'train_dir', 'inference_dir', 'model_file', 'output_dir' and 'venvpath' must be fixed based on the user's directory.
 
 ```bash
-node> cd $PROJECT_DIR/target/greene/
-node> time make requirements
+node> 
+  cd $TARGET
+  time make requirements
 ```
 This command takes about 1 minute to execute.
 
 ## Obtain the data
 
 ```bash
-node> time make data
+node> 
+  time make data
 ```
 
 This command takes about 1hr to execute.
@@ -85,10 +96,11 @@ This command takes about 1hr to execute.
 
 
 ```bash
-greene> cd $PROJECT_DIR/target/greene/
-greene> mkdir -p outputs
-greene> sbatch simple.slurm
-greene> squeue -u $USER
+greene> 
+  cd $TARGET
+  mkdir -p outputs
+  sbatch simple.slurm
+  squeue -u $USER
 ```
 
 ## Reproduce Experiments
@@ -96,7 +108,8 @@ greene> squeue -u $USER
 This will create multiple copies of config_simple.yaml, simple.slurm and the output log files.
 
 ```bash
-bash reproduce_experiments.sh
+greene> 
+  bash reproduce_experiments.sh
 ```
 
 ## Visualize results
@@ -104,9 +117,10 @@ bash reproduce_experiments.sh
 To visualize the graphs, pass the paths to the log files as the arguments while running the file visualizer.py. You can pass along a single experiment log files or combine all of them and then pass them as inputs.
 
 ```bash
-cat cloudmask_200* >> cloudmask_200.log
-cat mlperf_cloudmask_200* >> mlperf_cloudmask_200.log
-python3 visualizer.py mlperf_cloudmask_200.log cloudmask_200.log
+greene>
+  cat cloudmask_200* >> cloudmask_200.log
+  cat mlperf_cloudmask_200* >> mlperf_cloudmask_200.log
+  python3 visualizer.py mlperf_cloudmask_200.log cloudmask_200.log
 ```
 
 
