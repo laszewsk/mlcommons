@@ -37,7 +37,7 @@ node>
   export USER_SCRATCH=/scratch/$USER/github
   export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
   export PROJECT_DATA=$USER_SCRATCH/data
-  export TARGET=$PROJECT_DIR=/target/greene_v0.5
+  export TARGET=$PROJECT_DIR/target/greene_v0.5
   
   mkdir -p $USER_SCRATCH
   mkdir -p $PROJECT_DATA

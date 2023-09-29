@@ -12,7 +12,7 @@ export USER_SCRATCH=/scratch/$USER/github-fork
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=/scratch/$USER/data
-export TARGET=$PROJECT_DIR=/target/greene_v0.5
+export TARGET=$PROJECT_DIR/target/greene_v0.5
 
 nvidia-smi
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
