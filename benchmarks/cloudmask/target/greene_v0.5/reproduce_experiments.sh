@@ -1,6 +1,9 @@
 #!/bin/bash
 #
 
+
+RUN=0
+
 # ####################################
 # Runtime Variable
 # ####################################
@@ -14,6 +17,17 @@ REPEAT=5
 
 GPU="v100"
 # GPU="a100"
+
+
+print_header() {
+    local msg="$1"  # Get the header text from the first argument
+    local msg_length=${#msg}
+
+    # Print a line of dashes above and below the header text
+    printf "%s\n" "$(printf "# ${msg_length}s" "-")"
+    printf "%s\n" "# $msg_text"
+    printf "%s\n" "$(printf "# ${msg_length}s" "-")"
+}
 
 #
 # #####################################
@@ -48,8 +62,13 @@ for((i=1; i<=$REPEAT; i++)); do
         sed -i 's/repeat:.*/repeat: "'"$i"'"/' config_simple_${epochsArray[$j]}_epochs_${i}.yaml
         sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${epochsArray[$j]}"'_epochs_'"${i}"'\.yaml/g' simple_${epochsArray[$j]}_epochs_${i}.slurm
         
-                
-        sbatch simple_${epochsArray[$j]}_epochs_${i}.slurm
+        if [ "$RUN" = "1" ]; then
+          sbatch simple_${epochsArray[$j]}_epochs_${i}.slurm
+        else
+          print_header simple_${epochsArray[$j]}_epochs_${i}.slurm
+          cat simple_${epochsArray[$j]}_epochs_${i}.slurm
+        fi
+
     done;
 done;
 

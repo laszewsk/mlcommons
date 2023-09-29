@@ -21,7 +21,7 @@ sbatch:
 run:
   filesystem: "/localscratch/{os.USER}"
   # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch}: 200
-  venvpath: "/scratch/rg3515/ENV3"
+  venvpath: "/scratch/{os.USER}/ENV3"
   datadir: data
   branch: 'main'
   mode: "parallel"
