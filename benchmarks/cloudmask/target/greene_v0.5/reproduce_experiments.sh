@@ -26,14 +26,10 @@ GPU="v100"
 
 
 print_header() {
-    local msg="$1"  # Get the header text from the first argument
-    local msg_length=${#msg}
-
-    # Print a line of dashes above and below the header text
-    printf "%s\n" "$(printf "# ${msg_length}s" "-")"
-    printf "%s\n" "# $msg_text"
-    printf "%s\n" "$(printf "# ${msg_length}s" "-")"
-}
+    echo "# -----------------------------------------------------------------------------------"
+    echo "# $1"
+    echo "# -----------------------------------------------------------------------------------"
+  }
 
 #
 # #####################################
