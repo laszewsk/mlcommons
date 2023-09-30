@@ -59,7 +59,7 @@ node>
   module load cudnn/8.6.0.163-cuda11
 
   conda create -p $USER_SCRATCH/python310 python=3.10
-  conda activate $USER_SCRATCH/python310
+  source activate $USER_SCRATCH/python310
 
   # module load python/intel/3.8.6
   python3 -m venv $USER_SCRATCH/ENV3
