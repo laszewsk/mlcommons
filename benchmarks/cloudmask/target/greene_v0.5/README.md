@@ -102,7 +102,13 @@ Make sure to change the paths in the 'config.yaml' file to appropriate locations
 node> 
   cd $TARGET
   time make requirements
+
+  # greene:
+  # rivanna:  real	0m5.526s
+
 ```
+
+
 This command takes about 1 minute to execute.
 
 ## Obtain the data
