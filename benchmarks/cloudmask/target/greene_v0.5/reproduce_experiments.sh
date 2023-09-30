@@ -70,6 +70,10 @@ for((i=1; i<=$REPEAT; i++)); do
         else
           print_header simple_${epochsArray[$j]}_epochs_${i}.slurm
           cat simple_${epochsArray[$j]}_epochs_${i}.slurm
+
+          print_header config_simple_${epochsArray[$j]}_epochs_${i}.yaml
+          cat config_simple_${epochsArray[$j]}_epochs_${i}.yaml
+	  
         fi
 
     done;
