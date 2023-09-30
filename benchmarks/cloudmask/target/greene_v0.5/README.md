@@ -75,7 +75,7 @@ node>
   source activate $USER_SCRATCH/python310
   time python3 -m venv $USER_SCRATCH/ENV3
   # greene:
-  # rivanna:  real	0m5.526s
+  # rivanna: real	0m5.526s
   
   conda deactivate
 
@@ -104,12 +104,8 @@ node>
   time make requirements
 
   # greene:
-  # rivanna:  real	0m5.526s
-
+  # rivanna: real	2m2.626s
 ```
-
-
-This command takes about 1 minute to execute.
 
 ## Obtain the data
 

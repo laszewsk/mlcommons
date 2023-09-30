@@ -24,6 +24,10 @@ data:
 	echo -n "Downloading second portion of data..."
 	cd $(PROJECT_DIR); $(AWS_S3) sync s3://sciml-datasets/es/cloud_slstr_ds1/ssts ./data/ssts --cli-read-timeout 0
 
+
+data-rivanna:
+	cp -rv /project/bii_dsc_community/mlcommons/data/cloudmask/* $(PROJECT_DATA)
+
 project: project.json generate
 
 generate: jobs-project.sh 
