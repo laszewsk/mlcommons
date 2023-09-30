@@ -73,6 +73,10 @@ status:
 debug:
 	bash reproduce_experiments.sh 0
 
+runit:
+	bash reproduce_experiments.sh 
+
+
 clean:
 	rm -rf simple_*_epochs_*.slurm
 	rm -rf config_simple_*.yaml

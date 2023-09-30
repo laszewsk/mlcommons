@@ -45,7 +45,7 @@ experiment:
   mem: "64GB"
   repeat: "1"
   epoch: 2
-  #epoch: 200
+  #epoch: 2
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -57,7 +57,7 @@ experiment:
   early_stoppage_patience: "25"
   early_stoppage: "False"
 
-identifier: "{experiment.card_name}-{experiment.repeat}-{experiment.epoch}-{experiment.early_stoppage_patience}-{experiment.early_stoppage}"
+identifier: "{experiment.card_name: v100
   
 #system:
 #  host: "rivanna"
