@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-#echo "Cleaning cloudModels"
+echo "Cleaning cloudModels"
 rm -rf card_name_*_gpu_count*
 
 echo "Cleaning outputs/ and outputs/slstr_cloud/    ..."
