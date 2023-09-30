@@ -32,7 +32,7 @@ All bash terminal lines that are to be executed on the interactive node start wi
 
 ```bash
 node> 
-  # export USER_SCRATCH=/scratch/$USER/github-fork
+  # export USER_SCRATCH=/scratch/$USER/github
 
   export USER_SCRATCH=/scratch/$USER/github
   export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask

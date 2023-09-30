@@ -9,7 +9,7 @@
 #SBATCH -e outputs/%u-cloudmask-{experiment.cardname}-{experiment.repeat}-%j.err
 
 
-export USER_SCRATCH=/scratch/$USER/github-fork
+export USER_SCRATCH=/scratch/$USER/github
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data

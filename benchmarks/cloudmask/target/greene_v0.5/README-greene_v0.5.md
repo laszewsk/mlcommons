@@ -18,7 +18,7 @@ There is a more detailed, official documentation of running [Singularity on Gree
 * Let's start, cd into [PROJ_DIR]
 ```bash
 greene> 
-  cd /scratch/$USER/github-fork/mlcommons/benchmarks/cloudmask/target/greene_v0.5
+  cd /scratch/$USER/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5
 [PROJ_DIR]>
 ```
 
@@ -80,7 +80,7 @@ Singularity>
   nano /ext3/env.sh
 ```
 
-TODO: one should not need to use nano, instead we should save the emv.sh script in github and copy in some form
+<mark>TODO:</mark> one should not need to use nano, instead we should save the emv.sh script in github and copy in some form
 
 The <mark>/ext3/env.sh</mark> should contain the following lines:
 
@@ -190,7 +190,7 @@ REPEAT=5
 2. cd to [PROJ_DIR] and run the script
 
 ```bash
-greene> cd /scratch/$USER/github-fork/mlcommons/benchmarks/cloudmask/target/greene_v0.5
+greene> cd /scratch/$USER/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5
 [PROJ_DIR]> bash GRCtest_reproduce_experiments.sh
 ```
 

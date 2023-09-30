@@ -271,13 +271,13 @@ In this file add
 ```
 export PATH=~/bin:$PATH 
 
-export USER_SCRATCH=/scratch/$USER/github-fork
+export USER_SCRATCH=/scratch/$USER/github
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PROJECT_DATA=$USER_SCRATCH/data
 #
 # current existing downloaded dataset is located at
 #
-# export PROJECT_DATA=/scratch/vc2209/github-fork/data
+# export PROJECT_DATA=/scratch/vc2209/github/data
 
 
 source $USER_SCRATCH/ENV3/bin/activate
@@ -297,7 +297,7 @@ srun --gres=gpu:v100:1 --pty --mem=64G --time 02:00:00 /bin/bash
 
 ```bash
 node> 
-  export USER_SCRATCH=/scratch/$USER/github-fork
+  export USER_SCRATCH=/scratch/$USER/github
   export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
   export PROJECT_DATA=$USER_SCRATCH/data
 ```

@@ -8,7 +8,7 @@
 #SBATCH -o outputs/%u-%j.out
 #SBATCH -e outputs/%u-%j.err
 
-export USER_SCRATCH=/scratch/$USER/github-fork
+export USER_SCRATCH=/scratch/$USER/github
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=/scratch/$USER/data

@@ -29,7 +29,7 @@ then
 fi
 
 
-export USER_SCRATCH=/scratch/$USER/github-fork
+export USER_SCRATCH=/scratch/$USER/github
 export PYTHON_DIR=$USER_SCRATCH/ENV3
 
 
