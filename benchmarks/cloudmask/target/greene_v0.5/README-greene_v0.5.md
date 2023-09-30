@@ -116,6 +116,8 @@ Singularity> exit
 
 ### Run Singularity in Slurm
 
+<mark>WARNING!!! Make sure you have setup virtual environment ENV3 in your $USER_SCRATCH path. tmptest-singularity.slurm has dependencies on ENV3, which you can refer to in README-Gregor.md</mark>
+
 Rename the overlay image
 ```bash
 [PROJ_DIR]> mv overlay-15GB-500K.ext3 tmptest-overlay-image
@@ -180,9 +182,9 @@ Adviced method
 
 For more information on clean_outputs.sh and archive_outputs.sh, please see section 4 Helper Scripts.
 ```bash
-bash clean_outputs.sh
-bash GRCtest_reproduce_experiments.sh
-bash archive_outputs.sh
+[PROJ_DIR]> bash clean_outputs.sh
+[PROJ_DIR]> bash GRCtest_reproduce_experiments.sh
+[PROJ_DIR]> bash archive_outputs.sh
 ```
 
 ## 3. Early_stoppage
@@ -200,7 +202,7 @@ experiment:
 ```
 To turn early_stoppage off, set early_stoppage to False, vice versa. Your can also change the tolerance (default is 25) to change the patience.
 
-Once changing is done, you can run experiments (also works for GRCtest_reproduce_experiments.sh).
+Once changing is done, you can run experiments with or without early stopping (also works for GRCtest_reproduce_experiments.sh).
 
 
 ## 4. Helper Scripts
@@ -209,22 +211,24 @@ There are two helper scripts: clean_outputs.sh and archive_outputs.sh
 ### clean_outputs.sh
 This is an automation bash script that helps you clean up all the outputs resulting from running experiments. BE CAREFUL WHEN USING IT!!
 
+It is a good practice to run clean_outputs.sh before running experiments, so you have a clean [PROJ_DIR] ready.
+
 #### Understand what clean_outputs.sh deletes
-* all output and error files in [PROJ_DIR]/outputs (including gpu0.log), and [PROJ_DIR]/outputs/slstr_cloud
+* All output and error files in [PROJ_DIR]/outputs/ (including gpu0.log), and files in [PROJ_DIR]/outputs/slstr_cloud
 * config_reproduce_experiments/
 * slurm_reproduce_experiments/
-* __pycache
-* trained model (e.g. card_name_*)
-* logs (cloudmask logs, mlperf logs)
+* \_\_pycache\_\_
+* Trained cloudModel (e.g. card_name_*)
+* Logs (cloudmask logs, mlperf logs)
 ```bash
-??
+# For illustration, DO NOT RUN
+mlperf_cloudmask*.log
+cloudmask_*.log
 ```
-* ???
-
 
 #### How to run clean_outputs.sh
 ```bash
-bash clean_outputs.sh
+[PROJ_DIR]> bash clean_outputs.sh
 ```
 
 ### archive_outputs.sh
@@ -232,10 +236,17 @@ This is an automation bash script that helps you archive all the outputs resulti
 
 #### What does archive_outputs.sh do?
 * its goal is to completely archive the relavent experiment results
-* it saves all experiment results to [PROJ_DIR]/archive_results/
-* move all output and error files in [PROJ_DIR]/outputs (including gpu0.log), and [PROJ_DIR]/outputs/slstr_cloud to [PROJ_DIR]/archive_results/[Date]\_epoch[#]\_[no_]early_stoppage
+* it saves all experiment results to [PROJ_DIR]/archive_results/[Date]\_epoch[#]\_repeat[#]\_[no_]early_stoppage
 
 #### How to run archive_outputs.sh
+archive_outputs.sh takes 4 ordered arguments, representing (run_date, epoch, repeat, early_stoppage) respectively.
+
+Here is an exmaple, where we use GRCtest_reproduce_experiments.sh to run a batch of experiments with (run_date 9-29-2023, epoch 200, repeat 10, early_stoppage 0). 
+
+[Note: for early_stoppage, we use 0 to represent no early stoppage, and 1 to represent early stoppage.]
 ```bash
-bash archive_outputs.sh
+# An example. 
+[PROJ_DIR]> bash archive_outputs.sh 9-29-2023 200 10 0
+[PROJ_DIR]> ls archive_outputs
+# expected output: 9-29-2023-epoch200-repeat10-no_earlystoppage/
 ```
