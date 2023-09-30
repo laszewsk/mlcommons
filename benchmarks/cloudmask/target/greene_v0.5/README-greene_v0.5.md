@@ -247,7 +247,7 @@ It is a good practice to run clean_outputs.sh before running experiments, so you
 * All output and error files in [PROJ_DIR]/outputs/ (including gpu0.log), and files in [PROJ_DIR]/outputs/slstr_cloud
 * config_reproduce_experiments/
 * slurm_reproduce_experiments/
-* \_\_pycache\_\_
+* `__pycache__`
 * Trained cloudModel (e.g. card_name_*)
 * Logs (cloudmask logs, mlperf logs)
 
@@ -271,7 +271,8 @@ This is an automation bash script that helps you archive all the outputs resulti
 #### What does archive_outputs.sh do?
 
 * its goal is to completely archive the relavent experiment results
-* it saves all experiment results to [PROJ_DIR]/archive_results/[Date]\_epoch[#]\_repeat[#]\_[no_]early_stoppage
+* it saves all experiment results to 
+  `[PROJ_DIR]/archive_results/[Date]_epoch[#]_repeat[#]_[no_]early_stoppage`
 
 #### How to run archive_outputs.sh
 
