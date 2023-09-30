@@ -226,15 +226,27 @@ def cloud_training(config) -> None:
 
     # Early Stoppage
 
+    def string_to_boolean(input_string):
+        if input_string.lower() in ["true", "1"]:
+            return True
+        elif input_string.lower() in ["false", "0"]:
+            return False
+        else:
+            raise ValueError("Invalid input: " + input_string)
+
     callbacks = None
-    # if config['hyperparameter.early_stoppage']:
+
+    config['experiement.early_stoppage'] = string_to_boolean(config['experiement.early_stoppage'])
+    config['experiment.early_stoppage_patience'] = int(config['experiment.early_stoppage_patience'])
+
+    # if config['experiement.early_stoppage']:
     #    patience = int(config['experiment.early_stoppage_patience'])
     #    if callbacks is None:
     #        callbacks = []
     #    callbacks.append(EarlyStopping(monitor='val_loss', patience=patience))
-    if config['hyperparameter.early_stoppage']:    
-        es_patience = int(config['experiment.early_stoppage_patience'])
-        callbacks = [EarlyStopping(monitor='val_loss', patience=es_patience)]
+
+    if config['experiement.early_stoppage']:
+        callbacks = [EarlyStopping(monitor='val_loss', patience=config['experiment.early_stoppage_patience'])]
         print("Early Stopping Activated")
     else:
         print("No Early Stopping")

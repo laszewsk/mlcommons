@@ -98,6 +98,8 @@ If you need a new terminal or login again into a node.
 
 Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 'train_dir', 'inference_dir', 'model_file', 'output_dir' and 'venvpath' must be fixed based on the user's directory.
 
+<mark>TODO:</mark> the uk data repo seems down, so it does not work, we need alternative
+
 ```bash
 node> 
   cd $TARGET
@@ -106,6 +108,9 @@ node>
   # greene:
   # rivanna: real	2m2.626s
 ```
+
+
+
 
 ## Obtain the data
 
@@ -116,7 +121,17 @@ node>
 
 This command takes about 1hr to execute.
 
-## Run the code
+If you are on rivanna, you can make a local copy from /project directly into scratch. We recommend that as the filesystem on /project has often issues. If it works it takes about 5 minutes to make a local copy from /project into /scratch
+
+```bash
+rivanna> 
+  make data-rivanna
+
+  # rivanna: real	4m41.054s
+```
+
+
+## Run an example to see if it works
 
 
 ```bash
