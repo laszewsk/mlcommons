@@ -44,7 +44,8 @@ experiment:
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
-  epoch: 200
+  epoch: 2
+  #epoch: 200
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -56,8 +57,8 @@ experiment:
   early_stoppage_patience: "25"
   early_stoppage: "False"
 
-identifier: "{experiment.card_name: v100
-
+identifier: "{experiment.card_name}-{experiment.repeat}-{experiment.epoch}-{experiment.early_stoppage_patience}-{experiment.early_stoppage}"
+  
 #system:
 #  host: "rivanna"
 #  python: "3.10.8"
@@ -85,8 +86,8 @@ inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
 model_file: "{os.TARGET}/outputs/slstr_cloud/cloudModel-{identifier}.h5"
-
-# training
+  
+# training 
 training_loss: binary_crossentropy
 training_metrics: accuracy
 
