@@ -55,24 +55,46 @@ node>
 ```bash
 node> 
   module purge
+
+  # on greene node
   module load anaconda3/2020.07
   module load cudnn/8.6.0.163-cuda11
-
-  conda create -p $USER_SCRATCH/python310 python=3.10
-  source activate $USER_SCRATCH/python310
-
+  
   # module load python/intel/3.8.6
-  python3 -m venv $USER_SCRATCH/ENV3
+  
+  # on rivanna node 
+  #   module load anaconda/2020.11-py3.8
+  #   module load cudnn/8.2.4.15
 
+  time conda create -p $USER_SCRATCH/python310 python=3.10 -y
+
+  # TODO: write down the time iit takes
+  # greene:
+  # rivanna:  2m10.665s
+  
+  source activate $USER_SCRATCH/python310
+  time python3 -m venv $USER_SCRATCH/ENV3
+  # greene:
+  # rivanna:  real	0m5.526s
+  
   conda deactivate
 
   source $USER_SCRATCH/ENV3/bin/activate
 
   pip install pip -U
   which python
-
 ```
+
 This should return $USER_SCRATCH/ENV3/bin/python
+
+From now on you only have to do 
+
+```bash
+source $USER_SCRATCH/ENV3/bin/activate
+```
+
+If you need a new terminal or login again into a node.
+
 
 Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 'train_dir', 'inference_dir', 'model_file', 'output_dir' and 'venvpath' must be fixed based on the user's directory.
 

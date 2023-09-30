@@ -10,7 +10,7 @@ all: project localscratch shm generate
 all: requirements data
 
 requirements:
-	pip install -r $(PROJECT_DIR)/experiments/greene/requirements.txt
+	pip install -r requirements.txt
 
 yaml:
 	sed -i 's/USERTOREPLACE/$(USER)/g' $(PROJECT_DIR)/experiments/greene/config.yaml
