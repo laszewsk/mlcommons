@@ -47,25 +47,35 @@ sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
 
 
 # Running 5 jobs and then waiting for them to complete before other commands
+
+SLURM_SCRIPT="simple.slurm"
+SCRIPT="tmp.slurm"
+
+
 for((i=1; i<=$REPEAT; i++)); do
     for j in ${!epochsArray[@]}; do
-        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config_simple.yaml
-        sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' simple.slurm
-        sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' simple.slurm
-
+        cp $SLURM_SCRIPT $SCRIPT
         EXPERIMENT_ID=${epochsArray[$j]}_epochs_${i}
+        CONFIG_YAML=config_simple_${EXPERIMENT_ID}.yaml
+
+        print_header $EXPERIMENT_ID
+
+        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config_simple.yaml
+        sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' ${SCRIPT}
+        sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' ${SCRIPT}
+        sed -i 's/gpu0.log/'"gpu0-${EXPERIMENT_ID}.log"'/' ${SCRIPT}
 
         # Creating temporary copies
-        cp config_simple.yaml config_simple_${EXPERIMENT_ID}.yaml
-        cp simple.slurm simple_${EXPERIMENT_ID}.slurm
+        cp config_simple.yaml $CONFIG_YAML
+        cp ${SCRIPT} simple_${EXPERIMENT_ID}.slurm
  
         # Editing paths to log files in the config files
-        sed -i 's/log_file:.*/log_file: \.\/cloudmask_'"${epochsArray[$j]}"'_epochs_'"${i}"'.log/' config_simple_${EXPERIMENT_ID}.yaml
-        sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_'"${epochsArray[$j]}"'_epochs_'"${i}"'.log/' config_simple_${EXPERIMENT_ID}.yaml
+        sed -i 's/log_file:.*/log_file: \.\/cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
+        sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
     
         # Editing and running them
-        sed -i 's/repeat:.*/repeat: "'"$i"'"/' config_simple_${EXPERIMENT_ID}.yaml
-        sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${epochsArray[$j]}"'_epochs_'"${i}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
+        sed -i 's/repeat:.*/repeat: "'"$i"'"/' $CONFIG_YAML
+        sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${EXPERIEMENT_ID}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
         
         if [ "$RUN" = "1" ]; then
           sbatch simple_${EXPERIMENT_ID}.slurm
@@ -73,8 +83,8 @@ for((i=1; i<=$REPEAT; i++)); do
           print_header simple_${EXPERIMENT_ID}.slurm
           cat simple_${EXPERIMENT_ID}.slurm
 
-          print_header config_simple_${EXPERIMENT_ID}.yaml
-          cat config_simple_${EXPERIMENT_ID}.yaml
+          print_header $CONFIG_YAML
+          cat $CONFIG_YAML
 	  
         fi
 

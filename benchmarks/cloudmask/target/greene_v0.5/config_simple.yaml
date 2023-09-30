@@ -11,18 +11,14 @@
 
 name: cloudmask-greene
 
-hyperparameter:
-  early_stoppage: False
 
 sbatch:
   mode: h
   dir: localscratch
 
 run:
-  filesystem: "/localscratch/{os.USER}"
-  # workdir: "/localscratch/{os.USER}/mlcommons/{experiment.TFTTransformerepoch}: 200
   venvpath: "/scratch/{os.USER}/ENV3"
-  datadir: data
+  datadir: "/scratch/{os.USER}/data"
   branch: 'main'
   mode: "parallel"
   # mode: "original"
@@ -57,8 +53,10 @@ experiment:
   no_cache: False
   nodes: 1
   gpu: 1
-  early_stoppage_patience: 25
+  early_stoppage_patience: "25"
+  early_stoppage: "False"
 
+identifier: "{experiment.card_name: v100
 
 #system:
 #  host: "rivanna"
@@ -80,21 +78,21 @@ system:
 mask: "float"
 
 # Training data
-train_dir: /scratch/rg3515/data/one-day
+train_dir: "/scratch/{os.USER}/data/one-day"
 
 # Inference data
-inference_dir: /scratch/rg3515/data/ssts
+inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
-model_file: /scratch/rg3515/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs/slstr_cloud/cloudModel.h5
+model_file: "{os.TARGET}/outputs/slstr_cloud/cloudModel-{identifier}.h5"
 
-# training 
+# training
 training_loss: binary_crossentropy
 training_metrics: accuracy
 
 
 # Output directory
-output_dir: /scratch/rg3515/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs/slstr_cloud
+output_dir: "{os.TARGET}/outputs/slstr_cloud"
 
 # Log file for recording runtimes
 log_file: ./cloudmask_final_1.log
