@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ -d archive_results ]
+then
+    echo "archive_results/ already exists. Skipping mkdir..."
+else
+    echo "Creating archive_results/ ..."
+    mkdir archive_results/
+fi
+
 if [ ! -f card_name_* ]
 then
     echo "No cloudmodel directory exists in current directory. Terminating..."
