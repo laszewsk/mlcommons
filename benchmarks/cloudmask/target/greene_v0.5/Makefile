@@ -26,7 +26,7 @@ data:
 
 
 data-rivanna:
-	cp -rv /project/bii_dsc_community/mlcommons/data/cloudmask/* $(PROJECT_DATA)
+	time cp -rv /project/bii_dsc_community/mlcommons/data/cloudmask/* $(PROJECT_DATA)
 
 project: project.json generate
 
