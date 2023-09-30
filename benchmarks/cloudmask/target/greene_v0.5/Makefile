@@ -70,13 +70,21 @@ watch: status
 status:
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
+debug:
+	bash reproduce_experiments.sh 0
 
 clean:
+	rm -rf simple_*_epochs_*.slurm
+	rm -rf config_simple_*.yaml
+
+
+realclean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f greene.slurm
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
+
 
 
 
