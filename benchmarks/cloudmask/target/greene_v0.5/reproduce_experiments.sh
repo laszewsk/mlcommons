@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# significantly modified by Gregor von Laszewski
+#
 
  Check if a parameter is provided
 if [ $# -eq 0 ]; then
@@ -54,6 +56,7 @@ sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
 
 SLURM_SCRIPT="simple.slurm"
 SCRIPT="tmp.slurm"
+CONFIG="config_simple.yaml"
 
 
 for((i=1; i<=$REPEAT; i++)); do
@@ -62,25 +65,27 @@ for((i=1; i<=$REPEAT; i++)); do
         EXPERIMENT_ID=${epochsArray[$j]}_epochs_${i}
         CONFIG_YAML=config_simple_${EXPERIMENT_ID}.yaml
 
+        # Creating script and config copies
+        cp ${SCRIPT} simple_${EXPERIMENT_ID}.slurm
+        cp $CONFIG $CONFIG_YAML
+
+        # Modifying the copies
         print_header $EXPERIMENT_ID
 
-        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config_simple.yaml
+        # Modify the config file
+        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' $CONFIG_YAML
+        sed -i 's/log_file:.*/log_file: \.\/cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
+        sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
+        sed -i 's/repeat:.*/repeat: "'"$i"'"/' $CONFIG_YAML
+
+        # modify the slurm script
         sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' ${SCRIPT}
         sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' ${SCRIPT}
         sed -i 's/gpu0.log/'"gpu0-${EXPERIMENT_ID}.log"'/' ${SCRIPT}
-
-        # Creating temporary copies
-        cp config_simple.yaml $CONFIG_YAML
-        cp ${SCRIPT} simple_${EXPERIMENT_ID}.slurm
- 
-        # Editing paths to log files in the config files
-        sed -i 's/log_file:.*/log_file: \.\/cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
-        sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
-    
-        # Editing and running them
-        sed -i 's/repeat:.*/repeat: "'"$i"'"/' $CONFIG_YAML
         sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${EXPERIEMENT_ID}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
-        
+
+        # RUN
+
         if [ "$RUN" = "1" ]; then
           sbatch simple_${EXPERIMENT_ID}.slurm
         else
