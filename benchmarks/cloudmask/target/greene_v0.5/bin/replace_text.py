@@ -25,7 +25,7 @@ def replace_text(file_path, old_text, new_text):
 
         with open(file_path, 'w') as file:
             file.write(content)
-        print(f"Text '{old_text}' replaced with '{new_text}' in '{file_path}'.")
+        #print(f"Text '{old_text}' replaced with '{new_text}' in '{file_path}'.")
 
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found.")

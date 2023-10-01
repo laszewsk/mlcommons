@@ -71,10 +71,10 @@ status:
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
 debug:
-	bash reproduce_experiments.sh 0
+	./experiment.py --debug
 
-runit:
-	bash reproduce_experiments.sh
+exp:
+	./experiment.py
 
 
 clean:
