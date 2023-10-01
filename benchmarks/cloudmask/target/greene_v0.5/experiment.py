@@ -1,17 +1,14 @@
 #!/usr/bin/env python
-#
-# significantly modified by Gregor von Laszewski
-#
-
-#!/usr/bin/env python
-"""experiment generator
+"""Experiment Generator
 
 Usage:
-  bash_to_python.py [--debug] [--help]
+  experiement.py [--debug] [--script=<script>] [--config=<config>] [--help]
 
 Options:
-  -h --help     Show this help message and exit.
-  --debug       Enable debugging mode.
+  -h --help               Show this help message and exit.
+  --debug                 Enable debugging mode.
+  --script=<script>       Specify the path to the script file [default: simple.slurm].
+  --config=<config>       Specify the path to the config file [default: config_simple.yaml].
 """
 
 import os
@@ -20,11 +17,18 @@ from docopt import docopt
 
 arguments = docopt(__doc__)
 DEBUG = arguments['--debug']
+SCRIPT = arguments['--script']
+CONFIG = arguments['--config']
 
 if DEBUG:
     DEBUG = True
 else:
     DEBUG = False
+
+
+SCRIPT = SCRIPT or "simple.slurm"
+CONFIG = CONFIG or "config_simple.yaml"
+
 
 # ####################################
 # Runtime Variable
