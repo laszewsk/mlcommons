@@ -8,9 +8,9 @@ else
     mkdir archive_results/
 fi
 
-if [ ! -f card_name_* ]
+if [ ! -d config_reproduce_files ]
 then
-    echo "No cloudmodel directory exists in current directory. Terminating..."
+    echo "You have not run GRCtest_reproduce_experiments.sh (There is no config_reproduce_files/ in project directory). Terminating..."
     exit 1
 fi
 
