@@ -74,7 +74,7 @@ debug:
 	bash reproduce_experiments.sh 0
 
 runit:
-	bash reproduce_experiments.sh 
+	bash reproduce_experiments.sh
 
 
 clean:

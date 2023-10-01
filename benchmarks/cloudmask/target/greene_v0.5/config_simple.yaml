@@ -84,9 +84,7 @@ train_dir: "/scratch/{os.USER}/data/one-day"
 # Inference data
 inference_dir: "/scratch/{os.USER}/data/ssts"
 
-# Model file
-model_file: "{os.TARGET}/outputs/slstr_cloud/cloudModel-{identifier}.h5"
-  
+
 # training 
 training_loss: binary_crossentropy
 training_metrics: accuracy
@@ -95,11 +93,14 @@ training_metrics: accuracy
 # Output directory
 output_dir: "{os.TARGET}/outputs/slstr_cloud"
 
+# Model file
+model_file: "{output_dir}/cloudModel-{identifier}.h5"
+
 # Log file for recording runtimes
-log_file: ./cloudmask_final_1.log
+log_file: "{output_dir}/cloudmask_final_{identifier}.log"
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask_final_1.log
+mlperf_logfile: "{output_dir}/mlperf_cloudmask_final_{identifier}.log"
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
