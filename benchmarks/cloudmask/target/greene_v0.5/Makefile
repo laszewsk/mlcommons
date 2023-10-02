@@ -76,11 +76,30 @@ debug:
 exp:
 	./experiment.py
 
+debug-greene:
+	./experiment.py --debug
+
+exp-greene:
+	./experiment.py --script=simple.greene.slurm --config=simple.greene.slurm > experiement-greene.sh
+	chmod a+x experiement-greene.sh
+	cat experiement-greene.sh
+
+run-greene:
+	sh ./experiment-greene.sh
+
+exp-rivanna:
+	./experiment.py --script=simple.rivanna.slurm --config=simple.rivanna.slurm > experiement-rivanna.sh
+	chmod a+x experiement-rivanna.sh
+	cat experiement-rivanna.sh
+
+run-rivanna:
+	sh ./experiment-rivanna.sh
+
 
 clean:
 	rm -rf simple_*_epochs_*.slurm
 	rm -rf config_simple_*.yaml
-
+	./experiment.py --clean
 
 realclean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh

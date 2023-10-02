@@ -12,7 +12,6 @@ Options:
   --clean                 Clean up generated files.
 """
 
-
 import os
 import shutil
 import sys
