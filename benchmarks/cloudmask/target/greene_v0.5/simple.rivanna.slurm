@@ -21,8 +21,9 @@ export PROJECT_DATA=/scratch/$USER/data
 export TARGET=$PROJECT_DIR/target/greene_v0.5
 
 module purge
-# module load anaconda3/2020.07
-module load cudnn/8.6.0.163-cuda11
+#module load cudnn/8.6.0.163-cuda11
+module load cudnn/8.9.4.25
+
 
 # source /share/apps/anaconda3/2020.07/etc/profile.d/conda.sh
 source $PYTHON_DIR/bin/activate
