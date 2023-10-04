@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Usage:
-    slstr_uva_nyu_cloud.py [--debug]
-
-Options:
-    --debug   Execute the debug function.
-    -h, --help   Show this help message and exit.
-
-If no parameters are provider the main function is executed
-"""
 #
 # slstr_cloud.py
 
@@ -473,11 +463,4 @@ def debug_function():
     print("Debug function called")
 
 if __name__ == "__main__":
-    from docopt import docopt
-
-    arguments = docopt(__doc__)
-
-    if arguments['--debug']:
-        debug_function()
-    else:
-        main()
+    main()
