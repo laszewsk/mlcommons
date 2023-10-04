@@ -121,7 +121,7 @@ realclean:
 #
 
 image-rivanna:
-	cms rivanna singularity build image-singularity/${NAME}.sif .
+	cms rivanna singularity build image-singularity/${NAME}.def
 
 
 image:

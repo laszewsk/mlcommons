@@ -6,9 +6,9 @@
 #SBATCH --mem=64G
 #SBATCH -o outputs/simple-rivanna-a100-dgx-%u-%j.out
 #SBATCH -e outputs/simple-rivanna-a100-dgx-%u-%j.err
-#SBATCH --reservation: bi_fox_dgx
-#SBATCH --partition: bii-gpu
-#SBATCH --account: bii_dsc_community
+#SBATCH --reservation=bi_fox_dgx
+#SBATCH --partition=bii-gpu
+#SBATCH --account=bii_dsc_community
 
 
 mkdir -p outputs/slstr_cloud
