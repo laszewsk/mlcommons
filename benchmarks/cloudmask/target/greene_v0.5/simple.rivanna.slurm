@@ -4,10 +4,12 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time=00:45:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/simple-rivanna-a100-%u-%j.out
-#SBATCH -e outputs/simple-rivanna-a100-%u-%j.err
-#SBATCH --partition=bii-gpu
-#SBATCH --account=bii_dsc_community
+#SBATCH -o outputs/simple-rivanna-a100-dgx-%u-%j.out
+#SBATCH -e outputs/simple-rivanna-a100-dgx-%u-%j.err
+#SBATCH --reservation: bi_fox_dgx
+#SBATCH --partition: bii-gpu
+#SBATCH --account: bii_dsc_community
+
 
 mkdir -p outputs/slstr_cloud
 sleep 1
