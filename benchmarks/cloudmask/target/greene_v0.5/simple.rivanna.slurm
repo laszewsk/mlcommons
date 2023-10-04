@@ -31,12 +31,12 @@ nvidia-smi
 
 cd $TARGET
 
-# mkdir -p outputs/slstr_cloud
+mkdir -p outputs/slstr_cloud
 
 # sleep 1
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-python slstr_cloud.py --config config_simple.yaml
+python ./slstr_uva_nyu_cloud.py --config config_simple_rivanna.yaml
 
 seff $SLURM_JOB_ID

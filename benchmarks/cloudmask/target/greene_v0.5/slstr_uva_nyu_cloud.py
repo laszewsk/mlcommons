@@ -44,7 +44,7 @@ from sklearn import metrics
 from mlperf_logging import mllog
 import logging
 from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler
-from cloudmesh.common.FlatDict import read_config_parameters
+from cloudmesh.common.FlatDict import FlatDict
 import random
 
 # config = read_config_parameters(filename='config.yaml')
@@ -364,17 +364,29 @@ def main():
                         help='path to config file')
     command_line_args = parser.parse_args()
 
+
     configYamlFile = os.path.expanduser(command_line_args.config)
-    config = read_config_parameters(filename=configYamlFile)
 
+    print("Config file:", configYamlFile)
+
+    config = FlatDict
+    config.load(content=configYamlFile)
+
+    print (config)
+
+
+    # setup
     log_file = os.path.expanduser(config['log_file'])
-
     user_name = config["submission.submitter"]
-
 
     # MLCommons logging
     mlperf_logfile = os.path.expanduser(config['mlperf_logfile'])
     mllog.config(filename=mlperf_logfile)
+
+    print("user", user_name)
+    print("log_file", log_file)
+    print ("mllog", mlperf_logfile)
+
     mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
 
