@@ -363,7 +363,7 @@ def main():
     print("Config file:", configYamlFile)
 
     config = FlatDict()
-    config.load(filename=configYamlFile)
+    config.load(content=configYamlFile)
 
     print (config)
 
