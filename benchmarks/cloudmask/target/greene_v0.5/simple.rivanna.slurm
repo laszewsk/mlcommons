@@ -1,16 +1,16 @@
 #!/bin/bash
-#
-
 #SBATCH --job-name=simple-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:v100:1
-#SBATCH --time=06:00:00
+#SBATCH --time=00:45:00
 #SBATCH --mem=64G
 #SBATCH -o outputs/simple-rivanna-v100-%u-%j.out
 #SBATCH -e outputs/simple-rivanna-v100-%u-%j.err
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
+mkdir -p outputs/slstr_cloud
+sleep 1
 
 export USER_SCRATCH=/scratch/$USER/github
 export PROJECT_DIR=$USER_SCRATCH/mlcommons/benchmarks/cloudmask
@@ -31,7 +31,6 @@ nvidia-smi
 
 cd $TARGET
 
-mkdir -p outputs/slstr_cloud
 
 # sleep 1
 
