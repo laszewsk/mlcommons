@@ -1,3 +1,49 @@
+
+# UNFORTUNATELY I HAVE NOT YET TESTED THIS.
+
+Once this works we include it in the new documentation
+
+I wrote an experiment.py script that replaces reproduce_experiment.sh
+
+it comes with a manual that could be improved, but i think its straight forward
+
+In contrast to the previous script it has the following advantages
+
+a) The script has  been developed so it can be executed on any local machine ... so you do not need vpn to test it ...
+
+b) the sbatch commands ar not executed but just printed so we can redirect them into a file and then look at and after we think its oc execute them
+
+c) substitutions are no longer done via a complicated unreadable sed script but with specialized replacement scripts in the ./bin folder
+
+d) the script has been reorganized to group replacements in slurm and config file
+
+e) a debug option is added so only one  experiement is created so its easier to debug, it just prints the various things that are generated
+
+f) in the slurm files the gpu log is corrected
+
+g) in the yaml file an identifier is introduced
+
+h) it may seems that the 2 slog files specified in the original yaml files were wrong and overwrote results from each other. I have not tested the original, but just made the logical change
+
+I envision this will go like
+
+make exp-greene   # this will produce experiement-greene.sh
+
+make runit-greene # to run experiement-greene.sh
+
+
+and on rivanna
+
+make exp-rivanna
+
+make runit-rivanna
+
+but I have not yet don this
+
+When testing i recommend to do first some small number of overall tests 
+
+
+
 # Benchmarking on NYU HPC Greene Cluster
 
 ## Pre-requisite

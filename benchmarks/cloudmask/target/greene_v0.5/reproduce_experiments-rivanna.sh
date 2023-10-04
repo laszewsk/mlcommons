@@ -3,7 +3,7 @@
 # significantly modified by Gregor von Laszewski
 #
 
-# Check if a parameter is provided
+ Check if a parameter is provided
 if [ $# -eq 0 ]; then
     # If no parameter is provided, set it to 1
     RUN=1
@@ -24,8 +24,10 @@ REPEAT=5
 epochsArray=(2)
 timesArray=("00:30:00")
 REPEAT=1
-GPU="v100"
 
+# GPU
+
+GPU="v100"
 # GPU="a100"
 
 print_header() {
@@ -39,44 +41,48 @@ print_header() {
 #
 # #####################################
 
+# Experiments with v100, 1 GPU
 
-SCRIPT="simple.slurm"
+# Initial setup for gpu and time for one epoch in simple.slurm file
+sed -i 's/--gres=.*/--gres=gpu:'"${GPU}"':1/' simple.slurm
+
+# Initial setup for parameters in config_simple.yaml
+sed -i 's/card_name.*/card_name: '"${GPU}"'/' config_simple.yaml
+sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
+
+
+
+# Running 5 jobs and then waiting for them to complete before other commands
+
+SLURM_SCRIPT="simple.rivanna.slurm"
+SCRIPT="tmp.slurm"
 CONFIG="config_simple.yaml"
 
-REPLACE_YAML="./bin/replace_yaml_value.py"
-REPLACE_SLURM="./bin/replace_slurm_value.py"
-REPLACE_TEXT="./bin/replace_text.py"
 
 for((i=1; i<=$REPEAT; i++)); do
     for j in ${!epochsArray[@]}; do
-        EXPERIMENT_ID=${epochsArray[$j]}_epochs_${i}_$REPEAT
+        cp $SLURM_SCRIPT $SCRIPT
+        EXPERIMENT_ID=${epochsArray[$j]}_epochs_${i}
         CONFIG_YAML=config_simple_${EXPERIMENT_ID}.yaml
-        SLURM_SCRIPT=simple_${EXPERIMENT_ID}.slurm
-
-        cp $SCRIPT $SLURM_SCRIPT
 
         # Creating script and config copies
+        cp ${SCRIPT} simple_${EXPERIMENT_ID}.slurm
         cp $CONFIG $CONFIG_YAML
 
         # Modifying the copies
         print_header $EXPERIMENT_ID
 
         # Modify the config file
-        $REPLACE_YAML $CONFIG_YAML experiment.epoch: "${epochsArray[$j]}"
-        $REPLACE_YAML $CONFIG_YAML log_file "./cloudmask_${EXPERIMENT_ID}.log"
-        $REPLACE_YAML $CONFIG_YAML mlperf_logfile "./mlperf_cloudmask_${EXPERIMENT_ID}.log"
-        $REPLACE_YAML $CONFIG_YAML experiment.repeat $i
-        $REPLACE_YAML $CONFIG_YAML experiment.card_name ${GPU}
-        $REPLACE_YAML $CONFIG_YAML experiemnet.gpu_count 1
+        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' $CONFIG_YAML
+        sed -i 's/log_file:.*/log_file: \.\/cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
+        sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_'"${EXPERIMENT_ID}"'.log/' $CONFIG_YAML
+        sed -i 's/repeat:.*/repeat: "'"$i"'"/' $CONFIG_YAML
 
         # modify the slurm script
-        $REPLACE_SLURM $SLURM_SCRIPT gres "gpu:${GPU}:1"
-        $REPLACE_SLURM $SLURM_SCRIPT job-name "cloudmask-gpu-greene-epoch-${EXPERIMENT_ID}"
-        $REPLACE_SLURM $SLURM_SCRIPT time "${timesArray[$j]}"
-
-        $REPLACE_TEXT $SLURM_SCRIPT gpu0.log "gpu0-${EXPERIMENT_ID}.log"
-        $REPLACE_TEXT $SLURM_SCRIPT $CONFIG $CONFIG_YAML
-
+        sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' ${SCRIPT}
+        sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' ${SCRIPT}
+        sed -i 's/gpu0.log/'"gpu0-${EXPERIMENT_ID}.log"'/' ${SCRIPT}
+        sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${EXPERIEMENT_ID}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
 
         # RUN
 
@@ -88,10 +94,6 @@ for((i=1; i<=$REPEAT; i++)); do
 
           print_header $CONFIG_YAML
           cat $CONFIG_YAML
-
-          print_header "FlatDict $CONFIG_YAML"
-          ./bin/print_flatdict.py $CONFIG_YAML
-
 	  
         fi
 

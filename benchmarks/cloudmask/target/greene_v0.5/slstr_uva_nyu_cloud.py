@@ -271,6 +271,11 @@ def cloud_training(config) -> None:
 
     # save model
     if(config['run.mode']=="parallel"):
+        # GVL: thi sis all uneccessary as it is covered by cloudmesh and the yaml file, via flatDict
+        # we just need a test program showing how to use it or one needs to look up
+        # usage in cloudmesh.common.FlatDict
+
+        # the program should be default be able to run in parallele without any modifications !!!!!!
 
         # Read experiment arguments and create a model path from them
         modelPath = ""
@@ -291,14 +296,19 @@ def cloud_training(config) -> None:
         for arg_name in experiment_args:
             modelPath += arg_name
             modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
+
         modelPath+= "model"
+
         if not os.path.exists(modelPath):
             os.makedirs(modelPath)
+
         modelPath += "/cloudModel.h5"
+
         print("\n\n"+modelPath+"\n\n")
 
     else: # mode: original
         modelPath = os.path.expanduser(config['model_file'])
+
     tf.keras.models.save_model(model, modelPath)
     print('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
