@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=simple-cloudmask-gpu-rivanna
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:a100:1
 #SBATCH --time=00:45:00
 #SBATCH --mem=64G
-#SBATCH -o outputs/simple-rivanna-v100-%u-%j.out
-#SBATCH -e outputs/simple-rivanna-v100-%u-%j.err
+#SBATCH -o outputs/simple-rivanna-a100-%u-%j.out
+#SBATCH -e outputs/simple-rivanna-a100-%u-%j.err
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 
