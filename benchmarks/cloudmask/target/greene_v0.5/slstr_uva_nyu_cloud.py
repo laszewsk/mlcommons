@@ -359,7 +359,7 @@ def main():
 
     print("Config file:", configYamlFile)
 
-    config = FlatDict
+    config = FlatDict()
     config.load(content=configYamlFile)
 
     print (config)
