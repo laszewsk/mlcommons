@@ -37,6 +37,7 @@ submission:
   platform: rivanna
   accelerators_per_node: 1
 
+
 experiment:
 #  card_name: v100
   card_name: v100
@@ -57,8 +58,9 @@ experiment:
   early_stoppage_patience: "25"
   early_stoppage: "False"
 
-identifier: "{experiment.card_name}-{experiment.early_stoppage}-{experiment.early_stoppage_patience}-{experiment.epoch}-{experiment.learningrate}-{experiment.repeat}"
-  
+identifier: "{experiment.card_name}-{experiment.early_stoppage}-{experiment.early_stoppage_patience}-{experiment.epoch}-{experiment.learning_rate}-{experiment.repeat}"
+
+
 #system:
 #  host: "rivanna"
 #  python: "3.10.8"
@@ -84,9 +86,7 @@ train_dir: "/scratch/{os.USER}/data/one-day"
 # Inference data
 inference_dir: "/scratch/{os.USER}/data/ssts"
 
-# Model file
-model_file: "{os.TARGET}/outputs/slstr_cloud/cloudModel-{identifier}.h5"
-  
+
 # training 
 training_loss: binary_crossentropy
 training_metrics: accuracy
@@ -95,11 +95,14 @@ training_metrics: accuracy
 # Output directory
 output_dir: "{os.TARGET}/outputs/slstr_cloud"
 
+# Model file
+model_file: "{output_dir}/cloudModel-{identifier}.h5"
+
 # Log file for recording runtimes
-log_file: ./cloudmask_final_1.log
+log_file: "{output_dir}/cloudmask_final_{identifier}.log"
 
 # Log file for MLCommons logging
-mlperf_logfile: ./mlperf_cloudmask_final_1.log
+mlperf_logfile: "{output_dir}/mlperf_cloudmask_final_{identifier}.log"
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256

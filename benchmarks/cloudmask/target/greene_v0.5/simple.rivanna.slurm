@@ -39,6 +39,6 @@ cd $TARGET
 
 cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-python ./slstr_uva_nyu_cloud.py --config config_simple_rivanna.yaml
+python ./cloudmask_v0.5.py --config config_simple_rivanna.yaml
 
 seff $SLURM_JOB_ID
