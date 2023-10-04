@@ -120,6 +120,10 @@ realclean:
 # SINGULARITY IMAGE
 #
 
+image-rivanna:
+	cms rivanna singularity build image-singularity/${NAME}.sif .
+
+
 image:
 	cd image-singularity; make image
 	mv image-singularity/${NAME}.sif .
