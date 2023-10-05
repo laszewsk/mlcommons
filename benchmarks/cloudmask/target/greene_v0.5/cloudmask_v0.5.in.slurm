@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name={identifier}
-#SBATCH --output={identifier}--%u-%j.out
-#SBATCH --error={identifier}-%u-%j.err
+#SBATCH --output=result-%u-%j.out
+#SBATCH --error=result-%u-%j.err
 {slurm.sbatch}
 #SBATCH -c {experiment.cpu_num}
 #SBATCH --mem={experiment.mem}
@@ -62,7 +62,7 @@ export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data/cloudmask/data
 export TARGET=$PROJECT_DIR/target/greene_v0.5
 export CONTAINERDIR=${TARGET}
-export OUTPUTS_DIR="${TARGET}/project/{ee.identifier}/outputs"
+export OUTPUTS_DIR="${TARGET}/project/{ee.identifier}"
 export CODE_DIR=$TARGET
 
 module purge
@@ -91,7 +91,7 @@ echo "PROJECT_DATA: $PROJECT_DATA"
 echo "CONTAINERDIR: $CONTAINERDIR"
 
 
-mkdir -p $OUTPUTS_DIR
+# mkdir -p $OUTPUTS_DIR
 
 PROGRESS "running" 4
 
