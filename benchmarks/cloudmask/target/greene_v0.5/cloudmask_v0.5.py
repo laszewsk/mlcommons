@@ -79,8 +79,8 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
     :return: the reconstructed image with shape (1, height, weight, 1)
     """
     # Read arguments 
-    IMAGE_H = config['IMAGE_H']
-    IMAGE_W = config['IMAGE_W']
+    IMAGE_H = config['image.IMAGE_H']
+    IMAGE_W = config['image.IMAGE_W']
 
     h = ny * patch_size
     w = nx * patch_size
@@ -103,9 +103,9 @@ def cloud_inference(config) -> None:
     banner('Running benchmark slstr_cloud in inference mode.')
     global modelPath
     # Read arguments 
-    CROP_SIZE = config['CROP_SIZE']
-    PATCH_SIZE = config['PATCH_SIZE']
-    N_CHANNELS = config['N_CHANNELS']
+    CROP_SIZE = config['image.CROP_SIZE']
+    PATCH_SIZE = config['image.PATCH_SIZE']
+    N_CHANNELS = config['image.N_CHANNELS']
 
     # Load model
     # modelPath = os.path.expanduser(config['model_file'])
@@ -255,9 +255,9 @@ def cloud_training(config) -> None:
 
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(config['PATCH_SIZE'],
-                                  config['PATCH_SIZE'],
-                                  config['N_CHANNELS']))
+        model = unet(input_shape=(config['image.PATCH_SIZE'],
+                                  config['image.PATCH_SIZE'],
+                                  config['image.N_CHANNELS']))
         model.compile(optimizer=optimizer,
                       loss=config['training_loss'],
                       metrics=[config['training_metrics']])
@@ -330,7 +330,7 @@ def cloud_training(config) -> None:
             "val_accuracy": history.history['val_accuracy']
         },
         "batch_size": config['experiment.batch_size'],
-        "crop_size": config['CROP_SIZE'],
+        "crop_size": config['image.CROP_SIZE'],
         "learning_rate": config['experiment.learning_rate']
     }
 

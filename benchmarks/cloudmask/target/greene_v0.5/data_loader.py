@@ -40,13 +40,13 @@ class SLSTRDataLoader:
         self.patch_padding = 'valid' if not single_image else 'same'
 
         # Parameters from config.yaml
-        self.patch_size = config['PATCH_SIZE']
-        self.n_channels = config['N_CHANNELS']
-        self.image_h = config['IMAGE_H']
-        self.image_w = config['IMAGE_W']
+        self.patch_size = config['image.PATCH_SIZE']
+        self.n_channels = config['image.N_CHANNELS']
+        self.image_h = config['image.IMAGE_H']
+        self.image_w = config['image.IMAGE_W']
         self.batch_size = config['experiment.batch_size']
         self.no_cache = config['experiment.no_cache']
-        self.crop_size = config['CROP_SIZE']
+        self.crop_size = config['image.CROP_SIZE']
 
         assert len(self._image_paths) > 0, 'No image data found in path!'
 
