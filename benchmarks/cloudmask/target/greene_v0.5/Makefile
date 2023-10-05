@@ -2,8 +2,9 @@ SHELL := /bin/bash
 AWS_S3=aws s3 --no-sign-request --endpoint-url https://s3.echo.stfc.ac.uk
 NAME=cloudmask
 VENV=/scratch/$(USER)/ENV3
+PRG=cloudmask_v0.5.py
 
-.PHONY: data clean project localscratch singularity stop singularity.json
+.PHONY: project data clean project localscratch singularity stop singularity.json
 
 all: project localscratch shm generate
 
@@ -28,7 +29,11 @@ data:
 data-rivanna:
 	time cp -rv /project/bii_dsc_community/mlcommons/data/cloudmask/* $(PROJECT_DATA)
 
-project: project.json generate
+project: clean-project project.json generate
+
+clean-project:
+	rm -rf project
+	rm -f project.json jobs-project.sh
 
 generate: jobs-project.sh 
 
@@ -40,19 +45,19 @@ submit:
 localscratch: localscratch.json
 
 jobs-%.sh: %.json
-	cms sbatch generate submit --name=$<  > $@
+	cms ee generate submit --job_type=sbatch --name=$<  > $@
 
-%.json: config.in.yaml
+%.json: config.in.yaml cloudmask_v0.5.in.slurm
 	source ${VENV}/bin/activate ; \
-	cms sbatch generate \
-	           --source=slurm.in.sh \
+	cms ee generate \
+	           --source=cloudmask_v0.5.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
 	           --noos \
-	           --os=USER \
+	           --os=USER,HOME \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-               --copycode=slstr_cloud.py \
+               --copycode="${PRG},data_loader.py,model.py" \
                --verbose
 
 kill: stop

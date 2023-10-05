@@ -11,10 +11,10 @@
 
 name: cloudmask-greene
 
-
 sbatch:
   mode: h
   dir: localscratch
+
 
 run:
   venvpath: "/scratch/{os.USER}/ENV3"
