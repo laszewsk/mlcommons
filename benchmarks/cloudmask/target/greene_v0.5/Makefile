@@ -31,6 +31,18 @@ data-rivanna:
 
 project: clean-project project.json generate
 
+project-rivanna:
+	cp config-rivanna.in.yaml config.in.yaml
+	make -f Makefile project
+
+test-rivanna:
+	cp config-rivanna-test.in.yaml config.in.yaml
+	make -f Makefile project
+
+project-greene:
+	cp config-greene.in.yaml config.in.yaml
+	make -f Makefile project
+
 clean-project:
 	rm -rf project
 	rm -f project.json jobs-project.sh

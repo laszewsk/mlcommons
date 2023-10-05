@@ -111,8 +111,9 @@ To run it for rivanna please use
 
 ```bash
 b1>
-  cp config-rivanna.in.yaml config.in.yaml
-  make project
+  make project-rivanna
+  # this will do internally  
+  # cp config-rivanna.in.yaml config.in.yaml
   sh jobs-project.sh 
   make status
 ```
