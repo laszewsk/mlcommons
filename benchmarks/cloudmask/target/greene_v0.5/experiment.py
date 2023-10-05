@@ -51,7 +51,6 @@ timesArray = ["00:30:00",
               "4:00:00",
               "13:00:00"]
 REPEAT = 5
-GPU = "v100"
 
 # Modify the arrays for your specific use case
 
@@ -59,7 +58,6 @@ if DEBUG:
     epochsArray = [2]
     timesArray = ["00:30:00"]
     REPEAT = 1
-    GPU = "v100"
 
 # GPU = "a100"
 
@@ -136,7 +134,6 @@ for i in range(1, REPEAT + 1):
         replace_in_yaml(CONFIG_YAML, 'experiemnet.gpu_count', 1)
 
         # Modify the slurm script
-        replace_sbatch_in_slurm(SLURM_SCRIPT, 'gres', f"gpu:{GPU}:1")
         replace_sbatch_in_slurm(SLURM_SCRIPT, 'job-name', f"cloudmask-gpu-greene-epoch-{EXPERIMENT_ID}")
         replace_sbatch_in_slurm(SLURM_SCRIPT, 'time', timesArray[j])
 
