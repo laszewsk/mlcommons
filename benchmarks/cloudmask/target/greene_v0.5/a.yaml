@@ -80,11 +80,11 @@ system:
 
 mask: "float"
 
-# Training data
-train_dir: "/scratch/{os.USER}/data/one-day"
-
-# Inference data
-inference_dir: "/scratch/{os.USER}/data/ssts"
+data:
+  # Training data
+  training: "/scratch/{os.USER}/data/one-day"
+  # Inference data
+  inference: "/scratch/{os.USER}/data/ssts"
 
 
 # training 

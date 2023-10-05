@@ -111,7 +111,7 @@ def cloud_inference(config) -> None:
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
-    inference_dir = os.path.expanduser(config['inference_dir'])
+    inference_dir = os.path.expanduser(config['data.inference'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
     
     # Create data loader in single image mode. This turns off shuffling and
@@ -205,7 +205,7 @@ def cloud_training(config) -> None:
     global modelPath
     reset_random_seeds(config['experiment.seed'])
     #tf.random.set_seed(config['experiment.seed'])
-    data_dir = os.path.expanduser(config['train_dir'])
+    data_dir = os.path.expanduser(config['data.training'])
 
     # load the datasets
     StopWatch.start("loaddata")

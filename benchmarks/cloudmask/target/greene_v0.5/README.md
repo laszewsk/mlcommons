@@ -197,7 +197,10 @@ source $USER_SCRATCH/ENV3/bin/activate
 If you need a new terminal or login again into a node.
 
 
-Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 'train_dir', 'inference_dir', 'model_file', 'output_dir' and 'venvpath' must be fixed based on the user's directory.
+Make sure to change the paths in the 'config.yaml' file to appropriate locations. The paths for 
+
+* `data.training`
+* `data.inference`
 
 <mark>TODO:</mark> the uk data repo seems down, so it does not work, we need alternative
 

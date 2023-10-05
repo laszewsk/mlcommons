@@ -79,12 +79,11 @@ system:
   platform: greene
 
 mask: "float"
-
-# Training data
-train_dir: "/scratch/{os.USER}/github/data/one-day"
-
-# Inference data
-inference_dir: "/scratch/{os.USER}/github/data/ssts"
+data:
+  # Training data
+  training: "/scratch/{os.USER}/github/data/one-day"
+  # Inference data
+  inference: "/scratch/{os.USER}/github/data/ssts"
 
 # Model file
 model_file: "/scratch/{os.USER}/github/mlcommons/benchmark/cloudmask/target/greene_v5/outputs/cloudModel.h5"
