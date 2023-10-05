@@ -2,7 +2,7 @@
 """Experiment Generator by Gregor
 
 Usage:
-  experiment.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
+  experiment.py [--debug] [--gpu=<gpu>] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
 
 Options:
   -h --help               Show this help message and exit.
@@ -11,7 +11,7 @@ Options:
   --config=<config>       Specify the path to the config file [default: config-simple.yaml].
   --clean                 Clean up generated files.
   --out=<output>          Specify the output filename. If not provided, output will be written to stdout.
-  --gpu=<gpu>             the gpu
+  --gpu=<gpu>             the gpu.
 """
 
 import os
