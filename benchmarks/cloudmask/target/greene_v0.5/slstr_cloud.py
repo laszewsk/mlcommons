@@ -16,7 +16,7 @@
 import yaml
 import os
 os.environ['PYTHONHASHSEED']=str(0)
-
+prgname = os.path.basename(__file__)
 
 import atexit
 import h5py
@@ -99,7 +99,7 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 
 # Inference
 def cloud_inference(config) -> None:
-    print('Running benchmark slstr_cloud in inference mode.')
+    print(f'Running benchmark "{prgname}" in inference mode.')
     global modelPath
     # Read arguments 
     CROP_SIZE = config['image.CROP_SIZE']
@@ -201,7 +201,7 @@ def reset_random_seeds(seed):
 #####################################################################
 
 def cloud_training(config) -> None:
-    print('Running benchmark slstr_cloud in training mode.')
+    print(f'Running benchmark {prgname} in training mode.')
     global modelPath
     reset_random_seeds(config['experiment.seed'])
     #tf.random.set_seed(config['experiment.seed'])
@@ -300,7 +300,7 @@ def cloud_training(config) -> None:
     else: # mode: original
         modelPath = os.path.expanduser(config['model_file'])
     tf.keras.models.save_model(model, modelPath)
-    print('END slstr_cloud in training mode.')
+    print(f'END {prgname} in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
 
 
@@ -327,7 +327,7 @@ def cloud_training(config) -> None:
 # #################################
 # Main
 # #################################
-# Running the benchmark: python slstr_cloud.py --config ./config.yaml
+# Running the benchmark: python cloudmesh_v0.5.py --config ./config.yaml
 
 def main():
 
