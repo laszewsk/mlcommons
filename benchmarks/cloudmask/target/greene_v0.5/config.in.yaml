@@ -75,7 +75,7 @@ experiment:
   early_stoppage_patience: "25"
   early_stoppage: "False"
 
-identifier: "{experiment.card_name}-{experiment.early_stoppage}-{experiment.early_stoppage_patience}-{experiment.epoch}-{experiment.learningrate}-{experiment.repeat}"
+identifier: "{experiment.card_name}-{experiment.early_stoppage}-{experiment.early_stoppage_patience}-{experiment.epoch}-{experiment.learning_rate}-{experiment.repeat}"
 
 system:
   host: "rivanna"
