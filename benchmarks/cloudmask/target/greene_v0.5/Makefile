@@ -31,13 +31,15 @@ data-rivanna:
 
 project: clean-project project.json generate
 
-project-rivanna:
-	cp config-rivanna.in.yaml config.in.yaml
-	make -f Makefile project
-
-test-rivanna:
+cp-test-yaml:
 	cp config-rivanna-test.in.yaml config.in.yaml
-	make -f Makefile project
+
+cp-rivanna-yaml:
+	cp config-rivanna.in.yaml config.in.yaml
+
+project-rivanna: cp-rivanna-yaml project submit status
+
+test-rivanna: cp-test-yaml project submit status
 
 project-greene:
 	cp config-greene.in.yaml config.in.yaml
