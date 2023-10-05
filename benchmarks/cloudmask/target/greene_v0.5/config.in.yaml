@@ -43,6 +43,7 @@ run:
 
 # Submission Information
 submission:
+  benchmark: cloudmask
   name: cloudmask
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
@@ -53,6 +54,7 @@ submission:
   status: completed
   platform: rivanna
   accelerators_per_node: 1
+
 
 experiment:
 #  card_name: a100-dgx
