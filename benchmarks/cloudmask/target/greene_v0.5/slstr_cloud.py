@@ -236,16 +236,16 @@ def cloud_training(config) -> None:
 
     callbacks = None
 
-    config['experiement.early_stoppage'] = string_to_boolean(config['experiement.early_stoppage'])
+    config['experiment.early_stoppage'] = string_to_boolean(config['experiment.early_stoppage'])
     config['experiment.early_stoppage_patience'] = int(config['experiment.early_stoppage_patience'])
 
-    # if config['experiement.early_stoppage']:
+    # if config['experiment.early_stoppage']:
     #    patience = int(config['experiment.early_stoppage_patience'])
     #    if callbacks is None:
     #        callbacks = []
     #    callbacks.append(EarlyStopping(monitor='val_loss', patience=patience))
 
-    if config['experiement.early_stoppage']:
+    if config['experiment.early_stoppage']:
         callbacks = [EarlyStopping(monitor='val_loss', patience=config['experiment.early_stoppage_patience'])]
         print("Early Stopping Activated")
     else:

@@ -2,7 +2,7 @@
 """Experiment Generator by Gregor
 
 Usage:
-  experiement.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
+  experiment.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
 
 Options:
   -h --help               Show this help message and exit.
@@ -64,9 +64,9 @@ if DEBUG:
 
 def clean__files():
     for file_name in os.listdir('.'):
-        if file_name.startswith("experiement_") and file_name.endswith(".slurm"):
+        if file_name.startswith("experiment_") and file_name.endswith(".slurm"):
             os.remove(file_name)
-        elif file_name.startswith("experiement_") and file_name.endswith(".yaml"):
+        elif file_name.startswith("experiment_") and file_name.endswith(".yaml"):
             os.remove(file_name)
 
 if CLEAN:
@@ -83,8 +83,8 @@ def print_header(header):
 
 SCRIPT = "simple.slurm"
 CONFIG = "config_simple.yaml"
-SLURM_BASE = os.path.basename(SCRIPT)
-CONFIG_BASE = os.path.basename(CONFIG)
+SLURM_BASE = os.path.basename(SCRIPT).split(".")[0]
+CONFIG_BASE = os.path.basename(CONFIG).split(".")[0]
 
 REPLACE_YAML = "./bin/replace_yaml_value.py"
 REPLACE_SLURM = "./bin/replace_slurm_value.py"
@@ -117,8 +117,8 @@ for i in range(1, REPEAT + 1):
     for j, epoch in enumerate(epochsArray):
 
         EXPERIMENT_ID = f"{epoch}_epochs_{i}_{REPEAT}"
-        CONFIG_YAML = f"experiement_{CONFIG_BASE}_{EXPERIMENT_ID}.yaml"
-        SLURM_SCRIPT = f"experiement_{SLURM_BASE}_{EXPERIMENT_ID}.slurm"
+        CONFIG_YAML = f"experiment_{CONFIG_BASE}_{EXPERIMENT_ID}.yaml"
+        SLURM_SCRIPT = f"experiment_{SLURM_BASE}_{EXPERIMENT_ID}.slurm"
 
         shutil.copy(SCRIPT, SLURM_SCRIPT)
 

@@ -17,7 +17,7 @@ c) substitutions are no longer done via a complicated unreadable sed script but 
 
 d) the script has been reorganized to group replacements in slurm and config file
 
-e) a debug option is added so only one  experiement is created so its easier to debug, it just prints the various things that are generated
+e) a debug option is added so only one  experiment is created so its easier to debug, it just prints the various things that are generated
 
 f) in the slurm files the gpu log is corrected
 
@@ -27,9 +27,9 @@ h) it may seems that the 2 slog files specified in the original yaml files were 
 
 I envision this will go like
 
-make exp-greene   # this will produce experiement-greene.sh
+make exp-greene   # this will produce experiment-greene.sh
 
-make runit-greene # to run experiement-greene.sh
+make runit-greene # to run experiment-greene.sh
 
 
 and on rivanna

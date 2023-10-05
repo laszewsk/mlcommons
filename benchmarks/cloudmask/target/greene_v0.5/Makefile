@@ -85,17 +85,17 @@ debug-greene:
 	./experiment.py --debug
 
 exp-greene:
-	./experiment.py --script=simple.greene.slurm --config=simple.greene.slurm | tee experiement-greene.sh
-	chmod a+x experiement-greene.sh
-	cat experiement-greene.sh
+	./experiment.py --script=simple.greene.slurm --config=simple.greene.slurm | tee experiment-greene.sh
+	chmod a+x experiment-greene.sh
+	cat experiment-greene.sh
 
 run-greene:
 	sh ./experiment-greene.sh
 
 exp-rivanna:
-	time ./experiment.py --script=simple.rivanna.slurm --config=config_simple_rivanna.yaml --out=experiement-rivanna.sh
-	chmod a+x experiement-rivanna.sh
-	cat experiement-rivanna.sh
+	time ./experiment.py --script=simple.rivanna.slurm --config=config_simple_rivanna.yaml --out=experiment-rivanna.sh
+	chmod a+x experiment-rivanna.sh
+	cat experiment-rivanna.sh
 
 run-rivanna:
 	sh ./experiment-rivanna.sh

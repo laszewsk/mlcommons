@@ -100,7 +100,7 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 
 # Inference
 def cloud_inference(config) -> None:
-    print('Running benchmark slstr_cloud in inference mode.')
+    banner('Running benchmark slstr_cloud in inference mode.')
     global modelPath
     # Read arguments 
     CROP_SIZE = config['CROP_SIZE']
@@ -202,7 +202,7 @@ def reset_random_seeds(seed):
 #####################################################################
 
 def cloud_training(config) -> None:
-    print('Running benchmark slstr_cloud in training mode.')
+    banner('Running benchmark slstr_cloud in training mode.')
     global modelPath
     reset_random_seeds(config['experiment.seed'])
     #tf.random.set_seed(config['experiment.seed'])
@@ -240,7 +240,7 @@ def cloud_training(config) -> None:
     config['experiment.early_stoppage'] = string_to_boolean(config['experiment.early_stoppage'])
     config['experiment.early_stoppage_patience'] = int(config['experiment.early_stoppage_patience'])
 
-    # if config['experiement.early_stoppage']:
+    # if config['experiment.early_stoppage']:
     #    patience = int(config['experiment.early_stoppage_patience'])
     #    if callbacks is None:
     #        callbacks = []
@@ -248,9 +248,9 @@ def cloud_training(config) -> None:
 
     if config['experiment.early_stoppage']:
         callbacks = [EarlyStopping(monitor='val_loss', patience=config['experiment.early_stoppage_patience'])]
-        print("Early Stopping Activated")
+        banner("Early Stopping Activated")
     else:
-        print("No Early Stopping")
+        banner("No Early Stopping")
         
 
     with mirrored_strategy.scope():
@@ -270,48 +270,50 @@ def cloud_training(config) -> None:
     # Close file descriptors
     # atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
-    # save model
-    if(config['run.mode']=="parallel"):
-        # GVL: thi sis all uneccessary as it is covered by cloudmesh and the yaml file, via flatDict
-        # we just need a test program showing how to use it or one needs to look up
-        # usage in cloudmesh.common.FlatDict
+    # # save model
+    # if(config['run.mode']=="parallel"):
+    #     # GVL: thi sis all uneccessary as it is covered by cloudmesh and the yaml file, via flatDict
+    #     # we just need a test program showing how to use it or one needs to look up
+    #     # usage in cloudmesh.common.FlatDict
+    #
+    #     # the program should be default be able to run in parallele without any modifications !!!!!!
+    #
+    #     # Read experiment arguments and create a model path from them
+    #     modelPath = ""
+    #     experiment_args = ["card_name",
+    #                        "gpu_count",
+    #                        "cpu_num",
+    #                        "mem",
+    #                        "repeat",
+    #                        "epoch",
+    #                        "seed",
+    #                        "learning_rate",
+    #                        "batch_size",
+    #                        "train_split",
+    #                        "clip_offset",
+    #                        "no_cache",
+    #                        "nodes",
+    #                        "gpu"]
+    #     for arg_name in experiment_args:
+    #         modelPath += arg_name
+    #         modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
+    #
+    #     modelPath+= "model"
+    #
+    #     if not os.path.exists(modelPath):
+    #         os.makedirs(modelPath)
+    #
+    #     modelPath += "/cloudModel.h5"
+    #
+    #     print("\n\n"+modelPath+"\n\n")
+    #
+    # else: # mode: original
+    #     modelPath = os.path.expanduser(config['model_file'])
 
-        # the program should be default be able to run in parallele without any modifications !!!!!!
-
-        # Read experiment arguments and create a model path from them
-        modelPath = ""
-        experiment_args = ["card_name",
-                           "gpu_count",
-                           "cpu_num",
-                           "mem",
-                           "repeat",
-                           "epoch",
-                           "seed",
-                           "learning_rate",
-                           "batch_size",
-                           "train_split",
-                           "clip_offset",
-                           "no_cache",
-                           "nodes",
-                           "gpu"]
-        for arg_name in experiment_args:
-            modelPath += arg_name
-            modelPath += ("_" + str(config['experiment.' + arg_name]) + "_")
-
-        modelPath+= "model"
-
-        if not os.path.exists(modelPath):
-            os.makedirs(modelPath)
-
-        modelPath += "/cloudModel.h5"
-
-        print("\n\n"+modelPath+"\n\n")
-
-    else: # mode: original
-        modelPath = os.path.expanduser(config['model_file'])
+    modelPath = os.path.expanduser(config['model_file'])
 
     tf.keras.models.save_model(model, modelPath)
-    print('END slstr_cloud in training mode.')
+    banner('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
 
 

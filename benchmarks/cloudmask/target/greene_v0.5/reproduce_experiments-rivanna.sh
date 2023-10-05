@@ -82,7 +82,7 @@ for((i=1; i<=$REPEAT; i++)); do
         sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' ${SCRIPT}
         sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' ${SCRIPT}
         sed -i 's/gpu0.log/'"gpu0-${EXPERIMENT_ID}.log"'/' ${SCRIPT}
-        sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${EXPERIEMENT_ID}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
+        sed -i 's/--config config_simple\.yaml*/--config config_simple_'"${experiment_ID}"'\.yaml/g' simple_${EXPERIMENT_ID}.slurm
 
         # RUN
 
