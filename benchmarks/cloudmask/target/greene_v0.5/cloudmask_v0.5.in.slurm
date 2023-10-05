@@ -62,7 +62,7 @@ export PYTHON_DIR=$USER_SCRATCH/ENV3
 export PROJECT_DATA=$USER_SCRATCH/data/cloudmask/data
 export TARGET=$PROJECT_DIR/target/greene_v0.5
 export CONTAINERDIR=${TARGET}
-export OUTPUTS_DIR="${TARGET}/project/{sbatch.identifier}/outputs"
+export OUTPUTS_DIR="${TARGET}/project/{ee.identifier}/outputs"
 export CODE_DIR=$TARGET
 
 module purge
@@ -163,7 +163,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > project/{sbatch.identifier}/gpu0-{experiment.card_name}-$USER-$SLURM_JOB_ID.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > project/{ee.identifier}/gpu0-{experiment.card_name}-$USER-$SLURM_JOB_ID.log &
 
 PROGRESS "running" 21
 
