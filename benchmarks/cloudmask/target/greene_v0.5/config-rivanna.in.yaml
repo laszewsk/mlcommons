@@ -96,13 +96,8 @@ training:
   loss: binary_crossentropy
   metrics: accuracy
 
-# Training data
-#train_dir: "/scratch/{os.USER}/data/cloudmask/data/one-day"
-# Inference data
-#  inference_dir: "/scratch/{os.USER}/data/cloudmask/data/ssts"
-  # Output directory
 output:
-  directory: "."
+  output_dir: "."
   # Model file
   model_file: "./cloudModel.h5"
   # Log file for recording runtimes

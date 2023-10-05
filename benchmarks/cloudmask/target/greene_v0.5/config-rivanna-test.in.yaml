@@ -95,19 +95,14 @@ training:
   loss: binary_crossentropy
   metrics: accuracy
 
-# Training data
-#train_dir: "/scratch/{os.USER}/data/cloudmask/data/one-day"
-# Inference data
-#  inference_dir: "/scratch/{os.USER}/data/cloudmask/data/ssts"
-  # Output directory
 output:
   output_dir: "."
   # Model file
-  model_file: "{output_dir}/cloudModel-{identifier}.h5"
+  model_file: "./cloudModel.h5"
   # Log file for recording runtimes
-  log_file: "{output_dir}/cloudmask_final_{identifier}.log"
+  log_file: "./cloudmask_final.log"
   # Log file for MLCommons logging
-  mlperf_logfile: "{output_dir}/mlperf_cloudmask_final_{identifier}.log"
+  mlperf_logfile: "./mlperf_cloudmask_final.log"
 
 data:
 # scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
