@@ -60,13 +60,14 @@ experiment:
 #  card_name: a100-dgx
   # card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
   #card_name: "a100"
-  directive: "a100-dgx"
+  # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
+  directive: "a100-dgx,v100"
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
   # epoch: "2,10,30,50,70,100,200"
-  epoch: "1"
+  epoch: "1,2"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32

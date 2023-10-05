@@ -1,13 +1,41 @@
+# Cloudmask v0.5
+
+This documentation contains the cloudmask v0.5 documentation.
+It is a significant improvement over an earlier project that was conducted
+at NYU.
+
+Here we use the cloumesh Execute Coordinator (cloudmesh-ee) to manage
+parameterized runs of the cloudmask code. This significantly improves 
+readability of the code, but also adheres to the FAIR principle as 
+cloudmesh-ee creates for each run its own copy of the code into directory 
+where all output files are written. Thus, all runs are embarrisingly 
+parallel and can be executed easily by a queuing system.
+
+Cloudmesh-ee was available prior to NYU's effort but the team did not
+to use it.
+
+The work here will allow the code ti be used on UVA rivanna as well as on 
+NYU Greene. THe setup for the machines are slightly different espacially 
+as NYU uses overlays while on Rivanna we do not need to do that.
+
+We discuss setting up and running the code on the different machines. please note not to modify `config.in.yaml` but instead 
+
+* `config-rivanna.in.yaml` or 
+* `config-grene.in.yaml`
+
+So we can maintain compatibility across the machines.
+
 ## Setup Rivanna
 
 ### Get the data
 
-data is in /scratch/thf2bn/data/cloudmask/data
+data is in `/scratch/thf2bn/data/cloudmask/data`
 
 copy it from there but it may not be accessible so it may be in project under ??? but its not accessible at the moment
 
 ### Setup ENV3
 
+```bash
 b1>
   module purge
   module load gcc/11.2.0  openmpi/4.1.4 python/3.11.1
@@ -16,42 +44,85 @@ b1>
   export PYTHON_DIR=$USER_SCRATCH/ENV3
   export PROJECT_DATA=$USER_SCRATCH/data/cloudmask/data
   export TARGET=$PROJECT_DIR/target/greene_v0.5
-
+````
 
 ### Get the code 
 
+```bash
 b1> 
   cd $USER_SCRATCH
   git clone https://github.com/laszewsk/mlcommons.git
   cd $TARGET
+````
 
-### install the system software
+### Install the system software
 
+```bash
 b1> 
   pip install pip -U
   pip install -r requirements-rivanna.txt
+```
+`
+### Create the image
 
-### create the image
-
+```bash
 b1>
   make image-rivanna
+```
 
-### test out a single run
+### Test out a single run
 
+```bash
 b1>
-  make r
+  cp config-rivanna-test.in.yaml config.in.yaml
+  make project
+  sh jobs-project.sh 
+  make status
+```
 
-### generate the experiments
+You can monitor the progress of the job in another window
 
+```bash
 b1>
-  make exp-rivanna
+  tail -f  projec/*/*.out 
+```
 
-### run the experiements
+To see errors do 
 
+```bash
 b1>
-  make run-rivanna
+  tail -f  project/*/*.err
+```
 
+to list all created files use 
 
+```bash
+b1>
+  ls project/*/*
+```
+
+### Complete benchmark
+
+We have created a benchmark template that has the same hyperparameters and
+only distinguishes itself from different locations for the data, programs,
+and the use of singularity overlays in case of greene.
+
+To run it for rivanna please use
+
+```bash
+b1>
+  cp config-rivanna.in.yaml config.in.yaml
+  make project
+  sh jobs-project.sh 
+  make status
+```
+
+you can monitor the progress in the various outout directories and files created in ./project
+
+```bash
+b1>
+  ls project
+```
 
 
 # UNFORTUNATELY I HAVE NOT YET TESTED THIS.

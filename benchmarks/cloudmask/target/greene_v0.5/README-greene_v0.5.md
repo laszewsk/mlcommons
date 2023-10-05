@@ -1,117 +1,78 @@
 # All-Encompassing Guide on <mark>greene_v0.5/</mark> Directory (GRC version)
 
-## Nomenclature
-* [PROJ_DIR] := ~/mlcommons/benchmarks/cloudmask/target/greene_v0.5/
-* [OLD_PROJ_DIR] := ~/mlcommons/benchmarks/cloudmask/target/greene/
-
 ## Main Changes from greene/ Directory (NYU version)
+
 1. Implemented Singularity with Miniconda Overlay
-2. Improved reproduce_experiments.sh to GRCtest_reproduce_experiments.sh
+2. switch to cloudmesh ee
 3. Added early stopping feature
-4. Added helper bash scripts (clean_outputs.sh, archive_outputs.sh)
-5. Improved visualizer.py, changed format to .ipynb, created leaderboard for experiment analysis (incomplete)
+4. Improved visualizer.py, changed format to .ipynb, created leaderboard for experiment analysis (incomplete)
+
+## Environmanet
+
+Once logged into greene you wll hve to set up the environment as follows:
+
+```bash
+greene>
+  export USER_SCRATCH=~
+  export PROJECT_DIR=$USER_SCRATCH/github/mlcommons/benchmarks/cloudmask
+  export PYTHON_DIR=$USER_SCRATCH/ENV3
+  export PROJECT_DATA=$USER_SCRATCH/data/cloudmask/data
+  export TARGET=$PROJECT_DIR/target/greene_v0.5
+  export CONTAINERDIR=${TARGET}
+  export OUTPUTS_DIR="${TARGET}/project/{ee.identifier}"
+  export CODE_DIR=$TARGET
+```
 
 
-## 1. Singularity with Miniconda Overlay
-There is a more detailed, official documentation of running [Singularity on Greene](https://sites.google.com/nyu.edu/nyu-hpc/hpc-systems/greene/software/singularity-with-miniconda?authuser=0). But the following guide should suffice.
+## Singularity with Miniconda Overlay
 
-* Let's start, cd into [PROJ_DIR]
+Note: There is a more detailed, official documentation of running [Singularity on Greene](https://sites.google.com/nyu.edu/nyu-hpc/hpc-systems/greene/software/singularity-with-miniconda?authuser=0). 
+
+We create a image as follows 
+
 ```bash
 greene> 
-  cd /scratch/$USER/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5
-[PROJ_DIR]>
-```
-
-### Get a Container Image
-```bash
-# pull an image from docker
-# rename the image (should be: tensorflow_22.10-tf2-py3.sif) to cloudmask.sif
-
-[PROJ_DIR]> 
+  cd $TARGET
   singularity pull docker://nvcr.io/nvidia/tensorflow:22.10-tf2-py3
   mv tensorflow_22.10-tf2-py3.sif cloudmask.sif
+  # DO not use the no portable way, we will delete the following two 
+  # lines once complete and tested
+  # cp -rp /scratch/work/public/overlay-fs-ext3/overlay-15GB-500K.ext3.gz .
+  # gunzip overlay-15GB-500K.ext3.gz
+  singularity overlay create --size 15360 cloudmask-overlay.ext3
+  singularity exec --overlay cloudmask-overlay.ext3:rw cloudmask.sif /bin/bash
 ```
 
-### Get an Overlay Image
-<mark>Follow this subsection, if you have a NYU Greene account. Otherwise, skip to Alternative (next subsection)</mark>
+Modify accordingly:
 
-* First, copy the zipped overlay image from Greene public directory into [PROJ_DIR] and unzip
-
-```bash
-[PROJ_DIR]> 
-  cp -rp /scratch/work/public/overlay-fs-ext3/overlay-15GB-500K.ext3.gz .
-  gunzip overlay-15GB-500K.ext3.gz
-```
-
-### Alternatively, you can create an overlay file from scratch
-Caveat: you need a Singularity version of 3.8 or above to execute the create overlay command.
-
-```bash
-# check singularity version, with size 15*1024 = 15360.
-
-[PROJ_DIR]> 
-  singularity --version
- singularity overlay create --size 15360 [overlay-image]
-```
-
-If you name [overlay-image] different from <mark>"overlay-15GB-500K.ext3"</mark>, make sure to adjust accordingly in the following steps.
-
-### Set up the overlay image with Miniconda
-
-```bash
-[PROJ_DIR]> 
-  singularity exec --overlay overlay-15GB-500K.ext3:rw cloudmask.sif /bin/bash
-```
-
-After running this command, you should see a bash shell inside the referenced singularity container overlayed with the <mark>overlay-15GB-500K.ext3</mark> file.
+After running this command, you should see a bash shell inside the
+referenced singularity container overlayed with the 
+`cloudmask-overlay.ext3` file.
 
 ```bash
 Singularity> 
   wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
   bash Miniconda3-latest-Linux-x86_64.sh -b -p /ext3/miniconda3
-# rm Miniconda3-latest-Linux-x86_64.sh # you can remove this file
+  rm Miniconda3-latest-Linux-x86_64.sh
+  exit
 ```
 
-After we are done with the above, we need to use editor (nano, emacs, vim, etc..) to create a wrapper script <mark>/ext3/env.sh</mark>, which will be saved in the overlay image.
+After we are done with the above, we need to copy an env.sh script into the overlay with
 
 ```bash
-Singularity> 
-  touch /ext3/env.sh
-  nano /ext3/env.sh
+singularity exec -B cloudmask-overlay.ext3:/ext3 cloudmask.sif cp env.sh /ext3/env.sh
 ```
 
-<mark>TODO:</mark> one should not need to use nano, instead we should save the emv.sh script in github and copy in some form
-
-The <mark>/ext3/env.sh</mark> should contain the following lines:
+Now we log inti theimage again and update it
 
 ```bash
-#!/bin/bash
-
-source /ext3/miniconda3/etc/profile.d/conda.sh
-export PATH=/ext3/miniconda3/bin:$PATH
-export PYTHONPATH=/ext3/miniconda3/bin:$PATH
-```
-
-We need to activate the conda environment with this command:
-
-```bash
-Singularity> 
+greene>
+  singularity exec --overlay cloudmask-overlay.ext3:rw cloudmask.sif /bin/bash
   source /ext3/env.sh
-```
-
-Now, we are ready to update and install packages using conda.
-
-```bash
-Singularity> 
   conda update -n base conda -y
   conda clean --all --yes
   conda install pip -y
   conda install ipykernel -y
-```
-
-Confirm everything is working as expected:
-```bash
-Singularity> 
   unset -f which
   which conda
   # output: /ext3/miniconda3/bin/conda

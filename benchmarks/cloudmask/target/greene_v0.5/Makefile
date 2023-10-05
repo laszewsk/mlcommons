@@ -75,49 +75,12 @@ watch: status
 status:
 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
-r:
-	rm -rf outputs/*
-	sbatch simple.rivanna.slurm
-	make -f Makefile status
-
-debug:
-	./experiment.py --debug
-
-exp:
-	./experiment.py
-
-debug-greene:
-	./experiment.py --debug
-
-exp-greene:
-	./experiment.py --script=simple.greene.slurm --config=simple.greene.slurm | tee experiment-greene.sh
-	chmod a+x experiment-greene.sh
-	cat experiment-greene.sh
-
-run-greene:
-	sh ./experiment-greene.sh
-
-exp-rivanna:
-	time ./experiment.py --script=simple-rivanna.slurm --config=config-simple-rivanna.yaml --out=experiment-rivanna.sh
-	chmod a+x experiment-rivanna.sh
-	cat experiment-rivanna.sh
-
-run-rivanna:
-	mkdir -p outputs
-	sh ./experiment-rivanna.sh
-
-
-clean:
-	./experiment.py --clean
-
 realclean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -f greene.slurm
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
-
-
 
 
 #
@@ -127,6 +90,9 @@ realclean:
 image-rivanna:
 	cms rivanna singularity build image-singularity/${NAME}.def
 
+
+image-greene:
+	singularity build image-singularity/${NAME}.def ${NAME}.sif
 
 image:
 	cd image-singularity; make image
