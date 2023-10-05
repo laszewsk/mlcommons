@@ -47,13 +47,6 @@ echo "# Set up file system"
 echo "# ==================================="
 
 #
-# PYTHON with cms on rivanna
-#
-
-export PYTHON_DIR=$HOME/ENV3
-#export PYTHON_DIR=$USER_SCRACTH/ENV3
-
-#
 # CODE
 #
 export USER_SCRATCH=/scratch/$USER
@@ -65,6 +58,9 @@ export CONTAINERDIR=${TARGET}
 export OUTPUTS_DIR="${TARGET}/project/{ee.identifier}"
 export CODE_DIR=$TARGET
 
+#
+# Activate python for GPU monitor
+#
 module purge
 module load gcc/11.2.0  openmpi/4.1.4 python/3.11.1
 source $PYTHON_DIR/bin/activate
