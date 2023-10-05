@@ -21,28 +21,28 @@ GPU = "v100"
 
 # Experiments with v100, 1 GPU
 
-# Initial setup for paths of Log files in config_simple.yaml
-sed -i 's/log_file:.*/log_file: \.\/cloudmask_v100_gpu_1.log/' config_simple.yaml
-sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_v100_gpu_1.log/' config_simple.yaml
+# Initial setup for paths of Log files in config-simple.yaml
+sed -i 's/log_file:.*/log_file: \.\/cloudmask_v100_gpu_1.log/' config-simple.yaml
+sed -i 's/mlperf_logfile:.*/mlperf_logfile: \.\/mlperf_cloudmask_v100_gpu_1.log/' config-simple.yaml
 
 # Initial setup for gpu and time for one epoch in simple.slurm file
 sed -i 's/--gres=.*/--gres=gpu:v100:1/' simple.slurm
 
-# Initial setup for parameters in config_simple.yaml
-sed -i 's/card_name.*/card_name: v100/' config_simple.yaml
-sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
+# Initial setup for parameters in config-simple.yaml
+sed -i 's/card_name.*/card_name: v100/' config-simple.yaml
+sed -i 's/gpu_count.*/gpu_count: 1/' config-simple.yaml
 
 
 
 # Running 5 jobs and then waiting for them to complete before other commands
 for((i=1; i<6; i++)); do
     for j in ${!epochsArray[@]}; do
-        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config_simple.yaml
+        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config-simple.yaml
         sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' simple.slurm
         sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' simple.slurm
 
         # Creating temporary copies
-        cp config_simple.yaml config_simple_${j}_epochs_${i}.yaml
+        cp config-simple.yaml config_simple_${j}_epochs_${i}.yaml
         cp simple.slurm simple_${j}_epochs_${i}.slurm
     
         # Editing and running them

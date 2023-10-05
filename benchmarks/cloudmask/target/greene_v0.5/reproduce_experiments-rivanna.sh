@@ -46,9 +46,9 @@ print_header() {
 # Initial setup for gpu and time for one epoch in simple.slurm file
 sed -i 's/--gres=.*/--gres=gpu:'"${GPU}"':1/' simple.slurm
 
-# Initial setup for parameters in config_simple.yaml
-sed -i 's/card_name.*/card_name: '"${GPU}"'/' config_simple.yaml
-sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
+# Initial setup for parameters in config-simple.yaml
+sed -i 's/card_name.*/card_name: '"${GPU}"'/' config-simple.yaml
+sed -i 's/gpu_count.*/gpu_count: 1/' config-simple.yaml
 
 
 

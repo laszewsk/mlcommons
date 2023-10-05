@@ -1,39 +1,32 @@
 #!/usr/bin/env python
-"""Experiment Generator by Gregor
+"""Experiment Generator
 
 Usage:
-  experiment.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
+  experiment.py [--debug] [--script=<script>] [--config=<config>] [--help]
 
 Options:
   -h --help               Show this help message and exit.
   --debug                 Enable debugging mode.
   --script=<script>       Specify the path to the script file [default: simple.slurm].
   --config=<config>       Specify the path to the config file [default: config-simple.yaml].
-  --clean                 Clean up generated files.
-  --out=<output>          Specify the output filename. If not provided, output will be written to stdout.
 """
 
 import os
 import shutil
-import sys
-
 from docopt import docopt
-from pprint import pprint
 
 arguments = docopt(__doc__)
 DEBUG = arguments['--debug']
-SCRIPT = arguments['--script'] or "simple.slurm"
-CONFIG = arguments['--config'] or "config-simple.yaml"
-CLEAN = arguments['--clean']
-OUTPUT = arguments['--out']
-
-pprint(arguments)
-
+SCRIPT = arguments['--script']
+CONFIG = arguments['--config']
 
 if DEBUG:
     DEBUG = True
 else:
     DEBUG = False
+
+SCRIPT = SCRIPT or "simple.slurm"
+CONFIG = CONFIG or "config-simple.yaml"
 
 # ####################################
 # Runtime Variable
@@ -53,26 +46,15 @@ timesArray = ["00:30:00",
 REPEAT = 5
 GPU = "v100"
 
+
 # Modify the arrays for your specific use case
 
-if DEBUG:
-    epochsArray = [2]
-    timesArray = ["00:30:00"]
-    REPEAT = 1
-    GPU = "v100"
+# epochsArray = [2]
+# timesArray = ["00:30:00"]
+# REPEAT = 1
+# GPU = "v100"
 
 # GPU = "a100"
-
-def clean__files():
-    for file_name in os.listdir('.'):
-        if file_name.startswith("experiment_") and file_name.endswith(".slurm"):
-            os.remove(file_name)
-        elif file_name.startswith("experiment_") and file_name.endswith(".yaml"):
-            os.remove(file_name)
-
-if CLEAN:
-    clean__files()
-    sys.exit()
 
 def print_header(header):
     print()
@@ -82,12 +64,13 @@ def print_header(header):
     print()
 
 
-SLURM_BASE = os.path.basename(SCRIPT).split(".")[0]
-CONFIG_BASE = os.path.basename(CONFIG).split(".")[0]
+SCRIPT = "simple.slurm"
+CONFIG = "config-simple.yaml"
 
 REPLACE_YAML = "./bin/replace_yaml_value.py"
 REPLACE_SLURM = "./bin/replace_slurm_value.py"
 REPLACE_TEXT = "./bin/replace_text.py"
+
 
 def replace_in_yaml(config_yaml, key, value):
     os.system(f"{REPLACE_YAML} {config_yaml} {key} \"{value}\"")
@@ -100,29 +83,18 @@ def replace_sbatch_in_slurm(slurm_script, key, value):
 def replace_text(file_to_modify, target_string, replacement_string):
     os.system(f"{REPLACE_TEXT} {file_to_modify} {target_string} \"{replacement_string}\"")
 
-try:
-    os.remove(OUTPUT)
-except:
-    pass
-
-def _print(content):
-    print(content)
-    if OUTPUT:
-        with open(OUTPUT, 'a') as outfile:
-            outfile.write(content)
-            outfile.write("\n")
 
 for i in range(1, REPEAT + 1):
     for j, epoch in enumerate(epochsArray):
-
         EXPERIMENT_ID = f"{epoch}_epochs_{i}_{REPEAT}"
-        CONFIG_YAML = f"experiment_{CONFIG_BASE}_{EXPERIMENT_ID}.yaml"
-        SLURM_SCRIPT = f"experiment_{SLURM_BASE}_{EXPERIMENT_ID}.slurm"
+        CONFIG_YAML = f"config_simple_{EXPERIMENT_ID}.yaml"
+        SLURM_SCRIPT = f"simple_{EXPERIMENT_ID}.slurm"
 
         shutil.copy(SCRIPT, SLURM_SCRIPT)
 
         # Creating script and config copies
         shutil.copy(CONFIG, CONFIG_YAML)
+
         # Modifying the copies
         if DEBUG:
             print_header(EXPERIMENT_ID)
@@ -145,15 +117,15 @@ for i in range(1, REPEAT + 1):
 
         # RUN
         if not DEBUG:
-            _print(f"sbatch {SLURM_SCRIPT}")
+            print(f"sbatch {SLURM_SCRIPT}")
         else:
             print_header(SLURM_SCRIPT)
             with open(SLURM_SCRIPT, 'r') as slurm_file:
-                _print(slurm_file.read())
+                print(slurm_file.read())
 
             print_header(CONFIG_YAML)
             with open(CONFIG_YAML, 'r') as config_file:
-                _print(config_file.read())
+                print(config_file.read())
 
             print_header(f"FlatDict {CONFIG_YAML}")
             os.system(f"./bin/print_flatdict.py {CONFIG_YAML}")

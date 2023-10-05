@@ -93,7 +93,7 @@ run-greene:
 	sh ./experiment-greene.sh
 
 exp-rivanna:
-	time ./experiment.py --script=simple.rivanna.slurm --config=config_simple_rivanna.yaml --out=experiment-rivanna.sh
+	time ./experiment.py --script=simple-rivanna.slurm --config=config-simple-rivanna.yaml --out=experiment-rivanna.sh
 	chmod a+x experiment-rivanna.sh
 	cat experiment-rivanna.sh
 

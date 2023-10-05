@@ -23,21 +23,21 @@ GPU="a100"
 # Initial setup for gpu and time for one epoch in simple.slurm file
 sed -i 's/--gres=.*/--gres=gpu:'"${GPU}"':1/' simple.slurm
 
-# Initial setup for parameters in config_simple.yaml
-sed -i 's/card_name.*/card_name: '"${GPU}"'/' config_simple.yaml
-sed -i 's/gpu_count.*/gpu_count: 1/' config_simple.yaml
+# Initial setup for parameters in config-simple.yaml
+sed -i 's/card_name.*/card_name: '"${GPU}"'/' config-simple.yaml
+sed -i 's/gpu_count.*/gpu_count: 1/' config-simple.yaml
 
 
 
 # Running 5 jobs and then waiting for them to complete before other commands
 for((i=1; i<=$REPEAT; i++)); do
     for j in ${!epochsArray[@]}; do
-        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config_simple.yaml
+        sed -i 's/epoch:.*/epoch: '"${epochsArray[$j]}"'/' config-simple.yaml
         sed -i 's/--job-name=.*/--job-name=cloudmask-gpu-greene-epoch-'"${epochsArray[$j]}"'/' simple.slurm
         sed -i 's/--time=.*/--time='"${timesArray[$j]}"'/' simple.slurm
 
         # Creating temporary copies
-        cp config_simple.yaml config_simple_${epochsArray[$j]}_epochs_${i}.yaml
+        cp config-simple.yaml config_simple_${epochsArray[$j]}_epochs_${i}.yaml
         cp simple.slurm simple_${epochsArray[$j]}_epochs_${i}.slurm
  
         # Editing paths to log files in the config files
