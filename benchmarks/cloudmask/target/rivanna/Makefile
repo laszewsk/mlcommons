@@ -42,11 +42,11 @@ localscratch: localscratch.json
 
 
 jobs-%.sh: %.json
-	cms sbatch generate submit --name=$<  > $@
+	cms ee generate submit --name=$<  > $@
 
 
 simple:
-	cms sbatch generate \
+	cms ee generate \
 	           --source=simple.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
@@ -59,7 +59,7 @@ simple:
 
 
 %.json: config.in.yaml
-	cms sbatch generate \
+	cms ee generate \
 	           --source=cloudmask_v2.in.slurm \
 	           --config=$< \
 	           --name=$(basename $@) \
@@ -68,7 +68,7 @@ simple:
 		       --nocm \
 	           --output_dir=./$(basename $@) \
                --source_dir=. \
-		--copycode="cloudmask_v2.py,data_loader.py,model.py" \
+			   --copycode="cloudmask_v2.py,data_loader.py,model.py" \
                --verbose
 
 kill: stop
