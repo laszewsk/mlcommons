@@ -98,6 +98,7 @@ exp-rivanna:
 	cat experiment-rivanna.sh
 
 run-rivanna:
+	mkdir -p outputs
 	sh ./experiment-rivanna.sh
 
 

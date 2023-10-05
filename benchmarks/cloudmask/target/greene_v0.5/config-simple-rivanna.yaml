@@ -93,7 +93,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: "{os.TARGET}/outputs/slstr_cloud"
+output_dir: "{os.TARGET}/outputs"
 
 # Model file
 model_file: "{output_dir}/cloudModel-{identifier}.h5"
