@@ -67,7 +67,7 @@ experiment:
   mem: "64GB"
   repeat: "1"
   # epoch: "2,10,30,50,70,100,200"
-  epoch: "1,2"
+  epoch: "1,2,10,50,100"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32

@@ -151,7 +151,7 @@ def cloud_inference(config) -> None:
 
         # Save reconstructed image (mask)
         output_dir = os.path.expanduser(config['output.directory'])
-        mask_name = f"{output_dir}/{file_name.name}.h5"
+        mask_name = f"{output_dir}/maks/{file_name.name}.h5"
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
             handle.create_dataset('mask_patches', data=mask_patches)
