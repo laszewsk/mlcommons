@@ -110,15 +110,6 @@ output:
   # Log file for MLCommons logging
   mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
 
-output_dir: "./outputs"
-# Model file
-model_file: "./outputs/cloudModel.h5"
-# Log file for recording runtimes
-log_file: "./outputs/cloudmask_final.log"
-# Log file for MLCommons logging
-mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
-
-
 data:
 # scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
 #  scratch: "/scratch2/data/cloudmask/data"

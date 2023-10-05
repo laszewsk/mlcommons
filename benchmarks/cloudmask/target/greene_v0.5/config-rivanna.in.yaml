@@ -102,22 +102,13 @@ training:
 #  inference_dir: "/scratch/{os.USER}/data/cloudmask/data/ssts"
   # Output directory
 output:
-  directory: "./outputs"
+  directory: "."
   # Model file
-  model_file: "./outputs/cloudModel.h5"
+  model_file: "./cloudModel.h5"
   # Log file for recording runtimes
-  log_file: "./outputs/cloudmask_final.log"
+  log_file: "./cloudmask_final.log"
   # Log file for MLCommons logging
-  mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
-
-output_dir: "./outputs"
-# Model file
-model_file: "./outputs/cloudModel.h5"
-# Log file for recording runtimes
-log_file: "./outputs/cloudmask_final.log"
-# Log file for MLCommons logging
-mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
-
+  mlperf_logfile: "./mlperf_cloudmask_final.log"
 
 data:
 # scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"

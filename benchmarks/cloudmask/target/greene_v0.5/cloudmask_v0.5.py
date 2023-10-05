@@ -306,7 +306,7 @@ def cloud_training(config) -> None:
     #     print("\n\n"+modelPath+"\n\n")
     #
     # else: # mode: original
-    #     modelPath = os.path.expanduser(config['model_file'])
+    #     modelPath = os.path.expanduser(config['output.model_file'])
 
     modelPath = os.path.expanduser(config['output.model_file'])
 
