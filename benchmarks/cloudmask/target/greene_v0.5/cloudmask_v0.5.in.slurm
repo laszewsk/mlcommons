@@ -171,7 +171,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ${CONTAINERDIR}/cloudmask.sif bash -c "cd ${TARGET} ; python cloudmask_v0.5.py --config=config.yaml"
+singularity exec --nv ${CONTAINERDIR}/cloudmask.sif bash -c "cd ${TARGET}/project/{ee.identifier} ; python cloudmask_v0.5.py --config=config.yaml"
 
 PROGRESS "running" 99
 
