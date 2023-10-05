@@ -96,7 +96,7 @@ training:
   metrics: accuracy
 
 output:
-  output_dir: "."
+  directory: "."
   # Model file
   model_file: "./cloudModel.h5"
   # Log file for recording runtimes
