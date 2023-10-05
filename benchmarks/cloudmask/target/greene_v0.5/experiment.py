@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-"""Experiment Generator
+"""Experiment Generator by Gregor
 
 Usage:
-  experiement.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--help]
+  experiement.py [--debug] [--script=<script>] [--config=<config>] [--clean] [--out=<output>] [--help]
 
 Options:
   -h --help               Show this help message and exit.
@@ -10,6 +10,7 @@ Options:
   --script=<script>       Specify the path to the script file [default: simple.slurm].
   --config=<config>       Specify the path to the config file [default: config_simple.yaml].
   --clean                 Clean up generated files.
+  --out=<output>          Specify the output filename. If not provided, output will be written to stdout.
 """
 
 import os
@@ -23,6 +24,7 @@ DEBUG = arguments['--debug']
 SCRIPT = arguments['--script']
 CONFIG = arguments['--config']
 CLEAN = arguments['--clean']
+OUTPUT = arguments['--out']
 
 if DEBUG:
     DEBUG = True
@@ -99,7 +101,17 @@ def replace_sbatch_in_slurm(slurm_script, key, value):
 def replace_text(file_to_modify, target_string, replacement_string):
     os.system(f"{REPLACE_TEXT} {file_to_modify} {target_string} \"{replacement_string}\"")
 
+try:
+    os.remove(OUTPUT)
+except:
+    pass
 
+def _print(content):
+    print(content)
+    if OUTPUT:
+        with open(OUTPUT, 'a') as outfile:
+            outfile.write(content)
+            outfile.write("\n")
 
 for i in range(1, REPEAT + 1):
     for j, epoch in enumerate(epochsArray):
@@ -134,15 +146,15 @@ for i in range(1, REPEAT + 1):
 
         # RUN
         if not DEBUG:
-            print(f"sbatch {SLURM_SCRIPT}")
+            _print(f"sbatch {SLURM_SCRIPT}")
         else:
             print_header(SLURM_SCRIPT)
             with open(SLURM_SCRIPT, 'r') as slurm_file:
-                print(slurm_file.read())
+                _print(slurm_file.read())
 
             print_header(CONFIG_YAML)
             with open(CONFIG_YAML, 'r') as config_file:
-                print(config_file.read())
+                _print(config_file.read())
 
             print_header(f"FlatDict {CONFIG_YAML}")
             os.system(f"./bin/print_flatdict.py {CONFIG_YAML}")
