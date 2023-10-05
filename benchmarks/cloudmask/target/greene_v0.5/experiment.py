@@ -11,6 +11,7 @@ Options:
   --config=<config>       Specify the path to the config file [default: config-simple.yaml].
   --clean                 Clean up generated files.
   --out=<output>          Specify the output filename. If not provided, output will be written to stdout.
+  --gpu=<gpu>             the gpu
 """
 
 import os
@@ -26,6 +27,8 @@ SCRIPT = arguments['--script'] or "simple.slurm"
 CONFIG = arguments['--config'] or "config-simple.yaml"
 CLEAN = arguments['--clean']
 OUTPUT = arguments['--out']
+GPU = arguments['--gpu'] or "a100"
+
 
 pprint(arguments)
 
@@ -134,6 +137,7 @@ for i in range(1, REPEAT + 1):
         replace_in_yaml(CONFIG_YAML, 'experiemnet.gpu_count', 1)
 
         # Modify the slurm script
+        replace_sbatch_in_slurm(SLURM_SCRIPT, 'gres', f"gpu:{GPU}:1")
         replace_sbatch_in_slurm(SLURM_SCRIPT, 'job-name', f"cloudmask-gpu-greene-epoch-{EXPERIMENT_ID}")
         replace_sbatch_in_slurm(SLURM_SCRIPT, 'time', timesArray[j])
 

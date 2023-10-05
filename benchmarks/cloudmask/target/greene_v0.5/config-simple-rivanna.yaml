@@ -40,7 +40,7 @@ submission:
 
 experiment:
 #  card_name: v100
-  card_name: v100
+  card_name: a100
   gpu_count: 1
   cpu_num: 1
   mem: "64GB"
