@@ -1,3 +1,58 @@
+## Setup Rivanna
+
+### Get the data
+
+data is in /scratch/thf2bn/data/cloudmask/data
+
+copy it from there but it may not be accessible so it may be in project under ??? but its not accessible at the moment
+
+### Setup ENV3
+
+b1>
+  module purge
+  module load gcc/11.2.0  openmpi/4.1.4 python/3.11.1
+  export USER_SCRATCH=/scratch/$USER
+  export PROJECT_DIR=$USER_SCRATCH/github/mlcommons/benchmarks/cloudmask
+  export PYTHON_DIR=$USER_SCRATCH/ENV3
+  export PROJECT_DATA=$USER_SCRATCH/data/cloudmask/data
+  export TARGET=$PROJECT_DIR/target/greene_v0.5
+
+
+### Get the code 
+
+b1> 
+  cd $USER_SCRATCH
+  git clone https://github.com/laszewsk/mlcommons.git
+  cd $TARGET
+
+### install the system software
+
+b1> 
+  pip install pip -U
+  pip install -r requirements-rivanna.txt
+
+### create the image
+
+b1>
+  make image-rivanna
+
+### test out a single run
+
+b1>
+  make r
+
+### generate the experiments
+
+b1>
+  make exp-rivanna
+
+### run the experiements
+
+b1>
+  make run-rivanna
+
+
+
 
 # UNFORTUNATELY I HAVE NOT YET TESTED THIS.
 
