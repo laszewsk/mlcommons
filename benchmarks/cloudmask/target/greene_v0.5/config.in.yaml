@@ -60,13 +60,14 @@ experiment:
 #  card_name: a100-dgx
   # card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
   #card_name: "a100"
-  directive: "a100-dgx"
+  # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
+  directive: "a100-dgx,v100"
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
   repeat: "1"
   # epoch: "2,10,30,50,70,100,200"
-  epoch: "1"
+  epoch: "1,2"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -78,7 +79,7 @@ experiment:
   early_stoppage_patience: "25"
   early_stoppage: "False"
 
-identifier: "{experiment.card_name}-{experiment.early_stoppage}-{experiment.early_stoppage_patience}-{experiment.epoch}-{experiment.learning_rate}-{experiment.repeat}"
+identifier: "{experiment.directive}_{experiment.early_stoppage}_{experiment.early_stoppage_patience}_{experiment.epoch}_{experiment.learning_rate}_{experiment.repeat}"
 
 system:
   host: "rivanna"
@@ -100,13 +101,22 @@ training:
 # Inference data
 #  inference_dir: "/scratch/{os.USER}/data/cloudmask/data/ssts"
   # Output directory
-output_dir: "{os.TARGET}/outputs"
+output:
+  directory: "./outputs"
+  # Model file
+  model_file: "./outputs/cloudModel.h5"
+  # Log file for recording runtimes
+  log_file: "./outputs/cloudmask_final.log"
+  # Log file for MLCommons logging
+  mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
+
+output_dir: "./outputs"
 # Model file
-model_file: "{output_dir}/cloudModel-{identifier}.h5"
+model_file: "./outputs/cloudModel.h5"
 # Log file for recording runtimes
-log_file: "{output_dir}/cloudmask_final_{identifier}.log"
+log_file: "./outputs/cloudmask_final.log"
 # Log file for MLCommons logging
-mlperf_logfile: "{output_dir}/mlperf_cloudmask_final_{identifier}.log"
+mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
 
 
 data:

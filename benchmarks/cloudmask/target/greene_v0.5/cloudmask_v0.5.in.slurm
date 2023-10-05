@@ -84,7 +84,7 @@ echo "USER_SCRATCH: $USER_SCRATCH"
 echo "PROJECT_DIR:  $PROJECT_DIR"
 echo "PYTHON_DIR:   $PYTHON_DIR"
 echo "PROJECT_DATA: $PROJECT_DATA"
-echo "CONTAINERDIR: $CONTAINERDIR"
+echo "TARGET: $TARGET"
 
 
 # mkdir -p $OUTPUTS_DIR
@@ -144,7 +144,7 @@ echo "# check filesystem"
 echo "# ==================================="
 pwd
 ls
-singularity exec --nv $CONTAINERDIR/cloudmask.sif bash -c "python -c \"import os; os.system('ls')\""
+singularity exec --nv ${TARGET}/cloudmask.sif bash -c "python -c \"import os; os.system('ls')\""
 
 PROGRESS "running" 10
 
@@ -159,7 +159,7 @@ echo "# ==================================="
 echo "# start gpu log"
 echo "# ==================================="
 
-cms gpu watch --gpu=0 --delay=0.5 --dense > ${TARGET}/project/{ee.identifier}/gpu0.log &
+cms gpu watch --gpu=0 --delay=0.5 --dense > ${OUTPUTS_DIR}/gpu0.log &
 
 PROGRESS "running" 21
 
@@ -167,7 +167,7 @@ echo "# ==================================="
 echo "# start cloudmask"
 echo "# ==================================="
 
-singularity exec --nv ${CONTAINERDIR}/cloudmask.sif bash -c "cd ${TARGET}/project/{ee.identifier} ; python cloudmask_v0.5.py --config=config.yaml"
+singularity exec --nv ${TARGET}/cloudmask.sif bash -c "cd ${OUTPUTS_DIR} ; python cloudmask_v0.5.py --config=config.yaml"
 
 PROGRESS "running" 99
 

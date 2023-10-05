@@ -110,7 +110,7 @@ def cloud_inference(config) -> None:
     N_CHANNELS = config['image.N_CHANNELS']
 
     # Load model
-    # modelPath = os.path.expanduser(config['model_file'])
+    # modelPath = os.path.expanduser(config['output.model_file'])
     model = tf.keras.models.load_model(modelPath)
 
     # Read inference files
@@ -150,7 +150,7 @@ def cloud_inference(config) -> None:
         mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
 
         # Save reconstructed image (mask)
-        output_dir = os.path.expanduser(config['output_dir'])
+        output_dir = os.path.expanduser(config['output.directory'])
         mask_name = f"{output_dir}/{file_name.name}.h5"
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
@@ -308,7 +308,7 @@ def cloud_training(config) -> None:
     # else: # mode: original
     #     modelPath = os.path.expanduser(config['model_file'])
 
-    modelPath = os.path.expanduser(config['model_file'])
+    modelPath = os.path.expanduser(config['output.model_file'])
 
     tf.keras.models.save_model(model, modelPath)
     banner('END slstr_cloud in training mode.')
@@ -364,11 +364,11 @@ def main():
     print(config)
 
     # setup
-    log_file = os.path.expanduser(config['log_file'])
+    log_file = os.path.expanduser(config['output.log_file'])
     user_name = config["submission.submitter"]
 
     # MLCommons logging
-    mlperf_logfile = os.path.expanduser(config['mlperf_logfile'])
+    mlperf_logfile = os.path.expanduser(config['output.mlperf_logfile'])
     mllog.config(filename=mlperf_logfile)
 
     print("user", user_name)
