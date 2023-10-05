@@ -148,7 +148,7 @@ Create an outputs directory to gather outputs.
 And submit the job to SLURM
 ```bash
 [PROJ_DIR]> 
-  mkdir -p outputs/slstr_cloud/
+  mkdir -p outputs
   sbatch tmptest-singularity.slurm
   # You see how the job is processing
   make status
@@ -244,7 +244,7 @@ It is a good practice to run clean_outputs.sh before running experiments, so you
 
 #### Understand what clean_outputs.sh deletes
 
-* All output and error files in [PROJ_DIR]/outputs/ (including gpu0.log), and files in [PROJ_DIR]/outputs/slstr_cloud
+* All output and error files in [PROJ_DIR]/outputs/ (including gpu0.log), and files in [PROJ_DIR]/outputs
 * config_reproduce_experiments/
 * slurm_reproduce_experiments/
 * `__pycache__`

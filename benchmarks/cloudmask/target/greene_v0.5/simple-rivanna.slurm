@@ -11,7 +11,7 @@
 #SBATCH --account=bii_dsc_community
 
 
-mkdir -p outputs/slstr_cloud
+mkdir -p outputs
 sleep 1
 
 export USER_SCRATCH=/scratch/$USER

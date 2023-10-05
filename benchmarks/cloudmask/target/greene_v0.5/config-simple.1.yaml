@@ -85,7 +85,7 @@ train_dir: "/scratch/{os.USER}/data/one-day"
 inference_dir: "/scratch/{os.USER}/data/ssts"
 
 # Model file
-model_file: "/scratch/{os.USER}/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs/slstr_cloud/cloudModel.h5"
+model_file: "/scratch/{os.USER}/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs/cloudModel.h5"
 
 # training 
 training_loss: binary_crossentropy
@@ -93,7 +93,7 @@ training_metrics: accuracy
 
 
 # Output directory
-output_dir: "/scratch/{os.USER}/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs/slstr_cloud"
+output_dir: "/scratch/{os.USER}/github/mlcommons/benchmarks/cloudmask/target/greene_v0.5/outputs"
 
 # Log file for recording runtimes
 log_file: ./cloudmask_final_1.log

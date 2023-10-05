@@ -27,7 +27,7 @@ nvidia-smi
 
 cd $TARGET
 
-# mkdir -p outputs/slstr_cloud
+# mkdir -p outputs
 
 # sleep 1
 

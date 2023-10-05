@@ -4,10 +4,10 @@
 echo "Cleaning cloudModels"
 rm -rf card_name_*_gpu_count*
 
-echo "Cleaning outputs/ and outputs/slstr_cloud/    ..."
+echo "Cleaning outputs/ and outputs    ..."
 rm -f outputs/rg3515*
 rm -f outputs/gpu*
-rm -f outputs/slstr_cloud/*
+rm -f outputs/*.h5
 
 echo "Cleaning __pycache__  ..."
 rm -rf __pycache__/

@@ -54,7 +54,7 @@ mv mlperf_cloudmask_$epoch* experiment_outputs
 
 echo "Moving outputs/ to experiment_outputs/"
 mv outputs experiment_outputs
-mkdir -p outputs/slstr_cloud/
+mkdir -p outputs
 
 echo "Moving generated config files and slurm scripts to experiment_outputs/"
 mv config_reproduce_files experiment_outputs
