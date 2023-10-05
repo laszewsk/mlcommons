@@ -19,7 +19,7 @@ import shutil
 import sys
 
 from docopt import docopt
-from pprint import pprint
+# from pprint import pprint
 
 arguments = docopt(__doc__)
 DEBUG = arguments['--debug']
@@ -30,7 +30,7 @@ OUTPUT = arguments['--out']
 GPU = arguments['--gpu'] or "a100"
 
 
-pprint(arguments)
+# pprint(arguments)
 
 
 if DEBUG:

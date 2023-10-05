@@ -37,8 +37,8 @@ cd $TARGET
 
 #cms gpu watch --gpu=0 --delay=0.5 --dense > outputs/gpu0.log &
 
-#python ./cloudmask_v0.5.py --config config_simple_rivanna.yaml
+#python ./cloudmask_v0.5.py --config config-simple-rivanna.yaml
 
-singularity exec --nv ./cloudmask.sif bash -c "cd ${TARGET} ; python cloudmask_v0.5.py --config=config_simple_rivanna.yaml"
+singularity exec --nv ./cloudmask.sif bash -c "cd ${TARGET} ; python cloudmask_v0.5.py --config=config-simple-rivanna.yaml"
 
 seff $SLURM_JOB_ID
