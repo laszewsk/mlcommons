@@ -15,8 +15,8 @@
 
 import yaml
 import os
-os.environ['PYTHONHASHSEED']=str(0)
 
+os.environ['PYTHONHASHSEED'] = str(0)
 
 import atexit
 import h5py
@@ -37,6 +37,7 @@ from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.util import banner
 import random
+
 
 # config = read_config_parameters(filename='config.yaml')
 
@@ -98,6 +99,7 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
     reconstructed = tf.image.crop_to_bounding_box(reconstructed, offset_y, offset_x, IMAGE_H, IMAGE_W)
     return reconstructed
 
+
 # Inference
 def cloud_inference(config) -> None:
     banner('Running benchmark slstr_cloud in inference mode.')
@@ -114,26 +116,26 @@ def cloud_inference(config) -> None:
     # Read inference files
     inference_dir = os.path.expanduser(config['data.inference'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
-    
+
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time, so they can be
     # reconstructed.
     data_loader = SLSTRDataLoader(config, file_paths, single_image=True, crop_size=CROP_SIZE)
     # data_loader = SLSTRDataLoader(config, file_paths, single_image=False, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+
     # Inference Loop
     accuracyList = []
     for patches, file_name in dataset:
         file_name = Path(file_name.numpy().decode('utf-8'))
-        
+
         # convert patches to a batch of patches
         n, ny, nx, _ = patches.shape
         patches = tf.reshape(patches, (n * nx * ny, PATCH_SIZE, PATCH_SIZE, N_CHANNELS))
 
         # perform inference on patches
         mask_patches = model.predict_on_batch(patches)
-        #mask_patches = model.test_on_batch(patches) # might return also the accuracy
+        # mask_patches = model.test_on_batch(patches) # might return also the accuracy
 
         # crop edge artifacts
         mask_patches = tf.image.crop_to_bounding_box(
@@ -146,7 +148,7 @@ def cloud_inference(config) -> None:
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         # Mask produced by inference
         mask = reconstruct_from_patches(config, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
-        
+
         # Save reconstructed image (mask)
         output_dir = os.path.expanduser(config['output_dir'])
         mask_name = f"{output_dir}/{file_name.name}.h5"
@@ -157,7 +159,7 @@ def cloud_inference(config) -> None:
 
         # Change mask values from float to integer
         mask_np = mask.numpy()
-        mask_np =  (mask_np > .5).astype(int)
+        mask_np = (mask_np > .5).astype(int)
         mask_flat = mask_np.reshape(-1)
 
         # Extract groundTruth from file, this is the Bayesian mask
@@ -183,18 +185,16 @@ def cloud_inference(config) -> None:
 
 # Learning Rate scheduler
 def lr_time_based_decay(epoch, lr):
-    decay = 0.001/100
+    decay = 0.001 / 100
     return lr * 1 / (1 + decay * epoch)
 
 
-
 def reset_random_seeds(seed):
-    os.environ['PYTHONHASHSEED']=str(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
     os.environ['TF_CUDNN_DETERMINISTIC'] = '1'
     random.seed(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
-
 
 
 #####################################################################
@@ -205,7 +205,7 @@ def cloud_training(config) -> None:
     banner('Running benchmark slstr_cloud in training mode.')
     global modelPath
     reset_random_seeds(config['experiment.seed'])
-    #tf.random.set_seed(config['experiment.seed'])
+    # tf.random.set_seed(config['experiment.seed'])
     data_dir = os.path.expanduser(config['data.training'])
 
     # load the datasets
@@ -223,7 +223,6 @@ def cloud_training(config) -> None:
     StopWatch.start("training_on_mutiple_GPU")
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
-
 
     # Early Stoppage
 
@@ -251,7 +250,6 @@ def cloud_training(config) -> None:
         banner("Early Stopping Activated")
     else:
         banner("No Early Stopping")
-        
 
     with mirrored_strategy.scope():
         # create U-Net model
@@ -316,7 +314,6 @@ def cloud_training(config) -> None:
     banner('END slstr_cloud in training mode.')
     StopWatch.stop("training_on_mutiple_GPU")
 
-
     result = {
         "samples": num_samples,
         "accuracy": history.history['accuracy'][-1],
@@ -343,8 +340,6 @@ def cloud_training(config) -> None:
 # Running the benchmark: python slstr_cloud.py --config ./config.yaml
 
 def main():
-
-
     StopWatch.start("total")
     # Read command line arguments
     parser = argparse.ArgumentParser(
@@ -357,7 +352,6 @@ def main():
                         help='path to config file')
     command_line_args = parser.parse_args()
 
-
     banner("CONFIG")
 
     configYamlFile = os.path.expanduser(command_line_args.config)
@@ -367,8 +361,7 @@ def main():
     config = FlatDict()
     config.load(content=configYamlFile)
 
-    print (config)
-
+    print(config)
 
     # setup
     log_file = os.path.expanduser(config['log_file'])
@@ -380,7 +373,7 @@ def main():
 
     print("user", user_name)
     print("log_file", log_file)
-    print ("mllog", mlperf_logfile)
+    print("mllog", mlperf_logfile)
 
     mllogger = mllog.get_mllogger()
     logger = logging.getLogger(__name__)
@@ -467,8 +460,10 @@ def main():
     StopWatch.benchmark(user=user_name)
     banner("END")
 
+
 def debug_function():
     print("Debug function called")
+
 
 if __name__ == "__main__":
     main()

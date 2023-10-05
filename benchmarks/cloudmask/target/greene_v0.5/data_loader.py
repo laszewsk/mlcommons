@@ -163,10 +163,16 @@ def load_datasets(dataset_dir: Path, config: dict):
 
     train_paths, test_paths = train_test_split(data_paths, train_size=config['experiment.train_split'], random_state=42)
 
-    train_data_loader = SLSTRDataLoader(config, train_paths, batch_size=config['experiment.batch_size'], no_cache=config['experiment.no_cache'])
+    train_data_loader = SLSTRDataLoader(config,
+                                        train_paths,
+                                        batch_size=config['experiment.batch_size'],
+                                        no_cache=config['experiment.no_cache'])
     train_dataset = train_data_loader.to_dataset()
 
-    test_data_loader = SLSTRDataLoader(config, test_paths, batch_size=config['experiment.batch_size'], no_cache=config['experiment.no_cache'])
+    test_data_loader = SLSTRDataLoader(config,
+                                       test_paths,
+                                       batch_size=config['experiment.batch_size'],
+                                       no_cache=config['experiment.no_cache'])
     test_dataset = test_data_loader.to_dataset()
 
     return train_dataset, test_dataset
