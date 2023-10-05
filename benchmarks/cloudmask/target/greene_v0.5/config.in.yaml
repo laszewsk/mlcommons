@@ -95,12 +95,10 @@ training:
   loss: binary_crossentropy
   metrics: accuracy
 
-
-
 # Training data
-train_dir: "/scratch/{os.USER}/data/one-day"
+train_dir: "/scratch/{os.USER}/data/cloudmask/data/one-day"
 # Inference data
-inference_dir: "/scratch/{os.USER}/data/ssts"
+inference_dir: "/scratch/{os.USER}/data/cloudmask/data/ssts"
 # Output directory
 output_dir: "{os.TARGET}/outputs"
 # Model file
