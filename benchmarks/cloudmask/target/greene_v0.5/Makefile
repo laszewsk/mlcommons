@@ -29,7 +29,7 @@ data:
 data-rivanna:
 	time cp -rv /project/bii_dsc_community/mlcommons/data/cloudmask/* $(PROJECT_DATA)
 
-project: clean-project project.json generate
+project: project.json generate
 
 cp-test-yaml:
 	cp config-rivanna-test.in.yaml config.in.yaml
