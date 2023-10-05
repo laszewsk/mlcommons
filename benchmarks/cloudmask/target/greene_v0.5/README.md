@@ -114,7 +114,7 @@ b1>
   make project-rivanna
   # this will do internally  
   # cp config-rivanna.in.yaml config.in.yaml
-  sh jobs-project.sh 
+  make submit 
   make status
 ```
 
