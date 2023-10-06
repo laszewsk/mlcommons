@@ -65,8 +65,8 @@ experiment:
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
-  #repeat: "1"
-  repeat: "2,3,4,5,6,7,8,9,10"
+  repeat: "1"
+  #repeat: "2,3,4,5,6,7,8,9,10"
   # epoch: "2,10,30,50,70,100,200"
   epoch: "1,2"
   seed: 1234
