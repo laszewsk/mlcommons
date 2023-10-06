@@ -87,8 +87,7 @@ echo "PROJECT_DATA: $PROJECT_DATA"
 echo "TARGET: $TARGET"
 echo "OUTPUTS_DIR:  $OUTPUTS_DIR"
 
-
-# mkdir -p $OUTPUTS_DIR
+mkdir -p $OUTPUTS_DIR/mask
 
 PROGRESS "running" 4
 
