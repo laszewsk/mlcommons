@@ -227,8 +227,8 @@ def cloud_training(config) -> None:
     num_samples = len(samples)
     print("num_samples: ", num_samples)
 
-    # Running training on multiple GPUs
-    StopWatch.start("training_on_mutiple_GPU")
+    # Running training
+    StopWatch.start("training")
     mirrored_strategy = tf.distribute.MirroredStrategy()
     optimizer = tf.keras.optimizers.Adam(config['experiment.learning_rate'])
 
@@ -319,8 +319,8 @@ def cloud_training(config) -> None:
     modelPath = os.path.expanduser(config['output.model_file'])
 
     tf.keras.models.save_model(model, modelPath)
+    StopWatch.stop("training")
     banner('END slstr_cloud in training mode.')
-    StopWatch.stop("training_on_mutiple_GPU")
 
     result = {
         "samples": num_samples,
