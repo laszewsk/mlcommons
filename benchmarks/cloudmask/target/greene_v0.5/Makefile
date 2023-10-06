@@ -87,7 +87,11 @@ inspect:
 watch: status
 
 status:
-	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
+	watch -n 5 squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me 
+
+summary:
+	watch -n 5 squeue -h -o "%.18i %.9P %.100j %.8u %.2t" --me | awk '{print $5}' | sort | uniq -c
+
 
 realclean:
 	@-rm -rf localscratch localscratch.json jobs-localscratch.sh

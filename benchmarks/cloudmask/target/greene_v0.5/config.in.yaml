@@ -20,11 +20,13 @@ name: cloudmask-rivanna
 
 sbatch:
   time: "6:00:00"
+  #time: "13:00:00"
   mode: h
   dir: scratch
 
 ee:
   time: "6:00:00"
+  # time: "13:00:00"
   mode: h
   dir: scratch
 
@@ -57,18 +59,19 @@ submission:
 
 
 experiment:
-#  card_name: a100-dgx
+  #  card_name: a100-dgx
   # card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
   #card_name: "a100"
   # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
   directive: "a100-dgx,v100"
+  #directive: "a100"
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
-  repeat: "1"
-  #repeat: "2,3,4,5,6,7,8,9,10"
-  # epoch: "2,10,30,50,70,100,200"
-  epoch: "1,2"
+  #repeat: "1"
+  repeat: "1,2,3,4,5,6,7,8,9,10"
+  epoch: "1,2,10,30,50,70,100"
+  # epoch: "200"
   seed: 1234
   learning_rate: 0.001
   batch_size: 32
@@ -98,13 +101,13 @@ training:
   metrics: accuracy
 
 output:
-  directory: "./outputs"
+  directory: "."
   # Model file
-  model_file: "./outputs/cloudModel.h5"
+  model_file: "./cloudModel.h5"
   # Log file for recording runtimes
-  log_file: "./outputs/cloudmask_final.log"
+  log_file: "./cloudmask_final.log"
   # Log file for MLCommons logging
-  mlperf_logfile: "./outputs/mlperf_cloudmask_final.log"
+  mlperf_logfile: "./mlperf_cloudmask_final.log"
 
 data:
 # scratch: "/project/bii_dsc_community/mlcommons/data/cloudmask"
