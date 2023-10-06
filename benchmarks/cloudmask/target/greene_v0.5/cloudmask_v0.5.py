@@ -15,7 +15,6 @@
 
 import yaml
 import os
-
 os.environ['PYTHONHASHSEED'] = str(0)
 
 import atexit
@@ -37,6 +36,8 @@ from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.util import banner
 import random
+
+prg_name = os.path.basename(__file__)
 
 
 # config = read_config_parameters(filename='config.yaml')
@@ -102,7 +103,7 @@ def reconstruct_from_patches(config, patches: tf.Tensor, nx: int, ny: int, patch
 
 # Inference
 def cloud_inference(config) -> None:
-    banner('Running benchmark slstr_cloud in inference mode.')
+    banner(f'Running benchmark {prg_name} in inference mode.')
     global modelPath
     # Read arguments 
     CROP_SIZE = config['image.CROP_SIZE']
@@ -210,7 +211,7 @@ def reset_random_seeds(seed):
 #####################################################################
 
 def cloud_training(config) -> None:
-    banner('Running benchmark slstr_cloud in training mode.')
+    banner(f'Running benchmark {prg_name} in training mode.')
     global modelPath
     reset_random_seeds(config['experiment.seed'])
     # tf.random.set_seed(config['experiment.seed'])
@@ -320,7 +321,7 @@ def cloud_training(config) -> None:
 
     tf.keras.models.save_model(model, modelPath)
     StopWatch.stop("training")
-    banner('END slstr_cloud in training mode.')
+    banner(f'END {prg_name} in training mode.')
 
     result = {
         "samples": num_samples,
