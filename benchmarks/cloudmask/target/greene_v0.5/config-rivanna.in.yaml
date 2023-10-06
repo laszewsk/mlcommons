@@ -63,7 +63,7 @@ experiment:
   # card_name: "a100,v100,p100,k80,rtx2080,rtx3090"
   #card_name: "a100"
   # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
-  directive: "a100,a100-dgx,v100"
+  directive: "a100"
   gpu_count: "1"
   cpu_num: 1
   mem: "64GB"
