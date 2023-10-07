@@ -70,8 +70,8 @@ experiment:
   mem: "64GB"
   #repeat: "1"
   repeat: "1,2,3,4,5,6,7,8,9,10"
-  # epoch: "1,2,10,30,50,70,100"
-  epoch: "100"
+  epoch: "1,2,10,30,50,70"
+  # epoch: "100"
   # epoch: "200"
   seed: 1234
   learning_rate: 0.001
