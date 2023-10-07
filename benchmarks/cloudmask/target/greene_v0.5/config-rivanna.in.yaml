@@ -64,7 +64,7 @@ experiment:
   #card_name: "a100"
   # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
   #directive: "a100-dgx,v100"
-  directive: "a100"
+  directive: "a100,a100-dgx"
   #directive: "a100,v100"
   gpu_count: "1"
   cpu_num: 1
@@ -84,7 +84,7 @@ experiment:
   nodes: 1
   gpu: 1
   early_stoppage_patience: "25"
-  early_stoppage: "True"
+  early_stoppage: "False"
 
 identifier: "{experiment.directive}_{experiment.early_stoppage}_{experiment.early_stoppage_patience}_{experiment.epoch}_{experiment.learning_rate}_{experiment.repeat}"
 
