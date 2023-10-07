@@ -19,14 +19,14 @@ name: cloudmask-rivanna
 
 
 sbatch:
-  # time: "6:00:00"
-  time: "13:00:00"
+  time: "6:00:00"
+  #time: "13:00:00"
   mode: h
   dir: scratch
 
 ee:
-  #time: "6:00:00"
-  time: "13:00:00"
+  time: "6:00:00"
+  #time: "13:00:00"
   mode: h
   dir: scratch
 
@@ -64,7 +64,7 @@ experiment:
   #card_name: "a100"
   # directive: "a100-dgx,a100,v100,p100,k80,rtx2080,rtx3090"
   #directive: "a100-dgx,v100"
-  directive: "v100"
+  directive: "a100"
   #directive: "a100,v100"
   gpu_count: "1"
   cpu_num: 1
