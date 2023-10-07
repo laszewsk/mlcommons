@@ -81,7 +81,7 @@ experiment:
   nodes: 1
   gpu: 1
   early_stoppage_patience: "25"
-  early_stoppage: "False
+  early_stoppage: "False"
   "
 
 identifier: "{experiment.directive}_{experiment.early_stoppage}_{experiment.early_stoppage_patience}_{experiment.epoch}_{experiment.learning_rate}_{experiment.repeat}"
