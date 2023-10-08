@@ -19,13 +19,13 @@ name: cloudmask-rivanna
 
 
 sbatch:
-  time: "6:00:00"
+  time: "10:00:00"
   #time: "13:00:00"
   mode: h
   dir: scratch
 
 ee:
-  time: "6:00:00"
+  time: "10:00:00"
   #time: "13:00:00"
   mode: h
   dir: scratch
