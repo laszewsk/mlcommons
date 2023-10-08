@@ -100,8 +100,19 @@ realclean:
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
 
-
 #
+# sync and backup
+#
+
+sync:
+	python ./bin/sync_project.py
+
+tar:
+	 tar cvfz project.tar.gz project
+
+tar-gu:
+	tar -czvf gu.tar.gz --include='*.log' --include='*.err' .
+
 # SINGULARITY IMAGE
 #
 
