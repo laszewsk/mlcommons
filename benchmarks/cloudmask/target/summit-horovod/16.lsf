@@ -1,0 +1,29 @@
+#!/bin/bash
+#BSUB -W 1:59
+#BSUB -nnodes 4
+#BSUB -P GEN150_bench
+#BSUB -alloc_flags gpumps
+#BSUB -o example.o%J
+#BSUB -J exampleJobx
+
+# 16 GPUS
+
+# Load modules
+module load open-ce
+#module load ibm-wml-ce
+
+
+#This runs on many nodes
+echo "Hostname: "
+jsrun -n1 -r1 -c1 hostname
+echo "Running slsts on GPU=16"
+echo "***************************"
+
+
+
+#jsrun -n1 -r1 -c1 python -m sciml_bench.core.command list
+#jsrun  -n4 -a4 -r1 -c1 -g4 python -m sciml_bench.core.command run slstr_cloud \
+jsrun  -n4 -a4 -r1 -c1 -g4 python cloudmask_v0.5 \
+    --dataset_dir /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud \
+    --output_dir /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_GPU_16b \ # MOD THIS
+    -b epochs 6 -b batch_size 64 -b no_cache True

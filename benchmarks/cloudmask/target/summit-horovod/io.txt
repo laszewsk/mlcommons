@@ -1,0 +1,52 @@
+gregor, desktop sabrent 2 TB home
+
+1.0 GBytes: 2.2437 GBytes/s
+2.0 GBytes: 2.2796 GBytes/s
+4.0 GBytes: 2.2925 GBytes/s
+8.0 GBytes: 2.1971 GBytes/s
+16.0 GBytes: 2.2069 GBytes/s
+32.0 GBytes: 2.2052 GBytes/s
+
+
+gregor, desktop sabrent 2 TB /project1
+
+1.0 GBytes: 2.0957 GBytes/s
+2.0 GBytes: 2.1661 GBytes/s
+4.0 GBytes: 2.0723 GBytes/s
+8.0 GBytes: 2.2390 GBytes/s
+16.0 GBytes: 2.2413 GBytes/s
+32.0 GBytes: 2.2134 GBytes/s
+
+sabernt /projects
+
+1.0 GBytes: 2.0790 GBytes/s
+2.0 GBytes: 2.2127 GBytes/s
+4.0 GBytes: 2.2600 GBytes/s
+8.0 GBytes: 2.2599 GBytes/s
+16.0 GBytes: 2.2541 GBytes/s
+32.0 GBytes: 2.2483 GBytes/s
+
+WD black 8GB /storage
+
+1.0 GBytes: 2.0321 GBytes/s
+2.0 GBytes: 2.1659 GBytes/s
+4.0 GBytes: 2.0410 GBytes/s
+8.0 GBytes: 2.1757 GBytes/s
+16.0 GBytes: 2.2123 GBytes/s
+32.0 GBytes: 2.2448 GBytes/s
+
+
+## CPU to GPU RTX3090
+
+4 MByte: (CPU -> GPU): 2928.47 MB/s
+8 MByte: (CPU -> GPU): 10876.64 MB/s
+16 MByte: (CPU -> GPU): 10947.61 MB/s
+32 MByte: (CPU -> GPU): 9277.51 MB/s
+64 MByte: (CPU -> GPU): 11182.95 MB/s
+128 MByte: (CPU -> GPU): 11653.37 MB/s
+256 MByte: (CPU -> GPU): 11655.65 MB/s
+512 MByte: (CPU -> GPU): 11665.46 MB/s
+1024 MByte: (CPU -> GPU): 11897.81 MB/s
+2048 MByte: (CPU -> GPU): 12001.74 MB/s
+4096 MByte: (CPU -> GPU): 12049.12 MB/s
+8192 MByte: (CPU -> GPU): 12079.35 MB/s
