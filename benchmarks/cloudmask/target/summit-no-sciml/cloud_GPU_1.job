@@ -1,0 +1,25 @@
+
+#!/bin/bash
+#BSUB -W 1:59
+#BSUB -nnodes 1
+#BSUB -P GEN150_bench
+#BSUB -o cloud.o%J
+#BSUB -J cloudJobx
+
+# Load modules
+module load open-ce
+
+# Install libraries
+pip install scikit-learn
+pip install h5py
+pip install pyyaml
+
+#This runs on many nodes
+echo "Hostname: "
+jsrun -n1 -r1 -c1 hostname
+echo "Running slsts on GPU=1"
+echo "***************************"
+
+jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig.yaml 
+
+
