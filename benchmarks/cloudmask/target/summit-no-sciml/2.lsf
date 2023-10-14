@@ -1,0 +1,41 @@
+#!/bin/bash
+#BSUB -W 1:59
+#BSUB -nnodes 1
+#BSUB -P GEN150_bench
+#BSUB -alloc_flags gpumps
+#BSUB -o cloudmask.2-o%J.log
+#BSUB -J cloudmask-2
+
+# Load modules
+
+module purge
+module load open-ce
+#module load ibm-wml-ce
+
+source $WORKDIR/ENV3/bin/activate
+
+
+export OUTPUT_DIR=$WORKDIR/outputs_2
+export SCIML="/gpfs/alpine/gen150/proj-shared/jpdata/datasets/sciml-bench"
+
+
+mkdir -p $OUTPUT_DIR
+
+
+#This runs on many nodes
+echo "Hostname: "
+jsrun -n1 -r1 -c1 hostname
+echo "Running slsts on GPU=2"
+echo "***************************"
+ 
+#jsrun -n1 -r1 -c1 python -m sciml_bench.core.command list
+
+#jsrun  -n1 -a2 -r1 -c1 -g2 python -m sciml_bench.core.command run slstr_cloud --dataset_dir /gpfs/
+#alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud --output_dir /gpfs/alpine/
+
+
+cd slstr_cloud
+jsrun  -n1 -a2 -r1 -c1 -g2 python -m $SCIML slstr_cloud \
+    --dataset_dir /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud \
+    --output_dir $OUTPUT_DIR -b epochs 2 -b batch_size 64 -b no_cache True
+
