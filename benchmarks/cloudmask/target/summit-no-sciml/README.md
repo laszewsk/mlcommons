@@ -1,4 +1,5 @@
 # CloudMask benchmark notes
+
 Sea and land surface temperatures (or SST/LST), have a significant influence on the Earth’s weather. 
 For instance, large variations of the SST in the Pacific can cause anything from severe drought, to 
 heavy rainfall, to tropical cyclones. Estimation of Sea Surface Temperature (SST) from space-borne sensors, 

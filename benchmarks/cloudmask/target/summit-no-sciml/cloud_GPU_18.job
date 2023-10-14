@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #BSUB -W 1:59
 #BSUB -nnodes 3

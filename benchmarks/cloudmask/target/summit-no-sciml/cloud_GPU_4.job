@@ -5,6 +5,8 @@
 #BSUB -o cloud_GPU_4.o%J
 #BSUB -J cloudJobx_GPU_4
 
+mkdir -p outputs
+
 # Load modules
 module load open-ce
 
@@ -12,6 +14,7 @@ module load open-ce
 pip install scikit-learn
 pip install h5py
 pip install pyyaml
+pip install cloudmesh-common
 
 #This runs on many nodes
 echo "Hostname: "

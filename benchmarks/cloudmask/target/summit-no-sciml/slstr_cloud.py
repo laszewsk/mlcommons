@@ -16,6 +16,7 @@ from model import unet
 from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
+from cloudmesh.common.StopWatch import StopWatch
 
 # Loss function
 def weighted_cross_entropy(beta):
@@ -79,19 +80,26 @@ def cloud_inference(args)-> None:
     N_CHANNELS = args['N_CHANNELS']
 
     # Load model
-    modelPath = os.path.expanduser(args['model_file'])    
+    StopWatch.start("load model")
+    modelPath = os.path.expanduser(args['model_file'])
     model = tf.keras.models.load_model(modelPath)
+    StopWatch.stop("load model")
 
     # Read inference files
+
+    StopWatch.start("load inference files")
     inference_dir = os.path.expanduser(args['inference_dir'])
     file_paths = list(Path(inference_dir).glob('**/S3A*.hdf'))
+    StopWatch.stop("load inference files")
 
     # Create data loader in single image mode. This turns off shuffling and
     # only yields batches of images for a single image at a time so they can be
     # reconstructed.
+    StopWatch.start("data load")
     data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+    StopWatch.stop("data load")
+
     # Inference Loop
     for patches, file_name in dataset:
         file_name = Path(file_name.numpy().decode('utf-8'))
@@ -162,7 +170,8 @@ def main():
     parser = argparse.ArgumentParser(description='CloudMask command line arguments',\
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('--config', default=os.path.expanduser('./cloudMaskConfig.yaml'), help='path to config file')
+    parser.add_argument('--config', default=os.path.expanduser('./cloudMaskConfig.yaml'),
+                        help='path to config file')
     command_line_args = parser.parse_args()
 
     configFile = os.path.expanduser(command_line_args.config)
@@ -174,7 +183,10 @@ def main():
     
     # Training
     start = time.time()
+    StopWatch.start("training")
     samples = cloud_training(args)
+    StopWatch.stop("training")
+
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_epoch = elapsedTime/int(args['epochs'])
@@ -184,14 +196,21 @@ def main():
 
     # Inference
     start = time.time()
+    StopWatch.start("inference")
     number_inferences = cloud_inference(args)
+    StopWatch.stop("inference")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_inference = elapsedTime/number_inferences
     time_per_inference_str = f"{time_per_inference:.2f}"
+    StopWatch.event(f"number of inferences {number_inferences}")
+    StopWatch.event(f"time per inference {time_per_inference}")
+    StopWatch.event(f"nodes {args['nodes']}")
+    StopWatch.event(f"gpus {args['gpus']}")
     print("number_inferences: ", number_inferences)
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
-    
+    StopWatch.benchmark()
+
 if __name__ == "__main__":
     main()
