@@ -16,6 +16,7 @@ status: research
 platform: nvidia gtx-2
 accelerators_per_node: 16
 
+
 # Training data
 train_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/one-day
 
@@ -23,13 +24,15 @@ train_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/one-day
 inference_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/ssts
 
 # Model file
-model_file : ./cloudModel.h5
+model_file: ./outputs/cloudModel.h5
 
 # Output directory
-output_dir : /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/outputs
+#output_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/outputs
+output_dir: ./outputs
+
 
 # Log file for recording runtimes
-log_file: ./cloudMask_Log
+log_file: ./outputs/cloudMask_Log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
