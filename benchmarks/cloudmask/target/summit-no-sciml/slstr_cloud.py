@@ -153,6 +153,19 @@ def cloud_training(args)-> None:
         model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
         history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
 
+        print("Loss history:")
+        print(history.history['loss'])
+
+        print("Accuracy history:")
+        print(history.history['accuracy'])
+
+        accuracy_history = history.history['accuracy']
+
+        best_accuracy = max(accuracy_history)
+        best_epoch = accuracy_history.index(best_accuracy)
+        print("Best Accuracy:", best_accuracy)
+        print("Epoch with Best Accuracy:", best_epoch + 1)  # Adding 1 to convert zero-based index to epoch number
+
     # Close file descriptors
    # atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
@@ -186,6 +199,8 @@ def main():
     StopWatch.start("training")
     samples = cloud_training(args)
     StopWatch.stop("training")
+
+    print (samples)
 
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
