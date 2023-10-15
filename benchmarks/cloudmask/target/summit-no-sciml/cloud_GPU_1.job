@@ -2,7 +2,7 @@
 #BSUB -W 1:59
 #BSUB -nnodes 1
 #BSUB -P GEN150_bench
-#BSUB -o cloud.o%J
+#BSUB -o outputs-1/cloud.o%J.out
 #BSUB -J cloudmask_GPU_1
 
 mkdir -p outputs-1
@@ -21,6 +21,6 @@ jsrun -n1 -r1 -c1 hostname
 echo "Running slsts on GPU=1"
 echo "***************************"
 
-jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig.yaml 
+jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig_GPU_1.yaml
 
 

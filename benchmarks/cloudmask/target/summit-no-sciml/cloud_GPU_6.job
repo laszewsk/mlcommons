@@ -2,7 +2,7 @@
 #BSUB -W 1:59
 #BSUB -nnodes 1
 #BSUB -P GEN150_bench
-#BSUB -o cloud_GPU_6.o%J
+#BSUB -o outputs-6/cloud_GPU_6.o%J.out
 #BSUB -J cloudmask_GPU_6
 
 mkdir -p outputs-6

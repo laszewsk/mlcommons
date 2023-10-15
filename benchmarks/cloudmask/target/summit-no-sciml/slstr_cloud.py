@@ -119,7 +119,7 @@ def cloud_inference(args)-> None:
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         output_dir = os.path.expanduser(args['output_dir'])
-        mask_name = f"{output_dir}/{file_name.name}.h5"
+        mask_name = f"{output_dir}/hdf/{file_name.name}.h5"
         # print('mask_name: ', mask_name)
 
         with h5py.File(mask_name, 'w') as handle:
