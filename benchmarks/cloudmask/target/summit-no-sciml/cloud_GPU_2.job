@@ -3,12 +3,14 @@
 #BSUB -nnodes 1
 #BSUB -P GEN150_bench
 #BSUB -o cloud_GPU_2.o%J
-#BSUB -J cloudJobx_GPU_2
+#BSUB -J cloudmask_GPU_2
 
+source $WORKDIR/ENV3/bin/activate
 
 mkdir -p outputs-2
 
 # Load modules
+module purge
 module load open-ce
 
 # Install libraries
@@ -16,6 +18,7 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 pip install cloudmesh-common
+pip install tensorflow
 
 #This runs on many nodes
 echo "Hostname: "

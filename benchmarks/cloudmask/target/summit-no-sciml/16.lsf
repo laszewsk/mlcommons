@@ -13,7 +13,7 @@ module purge
 module load open-ce
 #module load ibm-wml-ce
 
-
+export WORDDIR=/gpfs/alpine/gen150/proj-shared/$USER
 source $WORKDIR/ENV3/bin/activate
 
 #This runs on many nodes

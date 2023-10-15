@@ -3,7 +3,7 @@
 #BSUB -nnodes 2
 #BSUB -P GEN150_bench
 #BSUB -o cloud_GPU_12.o%J
-#BSUB -J cloudJobx_GPU_12
+#BSUB -J cloudmask_GPU_12
 
 mkdir -p outputs-12
 
