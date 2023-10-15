@@ -2,6 +2,7 @@
 	bsub 16.lsf
 
 2:
+	mkdir -p outputs-2
 	bsub cloud_GPU_2.job
 	# bsub 2.lsf
 
