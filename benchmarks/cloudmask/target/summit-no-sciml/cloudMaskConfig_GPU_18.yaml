@@ -23,13 +23,15 @@ train_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/one-day
 inference_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/ssts
 
 # Model file
-model_file : ./cloudModel.h5
+model_file: ./outputs-18/cloudModel.h5
 
 # Output directory
-output_dir : /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/outputs
+#output_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/outputs
+output_dir: ./outputs-18
+
 
 # Log file for recording runtimes
-log_file: ./cloudMask_Log
+log_file: ./outputs-18/cloudMask_Log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256

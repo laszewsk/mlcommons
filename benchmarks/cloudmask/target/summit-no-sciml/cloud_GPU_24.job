@@ -5,6 +5,8 @@
 #BSUB -o cloud_GPU_24.o%J
 #BSUB -J cloudJobx_GPU_24
 
+mkdir -p outputs-24
+
 # Load modules
 module load open-ce
 

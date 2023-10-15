@@ -5,6 +5,8 @@
 #BSUB -o cloud.o%J
 #BSUB -J cloudJobx
 
+mkdir -p outputs-1
+
 # Load modules
 module load open-ce
 

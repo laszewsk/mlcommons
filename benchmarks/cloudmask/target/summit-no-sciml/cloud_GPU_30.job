@@ -5,6 +5,8 @@
 #BSUB -o cloud_GPU_30.o%J
 #BSUB -J cloudJobx_GPU_30
 
+mkdir -p outputs-30
+
 # Load modules
 module load open-ce
 
