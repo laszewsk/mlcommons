@@ -193,6 +193,8 @@ def main():
     with open(configFile, 'r') as stream:
         args = yaml.safe_load(stream)
     log_file = os.path.expanduser(args['log_file'])
+
+    print(args)
     
     # Training
     start = time.time()
@@ -221,7 +223,7 @@ def main():
     StopWatch.event(f"number of inferences {number_inferences}")
     StopWatch.event(f"time per inference {time_per_inference}")
     StopWatch.event(f"nodes {args['nodes']}")
-    StopWatch.event(f"gpus {args['gpus']}")
+    StopWatch.event(f"gpus {args['gpu']}")
     print("number_inferences: ", number_inferences)
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
