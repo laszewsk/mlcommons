@@ -31,7 +31,7 @@ output_dir: ./outputs-2
 
 
 # Log file for recording runtimes
-log_file: ./outputs-2/cloudMask_Log
+log_file: ./outputs-2/cloudmask.Log
 
 
 # Size of each patch to feed to the network

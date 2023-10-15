@@ -5,7 +5,7 @@
 #BSUB -o cloud_GPU_2.o%J
 #BSUB -J cloudmask_GPU_2
 
-source $WORKDIR/ENV3/bin/activate
+# source $WORKDIR/ENV3/bin/activate
 
 mkdir -p outputs-2
 
@@ -18,7 +18,7 @@ pip install scikit-learn
 pip install h5py
 pip install pyyaml
 pip install cloudmesh-common
-pip install tensorflow
+# pip install tensorflow
 
 #This runs on many nodes
 echo "Hostname: "

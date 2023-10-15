@@ -31,7 +31,7 @@ output_dir: ./outputs-20
 
 
 # Log file for recording runtimes
-log_file: ./outputs-20/cloudMask_Log
+log_file: ./outputs-20/cloudmask.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
