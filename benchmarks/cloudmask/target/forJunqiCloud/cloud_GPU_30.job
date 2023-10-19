@@ -26,3 +26,4 @@ echo "***************************"
 #jsrun  -n1 -a6 -r1 -c1 -g6 python slstr_cloud.py --config ./cloudMaskConfig_GPU_12.yaml 
 jsrun  -n5 -r1 -c1 -g6 python slstr_cloud.py --config ./cloudMaskConfig_GPU_30.yaml
 
+# scontrol show job -d

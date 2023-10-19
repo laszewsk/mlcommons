@@ -27,3 +27,4 @@ jsrun  -n1 -a1 -r1 -c1 -g1 python slstr_cloud.py --config ./cloudMaskConfig_GPU_
 #./cloudMaskConfig.yaml 
 
 
+# scontrol show job -d

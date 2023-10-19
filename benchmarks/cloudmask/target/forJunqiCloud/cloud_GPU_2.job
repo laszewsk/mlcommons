@@ -1,4 +1,4 @@
-l#!/bin/bash
+#!/bin/bash
 #BSUB -W 1:59
 #BSUB -nnodes 1
 #BSUB -P GEN150_bench
@@ -25,3 +25,5 @@ echo "***************************"
 
 #jsrun  -n1 -a2 -r1 -c1 -g2 python slstr_cloud.py --config ./cloudMaskConfig_GPU_2.yaml
 jsrun  -n1 -r1 -c1 -g2 python slstr_cloud.py --config ./cloudMaskConfig_GPU_2.yaml 
+
+# scontrol show job -d

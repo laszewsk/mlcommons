@@ -17,6 +17,7 @@ from pathlib import Path
 import numpy as np
 from data_loader import SLSTRDataLoader
 from cloudmesh.common.util import banner
+from cloudmesh.common.StopWatch import StopWatch
 
 # Loss function
 def weighted_cross_entropy(beta):
@@ -95,9 +96,11 @@ def cloud_inference(args)-> None:
     # reconstructed.
     data_loader = SLSTRDataLoader(args, file_paths, single_image=True, crop_size=CROP_SIZE)
     dataset = data_loader.to_dataset()
-    
+
+    counter = 0
     # Inference Loop
     for patches, file_name in dataset:
+        counter = counter + 1
         file_name = Path(file_name.numpy().decode('utf-8'))
         #print(f"Processing file {file_name}")
 
@@ -109,15 +112,21 @@ def cloud_inference(args)-> None:
         mask_patches = model.predict_on_batch(patches)
 
         # crop edge artifacts
-        mask_patches = tf.image.crop_to_bounding_box(mask_patches, CROP_SIZE // 2, CROP_SIZE // 2, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE)
+        mask_patches = tf.image.crop_to_bounding_box(
+            mask_patches,
+            CROP_SIZE // 2,
+            CROP_SIZE // 2,
+            PATCH_SIZE - CROP_SIZE,
+            PATCH_SIZE - CROP_SIZE)
 
         # reconstruct patches back to full size image
         mask_patches = tf.reshape(mask_patches, (n, ny, nx, PATCH_SIZE - CROP_SIZE, PATCH_SIZE - CROP_SIZE, 1))
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         output_dir = os.path.expanduser(args['output_dir'])
         # mask_name = output_dir + file_name.name + '.h5'
-        mask_name = os.path.abspath(os.path.join(str(output_dir), "h5", str(file_name.name) + ".h5"))
-        print('MMMM mask_name: ', mask_name)
+        # mask_name = os.path.abspath(os.path.join(str(output_dir), "h5", str(file_name.name) + ".h5"))
+        mask_name = os.path.abspath(os.path.join(str(output_dir), "h5", f"{counter:03}_" + str(file_name.name) + ".h5"))
+        print(counter, 'MMMM mask_name: ', mask_name)
 
         with h5py.File(mask_name, 'w') as handle:
             handle.create_dataset('mask', data=mask)
@@ -146,10 +155,31 @@ def cloud_training(args)-> None:
     
     with mirrored_strategy.scope():
         # create U-Net model
-        model = unet(input_shape=(args['PATCH_SIZE'], args['PATCH_SIZE'], args['N_CHANNELS']))
-        model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
-        history = model.fit(train_dataset, validation_data=test_dataset, epochs=args['epochs'], verbose=1)
+        model = unet(input_shape=(args['PATCH_SIZE'],
+                                  args['PATCH_SIZE'],
+                                  args['N_CHANNELS']))
+        model.compile(optimizer=optimizer,
+                      loss='binary_crossentropy',
+                      metrics=['accuracy'])
+        history = model.fit(train_dataset,
+                            validation_data=test_dataset,
+                            epochs=args['epochs'],
+                            verbose=1)
 
+        print("Loss history:")
+        print(history.history['loss'])
+
+        print("Accuracy history:")
+        print(history.history['accuracy'])
+
+        accuracy_history = history.history['accuracy']
+
+        best_accuracy = max(accuracy_history)
+        best_epoch = accuracy_history.index(best_accuracy)
+        print("Best Accuracy:", best_accuracy)
+        print("Epoch with Best Accuracy:", best_epoch + 1)  # Adding 1 to convert zero-based index to epoch number
+
+        
     # Close file descriptors
    # atexit.register(mirrored_strategy._extended._collective_ops._pool.close)
 
@@ -167,6 +197,8 @@ def cloud_training(args)-> None:
 # Running the benchmark: python slstr_cloud.py --config ./cloudMaskConfig.yaml
 def main():
 
+
+    StopWatch.start("total")
     banner("read commandline")
     # Read command line arguments
     parser = argparse.ArgumentParser(description='CloudMask command line arguments',\
@@ -177,7 +209,8 @@ def main():
 
     configFile = os.path.abspath(os.path.expanduser(command_line_args.config))
     print ("CCCC configFile", configFile)
-    
+
+    StopWatch.start("read yaml")
     banner("read yaml")
     # Read YAML file
     with open(configFile, 'r') as stream:
@@ -185,11 +218,15 @@ def main():
     print("AAA", args)
     log_file = os.path.abspath(os.path.expanduser(args['log_file']))
     print("LLLL log_file", log_file)
+    StopWatch.stop("read yaml")
+
 
     banner ("Training")
     # Training
     start = time.time()
+    StopWatch.start("training")        
     samples = cloud_training(args)
+    StopWatch.start("training")    
     print ("TTTT")
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
@@ -205,7 +242,9 @@ def main():
     banner("Inference")
     # Inference
     start = time.time()
+    StopWatch.start("inference")    
     number_inferences = cloud_inference(args)
+    StopWatch.stop("inference")    
     diff = time.time() - start
     elapsedTime = decimal.Decimal(diff)
     time_per_inference = elapsedTime/number_inferences
@@ -213,6 +252,8 @@ def main():
     print("number_inferences: ", number_inferences)
     with open(log_file, "a") as logfile:
         logfile.write(f"CloudMask inference, inferences={number_inferences}, bs={args['batch_size']}, nodes={args['nodes']}, gpus={args['gpu']}, time_per_inference={time_per_inference_str}\n")
+    StopWatch.stop("total")
+    StopWatch.benchmark()
     
 if __name__ == "__main__":
     main()
