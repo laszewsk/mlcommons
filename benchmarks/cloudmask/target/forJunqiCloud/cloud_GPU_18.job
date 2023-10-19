@@ -2,8 +2,11 @@
 #BSUB -W 1:59
 #BSUB -nnodes 3
 #BSUB -P GEN150_bench
-#BSUB -o outputs-18/cloud_gpu_18-%J.log
+#BSUB -o outputs-18/cloudmask_gpu_18-%J.log
 #BSUB -J cloudmask_gpu_18
+
+# locking does not work
+# export HDF5_USE_FILE_LOCKING=FALSE
 
 # Load modules
 module purge

@@ -116,7 +116,7 @@ def cloud_inference(args)-> None:
         mask = reconstruct_from_patches(args, mask_patches, nx, ny, patch_size=PATCH_SIZE - CROP_SIZE)
         output_dir = os.path.expanduser(args['output_dir'])
         # mask_name = output_dir + file_name.name + '.h5'
-        mask_name = os.path.join(str(output_dir), "h5", str(file_name.name) + ".h5")
+        mask_name = os.path.abspath(os.path.join(str(output_dir), "h5", str(file_name.name) + ".h5"))
         print('MMMM mask_name: ', mask_name)
 
         with h5py.File(mask_name, 'w') as handle:
@@ -131,7 +131,7 @@ def cloud_inference(args)-> None:
 def cloud_training(args)-> None:  
     print('Running benchmark slstr_cloud in training mode.')   
     tf.random.set_seed(args['seed'])
-    data_dir = os.path.expanduser(args['train_dir'])
+    data_dir = os.path.abspath(os.path.expanduser(args['train_dir']))
 
     # load the datasets
     train_dataset, test_dataset  = load_datasets(dataset_dir=data_dir, args=args)
@@ -156,7 +156,7 @@ def cloud_training(args)-> None:
     # save model
     print ("UUUUU", args['model_file'])
 
-    modelPath = os.path.expanduser(args['model_file'])
+    modelPath = os.path.abspath(os.path.expanduser(args['model_file']))
     print ("VVVVV", modelPath)
     
     tf.keras.models.save_model(model, modelPath)
@@ -175,15 +175,16 @@ def main():
     parser.add_argument('--config', default=os.path.expanduser('./cloudMaskConfig.yaml'), help='path to config file')
     command_line_args = parser.parse_args()
 
-    configFile = os.path.expanduser(command_line_args.config)
-
+    configFile = os.path.abspath(os.path.expanduser(command_line_args.config))
+    print ("CCCC configFile", configFile)
+    
     banner("read yaml")
     # Read YAML file
     with open(configFile, 'r') as stream:
         args = yaml.safe_load(stream)
     print("AAA", args)
-    log_file = os.path.expanduser(args['log_file'])
-    print("LLL", log_file)
+    log_file = os.path.abspath(os.path.expanduser(args['log_file']))
+    print("LLLL log_file", log_file)
 
     banner ("Training")
     # Training

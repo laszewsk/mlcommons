@@ -1,20 +1,23 @@
-
 #!/bin/bash
 #BSUB -W 1:59
 #BSUB -nnodes 1
 #BSUB -P GEN150_bench
-#BSUB -o cloud_GPU_4.o%J
-#BSUB -J cloudJobx_GPU_4
+#BSUB -o outputs-4/cloudmask_gpu_4-%J.log
+#BSUB -J cloudmask_gpu_4
+
 
 # Load modules
+module purge
 module load open-ce
 
 # Install libraries
 pip install scikit-learn
 pip install h5py
 pip install pyyaml
+pip install cloudmesh-common
 
-#This runs on many nodes
+# This runs on many nodes
+echo "***************************"
 echo "Hostname: "
 jsrun -n1 -r1 -c1 hostname
 echo "Running slsts on GPU=4"

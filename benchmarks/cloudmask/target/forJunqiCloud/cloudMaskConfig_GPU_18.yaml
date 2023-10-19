@@ -24,14 +24,17 @@ inference_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/ssts
 
 # Model file
 # model_file: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18/cloudModel.h5
-model_file: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18/cloudModel.h5
+# model_file: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18/cloudModel.h5
+model_file: ./outputs-18/cloudModel.h5
 
 # Output directory
 # output_dir: /gpfs/alpine/gen150/proj-shared/jpdata/datasets/slstr_cloud/outputs
-output_dir: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18
+# output_dir: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18
+output_dir: ./outputs-18
 
 # Log file for recording runtimes
-log_file: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18/cloudmask-18.log
+# log_file: /gpfs/alpine/gen150/proj-shared/gregorvl/mlcommons/benchmarks/cloudmask/target/forJunqiCloud/outputs-18/cloudmask-18.log
+log_file: ./outputs-18/cloudmask-18.log
 
 # Size of each patch to feed to the network
 PATCH_SIZE: 256
