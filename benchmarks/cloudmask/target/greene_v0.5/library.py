@@ -10,6 +10,7 @@ class SLSTRFileNameParser:
         components = self.file_name.split('_')
 
         return {
+            "filename": file_name,
             "mission_id": components[0],
             "data_source": components[1],
             "processing_level": components[2],
@@ -36,6 +37,35 @@ class SLSTRFileNameParser:
             data.append(file_info)
 
         return pd.DataFrame(data)
+
+    @staticmethod
+    def plot_gantt_chart(dataframe):
+        # Sort DataFrame by start time for correct Gantt chart representation
+        df = dataframe.sort_values(by=['start_time'])
+
+        # Create Gantt chart
+        fig = px.timeline(df, 
+                          x_start='start_time', 
+                          x_end='stop_time', 
+                          y='counter', 
+                          color='processing_level',
+                          labels={'counter':'counter', 
+                                  'mission_id': 'Mission ID', 
+                                  'start_time': 'Start Time', 
+                                  'stop_time': 'Stop Time'},
+                          title='SLSTR Products Gantt Chart',
+                          )
+
+        # Add counter as the first element in the labels
+        fig.update_layout(xaxis_title='Time', 
+                          yaxis_title='Mission ID', 
+                          showlegend=False)
+        fig.update_traces(text=df.apply(lambda row: f"{row['counter']} - {row.name}", axis=1), hoverinfo='text+y')
+
+        # Show the chart
+        fig.show()
+
+
 
 
 # Example usage with multiple file names
