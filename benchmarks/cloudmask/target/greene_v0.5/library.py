@@ -29,23 +29,24 @@ class SLSTRFileNameParser:
     @staticmethod
     def generate_dataframe(file_names):
         data = []
-        for file_name in file_names:
+        for counter, file_name in enumerate(file_names, start=1):
             parser = SLSTRFileNameParser(file_name)
             file_info = parser.get_file_info()
+            file_info['counter'] = counter
             data.append(file_info)
 
         return pd.DataFrame(data)
 
 
-## Example usage with multiple file names
-# file_names = [
-#    "S3A_SL_2_LST____20151229T095534_20151229T114422_20160102T150019_6528_064_365______LN2_D_NT_001.SEN3",
-#    "S3B_SL_1_RBT_BW_20160101T120000_20160101T130000_20160101T140000_GLOBAL___________LN2_R_NT_002.SEN3",
-#    # Add more file names as needed
-#]
+# Example usage with multiple file names
+file_names = [
+    "S3A_SL_2_LST____20151229T095534_20151229T114422_20160102T150019_6528_064_365______LN2_D_NT_001.SEN3",
+    "S3B_SL_1_RBT_BW_20160101T120000_20160101T130000_20160101T140000_GLOBAL___________LN2_R_NT_002.SEN3",
+    # Add more file names as needed
+]
 
-## Creating a DataFrame using the class method
-#df = SLSTRFileNameParser.generate_dataframe(file_names)
+# Creating a DataFrame using the class method
+df = SLSTRFileNameParser.generate_dataframe(file_names)
 
-## Displaying the DataFrame
-#print(df)
+# Displaying the DataFrame
+print(df)
