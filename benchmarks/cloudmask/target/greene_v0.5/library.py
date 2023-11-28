@@ -10,7 +10,7 @@ class SLSTRFileNameParser:
         self.file_info = self.parse_file_name()
 
     def parse_file_name(self):
-        components = self.file_name.split('_')
+        components = [obj for obj in self.file_name.split('_') if obj!='']
 
         return {
             "filename": self.file_name,
@@ -21,10 +21,10 @@ class SLSTRFileNameParser:
             "start_time": datetime.strptime(components[4], "%Y%m%dT%H%M%S"),
             "stop_time": datetime.strptime(components[5], "%Y%m%dT%H%M%S"),
             "creation_date": datetime.strptime(components[6], "%Y%m%dT%H%M%S"),
-            "instance_id": components[7],
-            "center_id": components[8],
-            "class_id": components[9].split('.')[0],
-            "file_extension": components[9].split('.')[1]
+            "instance_id": components[7]+'_'+components[8]+'_'+components[9]+'_'+components[10],
+            "center_id": components[11],
+            "class_id": components[12]+'_'+components[13]+'_'+components[14].split('.')[0],
+            "file_extension": components[14].split('.')[1]
         }
 
     def get_file_info(self):
